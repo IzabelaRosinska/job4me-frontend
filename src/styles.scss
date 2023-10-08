@@ -5,6 +5,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import "./node_modules/bootstrap/scss/bootstrap";
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+/* Importing components*/
+@import "scss/components/_buttons.scss";
+
+/* Importing layout*/
+@import "scss/layout/_header.scss";
+@import "scss/layout/_body.scss";
+@import "scss/layout/_footer.scss";
+@import "scss/layout/_forms.scss";
+
+/* Importing utils*/
+@import "scss/utils/_variables.scss";
+@import "scss/utils/_functions.scss";
+@import "scss/utils/_mixins.scss";
+@import "scss/utils/_extends.scss";
