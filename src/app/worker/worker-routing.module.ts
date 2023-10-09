@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {WorkerAccountComponent} from "./worker-account/worker-account.component";
 
 const routes: Routes = [
-  // { path: 'worker/editInfo', component: InfoFormComponent },
   {path: 'worker/account', component: WorkerAccountComponent},
 ];
 
