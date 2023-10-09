@@ -8,6 +8,7 @@ import {WorkerModule} from "./worker/worker.module";
 import {OrganizerModule} from "./organizer/organizer.module";
 import {EmployerModule} from "./employer/employer.module";
 import {UtilitiesModule} from "./utilities/utilities.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     OrganizerModule,
     EmployerModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
 
   ],
   providers: [],
