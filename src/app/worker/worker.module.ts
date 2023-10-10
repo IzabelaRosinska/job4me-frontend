@@ -5,11 +5,12 @@ import {WorkerRoutingModule} from './worker-routing.module';
 import {UtilitiesModule} from "../utilities/utilities.module";
 import {WorkerAccountComponent} from "./worker-account/worker-account.component";
 import { WorkerInfoFormComponent } from './worker-account/worker-info-form/worker-info-form.component';
+import { CvFormElementComponent } from './worker-account/worker-info-form/cv-form-element/cv-form-element.component';
 import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [WorkerAccountComponent, WorkerInfoFormComponent],
+  declarations: [WorkerAccountComponent, WorkerInfoFormComponent, CvFormElementComponent],
   exports: [WorkerAccountComponent],
   imports: [
     CommonModule,
