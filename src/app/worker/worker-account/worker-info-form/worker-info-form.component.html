@@ -1,0 +1,46 @@
+<div class="container align-content-left text-left main">
+
+
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <legend>Dane osobowe</legend>
+      <label for="first-name">Imię</label>
+      <input type="text" #name id="first-name" name="first-name" class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="name.checkValidity()" required>
+      <div class="invalid-feedback">Uzupełnij pole</div>
+      <br><br>
+      <label for="last-name">Nazwisko</label>
+      <input type="text" id="last-name" #lastName name="last-name" class="form-control {{lastName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="lastName.checkValidity()" required>
+      <div class="invalid-feedback">Uzupełnij pole</div>
+      <br><br>
+
+      <legend>Kontakt</legend>
+      <label for="mail">Email kontaktowy</label>
+      <input type="email" id="mail" #email  name="mail" class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="email.checkValidity()" required>
+      <div class="invalid-feedback">Uzupełnij pole</div>
+      <br><br>
+
+      <label for="phone-number">Numer telefonu</label>
+      <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "  [maxLength]="20" (change)="phoneNumber.checkValidity()"><br><br>
+      <label for="linkedin" class="form-label">Linkedin</label>
+      <input type="email" id="linkedin" name="linkedin" class="form-control"><br><br>
+
+
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col ">
+            <button class="btn btn-secondary" (click)="openDeclineDialog()">Odrzuć zmiany</button>
+          </div>
+
+          <div class="col w-100 text-end">
+            <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit" [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() "  >Potwierdź</button>
+          </div>
+
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+
+</div>
