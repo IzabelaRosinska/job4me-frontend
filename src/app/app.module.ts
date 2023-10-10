@@ -14,14 +14,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { LoginComponent } from './login/login.component';
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 import {UtilitiesModule} from "./utilities/utilities.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppNavComponent
+    AppNavComponent,
+    LoginComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     WorkerModule,
     OrganizerModule,
@@ -34,7 +39,7 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

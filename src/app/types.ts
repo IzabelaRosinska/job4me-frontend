@@ -14,3 +14,7 @@ export interface WorkerAccount {
 }
 
 
+export interface LoginData{
+    username: string;
+    password: string;
+}
