@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -24,14 +27,19 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
+          npm install -g @angular/cli
+          Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
           npm run build --if-present
-          npm run test --if-present
-      
+          ng test --browsers=ChromeHeadless --watch=false
+
+      - name: Compress artifact for deployment
+        run: Compress-Archive . release.zip
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +61,4 @@ jobs:
           app-name: 'job4me-frontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_967A778E8EE54A4E94FE671FE948A836 }}
-          package: .
+          package: release.zip
