@@ -17,6 +17,8 @@ import { MatListModule } from '@angular/material/list';
 import { LoginComponent } from './login/login.component';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {RequestInterceptor} from "./interceptors/request.interceptor";
 import {UtilitiesModule} from "./utilities/utilities.module";
 
 @NgModule({
@@ -39,9 +41,16 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

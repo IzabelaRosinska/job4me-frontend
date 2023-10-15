@@ -21,23 +21,6 @@ export class LoginComponent {
 
   ngOnInit(): void {}
 
-  // AddRoom(roomForm: NgForm)
-  // {
-  //   this.roomService.addRoom(this.room).subscribe((data) =>
-  //
-  //     this.successMessage = 'Success!';
-  //   roomForm.resetForm({
-  //     roomNumber: '',
-  //     roomType: '',
-  //     amenities: '',
-  //     price: 0,
-  //     photos: '',
-  //     checkinTime: new Date(),
-  //     checkoutTime: new Date(),
-  //     rating: 0
-  //   })
-  // })
-
   putLoginData(loginForm: NgForm) {
     this.loginService.addLoginData(this.loginData).subscribe((data) => {
       loginForm.resetForm({
