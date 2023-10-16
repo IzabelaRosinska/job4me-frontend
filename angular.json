@@ -67,6 +67,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "job4me:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "job4me:build:production"
@@ -75,6 +79,7 @@
               "browserTarget": "job4me:build:development"
             }
           },
+
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

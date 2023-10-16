@@ -14,18 +14,29 @@ export class LoginService {
   }
 
   getLoginData() {
-    console.log(ROUTES + '/login');
-    return this.http.get<LoginData[]>(ROUTES.BACKEND_ROUTE + '/login');
+    return this.http.get<LoginData[]>(ROUTES.BACKEND_ROUTE + '/login', {withCredentials: true}).pipe(shareReplay(1));
   }
 
   addLoginData(loginData: LoginData) {
     const route: string  = ROUTES.BACKEND_ROUTE + '/login';
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.request('post', route, {
       body: loginData,
       withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
       // headers: headers
-    }).pipe(shareReplay(1))
+    }).pipe(shareReplay(1));
+  }
+
+  registerUser(registerData: RegisterData) {
+    const route: string  = ROUTES.BACKEND_ROUTE + '/register';
+    return this.http.request('post', route, {
+      body: registerData,
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
   }
 
 
