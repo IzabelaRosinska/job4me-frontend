@@ -1,0 +1,69 @@
+<div class="text-center align-content-center align-items-center center">
+  <div class="main w-50 container" *ngIf="panel=='start'">
+
+    <h1> Załóż konto</h1>
+<!--    Pick your role section-->
+    <div class="text-start">
+      <h2 >1. Rola</h2>
+    </div>
+    <div class="row px-3 py-1">
+      <div class="form-check col-4">
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="Role.Employee" id="radioEmployee" checked>
+        <label class="form-check-label" for="radioEmployee">
+          Pracobiorca
+        </label>
+      </div>
+      <div class="form-check  col-4">
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="Role.Employer" id="radioEmployer" >
+        <label class="form-check-label" for="radioEmployer">
+          Pracodawca
+        </label>
+      </div>
+      <div class="form-check  col-4">
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="Role.Organizer" id="radioOrganizer">
+        <label class="form-check-label" for="radioOrganizer">
+          Organizator
+        </label>
+      </div>
+    </div>
+
+<!--    Login Data-->
+    <div class="text-start mt-5">
+      <h2 >2. Dane logowania</h2>
+    </div>
+    <div>
+      <div class="row px-3 pt-1 pb-2 form-group">
+        <input type="email" class="form-control login" name="username"  placeholder="Email"  [(ngModel)]="registerData.LoginData.username">
+      </div>
+
+      <div class="row px-3 py-2 form-group">
+        <input type="{{passwordVisible}}"  id="password" name="password"  class="form-control login password" placeholder="Password" [(ngModel)]="registerData.LoginData.password">
+        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
+      </div>
+    </div>
+
+        <div class="mt-5 mb-2 text-end">
+          <button class="btn btn-secondary" (click)="panel=registerData.role.toString()"> Przejdź dalej</button>
+        </div>
+
+  </div>
+
+
+  <div class="main w-50 container" *ngIf="panel=='0'">
+    <div>
+      <h1>Pracobiorca</h1>
+    </div>
+  </div>
+
+  <div class="main w-50 container" *ngIf="panel=='1'">
+    <div>
+      <h1>Pracodawca</h1>
+    </div>
+  </div>
+
+  <div class="main w-50 container" *ngIf="panel=='2'">
+    <div>
+      <h1>Organizator</h1>
+    </div>
+  </div>
+</div>

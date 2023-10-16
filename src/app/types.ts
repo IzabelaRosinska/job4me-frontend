@@ -18,3 +18,15 @@ export interface LoginData{
     username: string;
     password: string;
 }
+
+export enum Role {
+  Employee,
+  Employer,
+  Organizer,
+  Admin
+}
+
+export interface RegisterData{
+  LoginData: LoginData;
+  role: Role;
+}
