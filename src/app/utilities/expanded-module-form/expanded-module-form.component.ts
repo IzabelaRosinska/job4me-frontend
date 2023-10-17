@@ -1,14 +1,20 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-cv-form-element',
-  templateUrl: './cv-form-element.component.html',
-  styleUrls: ['./cv-form-element.component.scss']
+  selector: 'app-expanded-module-form',
+  templateUrl: './expanded-module-form.component.html',
+  styleUrls: ['./expanded-module-form.component.scss']
 })
-export class CvFormElementComponent {
-
+export class ExpandedModuleFormComponent {
   @Input () title: string | null = "";
+
+  @Input () maxInputLength: number = 100;
+  @Input () maxInputCount: number = 3;
+
+  @Output () save: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  listOfTexts: string[] = [];
 
   newText: string = "";
 
@@ -23,7 +29,6 @@ export class CvFormElementComponent {
 
   editMode: number = -1;
 
-
   fileToUpload: File | null = null;
 
 
@@ -32,27 +37,6 @@ export class CvFormElementComponent {
 
   }
 
-
-  postFile(fileToUpload: File): Observable<boolean> | null {
-    const endpoint = 'your-destination-url';
-    const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
-    return  null;
-    // this.httpClient
-    //   .post(endpoint, formData, { headers: this.yourHeadersConfig })
-    //   .map(() => { return true; })
-    //   .catch((e) => this.handleError(e));
-  }
-
-  handleFileInput(event: Event) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (fileList) {
-      console.log("FileUpload -> files", fileList);
-    }
-  }
-
-  listOfTexts: string[] = ["text"];
 
   addText(index?: number) {
     this.newTextInputVisibile = false;
@@ -71,6 +55,7 @@ export class CvFormElementComponent {
     }
 
     this.newText = "";
+    this.save.emit(this.listOfTexts);
   }
 
   toggleQuestion1() {
@@ -79,12 +64,17 @@ export class CvFormElementComponent {
   }
 
   startAddingNewText() {
+    if(this.listOfTexts.length >= this.maxInputCount) return;
     this.newTextInputVisibile = true;
   }
 
   editText(index: number) {
     this.editMode = index;
     this.newText = this.listOfTexts[index];
+  }
+
+  buttonColor(){
+    return this.maxInputCount>this.listOfTexts.length ? "primary" : "danger";
   }
 
 }

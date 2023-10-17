@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-3 text-end">
-      <button class="btn btn-primary" (click)="startAddingNewText()">+</button>
+      <button class="btn btn-{{buttonColor()}}" (click)="startAddingNewText()">+</button>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
         <td class="question-second-element-in-row" *ngIf="listOfTexts.indexOf(text)!=editMode" >
           <div> {{text}} </div>
         </td>
-        <td *ngIf="listOfTexts.indexOf(text)==editMode"> <input [(ngModel)]="newText" class="form-control" (keyup.enter)="addText(listOfTexts.indexOf(text))"></td>
+        <td *ngIf="listOfTexts.indexOf(text)==editMode"> <input [(ngModel)]="newText"  class="form-control" [maxLength]="maxInputLength"  (keyup.enter)="addText(listOfTexts.indexOf(text))"></td>
       </tr>
     </table>
 
@@ -36,7 +36,7 @@
     <div class="form-group">
       <form #textForm="ngForm">
         <div class="form-group">
-          <input  *ngIf="newTextInputVisibile" [(ngModel)]="newText" class="form-control" id="newTextInput" name="newText" type="text" (keyup.enter)="addText()" >
+          <input  *ngIf="newTextInputVisibile" [(ngModel)]="newText" [maxLength]="maxInputLength" class="form-control" id="newTextInput" name="newText" type="text" (keyup.enter)="addText()" >
         </div>
 
       </form>

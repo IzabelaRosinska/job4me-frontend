@@ -24,9 +24,24 @@
         <label for="phone-number">Numer telefonu</label>
         <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "  [maxLength]="20" (change)="phoneNumber.checkValidity()" [(ngModel)]="workerAccountInfo.telephone"><br><br>
 
+      <div class="rounded-4 cv-list-elem">
+        <app-expanded-module-form [title]="'Wykształcenie'" [maxInputLength]="100"></app-expanded-module-form>
+      </div>
+
         <label for="aboutMe" class="form-label">O mnie</label>
         <textarea type="text" id="aboutMe" name="aboutMe" class="form-control aboutMe" [(ngModel)]="workerAccountInfo.aboutMe" ></textarea><br><br>
 
+        <div class="rounded-4 cv-list-elem">
+        <app-expanded-module-form [title]="'Umiejętności'" [maxInputLength]="50"></app-expanded-module-form>
+      </div>
+
+      <div class="rounded-4 cv-list-elem">
+        <app-expanded-module-form [title]="'Doświadczenie'" [maxInputLength]="255"></app-expanded-module-form>
+      </div>
+
+      <div class="rounded-4 cv-list-elem">
+        <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500"></app-expanded-module-form>
+      </div>
 
 
       <div class="container">

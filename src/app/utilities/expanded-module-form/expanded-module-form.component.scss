@@ -1,6 +1,6 @@
 @import "src/styles.scss";
 
-$QUESTION_BACKGROUND_COLOR: $CV_INPUTS_FIELDSET;  //#c7d2e7
+$QUESTION_BACKGROUND_COLOR: rgba(215, 215, 215, 0);  //
 
 
 div.firstLevel {
@@ -51,7 +51,7 @@ td.question-second-element-in-row
 
 input
 {
-  width: 60%;
+  width: 90%;
 }
 
 
