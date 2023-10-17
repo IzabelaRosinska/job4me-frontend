@@ -13,12 +13,14 @@
 
       <!--    Pola logowania-->
       <div class="row px-3 pt-3 pb-2 form-group">
-        <input type="email" class="form-control login" name="username"  placeholder="Email"  [(ngModel)]="loginData.username">
+        <input type="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
+        <div class="invalid-feedback text-start" >Uzupełnij email</div>
       </div>
 
       <div class="row px-3 py-2 form-group">
-        <input type="{{passwordVisible}}"  id="password" name="password"  class="form-control login password" placeholder="Password" [(ngModel)]="loginData.password">
+        <input type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="email.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
         <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
+        <div class="invalid-feedback text-start">Uzupełnij hasło</div>
       </div>
 
       <!--    Przyciski do logowania-->
