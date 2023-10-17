@@ -10,3 +10,5 @@ export interface WorkerAccount {
   skills?: string;
   projects?: string;
 }
+
+

@@ -35,7 +35,7 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
 
   ],
   providers: [],
