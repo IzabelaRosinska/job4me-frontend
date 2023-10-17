@@ -29,16 +29,6 @@ export class LoginService {
     }).pipe(shareReplay(1));
   }
 
-  registerUser(registerData: RegisterData) {
-    const route: string  = ROUTES.BACKEND_ROUTE + '/register';
-    return this.http.request('post', route, {
-      body: registerData,
-      withCredentials: true,
-      responseType: 'text',
-      observe: 'response',
-    }).pipe(shareReplay(1));
-  }
-
 
 }
 
