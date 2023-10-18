@@ -3,6 +3,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-app-nav',
   templateUrl: './app-nav.component.html',
@@ -10,6 +11,12 @@ import {map, shareReplay} from 'rxjs/operators';
 })
 export class AppNavComponent {
   private breakpointObserver = inject(BreakpointObserver);
+
+
+   constructor() {
+   }
+
+
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
