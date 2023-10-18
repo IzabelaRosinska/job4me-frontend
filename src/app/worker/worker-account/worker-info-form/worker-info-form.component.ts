@@ -5,6 +5,7 @@ import {
   SimpleTrueFalsePopUpComponent
 } from "../../../utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
 import {EmployeeService} from "../../service/employee.service";
+import {WorkerAccount} from "../../../types";
 
 @Component({
   selector: 'app-info-form',
@@ -19,6 +20,22 @@ export class WorkerInfoFormComponent {
               private service: EmployeeService) { }
 
 
+  workerAccountInfo: WorkerAccount = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    telephone: "",
+    photo: "",
+    aboutMe: "",
+    education: [],
+    experience: [],
+    skills: [],
+    projects:[],
+    interests:[],
+
+
+  }
 
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
@@ -32,11 +49,13 @@ export class WorkerInfoFormComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
 
       // add logic for saving data
-
-      // add redirecting to client page
+      this.service.putEmployee(this.workerAccountInfo).subscribe((response) => {
+        console.log(response);
+        // add redirecting to client page
+        this.router.navigate(['worker/account']);
+      });
     });
   }
 
@@ -52,7 +71,6 @@ export class WorkerInfoFormComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
 
       // add redirecting to client page
       if(result)

@@ -1,14 +1,16 @@
 export interface WorkerAccount {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   telephone: string;
   email: string;
-  description?: string,
+  aboutMe?: string;
   photo?: string;
-  education?: string;
-  experience?: string;
-  skills?: string;
-  projects?: string;
+  interests?: string[];
+  education?: string[];
+  experience?: string[];
+  skills?: string[];
+  projects?: string[];
 }
 
 
