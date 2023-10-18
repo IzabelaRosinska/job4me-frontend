@@ -1,0 +1,39 @@
+@import "src/scss/utils/_variables.scss";
+
+//Form styles
+.fieldset-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.common-inputs-fieldset {
+  background-color: $CV_INPUTS_FIELDSET;
+  border: 1px solid $CV_INPUTS_FIELDSET_BORDER;
+  margin: 0;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s, box-shadow 0.4s;
+  width: 80%;
+  height: 50%;
+}
+
+.common-inputs-fieldset:hover {
+  border-color: $CV_INPUTS_FIELDSET_HOVER;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.common-inputs-fieldset > legend {
+  padding-bottom: 15px;
+  color: $MAIN_TEXT_COLOR;
+  font-weight: 350;
+  letter-spacing: 3px;
+}
+
+.common-inputs-fieldset > label {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
