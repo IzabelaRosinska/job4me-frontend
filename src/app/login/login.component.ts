@@ -21,8 +21,8 @@ export class LoginComponent {
 
   ngOnInit(): void {}
 
-  putLoginData(loginForm: NgForm) {
-    this.loginService.addLoginData(this.loginData).subscribe((data) => {
+  logIn(loginForm: NgForm) {
+    this.loginService.pushLoginData(this.loginData).subscribe((data) => {
       loginForm.resetForm({
         username: '',
         password: ''

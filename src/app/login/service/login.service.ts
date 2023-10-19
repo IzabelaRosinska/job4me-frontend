@@ -17,15 +17,13 @@ export class LoginService {
     return this.http.get<LoginData[]>(ROUTES.BACKEND_ROUTE + '/login', {withCredentials: true}).pipe(shareReplay(1));
   }
 
-  addLoginData(loginData: LoginData) {
+  pushLoginData(loginData: LoginData) {
     const route: string  = ROUTES.BACKEND_ROUTE + '/login';
-    // const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.request('post', route, {
       body: loginData,
       withCredentials: true,
       responseType: 'text',
       observe: 'response',
-      // headers: headers
     }).pipe(shareReplay(1));
   }
 
