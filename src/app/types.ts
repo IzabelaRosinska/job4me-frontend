@@ -27,6 +27,7 @@ export enum Role {
 }
 
 export interface RegisterData{
-  LoginData: LoginData;
-  role: Role;
+  username: string;
+  password: string;
+  role: string;
 }

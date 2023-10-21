@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LoginData, RegisterData, Role} from "../../types";
+import {LoginService} from "../service/login.service";
 
 @Component({
   selector: 'app-register',
@@ -12,15 +13,19 @@ export class RegisterComponent {
   visibilityIconClass: string = 'fa fa-eye-slash';
 
   registerData: RegisterData = {
-    LoginData: {
-      username: '',
-      password: ''
-    },
-    role: Role.Employee
+    username: '',
+    password: '',
+    role: 'employee'
   }
-  panel: string = 'start';
 
-  constructor() {
+  constructor(private loginService: LoginService) {
+
+  }
+
+  registerUser(){
+    this.loginService.registerUser(this.registerData).subscribe((response) => {
+      console.log(response);
+    })
   }
 
   togglePassowrdVisibility() {

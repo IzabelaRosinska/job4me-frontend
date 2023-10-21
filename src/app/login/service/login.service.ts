@@ -28,7 +28,7 @@ export class LoginService {
   }
 
   registerUser(registerData: RegisterData) {
-    const route: string  = ROUTES.BACKEND_ROUTE + '/register';
+    const route: string  = ROUTES.BACKEND_ROUTE + '/signup';
     return this.http.request('post', route, {
       body: registerData,
       withCredentials: true,
