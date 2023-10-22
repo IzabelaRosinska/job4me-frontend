@@ -18,7 +18,7 @@
       </div>
 
       <div class="row px-3 py-2 form-group">
-        <input type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="email.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
+        <input type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
         <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
         <div *ngIf="loginForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
       </div>

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {LoginData, RegisterData, Role} from "../../types";
 import {LoginService} from "../service/login.service";
 import {Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
+import {HttpErrorResponse} from "@angular/common/http";
+import {catchError} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -16,6 +19,8 @@ export class RegisterComponent {
   matchingPasswordVisible: string = 'password';
   visibilityMaatchingPassowrdIconClass: string = 'fa fa-eye-slash';
 
+  wrongUsernameMessage: boolean = false;
+
   registerData: RegisterData = {
     username: '',
     password: '',
@@ -28,7 +33,7 @@ export class RegisterComponent {
 
   }
 
-  registerUser(){
+  registerUser(registerForm: NgForm){
     this.loginService.registerUser(this.registerData).subscribe((response) => {
       console.log(response);
       switch (response.status) {
@@ -46,9 +51,20 @@ export class RegisterComponent {
               break;
           }
           break;
+        case 500:
+          registerForm.resetForm({
+            username: '',
+            password: '',
+            matchingPassword: ''
+          });
+
+          this.wrongUsernameMessage = true;
+          break;
       }
     })
   }
+
+
 
   togglePassowrdVisibility(isMatchingPassword: boolean) {
     if(isMatchingPassword)
