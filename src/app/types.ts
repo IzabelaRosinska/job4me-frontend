@@ -28,6 +28,7 @@ export enum Role {
 
 export interface RegisterData{
   username: string;
-  password: string;
   role: string;
+  password: string;
+  matchingPassword: string;
 }

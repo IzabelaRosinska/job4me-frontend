@@ -8,19 +8,19 @@
     </div>
     <div class="row px-3 py-1">
       <div class="form-check col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'employee'" id="radioEmployee" checked>
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'EMPLOYEE'" id="radioEmployee" checked>
         <label class="form-check-label" for="radioEmployee">
           Pracobiorca
         </label>
       </div>
       <div class="form-check  col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'employer'" id="radioEmployer" >
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'EMPLOYER'" id="radioEmployer" >
         <label class="form-check-label" for="radioEmployer">
           Pracodawca
         </label>
       </div>
       <div class="form-check  col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'organizer'" id="radioOrganizer">
+        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'ORGANIZER'" id="radioOrganizer">
         <label class="form-check-label" for="radioOrganizer">
           Organizator
         </label>
@@ -38,12 +38,17 @@
 
       <div class="row px-3 py-2 form-group">
         <input type="{{passwordVisible}}"  id="password" name="password"  class="form-control login password" placeholder="Password" [(ngModel)]="registerData.password">
-        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
+        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility(false)" ></i>
+      </div>
+
+      <div class="row px-3 py-2 form-group">
+        <input type="{{matchingPasswordVisible}}"  id="matchingPassword" name="password"  class="form-control login password" placeholder="Password" [(ngModel)]="registerData.matchingPassword">
+        <i class="{{visibilityMaatchingPassowrdIconClass}} eye" id="toggleMatchingPassword" (click)="togglePassowrdVisibility(true)" ></i>
       </div>
     </div>
 
         <div class="mt-5 mb-2 text-end">
-          <button class="btn btn-secondary" (click)="registerUser()"> Przejdź dalej</button>
+          <button class="btn btn-secondary" [disabled]="registerData.password!=registerData.matchingPassword" (click)="registerUser()"> Przejdź dalej</button>
         </div>
 
   </div>
