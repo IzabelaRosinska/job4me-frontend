@@ -10,11 +10,11 @@ export class ExpandedModuleFormComponent {
   @Input () title: string | null = "";
 
   @Input () maxInputLength: number = 100;
-  @Input () maxInputCount: number = 3;
+  @Input () maxInputCount: number = 10;
 
   @Output () save: EventEmitter<string[]> = new EventEmitter<string[]>();
 
-  listOfTexts: string[] = [];
+  @Input ()listOfTexts: string[] = [];
 
   newText: string = "";
 

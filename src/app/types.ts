@@ -5,8 +5,7 @@ export interface WorkerAccount {
   telephone: string;
   email: string;
   aboutMe?: string;
-  photo?: string;
-  interests?: string[];
+  interests?: string;
   education?: string[];
   experience?: string[];
   skills?: string[];
