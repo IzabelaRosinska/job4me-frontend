@@ -1,0 +1,45 @@
+$borderColorLogin: #73a9f6;
+
+@import "../../styles.scss";
+
+div.main{
+  border:1px solid $BORDER_COLOR;
+  width: 400px;
+  background-image: linear-gradient( #f3f7fd, $MAIN_COLOR);
+  horiz-align: center
+}
+
+h1{
+  color: #476b9b;
+  text-align: center;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "Lato Light";
+}
+
+button.log{
+  background-color: #476b9b;
+  width: 60%;
+  color: white;
+}
+
+a.mylink{
+  color: #445a83
+}
+
+input.login{
+  font-size: $INPUT_FONT_SIZE;
+  height: $INPUT_FONT_SIZE * 2.5;
+  border:1px solid $BORDER_COLOR;
+  background-color: #fbfbff;
+}
+
+.eye{
+  width: 15%;
+  align-content: end;
+  margin-left: 80%;
+  margin-top: -8%;
+  cursor: pointer;
+}
+
