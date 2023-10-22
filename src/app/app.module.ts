@@ -14,14 +14,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { LoginComponent } from './login/login.component';
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {RequestInterceptor} from "./interceptors/request.interceptor";
 import {UtilitiesModule} from "./utilities/utilities.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppNavComponent
+    AppNavComponent,
+    LoginComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     WorkerModule,
     OrganizerModule,
@@ -34,9 +41,16 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
