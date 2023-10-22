@@ -1,0 +1,47 @@
+<!--Wymagane do oka-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+<div class="container align-content-center text-center" >
+  <div class="container justify-content-center rounded-1 main" >
+    <form  #loginForm="ngForm" (ngSubmit)="logIn(loginForm)">
+
+      <!--    Napis górny-->
+      <div class="row rounded-3">
+        <h1 class="text-center py-4 text-capitalize">Log in</h1>
+      </div>
+
+      <!--    Pola logowania-->
+      <div class="row px-3 pt-3 pb-2 form-group">
+        <input type="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
+        <div *ngIf="loginForm.submitted" class="invalid-feedback text-start" >{{email.checkValidity()? '' : 'Błędny email'}}</div>
+      </div>
+
+      <div class="row px-3 py-2 form-group">
+        <input type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="email.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
+        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
+        <div *ngIf="loginForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
+      </div>
+
+      <!--    Przyciski do logowania-->
+      <div class="row px-3 pt-4 align-content-center">
+        <div class="">
+          <button class="btn log" #logInButton type="submit">Log in now</button>
+        </div>
+      </div>
+    </form>
+
+    <!--    Napisy pod przyciskami-->
+    <div class="row px-3 py-3">
+      <div class="">
+        <label class="form-check-label">
+          <a href="#" class="text-decoration-none mylink">Make a new account</a>
+        </label>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
