@@ -51,7 +51,7 @@
         <div class="row">
 
           <div class="col ">
-            <button class="btn btn-secondary" (click)="openDeclineDialog()">Odrzuć zmiany</button>
+            <button class="btn btn-secondary" (click)="openDeclineDialog()" [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() ">Odrzuć zmiany</button>
           </div>
 
           <div class="col w-100 text-end">

@@ -1,6 +1,6 @@
 @import "src/styles.scss";
 
-$QUESTION_BACKGROUND_COLOR: rgba(215, 215, 215, 0);  //
+$QUESTION_BACKGROUND_COLOR: rgba(215, 215, 215, 0);
 
 
 div.firstLevel {
@@ -23,17 +23,11 @@ img.inside-table
   margin-left: 95%;
 }
 
-
-h3.question-title
-{
-  //margin-left: 10%;
-  //position: absolute;
-}
-
 td.question-first-element-in-row
 {
   width: 5%;
 }
+
 td.question-second-element-in-row
 {
   width: 100%;
