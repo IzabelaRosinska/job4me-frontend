@@ -19,13 +19,15 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptors/request.interceptor";
+import { RegisterComponent } from './login/register/register.component';
 import {UtilitiesModule} from "./utilities/utilities.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
