@@ -1,0 +1,51 @@
+@import "src/styles.scss";
+
+$QUESTION_BACKGROUND_COLOR: rgba(215, 215, 215, 0);
+
+
+div.firstLevel {
+  margin-left: 15%;
+  width: 70%;
+
+  textarea {
+    width: 80%;
+  }
+}
+
+
+img.inside-table
+{
+  background-color: $QUESTION_BACKGROUND_COLOR !important;
+}
+
+.right-corner
+{
+  margin-left: 95%;
+}
+
+td.question-first-element-in-row
+{
+  width: 5%;
+}
+
+td.question-second-element-in-row
+{
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  div
+  {
+    width: 100%;
+    max-width: 100%;
+    background-color: $QUESTION_BACKGROUND_COLOR !important;
+  }
+}
+
+
+
+input
+{
+  width: 90%;
+}
+
+

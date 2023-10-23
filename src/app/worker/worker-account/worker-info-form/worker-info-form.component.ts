@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {
   SimpleTrueFalsePopUpComponent
 } from "../../../utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
@@ -12,13 +12,33 @@ import {WorkerAccount} from "../../../types";
   templateUrl: './worker-info-form.component.html',
   styleUrls: ['./worker-info-form.component.scss']
 })
-export class WorkerInfoFormComponent {
+export class WorkerInfoFormComponent implements OnInit{
 
 
   constructor(public  dialog: MatDialog,
               private router: Router,
-              private service: EmployeeService) { }
+              private service: EmployeeService,
+              private route: ActivatedRoute) { }
 
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.service.getEmployee().subscribe((response) => {
+        this.workerAccountInfo.id = response.id;
+        this.workerAccountInfo.firstName = response.firstName;
+        this.workerAccountInfo.lastName = response.lastName;
+        this.workerAccountInfo.email = response.email;
+        this.workerAccountInfo.telephone = response.telephone;
+        this.workerAccountInfo.aboutMe = response.aboutMe;
+        this.workerAccountInfo.education = response.education;
+        this.workerAccountInfo.experience = response.experience;
+        this.workerAccountInfo.skills = response.skills;
+        this.workerAccountInfo.projects = response.projects;
+        this.workerAccountInfo.interests = response.interests;
+        console.log(this.workerAccountInfo)
+      });
+    });
+  }
 
   workerAccountInfo: WorkerAccount = {
     id: "",
@@ -26,16 +46,31 @@ export class WorkerInfoFormComponent {
     lastName: "",
     email: "",
     telephone: "",
-    photo: "",
     aboutMe: "",
     education: [],
     experience: [],
     skills: [],
     projects:[],
-    interests:[],
-
-
+    interests: "",
   }
+
+  moduleSaveInfo(list: string[], id: string){
+    switch (id) {
+      case "education":
+        this.workerAccountInfo.education = list;
+        break;
+      case "experience":
+        this.workerAccountInfo.experience = list;
+        break;
+      case "skills":
+        this.workerAccountInfo.skills = list;
+        break;
+      case "projects":
+        this.workerAccountInfo.projects = list;
+        break;
+    }
+  }
+
 
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
@@ -52,11 +87,15 @@ export class WorkerInfoFormComponent {
 
       // add logic for saving data
       this.service.putEmployee(this.workerAccountInfo).subscribe((response) => {
+        console.log(response.body);
         console.log(response);
         // add redirecting to client page
         this.router.navigate(['worker/account']);
       });
     });
+
+
+
   }
 
   openDeclineDialog(): void {
@@ -76,6 +115,11 @@ export class WorkerInfoFormComponent {
       if(result)
         this.router.navigate(['worker/account']);
     });
+  }
+
+  validList(list: string[] | undefined): string[] {
+    if(list == undefined) return [];
+    return list;
   }
 
 
