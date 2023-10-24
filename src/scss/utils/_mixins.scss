@@ -1,0 +1,27 @@
+@mixin rounded-corner($arc) {
+  -moz-border-radius: $arc;
+  -webkit-border-radius: $arc;
+  border-radius: $arc;
+}
+
+@mixin text-link-format($color, $fontSize) {
+  color: $color;
+  font-size: $fontSize;
+  letter-spacing: calc($fontSize / 12);
+
+  a {
+    color: darken($color, 20%);
+
+    &:hover {
+      color: darken($color, 40%);
+    }
+  }
+}
+
+@mixin gradient($start-color, $end-color) {
+  background: $start-color;
+  background: -moz-linear-gradient(top, $start-color 0%, $end-color 100%);
+  background: -webkit-linear-gradient(top, $start-color 0%, $end-color 100%);
+  background: linear-gradient(to bottom, $start-color 0%, $end-color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$start-color, endColorstr=$end-color, GradientType=0);
+}
