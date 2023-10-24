@@ -1,0 +1,43 @@
+<div class="main">
+  <div class="content">
+    <!--  Introductory panel-->
+    <div class="container info-panel p-4">
+      <div class="row">
+
+
+                <div class="col-xs-10 col-md-5 col-lg-4 col-xl-3 text-xs-center text-sm-center text-md-start" >
+                  <img src="https://picsum.photos/200/200">
+                </div>
+
+        <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start">
+          <h1 class="name-text">{{employerAccount.companyName}}</h1>
+          <!--          <p class="id-text">-->
+          <!--            <i> #{{workerAccountInfo.id}} </i>-->
+          <!--          </p>-->
+
+          <h3><i>{{employerAccount.email}}  |  {{employerAccount.telephone}}</i></h3>
+
+          <p class="text-description" *ngIf="employerAccount.description"> {{employerAccount.description}} </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container info-panel p-4">
+
+    </div>
+
+    <!--  Actions Panel-->
+    <div class="container info-panel">
+      <div class="row align-items-center">
+
+        <div class="col-sm-12 col-lg-6">
+          <button class="btn btn-primary w-100 form-button-action" routerLink="/worker/editInfo">Edytuj informacje
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

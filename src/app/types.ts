@@ -12,6 +12,14 @@ export interface WorkerAccount {
   projects?: string[];
 }
 
+export interface EmployerAccount {
+  id: string;
+  companyName: string;
+  description: string;
+  telephone: string;
+  email: string;
+  photo?: number;
+}
 
 export interface LoginData{
     username: string;
