@@ -1,0 +1,90 @@
+<div class="main" >
+  <div class="offer-header-container">
+    <h2 class="offer-header">{{jobOfferData.name}}</h2>
+    <h5 style="margin: 0px"> <i>#{{jobOfferData.id}}</i> </h5>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+        <div class="row">
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <app-job-offer-card [header]="'Wynagrodzenie'" [text]="jobOfferData.salary"></app-job-offer-card>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <app-job-offer-card [header]="'Typ umowy'" [text]="jobOfferData.forms.join(', ')"></app-job-offer-card>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <app-job-offer-card [header]="'Etat'" [text]="jobOfferData.contract_type.join(', ')"></app-job-offer-card>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
+            <app-job-offer-card [header]="'Poziom'" [text]="jobOfferData.level"></app-job-offer-card>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
+            <app-job-offer-card [header]="'Czas pracy'" [text]="jobOfferData.working_time"></app-job-offer-card>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ">
+            <app-job-offer-card [header]="'Lokalizacje'" [text]="jobOfferData.localizations.join(', ') "></app-job-offer-card>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-4 text-center">
+        <div class="card mb-3 text-bg-light my-cards text-center align-items-center align-content-center">
+          <div class="text-center">
+            <img class="w-75 h-75 image-company-panel" [src]="'https://picsum.photos/300/300'" >
+          </div>
+          <div class="card-header text-bg-light">{{jobOfferData.company}}</div>
+          <div class="card-body">
+            <p class="card-text"> {{jobOfferData.branches.join(', ')}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <app-job-offer-card [header]="'Wymagania'"
+                            [text]="jobOfferData.requirements.join(', ')"
+                            [headerBGC]="'primary'">
+        </app-job-offer-card>
+      </div>
+
+      <div class="col-md-8">
+        <app-job-offer-card [header]="'Opis stanowiska'"
+                            [text]="jobOfferData.description"
+                            [headerBGC]="'primary'">
+        </app-job-offer-card>
+      </div>
+
+      <div class="col-md-8">
+        <app-job-offer-card [header]="'Obowiązki'"
+                            [text]="jobOfferData.duties"
+                            [headerBGC]="'primary'">
+        </app-job-offer-card>
+      </div>
+
+      <div class="col-md-8">
+        <app-job-offer-card [header]="'Dodatkowe umiejętności'"
+                            [text]="jobOfferData.extra_skills.join(', ')"
+                            [headerBGC]="'primary'">
+        </app-job-offer-card>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
