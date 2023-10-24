@@ -1,0 +1,40 @@
+
+<div class="container">
+  <div  class="row">
+    <div class="col-xs-6 col-sm-4 col-md-2 dropdown">
+      <div>
+        <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Filtruj
+        </button>
+        <ul class="table dropdown-menu filter-menu">
+          <li *ngFor="let option of filterOptions">
+            <div class="form-check dropdown-item filter-item">
+              <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="filterOptionClicked(option)">
+              <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+                {{option}}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-4 col-md-2 dropdown">
+      <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Sortuj
+      </button>
+      <ul class="table dropdown-menu filter-menu">
+        <li *ngFor="let option of sortOptions">
+          <div class="form-check dropdown-item filter-item">
+            <input class="form-check-input" type="radio" name="sort" [value]="option" [id]="option" (click)="sortOptionClicked(option)">
+            <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+              {{option}}
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+

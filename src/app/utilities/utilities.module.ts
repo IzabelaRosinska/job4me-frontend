@@ -15,6 +15,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ItemInsideListComponent } from './item-list/item-inside-list/item-inside-list.component';
 import {RouterLink} from "@angular/router";
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+import { FilterSortPanelComponent } from './filter-sort-panel/filter-sort-panel.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
     ExpandedModuleFormComponent,
     LoadingScreenComponent,
     ItemListComponent,
-    ItemInsideListComponent
+    ItemInsideListComponent,
+    FilterSortPanelComponent
   ],
   exports: [SimpleTrueFalsePopUpComponent,
     ExpandedModuleFormComponent,LoadingScreenComponent,
