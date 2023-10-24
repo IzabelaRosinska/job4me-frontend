@@ -14,7 +14,6 @@ import {FormsModule} from "@angular/forms";
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemInsideListComponent } from './item-list/item-inside-list/item-inside-list.component';
 import {RouterLink} from "@angular/router";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 
 
@@ -27,10 +26,8 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
     ItemInsideListComponent
   ],
   exports: [SimpleTrueFalsePopUpComponent,
-    ExpandedModuleFormComponent,
-    LoadingScreenComponent,
-      ItemInsideListComponent,
-      ItemListComponent],
+    ExpandedModuleFormComponent,LoadingScreenComponent,
+      ItemInsideListComponent, ItemListComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
