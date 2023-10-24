@@ -5,7 +5,7 @@
       <img class="left-side-list-image" [src]="item.image" >
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6 text-xm-center text-sm-center text-md-start">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6 text-xm-center text-sm-center text-md-start ps-4">
       <h1 class="name-text">
         {{item.name}}
       </h1>
@@ -14,9 +14,9 @@
         <i> #{{item.id}} </i>
       </p>
 
-      <h3>
+      <h4 class="py-2">
         {{item.description}}
-      </h3>
+      </h4>
     </div>
 
     <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4" >
@@ -37,7 +37,7 @@
 
         <div class="col" >
           <div  class="my-center">
-            <i class="fa-solid fa-right-to-bracket useable-icon"></i>
+            <i class="fa-solid fa-right-to-bracket useable-icon" routerLink="{{item.route}}"></i>
           </div>
         </div>
       </div>

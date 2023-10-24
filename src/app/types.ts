@@ -53,4 +53,21 @@ export interface ItemInsideList{
   useDelete: boolean;
 }
 
+export interface JobOffer {
+  id: string;
+  name: string;
+  company: string;
+  branches: string[];
+  localizations: string[];
+  forms: string[];
+  salary: string;
+  contract_type: string[];
+  working_time: string;
+  level: string;
+  requirements: string[];
+  extra_skills?: string[];
+  duties: string;
+  description?: string;
+}
+
 
