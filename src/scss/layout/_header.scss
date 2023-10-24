@@ -1,0 +1,31 @@
+.logo {
+  color: determine-font-color-from-bg($MAIN_LOGO_BACKGROUND);
+  font-size: $MAIN_LOGO_FONT_SIZE;
+  letter-spacing: $MAIN_LOGO_LETTER_SPACING;
+}
+
+.logo-toolbar {
+  background-color: $MAIN_LOGO_BACKGROUND !important;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  font-size: $MAIN_MENU_FONT_SIZE;
+  letter-spacing: $MAIN_MENU_LETTER_SPACING;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  color: determine-font-color-from-bg($MAIN_LOGO_BACKGROUND);
+  top: 0;
+  z-index: 1;
+}
+

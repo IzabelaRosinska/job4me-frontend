@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-
+/* Importing utils*/
+@import "scss/utils/_variables.scss";
+@import "scss/utils/_extends.scss";
+@import "scss/utils/_functions.scss";
+@import "scss/utils/_mixins.scss";
 
 /* Importing components*/
 @import "scss/components/_buttons.scss";
@@ -14,10 +23,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "scss/layout/_body.scss";
 @import "scss/layout/_footer.scss";
 @import "scss/layout/_forms.scss";
-
-/* Importing utils*/
-@import "scss/utils/_variables.scss";
-@import "scss/utils/_functions.scss";
-@import "scss/utils/_mixins.scss";
-@import "scss/utils/_extends.scss";
 
