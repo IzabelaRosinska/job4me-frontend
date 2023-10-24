@@ -9,7 +9,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="logo-toolbar">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -18,7 +18,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>job4me</span>
+      <span class="logo">job4me</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div>

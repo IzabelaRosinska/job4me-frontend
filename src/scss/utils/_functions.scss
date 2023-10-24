@@ -1,0 +1,14 @@
+@function luminance($color) {
+  $red: calc(red($color) / 255);
+  $green: calc(green($color) / 255);
+  $blue: calc(blue($color) / 255);
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+@function determine-font-color-from-bg($backgroundColor) {
+  @if luminance($backgroundColor) < 0.4 {
+    @return #ffffff;
+  } @else {
+    @return #000000;
+  }
+}

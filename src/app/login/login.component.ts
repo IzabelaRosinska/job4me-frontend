@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from "./service/login.service";
 import {NgForm} from "@angular/forms";
 import {LoginData} from "../types";
@@ -8,7 +8,7 @@ import {LoginData} from "../types";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   passwordVisible: string = 'password';
   visibilityIconClass: string = 'fa fa-eye-slash';
 

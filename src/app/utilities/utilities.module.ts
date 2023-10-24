@@ -9,13 +9,18 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { ExpandedModuleFormComponent } from './expanded-module-form/expanded-module-form.component';
+import {FormsModule} from "@angular/forms";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
   declarations: [
-    SimpleTrueFalsePopUpComponent
+    SimpleTrueFalsePopUpComponent,
+    ExpandedModuleFormComponent
   ],
-  exports: [SimpleTrueFalsePopUpComponent],
+  exports: [SimpleTrueFalsePopUpComponent,
+    ExpandedModuleFormComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -26,6 +31,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatDialogModule,
     MatInputModule,
     HttpClientModule,
+    FormsModule
   ]
 })
 export class UtilitiesModule {

@@ -1,0 +1,36 @@
+.form-button-action {
+  @extend %buttons;
+  background-color: $ACTION_BUTTON_BACKGROUND;
+  color: determine-font-color-from-bg($ACTION_BUTTON_BACKGROUND);
+
+  &:hover {
+    background-color: darken($ACTION_BUTTON_BACKGROUND, 40%);
+  }
+}
+
+.form-button-send {
+  @extend %buttons;
+  background-color: $SEND_BUTTON_BACKGROUND;
+  color: determine-font-color-from-bg($SEND_BUTTON_BACKGROUND);
+
+  &:hover {
+    background-color: darken($SEND_BUTTON_BACKGROUND, 20%);
+  }
+}
+
+.form-button-reset {
+  @extend %buttons;
+  background-color: $RESET_BUTTON_BACKGROUND;
+  color: determine-font-color-from-bg($RESET_BUTTON_BACKGROUND);
+
+  &:hover {
+    background-color: darken($RESET_BUTTON_BACKGROUND, 20%);
+  }
+}
+
+.form-buttons-div {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
