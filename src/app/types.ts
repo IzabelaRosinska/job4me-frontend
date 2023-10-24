@@ -42,5 +42,15 @@ export interface RegisterData {
   matchingPassword: string;
 }
 
+export interface ItemInsideList{
+  route: string;
+  image: string;
+  name: string;
+  id: string;
+  description: string;
+  useFavorite: boolean;
+  isFavorite?: boolean;
+  useDelete: boolean;
+}
 
 

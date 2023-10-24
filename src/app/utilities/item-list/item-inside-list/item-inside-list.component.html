@@ -1,0 +1,47 @@
+<div class="container rounded-3 main" *ngIf="item">
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 text-xm-center text-sm-center text-md-start">
+      <img class="left-side-list-image" [src]="item.image" >
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6 text-xm-center text-sm-center text-md-start">
+      <h1 class="name-text">
+        {{item.name}}
+      </h1>
+
+      <p class="id-text">
+        <i> #{{item.id}} </i>
+      </p>
+
+      <h3>
+        {{item.description}}
+      </h3>
+    </div>
+
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4" >
+      <div class="row align-items-center h-100" >
+
+        <div class="col" *ngIf="item.useFavorite" >
+          <div  class="my-center" (click)="item.isFavorite = !item.isFavorite;">
+            <i class="fa-regular fa-heart useable-icon" *ngIf="!item.isFavorite"></i>
+            <i class="fa-solid fa-heart useable-icon" *ngIf="item.isFavorite"></i>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="item.useDelete">
+          <div  class="my-center">
+            <i class="fa-solid fa-trash useable-icon" (click)="openDeleteItemDialog()"></i>
+          </div>
+        </div>
+
+        <div class="col" >
+          <div  class="my-center">
+            <i class="fa-solid fa-right-to-bracket useable-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

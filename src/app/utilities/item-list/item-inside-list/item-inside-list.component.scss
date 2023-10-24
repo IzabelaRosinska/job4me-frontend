@@ -1,0 +1,51 @@
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
+@import '@fortawesome/fontawesome-free/scss/regular.scss';
+
+
+
+
+img.left-side-list-image{
+  margin: 2%;
+}
+
+.main{
+  border: 1px solid #000000;
+  padding: 2%;
+  align-content: center;
+  align-items: center;
+}
+
+//Sprawia, że content wypełnia całość componentu
+:host{
+  display: flex;
+}
+
+.id-text{
+  margin: 0px;
+  font-size: 12px;
+}
+
+.name-text{
+  margin-bottom: 0px;
+}
+
+.btn-delete{
+  height: 50px;
+  width: 50px;
+}
+
+.useable-icon{
+  font-size: 3em;
+  color: rgba(31, 31, 31, 0.5);
+  transition: all 0.3s linear;
+}
+
+.useable-icon:hover{
+  font-size: 4em;
+  color: rgba(31, 31, 31, 1);
+}
+
+.my-center{
+  text-align: center;
+}
