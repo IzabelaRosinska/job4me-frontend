@@ -1,0 +1,45 @@
+<div class="container align-content-left text-left main">
+
+
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <form action="">
+        <legend>Dane firmowe</legend>
+        <label for="companyName">Imię</label>
+        <input type="text" #companyName id="companyName" name="companyName" class="form-control {{companyName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="companyName.checkValidity()" [(ngModel)]="employerAccountInfo.companyName" required>
+        <div *ngIf="!companyName.checkValidity()" class="invalid-feedback">Uzupełnij nazwę firmy</div>
+        <br><br>
+
+        <label for="mail">Email kontaktowy</label>
+        <input type="email" id="mail" #email  name="mail" class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employerAccountInfo.email" required>
+        <div class="invalid-feedback" *ngIf="!email.checkValidity()" (change)="email.checkValidity()">{{email.value.length >0? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
+        <br><br>
+
+        <label for="phone-number">Numer telefonu</label>
+        <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control {{phoneNumber.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="9"  [maxLength]="20" (change)="phoneNumber.checkValidity()" [(ngModel)]="employerAccountInfo.telephone" required>
+        <div class="invalid-feedback" *ngIf="!phoneNumber.checkValidity()" (change)="phoneNumber.checkValidity()">{{phoneNumber.value.length >=9? 'Telefon niepoprawny' : 'Uzupełnij numer kontaktowy'}}</div><br><br>
+
+
+        <label for="description" class="form-label">Opis firmy</label>
+        <textarea type="text" id="description" name="description" class="form-control aboutMe" [(ngModel)]="employerAccountInfo.description" ></textarea><br><br>
+
+
+        <div class="container">
+          <div class="row">
+
+            <div class="col ">
+              <button class="btn btn-secondary" (click)="openDeclineDialog()" [disabled]="!companyName.checkValidity()  || !email.checkValidity() || !phoneNumber.checkValidity() ">Odrzuć zmiany</button>
+            </div>
+
+            <div class="col w-100 text-end">
+              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit" [disabled]="!companyName.checkValidity() || !email.checkValidity() || !phoneNumber.checkValidity()">Potwierdź</button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+
+
+</div>

@@ -3,16 +3,20 @@ import {CommonModule} from '@angular/common';
 
 import {EmployerRoutingModule} from './employer-routing.module';
 import { EmployerAccountComponent } from './employer-account/employer-account.component';
+import { EmployerInfoFormComponent } from './employer-account/employer-info-form/employer-info-form.component';
+import {FormsModule} from "@angular/forms";
 import {UtilitiesModule} from "../utilities/utilities.module";
 
 
 @NgModule({
   declarations: [
-    EmployerAccountComponent
+    EmployerAccountComponent,
+    EmployerInfoFormComponent
   ],
   imports: [
     CommonModule,
     EmployerRoutingModule,
+    FormsModule,
     UtilitiesModule
   ]
 })
