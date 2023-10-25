@@ -1,14 +1,19 @@
 <div class="container">
 
-  <table class="table">
+  <div  class="pb-3">
+    <app-filter-sort-panel (filterOptionSelectedOutput)="filterOptionUpdate($event)"></app-filter-sort-panel>
+  </div>
+  <div  class=" overflow-y-scroll scroll-list-panel">
+    <table class="table">
 
     <tr *ngFor="let item of items">
       <td>
         <app-item-inside-list class="list-item"  [item]="item" (deleteItem)="deleteItem($event)" (acceptItem)="acceptItem($event)">
 
-        </app-item-inside-list>
-      </td>
-    </tr>
-  </table>
+          </app-item-inside-list>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 </div>

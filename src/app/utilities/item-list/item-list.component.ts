@@ -39,11 +39,12 @@ export class ItemListComponent {
     }
   ];
 
+  filterOptionsChecked: string[] = [];
+
+  constructor() {}
 
   @Output() deleteItemOut = new EventEmitter<number>();
   @Output() acceptItemOut = new EventEmitter<number>();
-
-  constructor() {}
 
   deleteItem(id: number): void {
     if(this.items){
@@ -59,5 +60,8 @@ export class ItemListComponent {
     }
   }
 
+  filterOptionUpdate(selectedItems: string[]) {
+    this.filterOptionsChecked = selectedItems;
+  }
 
 }
