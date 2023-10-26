@@ -23,13 +23,11 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
     SimpleTrueFalsePopUpComponent,
     ExpandedModuleFormComponent,
     LoadingScreenComponent,
-    ExpandedModuleFormComponent,
     ItemListComponent,
     ItemInsideListComponent
   ],
   exports: [SimpleTrueFalsePopUpComponent,
     ExpandedModuleFormComponent, LoadingScreenComponent,
-    ExpandedModuleFormComponent,
       ItemInsideListComponent,
       ItemListComponent],
   imports: [
