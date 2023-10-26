@@ -10,7 +10,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 })
 export class WorkerAccountComponent implements OnInit{
 
-
+  loading: boolean = true;
   constructor(private serviceEmployee: EmployeeService, private route: ActivatedRoute) {
 
   }
@@ -31,6 +31,7 @@ export class WorkerAccountComponent implements OnInit{
         this.workerAccountInfo.skills = response.skills;
         this.workerAccountInfo.projects = response.projects;
         this.workerAccountInfo.interests = response.interests;
+        this.loading = false;
       });
     });
   }

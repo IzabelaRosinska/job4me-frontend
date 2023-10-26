@@ -1,4 +1,6 @@
-<div class="main">
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="main" *ngIf="!loading">
   <div class="content">
     <!--  Introductory panel-->
     <div class="container info-panel p-4">

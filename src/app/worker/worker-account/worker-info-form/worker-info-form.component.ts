@@ -15,6 +15,8 @@ import {WorkerAccount} from "../../../types";
 export class WorkerInfoFormComponent implements OnInit{
 
 
+  loading: boolean = true;
+
   constructor(public  dialog: MatDialog,
               private router: Router,
               private service: EmployeeService,
@@ -35,9 +37,11 @@ export class WorkerInfoFormComponent implements OnInit{
         this.workerAccountInfo.skills = response.skills;
         this.workerAccountInfo.projects = response.projects;
         this.workerAccountInfo.interests = response.interests;
+        this.loading = false;
         console.log(this.workerAccountInfo)
       });
     });
+
   }
 
   workerAccountInfo: WorkerAccount = {
