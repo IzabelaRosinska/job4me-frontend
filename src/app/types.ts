@@ -20,7 +20,7 @@ export interface EmployerAccount {
   telephone: string;
   email: string;
   photo?: string;
-  addres?: string;
+  addres?:  string;
 }
 
 export interface LoginData {
@@ -56,14 +56,15 @@ export interface ItemInsideList{
 export interface JobOffer {
   id: string;
   name: string;
-  company: string;
+  company: EmployerAccount ;
   branches: string[];
   localizations: string[];
   forms: string[];
-  salary: string;
+  salaryStart: number;
+  salaryEnd: number;
   contract_type: string[];
   working_time: string;
-  level: string;
+  level: string[];
   requirements: string[];
   extra_skills?: string[];
   duties: string;
