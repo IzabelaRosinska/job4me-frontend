@@ -27,7 +27,8 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
     ItemInsideListComponent
   ],
   exports: [SimpleTrueFalsePopUpComponent,
-    ExpandedModuleFormComponent, LoadingScreenComponent,
+    ExpandedModuleFormComponent,
+    LoadingScreenComponent,
       ItemInsideListComponent,
       ItemListComponent],
   imports: [
