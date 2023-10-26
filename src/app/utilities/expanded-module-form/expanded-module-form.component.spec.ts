@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpandedModuleFormComponent } from './expanded-module-form.component';
+import {FormsModule} from "@angular/forms";
 
 describe('ExpandedModuleFormComponent', () => {
   let component: ExpandedModuleFormComponent;
@@ -8,6 +9,7 @@ describe('ExpandedModuleFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [ExpandedModuleFormComponent]
     });
     fixture = TestBed.createComponent(ExpandedModuleFormComponent);

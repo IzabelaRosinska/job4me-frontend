@@ -17,26 +17,24 @@ import { MatListModule } from '@angular/material/list';
 import { LoginComponent } from './login/login.component';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS,  HttpClientModule} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptors/request.interceptor";
 import { RegisterComponent } from './login/register/register.component';
 import {UtilitiesModule} from "./utilities/utilities.module";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import { TestBed } from '@angular/core/testing';
+import {LoginService} from "./login/service/login.service";
+
 
 @NgModule({
   declarations: [
-    AppComponent,
     AppNavComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AppComponent,
   ],
   imports: [
-    CommonModule,
-    BrowserModule,
-    WorkerModule,
-    OrganizerModule,
-    EmployerModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
+    HttpClientModule,
     NgbModule,
     MatToolbarModule,
     MatButtonModule,
@@ -44,8 +42,15 @@ import {UtilitiesModule} from "./utilities/utilities.module";
     MatIconModule,
     MatListModule,
     FormsModule,
-    HttpClientModule
+    CommonModule,
+    BrowserModule,
+    WorkerModule,
+    OrganizerModule,
+    EmployerModule,
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 <div class="text-center align-content-center align-items-center center">
-  <div class="main w-50 container">
+  <div class="main container">
 
     <h1> Załóż konto</h1>
 <!--    Pick your role section-->
@@ -40,15 +40,15 @@
         <div *ngIf="registerForm.submitted" class="invalid-feedback text-start" >{{ wrongUsernameMessage? 'Taki użytkownik już istnieje' :  email.checkValidity()? '' : 'Błędny email'}}</div>
       </div>
 
-      <div class="row px-3 py-2 form-group">
-        <input type="{{passwordVisible}}"  id="password" name="password" #password class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.password">
-        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility(false)" ></i>
+      <div class="row px-3 py-2 form-group align-items-center container_row text-end">
+        <input type="{{passwordVisible}}"  id="password" name="password" #password class="form-control layer1 z-1 login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.password">
+        <div class="text-end layer2 z-2 eye-container"><i class="{{visibilityIconClass}} z-3 register-eye"  id="togglePassword" (click)="togglePassowrdVisibility(false)" ></i></div>
         <div *ngIf="registerForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
       </div>
 
-      <div class="row px-3 py-2 form-group">
-        <input type="{{matchingPasswordVisible}}"  id="matchingPassword" #matchingPassword  name="matchingPassword"  class="form-control login password {{matchingPassword.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="matchingPassword.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.matchingPassword">
-        <i class="{{visibilityMaatchingPassowrdIconClass}} eye" id="toggleMatchingPassword" (click)="togglePassowrdVisibility(true)" ></i>
+      <div class="row px-3 py-2 form-group text-end align-items-center container_row" >
+          <input type="{{matchingPasswordVisible}}"  id="matchingPassword" #matchingPassword  name="matchingPassword"  class="form-control layer1 z-1 login password {{matchingPassword.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="matchingPassword.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.matchingPassword">
+        <div class="text-end layer2 z-2 eye-container"><i class="{{visibilityMaatchingPassowrdIconClass}} z-3 register-eye" id="toggleMatchingPassword" (click)="togglePassowrdVisibility(true)" ></i></div>
         <div *ngIf="registerForm.submitted"  class="invalid-feedback text-start">{{matchingPassword.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
       </div>
     </div>

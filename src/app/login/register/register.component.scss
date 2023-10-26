@@ -1,1 +1,27 @@
 @import "src/app/login/login.component.scss";
+
+.eye-container{
+  width: 100%;
+  right: 0;
+  height: inherit;
+  align-content: end;
+  align-items: end;
+  right: 0;
+  left: 80%;
+  pointer-events: none
+}
+.register-eye{
+  margin-right: 7%;
+  pointer-events: auto;
+}
+
+
+
+.container_row{
+  display: grid;
+}
+
+.layer1, .layer2{
+  grid-column: 1;
+  grid-row: 1;
+}
