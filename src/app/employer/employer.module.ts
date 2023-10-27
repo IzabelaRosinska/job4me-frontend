@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {UtilitiesModule} from "../utilities/utilities.module";
 import { JobOfferComponent } from './job-offer/job-offer.component';
 import { JobOfferCardComponent } from './job-offer/job-offer-card/job-offer-card.component';
+import { JobOfferEditFormComponent } from './job-offer/job-offer-edit-form/job-offer-edit-form.component';
 
 
 @NgModule({
@@ -15,13 +16,14 @@ import { JobOfferCardComponent } from './job-offer/job-offer-card/job-offer-card
     EmployerAccountComponent,
     EmployerInfoFormComponent,
     JobOfferComponent,
-    JobOfferCardComponent
+    JobOfferCardComponent,
+    JobOfferEditFormComponent
   ],
   imports: [
     CommonModule,
     EmployerRoutingModule,
-    FormsModule,
-    UtilitiesModule
+    UtilitiesModule,
+    FormsModule
   ]
 })
 export class EmployerModule {

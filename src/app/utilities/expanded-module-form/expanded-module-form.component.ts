@@ -6,14 +6,16 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./expanded-module-form.component.scss']
 })
 export class ExpandedModuleFormComponent implements OnInit {
-  @Input () title: string | null = "";
 
+  @Input () title: string | null = "";
   @Input () maxInputLength: number = 100;
   @Input () maxInputCount: number = 10;
+  @Input () listOfTexts: string[] = [];
+  @Input () minInputCount: number = 0;
 
   @Output () save: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output () valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Input ()listOfTexts: string[] = [];
 
   listOfTextsWithIndexes: [string,| number][] = [];
 
@@ -32,14 +34,15 @@ export class ExpandedModuleFormComponent implements OnInit {
 
   fileToUpload: File | null = null;
 
-
   constructor() {
 
   }
 
   ngOnInit(): void {
     this.listOfTextsWithIndexes = this.listOfTexts.map((value, index) => [value, index]);
-    console.log(this.listOfTextsWithIndexes);
+
+    //emit valid event
+    this.valid.emit(this.listOfTextsWithIndexes.length >= this.minInputCount);
   }
 
 
@@ -48,6 +51,7 @@ export class ExpandedModuleFormComponent implements OnInit {
     this.newTextInputVisibile = false;
     this.editMode = -1;
 
+
     if(index == undefined) {
       if (this.newText == "") return;
       this.listOfTextsWithIndexes.push([this.newText, this.listOfTextsWithIndexes.length]);
@@ -55,12 +59,14 @@ export class ExpandedModuleFormComponent implements OnInit {
     else {
       if(this.newText == ""){
         this.listOfTextsWithIndexes = this.listOfTextsWithIndexes.filter((value, listIndex) => listIndex != index);
-        return;
       }
-      this.listOfTextsWithIndexes[index] = [this.newText, index];
+      else{
+        this.listOfTextsWithIndexes[index] = [this.newText, index];
+      }
     }
-
     this.newText = "";
+    this.listOfTextsWithIndexes = this.listOfTextsWithIndexes.map((value, index) => [value[0], index]);
+    this.valid.emit(this.listOfTextsWithIndexes.length >= this.minInputCount);
     this.save.emit(this.listOfTextsWithIndexes.map((value) => value[0]));
   }
 
