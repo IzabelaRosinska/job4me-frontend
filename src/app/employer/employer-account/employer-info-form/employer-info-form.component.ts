@@ -6,6 +6,7 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeService} from "../../../worker/service/employee.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-employer-info-form',
@@ -15,10 +16,16 @@ import {EmployeeService} from "../../../worker/service/employee.service";
 export class EmployerInfoFormComponent {
 
 
-  constructor(public  dialog: MatDialog,
+    selectedFile: File | null = null;
+    imageData: string | null = null;
+    MAX_FILE_SIZE = 25000;
+
+
+    constructor(public  dialog: MatDialog,
               private router: Router,
               private service: EmployeeService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private http: HttpClient) { }
 
 
   employerAccountInfo: EmployerAccount = {
@@ -26,12 +33,36 @@ export class EmployerInfoFormComponent {
     companyName: "Google",
     email: "gooooogle@gmail.com",
     telephone: "111333999",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-      "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
-      " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat" +
-      " cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis euismod dolor est, non mattis nibh convallis ac. Aliquam a laoreet" +
+        " turpis. Ut dictum elementum tincidunt. Nam quis nulla porttitor lacus imperdiet rhoncus ac vitae urna. Quisque id sem nec ipsum maximus " +
+        "volutpat sit amet sit amet quam. Vestibulum tincidunt feugiat odio in finibus. Phasellus convallis dolor nulla, vel finibus felis aliquet a. " +
+        "Donec eu metus id ante venenatis fermentum vitae sed massa. Etiam lectus eros, condimentum eget nulla et, interdum dapibus quam. Ut egestas " +
+        "ipsum at enim porttitor bibendum. Quisque eu fermentum lacus. Integer fermentum erat enim, eget tincidunt libero rhoncus nec. Aliquam pulvinar " +
+        "lectus eget massa placerat, eget ornare velit dapibus." + "Sed vehicula porttitor ligula, vitae auctor arcu iaculis id. Mauris id mauris sapien. " +
+        "Aenean lacinia lacus ac augue ultrices, eget viverra odio vehicula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere " +
+        "cubilia curae; Maecenas porta ",
+      displayDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt velit ut lorem lobortis cursus. In hac habitasse platea dictumst. "
 
   }
+
+    onFileSelected(event: any) {
+        if(event.target.files.length > 0 && event.target.files[0].type.includes("image") && event.target.files[0].size < this.MAX_FILE_SIZE){
+            this.selectedFile = event.target.files[0];
+            this.displaySelectedImage();
+        }
+    }
+
+    displaySelectedImage() {
+        if (this.selectedFile) {
+            const reader = new FileReader();
+
+            reader.onload = (e: any) => {
+                this.employerAccountInfo.photo = e.target.result;
+            };
+
+            reader.readAsDataURL(this.selectedFile);
+        }
+    }
 
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {

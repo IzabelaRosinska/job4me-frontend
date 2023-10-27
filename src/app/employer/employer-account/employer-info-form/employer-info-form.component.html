@@ -5,7 +5,7 @@
     <fieldset class="common-inputs-fieldset">
       <form action="">
         <legend>Dane firmowe</legend>
-        <label for="companyName">Imię</label>
+        <label for="companyName">Nazwa firmy</label>
         <input type="text" #companyName id="companyName" name="companyName" class="form-control {{companyName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="companyName.checkValidity()" [(ngModel)]="employerAccountInfo.companyName" required>
         <div *ngIf="!companyName.checkValidity()" class="invalid-feedback">Uzupełnij nazwę firmy</div>
         <br><br>
@@ -21,8 +21,26 @@
 
 
         <label for="description" class="form-label">Opis firmy</label>
-        <textarea type="text" id="description" name="description" class="form-control aboutMe" [(ngModel)]="employerAccountInfo.description" ></textarea><br><br>
+        <textarea type="text" id="description" #description name="description" class="form-control aboutMe {{description.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="1" [maxLength]="1000" (change)="description.checkValidity()"  [(ngModel)]="employerAccountInfo.description" required></textarea>
+        <div class="invalid-feedback" *ngIf="!description.checkValidity()" (change)="description.checkValidity()">{{description.value.length >0? '' : 'Uzupełnij opis firmy'}}</div><br><br>
 
+        <label for="displayDescription" class="form-label">Krótki opis firmy</label>
+        <textarea type="text" id="displayDescription" #displayDescription name="displayDescription" class="form-control {{displayDescription.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="1" [maxLength]="150" (change)="displayDescription.checkValidity()" [(ngModel)]="employerAccountInfo.displayDescription" required></textarea>
+        <div class="invalid-feedback" *ngIf="!displayDescription.checkValidity()" (change)="displayDescription.checkValidity()">{{displayDescription.value.length >0? '' : 'Uzupełnij krótki opis firmy'}}</div><br><br>
+
+        <label for="addres" class="form-label">Adres</label>
+        <input type="text" id="addres" #addres name="addres" class="form-control" [maxlength]="100"  (change)="addres.checkValidity()"  [(ngModel)]="employerAccountInfo.addres"><br><br>
+
+        <label for="addres" class="form-label">Logo lub zdjęcie firmy</label>
+
+        <!--https://medium.com/@tarekabdelkhalek/how-to-create-a-drag-and-drop-file-uploading-in-angular-78d9eba0b854-->
+        <div class="dropzone">
+          <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
+          <!--  <img>-->
+          <h3>Drag and drop file (max {{MAX_FILE_SIZE/1000}} kb) here</h3>
+          <h3>or</h3>
+          <label for="fileDropRef">Browse for file</label>
+        </div><br><br>
 
         <div class="container">
           <div class="row">
@@ -32,7 +50,7 @@
             </div>
 
             <div class="col w-100 text-end">
-              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit" [disabled]="!companyName.checkValidity() || !email.checkValidity() || !phoneNumber.checkValidity()">Potwierdź</button>
+              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit" [disabled]="!companyName.checkValidity() || !email.checkValidity() || !phoneNumber.checkValidity() || !description.checkValidity() || !displayDescription.checkValidity()">Potwierdź</button>
             </div>
 
           </div>
@@ -40,6 +58,5 @@
       </form>
     </fieldset>
   </div>
-
 
 </div>
