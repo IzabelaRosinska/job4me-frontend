@@ -63,6 +63,8 @@ export class JobOfferEditFormComponent {
     dialogRef.afterClosed().subscribe(result => {
 
       // add logic for saving data
+      if(result)
+        this.router.navigate(['employer/offer/'+this.jobOfferData.id]);
 
     });
   }
@@ -82,7 +84,7 @@ export class JobOfferEditFormComponent {
 
         // add redirecting to client page
         if(result)
-          this.router.navigate(['employer/account']);
+          this.router.navigate(['employer/offer/'+this.jobOfferData.id]);
       });
   }
 }

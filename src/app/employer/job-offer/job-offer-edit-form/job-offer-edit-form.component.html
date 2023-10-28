@@ -98,11 +98,7 @@
           <div class="row">
 
             <div class="col">
-              <button class="btn btn-secondary" (click)="openDeclineDialog()"
-                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || branches.classList.contains(invalidClassName)
-                                    || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
-                                    || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
-                                    || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">
+              <button class="btn btn-secondary" (click)="openDeclineDialog()">
                 Odrzuć zmiany
               </button>
             </div>

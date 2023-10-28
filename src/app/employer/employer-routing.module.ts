@@ -7,9 +7,11 @@ import {JobOfferEditFormComponent} from "./job-offer/job-offer-edit-form/job-off
 
 const routes: Routes = [
   {path: 'employer/account', component: EmployerAccountComponent},
+  {path: 'employer/offer/:id/editForm', component: JobOfferEditFormComponent},
+  {path: 'employer/offer/:id', component: JobOfferComponent},
   {path: 'employer/editInfo', component: EmployerInfoFormComponent},
   {path: 'employer/job-offers/:id', component: JobOfferComponent},
-    {path: 'employer/offerEditForm', component: JobOfferEditFormComponent},
+  {path: 'employer/offerEditForm', component: JobOfferEditFormComponent},
 
 ];
 
