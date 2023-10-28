@@ -12,6 +12,7 @@ export class ExpandedModuleFormComponent implements OnInit {
   @Input () maxInputCount: number = 10;
   @Input () listOfTexts: string[] = [];
   @Input () minInputCount: number = 0;
+  @Input () placeholder: string = "";
 
   @Output () save: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output () valid: EventEmitter<boolean> = new EventEmitter<boolean>();
