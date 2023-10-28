@@ -31,15 +31,24 @@
         <label for="addres" class="form-label">Adres</label>
         <input type="text" id="addres" #addres name="addres" class="form-control" [maxlength]="100"  (change)="addres.checkValidity()"  [(ngModel)]="employerAccountInfo.addres"><br><br>
 
-        <label for="addres" class="form-label">Logo lub zdjęcie firmy</label>
+        <label for="addres" class="form-label">Grafika firmy</label>
 
         <!--https://medium.com/@tarekabdelkhalek/how-to-create-a-drag-and-drop-file-uploading-in-angular-78d9eba0b854-->
-        <div class="dropzone">
-          <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
-          <!--  <img>-->
-          <h3>Drag and drop file (max {{MAX_FILE_SIZE/1000}} kb) here</h3>
-          <h3>or</h3>
-          <label for="fileDropRef">Browse for file</label>
+        <div class="dropzone"  *ngIf="!this.selectedFile">
+          <div>
+            <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
+            <!--  <img>-->
+            <h3>Drag and drop file (max {{MAX_FILE_SIZE/1000}} kb) here</h3>
+            <h3>lub</h3>
+            <label for="fileDropRef">Szukaj pliku</label>
+          </div>
+        </div>
+        <div *ngIf="this.selectedFile">
+          <img [src]="this.employerAccountInfo.photo" alt="logo" width="200" height="200">
+          <div>
+            <button class="btn btn-danger" (click)="removeFile()">Usuń grafike</button>
+          </div>
+
         </div><br><br>
 
         <div class="container">

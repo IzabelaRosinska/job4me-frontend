@@ -64,6 +64,11 @@ export class EmployerInfoFormComponent {
         }
     }
 
+  removeFile() {
+    this.selectedFile = null;
+    this.employerAccountInfo.photo = undefined;
+  }
+
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
       data:
