@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ItemInsideList} from "../../types";
 
 @Component({
@@ -39,14 +39,24 @@ export class ItemListComponent {
     }
   ];
 
-  constructor() {
 
-  }
+  @Output() deleteItemOut = new EventEmitter<string>();
+  @Output() acceptItemOut = new EventEmitter<string>();
 
+  constructor() {}
 
   deleteItem(id: string): void {
-    if(this.items)
+    if(this.items){
       this.items = this.items?.filter((item) => item.id !== id);
+      this.deleteItemOut.emit(id);
+    }
+  }
+
+  acceptItem(id: string): void {
+    if(this.items){
+      this.items = this.items?.filter((item) => item.id !== id);
+      this.acceptItemOut.emit(id);
+    }
   }
 
 

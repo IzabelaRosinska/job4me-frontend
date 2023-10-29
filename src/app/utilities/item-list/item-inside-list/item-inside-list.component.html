@@ -21,23 +21,32 @@
 
     <div class="col-sm-12 col-xs-12 col-md-12 col-lg-4" >
       <div class="row align-items-center h-100" >
+        <!--DEFAULT-->
+        <div class="col" *ngIf="item.useGettingInside? item.useGettingInside: true ">
+          <div  class="my-center">
+            <i class="fa-solid fa-right-to-bracket useable-icon" routerLink="{{item.route}}"></i>
+          </div>
+        </div>
 
-        <div class="col" *ngIf="item.useFavorite" >
+        <!--NOT DEFAULT-->
+        <div class="col"  *ngIf="item.useFavorite? item.useFavorite: false ">
           <div  class="my-center" (click)="item.isFavorite = !item.isFavorite;">
             <i class="fa-regular fa-heart useable-icon" *ngIf="!item.isFavorite"></i>
             <i class="fa-solid fa-heart useable-icon" *ngIf="item.isFavorite"></i>
           </div>
         </div>
 
-        <div class="col" *ngIf="item.useDelete">
+        <!--NOT DEFAULT-->
+        <div class="col" *ngIf="item.useApprove? item.useApprove: false ">
           <div  class="my-center">
-            <i class="fa-solid fa-trash useable-icon" (click)="openDeleteItemDialog()"></i>
+            <i class="fa-solid fa-check useable-icon" (click)="openConfirmItemDialog()"></i>
           </div>
         </div>
 
-        <div class="col" >
+        <!--NOT DEFAULT-->
+        <div class="col" *ngIf="item.useDelete? item.useDelete: false ">
           <div  class="my-center">
-            <i class="fa-solid fa-right-to-bracket useable-icon" routerLink="{{item.route}}"></i>
+            <i class="fa-solid fa-trash useable-icon" (click)="openDeleteItemDialog()"></i>
           </div>
         </div>
       </div>

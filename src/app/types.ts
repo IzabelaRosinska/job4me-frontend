@@ -50,7 +50,9 @@ export interface ItemInsideList{
   description: string;
   useFavorite: boolean;
   isFavorite?: boolean;
-  useDelete: boolean;
+  useDelete?: boolean;
+  useApprove?: boolean;
+  useGettingInside?: boolean;
 }
 
 export interface JobOffer {

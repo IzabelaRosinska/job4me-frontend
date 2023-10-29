@@ -14,8 +14,9 @@ export class ItemInsideListComponent {
   @Input () item: ItemInsideList | null = null;
 
   @Output() deleteItem = new EventEmitter<string>();
+  @Output() acceptItem = new EventEmitter<string>();
 
-  ifDelete: boolean = false;
+
   constructor(public dialog: MatDialog) {}
 
   openDeleteItemDialog(): void {
@@ -30,9 +31,29 @@ export class ItemInsideListComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.ifDelete = result;
-      if(this.ifDelete)
+      const ifDelete = result;
+      if(ifDelete)
         this.deleteItem.emit(this.item?.id);
+    });
+  }
+
+
+  openConfirmItemDialog(): void {
+
+    const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
+      data:
+        {
+          title: "Potwierdzenie",
+          mainMessage: "Czy na pewno chcesz dodać element?",
+          confirmMessage: "Tak",
+          declineMessage: "Nie"
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const ifAccept = result;
+      if(ifAccept)
+        this.acceptItem.emit(this.item?.id);
     });
   }
 }
