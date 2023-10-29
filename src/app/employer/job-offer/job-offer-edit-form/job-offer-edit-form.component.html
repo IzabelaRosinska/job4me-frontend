@@ -20,6 +20,34 @@
         <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
         <br><br>
 
+        <label for="workingTime">Wynagrodzenie</label>
+        <div class="container">
+          <div class="row w-100">
+            <h3 class="col-1" style="margin: 0">Od</h3>
+            <div class="col">
+              <input type="number" #salaryStart id="salaryStart" name="salaryStart"
+                     class="form-control {{salaryStart.checkValidity()? 'is-valid':'is-invalid' }} " [minLength]="1"
+                     [maxLength]="6" (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryStart"
+                     [placeholder]="'np. 2000'" required>
+              <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
+            </div>
+            <h3 class="col-1">Do</h3>
+            <div class="col">
+
+              <input type="number" #salaryEnd id="salaryEnd" name="salaryEnd"
+                     class="form-control" [minLength]="1"
+                     [maxLength]="6" [(ngModel)]="jobOfferData.salaryEnd"
+                     [placeholder]="'np. 4000 lub puste'" required>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <br><br>
+
         <div #branches class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="25" [maxInputCount]="5"
                                     [listOfTexts]="jobOfferData.branches" [minInputCount]="1"
@@ -105,7 +133,7 @@
 
             <div class="col w-100 text-end">
               <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || branches.classList.contains(invalidClassName)
+                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || salaryStart.checkValidity() || branches.classList.contains(invalidClassName)
                                     || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
                                     || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
                                     || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">
