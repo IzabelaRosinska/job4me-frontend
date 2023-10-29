@@ -13,7 +13,7 @@
 
       <!--    Pola logowania-->
       <div class="row px-3 pt-3 pb-2 form-group">
-        <input type="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
+        <input type="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
         <div *ngIf="loginForm.submitted" class="invalid-feedback text-start" >{{email.checkValidity()? '' : 'Błędny email'}}</div>
       </div>
 

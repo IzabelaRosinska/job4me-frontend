@@ -36,7 +36,7 @@
     </div>
     <div>
       <div class="row px-3 pt-1 pb-2 form-group">
-        <input type="email" class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  name="username" #email  placeholder="Email"  [(ngModel)]="registerData.username">
+        <input type="email" class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  name="username" #email  placeholder="Email"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"  [(ngModel)]="registerData.username"> <!--- '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'--->
         <div *ngIf="registerForm.submitted" class="invalid-feedback text-start" >{{ wrongUsernameMessage? 'Taki użytkownik już istnieje' :  email.checkValidity()? '' : 'Błędny email'}}</div>
       </div>
 
@@ -55,8 +55,9 @@
 
 
         <div class="mt-5 mb-2 text-end">
-          <button class="btn btn-secondary" [disabled]="registerData.password!=registerData.matchingPassword || !email.checkValidity() || !password.checkValidity()" type="submit"> Przejdź dalej</button>
+          <button class="btn btn-secondary" [disabled]="registerData.password!=registerData.matchingPassword || !email.checkValidity()  || !password.checkValidity()" type="submit"> Przejdź dalej</button>
         </div>
+
     </form>
   </div>
 
