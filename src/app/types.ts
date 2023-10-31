@@ -20,7 +20,7 @@ export interface EmployerAccount {
   telephone: string;
   email: string;
   photo?: string;
-  addres?: string;
+  addres?:  string;
 }
 
 export interface LoginData {
@@ -42,5 +42,35 @@ export interface RegisterData {
   matchingPassword: string;
 }
 
+export interface ItemInsideList{
+  route: string;
+  image: string;
+  name: string;
+  id: string;
+  description: string;
+  useFavorite: boolean;
+  isFavorite?: boolean;
+  useDelete?: boolean;
+  useApprove?: boolean;
+  useGettingInside?: boolean;
+}
+
+export interface JobOffer {
+  id: string;
+  name: string;
+  company: EmployerAccount ;
+  branches: string[];
+  localizations: string[];
+  forms: string[];
+  salaryStart: number;
+  salaryEnd: number;
+  contract_type: string[];
+  working_time: string;
+  level: string[];
+  requirements: string[];
+  extra_skills?: string[];
+  duties: string;
+  description?: string;
+}
 
 

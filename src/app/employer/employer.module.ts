@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {EmployerRoutingModule} from './employer-routing.module';
 import { EmployerAccountComponent } from './employer-account/employer-account.component';
+import {UtilitiesModule} from "../utilities/utilities.module";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { EmployerAccountComponent } from './employer-account/employer-account.co
   ],
   imports: [
     CommonModule,
-    EmployerRoutingModule
+    EmployerRoutingModule,
+    UtilitiesModule
   ]
 })
 export class EmployerModule {

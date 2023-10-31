@@ -2,9 +2,6 @@
 
 div.main {
   border: 1px solid $BORDER_COLOR;
-  background-position: center !important;
-  background-image: linear-gradient(#ffffff, #edf4ff) !important;
-  background-repeat: repeat-y !important;
   horiz-align: center;
   align-items: center;
   min-height: 100vh;
@@ -67,4 +64,8 @@ tr {
 
 td {
   padding: 8px;
+}
+
+.scroll-list-panel{
+  max-height: 60vh;
 }
