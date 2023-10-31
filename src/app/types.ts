@@ -16,21 +16,23 @@ export interface EmployerAccount {
   id: string;
   companyName: string;
   description: string;
+  displayDescription: string;
   telephone: string;
   email: string;
-  photo?: number;
+  photo?: string;
+  addres?:  string;
 }
 
 export interface LoginData{
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 export enum Role {
-  Employee,
-  Employer,
-  Organizer,
-  Admin
+  Employee = 'EMPLOYEE',
+  Employer = 'EMPLOYER',
+  Organizer  = 'ORGANIZER',
+  Admin = 'ADMIN'
 }
 
 export interface RegisterData{
@@ -39,3 +41,6 @@ export interface RegisterData{
   password: string;
   matchingPassword: string;
 }
+
+
+
