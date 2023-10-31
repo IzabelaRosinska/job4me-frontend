@@ -1,0 +1,70 @@
+@import "../../../styles.scss";
+
+div.main {
+  border: 1px solid $BORDER_COLOR;
+  background-position: center !important;
+  background-image: linear-gradient(#ffffff, #edf4ff) !important;
+  background-repeat: repeat-y !important;
+  horiz-align: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  width: 80%;
+}
+
+.info-panel{
+  background-color: #ffffff;
+  border: 1px solid rgba(95, 95, 96, 0.64);
+  border-radius: 5px;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  margin-top: 2vh;
+  min-width: 96%;
+  width: 98%;
+}
+
+.fieldset-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.text-description{
+  width: 90%;
+  padding-left: 0%;
+  padding-top: 0%;
+}
+
+.name-text{
+  margin-bottom: 0px !important;
+  padding-bottom: 0px;
+}
+
+.id-text{
+  margin: 0px;
+  padding: 0px;
+}
+
+@media (min-width: 768px) {
+  .image-block {
+    max-width: 250px
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  border-bottom: 1px solid rgba(185, 183, 183, 0.33);
+}
+
+td {
+  padding: 8px;
+}

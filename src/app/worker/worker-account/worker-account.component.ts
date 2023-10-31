@@ -31,8 +31,6 @@ export class WorkerAccountComponent implements OnInit{
         this.workerAccountInfo.skills = response.skills;
         this.workerAccountInfo.projects = response.projects;
         this.workerAccountInfo.interests = response.interests;
-
-
       });
     });
   }

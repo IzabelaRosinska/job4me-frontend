@@ -2,10 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {EmployerRoutingModule} from './employer-routing.module';
+import { EmployerAccountComponent } from './employer-account/employer-account.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    EmployerAccountComponent
+  ],
   imports: [
     CommonModule,
     EmployerRoutingModule

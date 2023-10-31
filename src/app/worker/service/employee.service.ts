@@ -29,9 +29,6 @@ export class EmployeeService {
       return this.http.get<WorkerAccount>(route, {
         withCredentials: true,
       });
-
   }
-
-
 
 }
