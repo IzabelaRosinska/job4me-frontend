@@ -12,15 +12,20 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { ExpandedModuleFormComponent } from './expanded-module-form/expanded-module-form.component';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ItemListComponent } from './item-list/item-list.component';
+import { ItemInsideListComponent } from './item-list/item-inside-list/item-inside-list.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
   declarations: [
     SimpleTrueFalsePopUpComponent,
-    ExpandedModuleFormComponent
+    ExpandedModuleFormComponent,
+    ItemListComponent,
+    ItemInsideListComponent
   ],
   exports: [SimpleTrueFalsePopUpComponent,
-    ExpandedModuleFormComponent],
+    ExpandedModuleFormComponent, ItemInsideListComponent, ItemListComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -31,7 +36,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     MatDialogModule,
     MatInputModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ]
 })
 export class UtilitiesModule {

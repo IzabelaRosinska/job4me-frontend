@@ -1,0 +1,17 @@
+.modal-backdrop {
+  display: none;
+  z-index: 1040 !important;
+}
+
+.modal-content {
+  margin: 2px auto;
+  z-index: 1100 !important;
+}
+
+.list-item{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding:1px;
+  margin: 1px;
+}

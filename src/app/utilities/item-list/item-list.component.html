@@ -1,0 +1,14 @@
+<div class="container">
+
+  <table class="table">
+
+    <tr *ngFor="let item of items">
+      <td>
+        <app-item-inside-list class="list-item"  [item]="item" (deleteItem)="deleteItem($event)" (acceptItem)="acceptItem($event)">
+
+        </app-item-inside-list>
+      </td>
+    </tr>
+  </table>
+
+</div>
