@@ -118,7 +118,7 @@ export class EmployerAccountComponent  implements OnInit{
     this.offers.forEach(offer => {
       let offerAsList: ItemInsideList = {
         route: "/employer/job-offer/" + offer.id,
-        image: "https://picsum.photos/100/100",
+        image: this.employerAccount.photo? this.employerAccount.photo : this.companyPhoto,
         name: offer.name,
         id: offer.id,
         description: `${offer.branches.join(', ')} \n ${offer.salaryStart}-${offer.salaryEnd} `,
