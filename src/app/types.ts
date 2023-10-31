@@ -20,10 +20,10 @@ export interface EmployerAccount {
   telephone: string;
   email: string;
   photo?: string;
-  addres?:  string;
+  addres?: string;
 }
 
-export interface LoginData{
+export interface LoginData {
   username: string;
   password: string;
 }
@@ -31,11 +31,11 @@ export interface LoginData{
 export enum Role {
   Employee = 'EMPLOYEE',
   Employer = 'EMPLOYER',
-  Organizer  = 'ORGANIZER',
+  Organizer = 'ORGANIZER',
   Admin = 'ADMIN'
 }
 
-export interface RegisterData{
+export interface RegisterData {
   username: string;
   role: string;
   password: string;

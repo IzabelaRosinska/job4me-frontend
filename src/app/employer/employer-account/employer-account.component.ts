@@ -17,6 +17,8 @@ export class EmployerAccountComponent  implements OnInit{
 
   }
 
+  companyPhoto = '../../assets/company.png';
+
   employerAccount: EmployerAccount = {
     id: "000001",
     companyName: "Google",

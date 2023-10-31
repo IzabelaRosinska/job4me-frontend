@@ -28,14 +28,10 @@ export class LoginComponent implements OnInit{
     this.loginService.pushLoginData(this.loginData).pipe(
         catchError(err => {
           if (err.status === 404) {
-            // Handle the 404 error here
             console.log('HTTP Error 404: Resource not found');
           } else {
-            // Handle other errors here
             console.error('HTTP Error', err.status, err.statusText);
           }
-
-          // Rethrow the error to allow the subscription to handle it further
           return throwError(err);
         })
     ).subscribe(response => {
