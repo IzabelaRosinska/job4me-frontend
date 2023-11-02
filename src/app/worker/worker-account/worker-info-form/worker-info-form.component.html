@@ -1,68 +1,96 @@
 <app-loading-screen *ngIf="loading"></app-loading-screen>
 
 <div class="container align-content-left text-left main" *ngIf="!loading">
-  <div class="fieldset-outer">
-    <fieldset class="common-inputs-fieldset">
-      <form action="">
-        <legend>Dane osobowe</legend>
-        <label for="first-name">Imię</label>
-        <input type="text" #name id="first-name" name="first-name" class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="name.checkValidity()" [(ngModel)]="workerAccountInfo.firstName" required>
-        <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
-        <br><br>
+    <div class="fieldset-outer">
+        <fieldset class="common-inputs-fieldset">
+            <form action="">
+                <legend>Dane osobowe</legend>
+                <label for="first-name">Imię</label>
+                <input type="text" #name id="first-name" name="first-name"
+                       class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
+                       [maxLength]="100" (change)="name.checkValidity()" [(ngModel)]="workerAccountInfo.firstName"
+                       required>
+                <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
+                <br><br>
 
-        <label for="last-name">Nazwisko</label>
-        <input type="text" id="last-name" #lastName name="last-name" class="form-control {{lastName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="lastName.checkValidity()" [(ngModel)]="workerAccountInfo.lastName" required>
-        <div *ngIf="!lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
-        <br><br>
+                <label for="last-name">Nazwisko</label>
+                <input type="text" id="last-name" #lastName name="last-name"
+                       class="form-control {{lastName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
+                       [maxLength]="100" (change)="lastName.checkValidity()" [(ngModel)]="workerAccountInfo.lastName"
+                       required>
+                <div *ngIf="!lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
+                <br><br>
 
-        <legend>Kontakt</legend>
-        <label for="mail">Email kontaktowy</label>
-        <input type="email" id="mail" #email  name="mail" class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="workerAccountInfo.email" required>
-        <div class="invalid-feedback" *ngIf="!email.checkValidity()" (change)="email.checkValidity()">{{email.value.length >0? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
-        <br><br>
+                <legend>Kontakt</legend>
+                <label for="mail">Email kontaktowy</label>
+                <input type="email" id="mail" #email name="mail"
+                       class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
+                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="workerAccountInfo.email"
+                       required>
+                <div class="invalid-feedback" *ngIf="!email.checkValidity()"
+                     (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
+                <br><br>
 
-        <label for="phone-number">Numer telefonu</label>
-        <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "  [maxLength]="20" (change)="phoneNumber.checkValidity()" [(ngModel)]="workerAccountInfo.telephone"><br><br>
+                <label for="phone-number">Numer telefonu</label>
+                <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "
+                       [maxLength]="20" (change)="phoneNumber.checkValidity()"
+                       [(ngModel)]="workerAccountInfo.telephone"><br><br>
 
-        <label for="aboutMe" class="form-label">O mnie</label>
-        <textarea type="text" id="aboutMe" name="aboutMe" class="form-control aboutMe" [(ngModel)]="workerAccountInfo.aboutMe" ></textarea><br><br>
+                <label for="aboutMe" class="form-label">O mnie</label>
+                <textarea type="text" id="aboutMe" name="aboutMe" class="form-control aboutMe"
+                          [(ngModel)]="workerAccountInfo.aboutMe"></textarea><br><br>
 
-        <label for="aboutMe" class="form-label">Zainteresowania</label>
-        <textarea type="text" id="interests" name="interests" class="form-control aboutMe" [(ngModel)]="workerAccountInfo.interests" ></textarea><br><br>
+                <label for="aboutMe" class="form-label">Zainteresowania</label>
+                <textarea type="text" id="interests" name="interests" class="form-control aboutMe"
+                          [(ngModel)]="workerAccountInfo.interests"></textarea><br><br>
 
-      <div class="rounded-4 cv-list-elem">
-        <app-expanded-module-form [title]="'Wykształcenie'" [maxInputLength]="100" [listOfTexts]="validList(workerAccountInfo.education)" (save)="moduleSaveInfo($event,'education')"></app-expanded-module-form>
-      </div>
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Wykształcenie'" [maxInputLength]="100"
+                                              [listOfTexts]="validList(workerAccountInfo.education)"
+                                              (save)="moduleSaveInfo($event,'education')"></app-expanded-module-form>
+                </div>
 
-        <div class="rounded-4 cv-list-elem">
-        <app-expanded-module-form [title]="'Umiejętności'" [maxInputLength]="50" [maxInputCount]="20" [listOfTexts]="validList(workerAccountInfo.skills)" (save)="moduleSaveInfo($event,'skills')"></app-expanded-module-form>
-      </div>
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Umiejętności'" [maxInputLength]="50" [maxInputCount]="20"
+                                              [listOfTexts]="validList(workerAccountInfo.skills)"
+                                              (save)="moduleSaveInfo($event,'skills')"></app-expanded-module-form>
+                </div>
 
-      <div class="rounded-4 cv-list-elem">
-        <app-expanded-module-form [title]="'Doświadczenie'" [maxInputLength]="255" [listOfTexts]="validList(workerAccountInfo.experience)" (save)="moduleSaveInfo($event,'experience')"></app-expanded-module-form>
-      </div>
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Doświadczenie'" [maxInputLength]="255"
+                                              [listOfTexts]="validList(workerAccountInfo.experience)"
+                                              (save)="moduleSaveInfo($event,'experience')"></app-expanded-module-form>
+                </div>
 
-      <div class="rounded-4 cv-list-elem">
-        <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500" [listOfTexts]="validList(workerAccountInfo.projects)" (save)="moduleSaveInfo($event,'projects')"></app-expanded-module-form>
-      </div>
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500"
+                                              [listOfTexts]="validList(workerAccountInfo.projects)"
+                                              (save)="moduleSaveInfo($event,'projects')"></app-expanded-module-form>
+                </div>
 
 
-      <div class="container">
-        <div class="row">
+                <div class="container">
+                    <div class="row">
 
-          <div class="col ">
-            <button class="btn btn-secondary" (click)="openDeclineDialog()" [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() ">Odrzuć zmiany</button>
-          </div>
+                        <div class="col ">
+                            <button class="btn btn-secondary" (click)="openDeclineDialog()"
+                                    [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() ">
+                                Odrzuć zmiany
+                            </button>
+                        </div>
 
-          <div class="col w-100 text-end">
-            <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit" [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() "  >Potwierdź</button>
-          </div>
+                        <div class="col w-100 text-end">
+                            <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
+                                    [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() ">
+                                Potwierdź
+                            </button>
+                        </div>
 
-        </div>
-      </div>
-      </form>
-    </fieldset>
-  </div>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
 
 
 </div>

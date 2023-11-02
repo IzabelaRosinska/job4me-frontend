@@ -35,11 +35,9 @@ export class ExpandedModuleFormComponent implements OnInit {
 
   constructor() {
 
-
   }
 
   ngOnInit(): void {
-    //create new list with added index column to text array
     this.listOfTextsWithIndexes = this.listOfTexts.map((value, index) => [value, index]);
     console.log(this.listOfTextsWithIndexes);
   }
