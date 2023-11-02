@@ -1,28 +1,28 @@
 @import "src/app/employer/employer-account/employer-account.component.scss";
 
-.cv-list-elem{
+.cv-list-elem {
   width: 98%;
   margin: 10px;
   margin-bottom: 20px;
-  border: 1px solid rgba(66,66,66,0.3);
+  border: 1px solid rgba(66, 66, 66, 0.3);
   padding: 2vh;
 }
 
-.aboutMe{
+.aboutMe {
   height: 150px;
 }
 
-.dropzone{
+.dropzone {
   width: 80%;
   height: 200px;
   padding: 2rem;
   text-align: center;
-  border:dashed 2px #979797;
+  border: dashed 2px #979797;
   position: relative;
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.85);
 
-  input{
+  input {
     opacity: 0;
     position: absolute;
     z-index: 2;
@@ -33,7 +33,7 @@
   }
 
 
-  label{
+  label {
     color: white;
     width: 160px;
     height: 40px;
@@ -43,11 +43,9 @@
     font-size: 18px;
   }
 
-  h3{
+  h3 {
     font-size: 18px;
     font-weight: 400;
     color: #38424c;
   }
-  //https://medium.com/@tarekabdelkhalek/how-to-create-a-drag-and-drop-file-uploading-in-angular-78d9eba0b854
-
 }
