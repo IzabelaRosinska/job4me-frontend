@@ -20,7 +20,7 @@ export interface EmployerAccount {
   telephone: string;
   email: string;
   photo?: string;
-  addres?:  string;
+  address?:  string;
 }
 
 export interface LoginData {
@@ -72,5 +72,3 @@ export interface JobOffer {
   duties: string;
   description?: string;
 }
-
-

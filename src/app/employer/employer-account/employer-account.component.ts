@@ -14,7 +14,7 @@ export class EmployerAccountComponent  implements OnInit{
 
 
   constructor(private serviceEmployer: EmployerService, private route: ActivatedRoute) {
-    this.convertJobOffersToListType();
+
   }
 
   companyPhoto = '../../assets/company.png';
@@ -38,9 +38,11 @@ export class EmployerAccountComponent  implements OnInit{
           this.employerAccount.description = response.description;
           this.employerAccount.displayDescription = response.displayDescription;
           this.employerAccount.photo = response.photo;
-          this.employerAccount.addres = response.addres;
+          this.employerAccount.address = response.address;
+          this.convertJobOffersToListType();
       });
     });
+
   }
   offers: JobOffer[] = [
     {

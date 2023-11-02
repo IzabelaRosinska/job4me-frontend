@@ -5,7 +5,7 @@ import {EmployerInfoFormComponent} from "./employer-account/employer-info-form/e
 
 const routes: Routes = [
   {path: 'employer/account', component: EmployerAccountComponent},
-  {path: 'employer/editForm', component: EmployerInfoFormComponent},
+  {path: 'employer/editInfo', component: EmployerInfoFormComponent},
 ];
 
 @NgModule({
