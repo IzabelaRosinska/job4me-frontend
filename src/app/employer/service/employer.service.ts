@@ -12,9 +12,9 @@ export class EmployerService {
 
   constructor(private http: HttpClient) { }
 
-  pushEmployer(employer: EmployerAccount) {
+  postEmployer(employer: EmployerAccount): Observable<any> {
     const route =  ROUTES.BACKEND_ROUTE +'/employer/account';
-    return this.http.request('push', route, {
+    return this.http.request('post', route, {
       body: employer,
       withCredentials: true,
       responseType: 'text',
