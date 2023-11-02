@@ -6,6 +6,7 @@ import {UtilitiesModule} from "../utilities/utilities.module";
 import {WorkerAccountComponent} from "./worker-account/worker-account.component";
 import { WorkerInfoFormComponent } from './worker-account/worker-info-form/worker-info-form.component';
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     WorkerRoutingModule,
     UtilitiesModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ]
 })
 export class WorkerModule {

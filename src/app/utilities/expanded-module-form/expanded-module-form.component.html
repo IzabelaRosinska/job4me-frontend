@@ -23,12 +23,12 @@
 
     <table class="table">
       <tr
-        *ngFor="let text of listOfTexts">
-        <td class="question-first-element-in-row" (click)="editText(listOfTexts.indexOf(text))"><img class="inside-table" [src]="pencilImgSrc"/></td>
-        <td class="question-second-element-in-row" *ngIf="listOfTexts.indexOf(text)!=editMode" >
-          <div> {{text}} </div>
+        *ngFor="let elem of listOfTextsWithIndexes">
+        <td class="question-first-element-in-row" (click)="editText(elem[1])"><img class="inside-table" [src]="pencilImgSrc"/></td>
+        <td class="question-second-element-in-row" *ngIf="elem[1]!=editMode" >
+          <div> {{elem[0]}} </div>
         </td>
-        <td *ngIf="listOfTexts.indexOf(text)==editMode"> <input [(ngModel)]="newText"  class="form-control" [maxLength]="maxInputLength"  (keyup.enter)="addText(listOfTexts.indexOf(text))"></td>
+        <td *ngIf="elem[1]==editMode"> <input [(ngModel)]="newText"  class="form-control" [maxLength]="maxInputLength"  (keyup.enter)="addText(elem[1])"></td>
       </tr>
     </table>
 

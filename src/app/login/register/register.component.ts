@@ -24,7 +24,7 @@ export class RegisterComponent {
   registerData: RegisterData = {
     username: '',
     password: '',
-    role: 'employee',
+    role: 'EMPLOYEE',
     matchingPassword: ''
   }
 

@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-expanded-module-form',
   templateUrl: './expanded-module-form.component.html',
   styleUrls: ['./expanded-module-form.component.scss']
 })
-export class ExpandedModuleFormComponent {
+export class ExpandedModuleFormComponent implements OnInit {
   @Input () title: string | null = "";
 
   @Input () maxInputLength: number = 100;
@@ -15,6 +14,8 @@ export class ExpandedModuleFormComponent {
   @Output () save: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   @Input ()listOfTexts: string[] = [];
+
+  listOfTextsWithIndexes: [string,| number][] = [];
 
   newText: string = "";
 
@@ -32,10 +33,15 @@ export class ExpandedModuleFormComponent {
   fileToUpload: File | null = null;
 
 
-
   constructor() {
 
   }
+
+  ngOnInit(): void {
+    this.listOfTextsWithIndexes = this.listOfTexts.map((value, index) => [value, index]);
+    console.log(this.listOfTextsWithIndexes);
+  }
+
 
 
   addText(index?: number) {
@@ -44,18 +50,18 @@ export class ExpandedModuleFormComponent {
 
     if(index == undefined) {
       if (this.newText == "") return;
-      this.listOfTexts.push(this.newText);
+      this.listOfTextsWithIndexes.push([this.newText, this.listOfTextsWithIndexes.length]);
     }
     else {
       if(this.newText == ""){
-        this.listOfTexts = this.listOfTexts.filter((value, listIndex) => listIndex != index);
+        this.listOfTextsWithIndexes = this.listOfTextsWithIndexes.filter((value, listIndex) => listIndex != index);
         return;
       }
-      this.listOfTexts[index] = this.newText;
+      this.listOfTextsWithIndexes[index] = [this.newText, index];
     }
 
     this.newText = "";
-    this.save.emit(this.listOfTexts);
+    this.save.emit(this.listOfTextsWithIndexes.map((value) => value[0]));
   }
 
   toggleQuestion1() {
@@ -64,17 +70,18 @@ export class ExpandedModuleFormComponent {
   }
 
   startAddingNewText() {
-    if(this.listOfTexts.length >= this.maxInputCount) return;
+    if(this.listOfTextsWithIndexes.length >= this.maxInputCount) return;
     this.newTextInputVisibile = true;
   }
 
   editText(index: number) {
     this.editMode = index;
-    this.newText = this.listOfTexts[index];
+    this.newText = this.listOfTextsWithIndexes[index][0];
   }
 
   buttonColor(){
-    return this.maxInputCount>this.listOfTexts.length ? "primary" : "danger";
+    return this.maxInputCount>this.listOfTextsWithIndexes.length ? "primary" : "danger";
   }
+
 
 }
