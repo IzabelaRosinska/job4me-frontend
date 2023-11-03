@@ -147,6 +147,7 @@ export class EmployerAccountComponent implements OnInit {
         this.jobOffersState$.subscribe((response) => {
 
         });
+        this.convertJobOffersToListType();
 
     }
 
@@ -156,5 +157,8 @@ export class EmployerAccountComponent implements OnInit {
         });
     }
 
+    print(text: string){
+        console.log(text)
+    }
 
 }
