@@ -13,13 +13,13 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("intercepted");
+    // console.log("intercepted");
 
     const newRequest = request.clone({
       withCredentials: true
 
     });
-    console.log(newRequest);
+    // console.log(newRequest);
     return next.handle(newRequest);
   }
 }

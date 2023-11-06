@@ -9,6 +9,7 @@ import {UtilitiesModule} from "../utilities/utilities.module";
 import { JobOfferComponent } from './job-offer/job-offer.component';
 import { JobOfferCardComponent } from './job-offer/job-offer-card/job-offer-card.component';
 import { JobOfferEditFormComponent } from './job-offer/job-offer-edit-form/job-offer-edit-form.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { JobOfferEditFormComponent } from './job-offer/job-offer-edit-form/job-o
     CommonModule,
     EmployerRoutingModule,
     UtilitiesModule,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule
   ]
 })
 export class EmployerModule {

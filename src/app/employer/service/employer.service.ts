@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ROUTES} from "../../../environments/environments";
 import {map, shareReplay} from "rxjs/operators";
-import {EmployerAccount, JobOffer, WorkerAccount} from "../../types";
+import {ApiResponse, EmployerAccount, JobOffer, Page, WorkerAccount} from "../../types";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -68,6 +68,9 @@ export class EmployerService {
     withCredentials: true
   });
 
+  jobOffers$ = (page: number = 0, size: number = 3): Observable<Page<JobOffer>> =>
+      this.http.get<Page<JobOffer>>(`${ROUTES.BACKEND_ROUTE}/job-offers?&page=${page}&size=${size}`).pipe(shareReplay(1));
+  // ApiResponse<Page<JobOffer>>
 
 
 }

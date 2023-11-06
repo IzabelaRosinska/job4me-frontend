@@ -1,4 +1,6 @@
-<div class="main">
+<app-loading-screen *ngIf="lodaingAccount"></app-loading-screen>
+
+<div class="main" *ngIf="!lodaingAccount">
   <div class="content">
     <!--  Introductory panel-->
     <div class="container info-panel p-4">
@@ -12,7 +14,7 @@
         <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start">
           <h1 class="name-text">{{employerAccount.companyName}}</h1>
 
-          <h3><i>{{employerAccount.email}}  |  {{employerAccount.telephone}} </i><br>
+          <h3><i>{{employerAccount.contactEmail}}  |  {{employerAccount.telephone}} </i><br>
               <i>{{employerAccount.address}} </i>
           </h3>
 
@@ -25,18 +27,19 @@
     <!--  Offers Panel-->
     <div class="container info-panel p-4 ">
       <h2 class="text-center">Oferty</h2>
+      <mat-paginator (page)="handlePageEvent($event)"
+                     [length]="length"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[5, 10, 25, 100]"
+                     aria-label="Select page">
+      </mat-paginator>
       <hr>
       <div class="overflow-y-scroll scroll-list-panel">
-        <app-item-list [items]="offersAsList">
-
-        </app-item-list>
+        <app-loading-screen *ngIf="lodaingOffers"></app-loading-screen>
+        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers"></app-item-list>
       </div>
 
     </div>
-
-    <button  class="btn btn-success" (click)="page=page+1">
-      +1
-    </button>
 
     <!--  Actions Panel-->
     <div class="container info-panel">

@@ -18,7 +18,7 @@ export interface EmployerAccount {
   description: string;
   displayDescription: string;
   telephone: string;
-  email: string;
+  contactEmail: string;
   photo?: string;
   address?:  string;
 }
@@ -71,4 +71,41 @@ export interface JobOffer {
   extraSkills?: string[];
   duties: string;
   description?: string;
+}
+
+export interface ApiResponse<T> {
+  timeStamp: string;
+  statusCode: number;
+  status: string;
+  message: string;
+  data: { page: T };
+}
+
+export interface Page<T> {
+  content: T[],
+  pageable: {
+    sort: {
+      empty: boolean,
+      sorted: boolean,
+      unsorted: boolean
+    },
+    offset: number,
+    pageNumber: number,
+    pageSize: number,
+    unpaged: boolean,
+    paged: boolean
+  },
+  last: boolean,
+  totalPages: number,
+  totalElements: number,
+  size: number,
+  number: number,
+  sort: {
+    empty: boolean,
+    sorted: boolean,
+    unsorted: boolean
+  },
+  numberOfElements: number,
+  first: boolean,
+  empty: boolean
 }
