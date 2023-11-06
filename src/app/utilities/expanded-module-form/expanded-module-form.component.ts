@@ -83,5 +83,4 @@ export class ExpandedModuleFormComponent implements OnInit {
     return this.maxInputCount>this.listOfTextsWithIndexes.length ? "primary" : "danger";
   }
 
-
 }

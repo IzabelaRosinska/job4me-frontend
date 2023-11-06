@@ -57,18 +57,18 @@ export interface ItemInsideList{
 
 export interface JobOffer {
   id: string;
-  name: string;
-  company: EmployerAccount ;
-  branches: string[];
+  offerName: string;
+  company: string ;
+  industries: string[];
   localizations: string[];
   forms: string[];
-  salaryStart: number;
-  salaryEnd: number;
-  contract_type: string[];
-  working_time: string;
+  salaryFrom: number;
+  salaryTo: number;
+  contractType: string[];
+  workingTime: string;
   level: string[];
   requirements: string[];
-  extra_skills?: string[];
+  extraSkills?: string[];
   duties: string;
   description?: string;
 }

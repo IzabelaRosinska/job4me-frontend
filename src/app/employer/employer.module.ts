@@ -6,12 +6,16 @@ import { EmployerAccountComponent } from './employer-account/employer-account.co
 import { EmployerInfoFormComponent } from './employer-account/employer-info-form/employer-info-form.component';
 import {FormsModule} from "@angular/forms";
 import {UtilitiesModule} from "../utilities/utilities.module";
+import { JobOfferComponent } from './job-offer/job-offer.component';
+import { JobOfferCardComponent } from './job-offer/job-offer-card/job-offer-card.component';
 
 
 @NgModule({
   declarations: [
     EmployerAccountComponent,
-    EmployerInfoFormComponent
+    EmployerInfoFormComponent,
+    JobOfferComponent,
+    JobOfferCardComponent
   ],
   imports: [
     CommonModule,
