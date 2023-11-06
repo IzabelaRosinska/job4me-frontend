@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {EmployerService} from "../service/employer.service";
+import {async, Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
     selector: 'app-employer-account',
@@ -20,7 +22,7 @@ export class EmployerAccountComponent implements OnInit {
     companyPhoto = '../../assets/company.png';
 
     employerAccount: EmployerAccount = {
-        id: "",
+        id: 0,
         companyName: "",
         email: "",
         telephone: "",
@@ -28,6 +30,11 @@ export class EmployerAccountComponent implements OnInit {
         displayDescription: "",
     }
 
+    size: number = 5;
+    page: number = 0;
+
+    offers: JobOffer[] = []
+    offersAsList: ItemInsideList[] = [];
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.serviceEmployer.getEmployer().subscribe((response) => {
@@ -35,34 +42,25 @@ export class EmployerAccountComponent implements OnInit {
             });
         });
 
-        this.serviceEmployer.getJobOffers().subscribe((response) => {
-            this.offers = response;
-            for(let i = 0; i < this.offers.length; i++) {
-                let offer = this.offers[i];
-                let offerAsList: ItemInsideList = {
+        this.serviceEmployer.getJobOffers(this.page,this.size).subscribe((response) => {
+            this.offers = response.content as JobOffer[];
+            this.offers.forEach((offer) => {
+                let offerAsItemInsideList: ItemInsideList = {
                     route: "/employer/job-offer/" + offer.id,
                     image: this.employerAccount.photo ? this.employerAccount.photo : this.companyPhoto,
                     name: offer.offerName,
-                    id: offer.id,
-                    description: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo} `,
+                    id: offer.id ? offer.id : 0,
+                    description: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo}`,
                     useFavorite: false,
                     isFavorite: false,
                     useDelete: true
                 }
-                this.offersAsList.push(offerAsList);
-            }
-
+                this.offersAsList.push(offerAsItemInsideList);
+            });
         });
 
     }
 
-    offers: JobOffer[] = []
-    offersAsList: ItemInsideList[] = [];
-
-    convertJobOffersToListType() {
-
-
-    }
 
 
 }

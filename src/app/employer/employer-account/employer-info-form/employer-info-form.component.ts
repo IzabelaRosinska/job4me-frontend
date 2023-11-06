@@ -45,7 +45,7 @@ export class EmployerInfoFormComponent implements OnInit {
     }
 
     employerAccount: EmployerAccount = {
-        id: "",
+        id: 0,
         companyName: "",
         email: "",
         telephone: "",

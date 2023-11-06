@@ -17,17 +17,16 @@ export class JobOfferComponent implements OnInit {
   }
 
   jobOfferData: JobOffer = {
-    id: "",
     offerName: "",
-    company: "",
+    employerId: 0,
     industries: [],
     localizations: [],
-    forms: [],
+    employmentForms: [],
     salaryFrom: 0,
     salaryTo: 0,
-    contractType: [""],
+    contractTypes: [""],
     workingTime: "",
-    level: [""],
+    levels: [""],
     requirements: [""],
     extraSkills: [""],
     duties: "",

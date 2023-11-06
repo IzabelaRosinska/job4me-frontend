@@ -8,14 +8,14 @@
         <label for="name">Nazwa stanowiska</label>
         <input type="text" #name id="name" name="name"
                class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="120"
-               (change)="name.checkValidity()" [(ngModel)]="jobOfferData.name" required>
+               (change)="name.checkValidity()" [(ngModel)]="jobOfferData.offerName" required>
         <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij nazwę stanowiska</div>
         <br><br>
 
         <label for="workingTime">Dzienny czas pracy</label>
         <input type="text" #workingTime id="workingTime" name="workingTime"
                class="form-control {{workingTime.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-               [maxLength]="20" (change)="workingTime.checkValidity()" [(ngModel)]="jobOfferData.working_time"
+               [maxLength]="20" (change)="workingTime.checkValidity()" [(ngModel)]="jobOfferData.workingTime"
                [placeholder]="'np. 8h'" required>
         <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
         <br><br>
@@ -27,7 +27,7 @@
             <div class="col">
               <input type="number" #salaryStart id="salaryStart" name="salaryStart"
                      class="form-control {{salaryStart.checkValidity()? 'is-valid':'is-invalid' }} " [minLength]="1"
-                     [maxLength]="6" (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryStart"
+                     [maxLength]="6" (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryFrom"
                      [placeholder]="'np. 2000'" required>
               <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
             </div>
@@ -36,7 +36,7 @@
 
               <input type="number" #salaryEnd id="salaryEnd" name="salaryEnd"
                      class="form-control" [minLength]="1"
-                     [maxLength]="6" [(ngModel)]="jobOfferData.salaryEnd"
+                     [maxLength]="6" [(ngModel)]="jobOfferData.salaryTo"
                      [placeholder]="'np. 4000 lub puste'" required>
 
             </div>
@@ -50,7 +50,7 @@
 
         <div #branches class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="100" [maxInputCount]="5"
-                                    [listOfTexts]="jobOfferData.branches" [minInputCount]="1"
+                                    [listOfTexts]="jobOfferData.industries" [minInputCount]="1"
                                     (valid)="validate($event,branches)"
                                     [placeholder]="'np. IT'"></app-expanded-module-form>
           <h5 *ngIf="branches.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
@@ -68,7 +68,7 @@
 
         <div #forms class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Typ umowy'" [maxInputLength]="25" [maxInputCount]="5"
-                                    [listOfTexts]="jobOfferData.forms" [minInputCount]="1"
+                                    [listOfTexts]="jobOfferData.employmentForms" [minInputCount]="1"
                                     (valid)="validate($event,forms)"
                                     [placeholder]="'np. B2B'"></app-expanded-module-form>
           <h5 *ngIf="forms.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden typ
@@ -77,7 +77,7 @@
 
         <div #contract_type class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Etat'" [maxInputLength]="25" [maxInputCount]="5"
-                                    [listOfTexts]="jobOfferData.contract_type" [minInputCount]="1"
+                                    [listOfTexts]="jobOfferData.contractTypes" [minInputCount]="1"
                                     (valid)="validate($event,contract_type)"
                                     [placeholder]="'np. Full-time'"></app-expanded-module-form>
           <h5 *ngIf="contract_type.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
@@ -86,7 +86,7 @@
 
         <div #level class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Poziom'" [maxInputLength]="25" [maxInputCount]="5"
-                                    [listOfTexts]="jobOfferData.level" [minInputCount]="1"
+                                    [listOfTexts]="jobOfferData.levels" [minInputCount]="1"
                                     (valid)="validate($event,level)"
                                     [placeholder]="'np. Junior'"></app-expanded-module-form>
           <h5 *ngIf="level.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
@@ -119,7 +119,7 @@
 
         <div class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="10"
-                                    [listOfTexts]="jobOfferData.extra_skills? jobOfferData.extra_skills : []"></app-expanded-module-form>
+                                    [listOfTexts]="jobOfferData.extraSkills? jobOfferData.extraSkills : []"></app-expanded-module-form>
         </div>
 
         <div class="container">
@@ -133,7 +133,7 @@
 
             <div class="col w-100 text-end">
               <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || salaryStart.checkValidity() || branches.classList.contains(invalidClassName)
+                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || !salaryStart.checkValidity() || branches.classList.contains(invalidClassName)
                                     || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
                                     || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
                                     || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">

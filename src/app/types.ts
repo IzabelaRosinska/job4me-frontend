@@ -13,7 +13,7 @@ export interface WorkerAccount {
 }
 
 export interface EmployerAccount {
-  id: string;
+  id: number;
   companyName: string;
   description: string;
   displayDescription: string;
@@ -46,7 +46,7 @@ export interface ItemInsideList{
   route: string;
   image: string;
   name: string;
-  id: string;
+  id: number;
   description: string;
   useFavorite: boolean;
   isFavorite?: boolean;
@@ -56,17 +56,17 @@ export interface ItemInsideList{
 }
 
 export interface JobOffer {
-  id: string;
+  id?: number;
   offerName: string;
-  company: string ;
+  employerId: number ;
   industries: string[];
   localizations: string[];
-  forms: string[];
+  employmentForms: string[];
   salaryFrom: number;
   salaryTo: number;
-  contractType: string[];
+  contractTypes: string[];
   workingTime: string;
-  level: string[];
+  levels: string[];
   requirements: string[];
   extraSkills?: string[];
   duties: string;
