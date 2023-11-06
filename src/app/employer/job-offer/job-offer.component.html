@@ -42,10 +42,10 @@
           <div class="text-center">
             <img class="w-75 h-75 image-company-panel" [src]="'https://picsum.photos/300/300'" >
           </div>
-          <div class="card-header text-bg-light "><h2>{{jobOfferData.company.companyName}}</h2> </div>
+          <div class="card-header text-bg-light "><h2>{{employerAccountData?.companyName ? employerAccountData?.companyName : "Brak"}}</h2> </div>
           <div class="card-body">
             <h4 class="card-text"> <i>{{jobOfferData.industries.join(', ')}}</i></h4>
-            <p class="card-text"> {{jobOfferData.company.displayDescription}}</p>
+            <p class="card-text"> {{employerAccountData?.displayDescription ? employerAccountData?.displayDescription : "Brak"}}</p>
           </div>
         </div>
 

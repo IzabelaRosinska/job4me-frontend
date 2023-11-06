@@ -58,7 +58,7 @@ export interface ItemInsideList{
 export interface JobOffer {
   id: string;
   offerName: string;
-  company: EmployerAccount ;
+  company: string ;
   industries: string[];
   localizations: string[];
   forms: string[];

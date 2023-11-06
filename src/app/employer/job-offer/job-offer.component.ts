@@ -1,31 +1,54 @@
-import { Component } from '@angular/core';
-import {JobOffer} from "../../types";
+import {Component, OnInit} from '@angular/core';
+import {EmployerAccount, JobOffer} from "../../types";
+import {ActivatedRoute, ParamMap} from "@angular/router";
+import {EmployerService} from "../service/employer.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-job-offer',
   templateUrl: './job-offer.component.html',
   styleUrls: ['./job-offer.component.scss']
 })
-export class JobOfferComponent {
+export class JobOfferComponent implements OnInit {
 
-  jobOfferData: JobOffer = {
-    id: "8436248",
-    offerName: "Junior Java Developer",
-    company: {  id: "000001", companyName: "Google", email: "google@gmail.com", telephone: "123456789", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",displayDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et '},
-    industries: ["IT", "Software Development"],
-    localizations: ["Warsaw", "Krakow"],
-    forms: ["B2B", "UoP"],
-    salaryFrom: 5000,
-    salaryTo: 10000,
-    contractType: ["Full-time", "Part-time"],
-    workingTime: "8h",
-    level: ["Junior",'Mid'],
-    requirements: ["Java", "Spring", "Hibernate", "SQL"],
-    extraSkills: ["Angular", "React", "Vue"],
-    duties: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae ali",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliquam nisl nisl vitae nisl. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliquam nisl nisl vitae nisl. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliquam nisl nisl vitae nisl. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliquam nisl nisl vitae nisl. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl ultricies nunc, vitae aliquam nisl nisl vitae nisl."
+
+  constructor(private serviceEmployer: EmployerService, private route: ActivatedRoute, private http: HttpClient) {
+
   }
 
+  jobOfferData: JobOffer = {
+    id: "",
+    offerName: "",
+    company: "",
+    industries: [],
+    localizations: [],
+    forms: [],
+    salaryFrom: 0,
+    salaryTo: 0,
+    contractType: [""],
+    workingTime: "",
+    level: [""],
+    requirements: [""],
+    extraSkills: [""],
+    duties: "",
+    description: ""
+  }
 
-  constructor() { }
+  employerAccountData?: EmployerAccount;
+
+
+  ngOnInit(): void {
+    // this.route.paramMap.subscribe((params: ParamMap) => {
+    // });
+
+    this.serviceEmployer.getJobOffer().subscribe((response) => {
+      this.jobOfferData = response;
+    });
+
+    this.serviceEmployer.getEmployer().subscribe((response) => {
+      this.employerAccountData = response;
+    });
+
+
+  }
 }
