@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkerAccount} from "../../types";
 import {EmployeeService} from "../service/employee.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-worker-account',
@@ -12,9 +13,9 @@ export class WorkerAccountComponent implements OnInit {
 
     loading: boolean = true;
 
-    constructor(private serviceEmployee: EmployeeService, private route: ActivatedRoute) {
-
-    }
+    constructor(private serviceEmployee: EmployeeService,
+                private route: ActivatedRoute,
+                private router:  Router) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
@@ -30,6 +31,10 @@ export class WorkerAccountComponent implements OnInit {
                 this.workerAccountInfo.skills = response.skills;
                 this.workerAccountInfo.projects = response.projects;
                 this.workerAccountInfo.interests = response.interests;
+
+                if(!this.workerAccountInfo.firstName || !this.workerAccountInfo.lastName || !this.workerAccountInfo.email){
+                    this.router.navigate(['worker/editInfo']);
+                }
                 this.loading = false;
             });
         });

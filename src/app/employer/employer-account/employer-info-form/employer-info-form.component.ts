@@ -34,7 +34,7 @@ export class EmployerInfoFormComponent implements OnInit {
             this.serviceEmployer.getEmployer().subscribe((response) => {
                 this.employerAccount.id = response.id;
                 this.employerAccount.companyName = response.companyName;
-                this.employerAccount.email = response.email;
+                this.employerAccount.contactEmail = response.contactEmail;
                 this.employerAccount.telephone = response.telephone;
                 this.employerAccount.description = response.description;
                 this.employerAccount.displayDescription = response.displayDescription;
@@ -45,9 +45,9 @@ export class EmployerInfoFormComponent implements OnInit {
     }
 
     employerAccount: EmployerAccount = {
-        id: "",
+        id: 0,
         companyName: "",
-        email: "",
+        contactEmail: "",
         telephone: "",
         description: "",
         displayDescription: "",

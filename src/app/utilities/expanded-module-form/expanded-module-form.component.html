@@ -1,5 +1,3 @@
-
-
 <div class="question-label">
 
   <div class="row">
@@ -24,11 +22,13 @@
     <table class="table">
       <tr
         *ngFor="let elem of listOfTextsWithIndexes">
-        <td class="question-first-element-in-row" (click)="editText(elem[1])"><img class="inside-table" [src]="pencilImgSrc"/></td>
-        <td class="question-second-element-in-row" *ngIf="elem[1]!=editMode" >
+        <td class="question-first-element-in-row" (click)="editText(elem[1])"><img class="inside-table"
+                                                                                   [src]="pencilImgSrc"/></td>
+        <td class="question-second-element-in-row" *ngIf="elem[1]!=editMode">
           <div> {{elem[0]}} </div>
         </td>
-        <td *ngIf="elem[1]==editMode"> <input [(ngModel)]="newText"  class="form-control" [maxLength]="maxInputLength"  (keyup.enter)="addText(elem[1])"></td>
+        <td *ngIf="elem[1]==editMode"><input [(ngModel)]="newText" class="form-control" [maxLength]="maxInputLength"
+                                             (keyup.enter)="addText(elem[1])" [placeholder]="placeholder"></td>
       </tr>
     </table>
 
@@ -36,7 +36,8 @@
     <div class="form-group">
       <form #textForm="ngForm">
         <div class="form-group">
-          <input  *ngIf="newTextInputVisibile" [(ngModel)]="newText" [maxLength]="maxInputLength" class="form-control" id="newTextInput" name="newText" type="text" (keyup.enter)="addText()" >
+          <input *ngIf="newTextInputVisibile" [(ngModel)]="newText" [maxLength]="maxInputLength" class="form-control"
+                 id="newTextInput" name="newText" type="text" (keyup.enter)="addText()" [placeholder]="placeholder">
         </div>
 
       </form>

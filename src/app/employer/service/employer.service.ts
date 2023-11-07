@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ROUTES} from "../../../environments/environments";
-import {shareReplay} from "rxjs/operators";
-import {EmployerAccount, JobOffer, WorkerAccount} from "../../types";
+import {map, shareReplay} from "rxjs/operators";
+import {ApiResponse, EmployerAccount, JobOffer, Page, WorkerAccount} from "../../types";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -22,6 +22,7 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
+
   getEmployer(): Observable<EmployerAccount> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/account';
     return this.http.get<EmployerAccount>(route, {
@@ -29,9 +30,16 @@ export class EmployerService {
     });
   }
 
+  getEmployerById(id: number | string | null): Observable<EmployerAccount> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/account/'+ (id? id : 0);
+    return this.http.get<EmployerAccount>(route, {
+      withCredentials: true,
+    });
+  }
+
 
   postJobOffer(jobOffer: JobOffer): Observable<any> {
-    const route =  ROUTES.BACKEND_ROUTE +'/employer/job-offers/:id';
+    const route =  ROUTES.BACKEND_ROUTE +'/job-offers';
     return this.http.request('post', route, {
       body: jobOffer,
       withCredentials: true,
@@ -40,18 +48,46 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
-  getJobOffer(): Observable<JobOffer> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-offers/:id';
+  putJobOffer(jobOffer: JobOffer): Observable<any> {
+    console.log(jobOffer);
+    const route =  ROUTES.BACKEND_ROUTE +'/job-offers/'+ jobOffer.id;
+    return this.http.request('put', route, {
+      body: jobOffer,
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  deleteJobOffer(id: number | string | null): Observable<any> {
+    const route =  ROUTES.BACKEND_ROUTE +'/job-offers/'+ (id? id : 0);
+    return this.http.request('delete', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  getJobOffer(id: string | number | null): Observable<JobOffer> {
+    const route = ROUTES.BACKEND_ROUTE + '/job-offers/'+ (id? id : 0);
     return this.http.get<JobOffer>(route, {
       withCredentials: true,
     });
   }
 
-  getJobOffers(): Observable<JobOffer[]> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-offers';
+  getJobOffers(page: number = 0, size: number = 20): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/job-offers?'+ 'page=' + page + '&size=' + size;
     return this.http.get<JobOffer[]>(route, {
-      withCredentials: true,
+      withCredentials: true
     });
   }
+
+  getJobOffer$ = (id: number | string | null): Observable<JobOffer> =>
+      this.http.request<JobOffer>('get',ROUTES.BACKEND_ROUTE + '/job-offers/'+ (id? id : 0), {
+        withCredentials: true
+      });
+
+  jobOffers$ = (page: number = 0, size: number = 5): Observable<Page<JobOffer>> =>
+      this.http.get<Page<JobOffer>>(`${ROUTES.BACKEND_ROUTE}/job-offers?&page=${page}&size=${size}`).pipe(shareReplay(1));
 
 }

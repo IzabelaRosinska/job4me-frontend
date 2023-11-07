@@ -1,0 +1,150 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="container align-content-left text-left main" *ngIf="!loading">
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <form>
+        <legend>Oferta</legend>
+        <label for="name">Nazwa stanowiska</label>
+        <input type="text" #name id="name" name="name"
+               class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="120"
+               (change)="name.checkValidity()" [(ngModel)]="jobOfferData.offerName" required>
+        <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij nazwę stanowiska</div>
+        <br><br>
+
+        <label for="workingTime">Dzienny czas pracy</label>
+        <input type="text" #workingTime id="workingTime" name="workingTime"
+               class="form-control {{workingTime.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
+               [maxLength]="20" (change)="workingTime.checkValidity()" [(ngModel)]="jobOfferData.workingTime"
+               [placeholder]="'np. 8h'" required>
+        <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
+        <br><br>
+
+        <label for="workingTime">Wynagrodzenie</label>
+        <div class="container">
+          <div class="row w-100">
+            <h3 class="col-1" style="margin: 0">Od</h3>
+            <div class="col">
+              <input type="number" #salaryStart id="salaryStart" name="salaryStart"
+                     class="form-control {{salaryStart.checkValidity()? 'is-valid':'is-invalid' }} " [minLength]="1"
+                     [maxLength]="6" (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryFrom"
+                     [placeholder]="'np. 2000'" required>
+              <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
+            </div>
+            <h3 class="col-1">Do</h3>
+            <div class="col">
+
+              <input type="number" #salaryEnd id="salaryEnd" name="salaryEnd"
+                     class="form-control" [minLength]="1"
+                     [maxLength]="6" [(ngModel)]="jobOfferData.salaryTo"
+                     [placeholder]="'np. 4000 lub puste'" required>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <br><br>
+
+        <div #branches class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="100" [maxInputCount]="10"
+                                    [listOfTexts]="jobOfferData.industries" [minInputCount]="1"
+                                    (valid)="validate($event,branches)"
+                                    [placeholder]="'np. IT'"></app-expanded-module-form>
+          <h5 *ngIf="branches.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
+            dział rynku</h5>
+        </div>
+
+        <div #localizations class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Miasto'" [maxInputLength]="50" [maxInputCount]="10"
+                                    [listOfTexts]="jobOfferData.localizations" [minInputCount]="1"
+                                    (valid)="validate($event,localizations)"
+                                    [placeholder]="'np. Warszawa'"></app-expanded-module-form>
+          <h5 *ngIf="localizations.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
+            jedno miasto</h5>
+        </div>
+
+        <div #forms class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Typ umowy'" [maxInputLength]="50"
+                                    [listOfTexts]="jobOfferData.employmentForms" [minInputCount]="1"
+                                    (valid)="validate($event,forms)"
+                                    [placeholder]="'np. B2B'"></app-expanded-module-form>
+          <h5 *ngIf="forms.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden typ
+            umowy</h5>
+        </div>
+
+        <div #contract_type class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Etat'" [maxInputLength]="50"
+                                    [listOfTexts]="jobOfferData.contractTypes" [minInputCount]="1"
+                                    (valid)="validate($event,contract_type)"
+                                    [placeholder]="'np. Full-time'"></app-expanded-module-form>
+          <h5 *ngIf="contract_type.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
+            jedną formę etatu</h5>
+        </div>
+
+        <div #level class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Poziom'" [maxInputLength]="50"
+                                    [listOfTexts]="jobOfferData.levels" [minInputCount]="1"
+                                    (valid)="validate($event,level)"
+                                    [placeholder]="'np. Junior'"></app-expanded-module-form>
+          <h5 *ngIf="level.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
+            poziom zatrudnienia</h5>
+        </div>
+
+        <div #requirements class="rounded-4 list-elem" >
+          <app-expanded-module-form [title]="'Wymagania'" [maxInputLength]="250" [maxInputCount]="15"
+                                    [listOfTexts]="jobOfferData.requirements" [minInputCount]="1"
+                                    (valid)="validate($event,requirements)"
+                                    [placeholder]="'np. Java'"></app-expanded-module-form>
+          <h5 *ngIf="requirements.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
+            jedno wymaganie</h5>
+        </div>
+
+        <label for="duties">Obowiązki</label>
+        <textarea type="text" #duties id="duties" name="duties"
+                  class="form-control big-textarea {{duties.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
+                  [maxLength]="1000" (change)="duties.checkValidity()" [(ngModel)]="jobOfferData.duties"
+                  required></textarea>
+        <div *ngIf="!duties.checkValidity()" class="invalid-feedback">Uzupełnij obowiązki pracownika</div>
+        <br><br>
+
+        <label for="description">Opis</label>
+        <textarea type="text" #description id="description" name="description" class="form-control big-textarea"
+                  [maxLength]="500" (change)="description.checkValidity()"
+                  [(ngModel)]="jobOfferData.description"></textarea>
+        <div *ngIf="!description.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
+        <br><br>
+
+        <div class="rounded-4 list-elem">
+          <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="15"
+                                    [listOfTexts]="jobOfferData.extraSkills? jobOfferData.extraSkills : []"></app-expanded-module-form>
+        </div>
+
+        <div class="container">
+          <div class="row">
+
+            <div class="col">
+              <button class="btn btn-secondary" (click)="openDeclineDialog()">
+                Odrzuć zmiany
+              </button>
+            </div>
+
+            <div class="col w-100 text-end">
+              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
+                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || !salaryStart.checkValidity() || branches.classList.contains(invalidClassName)
+                                    || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
+                                    || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
+                                    || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">
+                Potwierdź
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+
+</div>

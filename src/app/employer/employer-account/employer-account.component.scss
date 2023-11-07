@@ -2,8 +2,10 @@
 
 div.main {
   border: 1px solid $BORDER_COLOR;
-  horiz-align: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 100vh;
   height: 100%;
   width: 100%;
