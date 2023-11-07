@@ -23,6 +23,23 @@ export interface EmployerAccount {
   address?:  string;
 }
 
+export interface OrganizerAccount {
+  id: number;
+  name: string;
+  description: string;
+  email: string;
+  telephone: string;
+}
+
+export interface JobFair {
+  id: number;
+  name: string;
+  organizerId: number;
+  date: string;
+  localization: string;
+  description: string;
+}
+
 export interface LoginData {
   username: string;
   password: string;
@@ -109,6 +126,8 @@ export interface Page<T> {
   first: boolean,
   empty: boolean
 }
+
+
 
 export interface idNameListElement {
     id: number;
