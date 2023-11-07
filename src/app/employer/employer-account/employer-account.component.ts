@@ -43,6 +43,8 @@ export class EmployerAccountComponent implements OnInit {
     pageEvent?: PageEvent;
     offersAsList: ItemInsideList[] = [];
 
+    filters: [string, string][] = [["Minimalne wynagrodzenie", ""],["Branża", "/industries"],["Poziomy", "/levels"]];
+
     lodaingAccount: boolean = true;
     lodaingOffers: boolean = true;
 
@@ -72,7 +74,7 @@ export class EmployerAccountComponent implements OnInit {
                     this.employerAccount = response;
                     if (!this.employerAccount.companyName || !this.employerAccount.contactEmail || !this.employerAccount.telephone
                         || !this.employerAccount.description || !this.employerAccount.displayDescription) {
-                        this.router.navigate(['employer/editInfo']);
+                        // this.router.navigate(['employer/editInfo']);
                     }
                     this.lodaingAccount = false;
                 });
@@ -147,13 +149,16 @@ export class EmployerAccountComponent implements OnInit {
         this.jobOffersState$.subscribe((response) => {
 
         });
-
     }
 
     deleteJobOffer(id: number): void {
         this.serviceEmployer.deleteJobOffer(id).subscribe((response) => {
             this.gotToPage();
         });
+    }
+
+    print(text: string){
+        console.log(text)
     }
 
 

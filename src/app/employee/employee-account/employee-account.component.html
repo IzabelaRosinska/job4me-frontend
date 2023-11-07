@@ -7,11 +7,11 @@
             <div class="row">
 
                 <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 text-xs-center text-sm-center text-md-start">
-                    <h1 class="name-text">{{workerAccountInfo.firstName}} {{workerAccountInfo.lastName}}</h1>
+                    <h1 class="name-text">{{employeeAccountInfo.firstName}} {{employeeAccountInfo.lastName}}</h1>
 
-                    <h3><i>{{workerAccountInfo.email}}  |  {{workerAccountInfo.telephone}}</i></h3>
+                    <h3><i>{{employeeAccountInfo.email}}  |  {{employeeAccountInfo.telephone}}</i></h3>
 
-                    <p class="text-description" *ngIf="workerAccountInfo.aboutMe"> {{workerAccountInfo.aboutMe}} </p>
+                    <p class="text-description" *ngIf="employeeAccountInfo.aboutMe"> {{employeeAccountInfo.aboutMe}} </p>
                 </div>
 
             </div>
@@ -31,8 +31,8 @@
                     </h2>
                     <div id="collapseZero" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <p> {{workerAccountInfo.interests}} </p>
-                            <strong *ngIf="!workerAccountInfo.interests">Brak</strong>
+                            <p> {{employeeAccountInfo.interests}} </p>
+                            <strong *ngIf="!employeeAccountInfo.interests">Brak</strong>
                         </div>
                     </div>
 
@@ -49,14 +49,14 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table *ngIf="workerAccountInfo.education">
-                                <tr *ngFor="let education of workerAccountInfo.education">
+                            <table *ngIf="employeeAccountInfo.education">
+                                <tr *ngFor="let education of employeeAccountInfo.education">
                                     <td>
                                         <p> {{education}} </p>
                                     </td>
                                 </tr>
                             </table>
-                            <strong *ngIf="!workerAccountInfo.education">Brak</strong>
+                            <strong *ngIf="!employeeAccountInfo.education">Brak</strong>
                         </div>
                     </div>
 
@@ -71,14 +71,14 @@
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table *ngIf="workerAccountInfo.skills">
-                                <tr *ngFor="let skills of workerAccountInfo.skills">
+                            <table *ngIf="employeeAccountInfo.skills">
+                                <tr *ngFor="let skills of employeeAccountInfo.skills">
                                     <td>
                                         <p> {{skills}} </p>
                                     </td>
                                 </tr>
                             </table>
-                            <strong *ngIf="!workerAccountInfo.skills">Brak</strong>
+                            <strong *ngIf="!employeeAccountInfo.skills">Brak</strong>
                         </div>
                     </div>
 
@@ -93,14 +93,14 @@
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table *ngIf="workerAccountInfo.experience">
-                                <tr *ngFor="let experience of workerAccountInfo.experience">
+                            <table *ngIf="employeeAccountInfo.experience">
+                                <tr *ngFor="let experience of employeeAccountInfo.experience">
                                     <td>
                                         <p> {{experience}} </p>
                                     </td>
                                 </tr>
                             </table>
-                            <strong *ngIf="!workerAccountInfo.experience">Brak</strong>
+                            <strong *ngIf="!employeeAccountInfo.experience">Brak</strong>
                         </div>
                     </div>
 
@@ -115,14 +115,14 @@
                     </h2>
                     <div id="collapseFourth" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <table *ngIf="workerAccountInfo.projects">
-                                <tr *ngFor="let project of workerAccountInfo.projects">
+                            <table *ngIf="employeeAccountInfo.projects">
+                                <tr *ngFor="let project of employeeAccountInfo.projects">
                                     <td>
                                         <p> {{project}} </p>
                                     </td>
                                 </tr>
                             </table>
-                            <strong *ngIf="!workerAccountInfo.projects">Brak</strong>
+                            <strong *ngIf="!employeeAccountInfo.projects">Brak</strong>
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@
             <div class="row align-items-center">
 
                 <div class="col-sm-12 col-lg-6">
-                    <button class="btn btn-primary w-100 form-button-action" routerLink="/worker/editInfo">Edytuj
+                    <button class="btn btn-primary w-100 form-button-action" routerLink="/employee/editInfo">Edytuj
                         informacje
                     </button>
                 </div>

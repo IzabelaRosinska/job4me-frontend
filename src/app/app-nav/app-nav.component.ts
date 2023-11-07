@@ -14,6 +14,7 @@ export class AppNavComponent {
 
 
    constructor() {
+       console.log("role: " +  localStorage.getItem('role'))
    }
 
 
@@ -23,4 +24,5 @@ export class AppNavComponent {
       map(result => result.matches),
       shareReplay()
     );
+    protected readonly localStorage = localStorage;
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkerAccountComponent } from './worker-account.component';
+import { EmployeeAccountComponent } from './employee-account.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {HttpClientModule} from "@angular/common/http";
 
-describe('WorkerAccountComponent', () => {
-  let component: WorkerAccountComponent;
-  let fixture: ComponentFixture<WorkerAccountComponent>;
+describe('EmployeeAccountComponent', () => {
+  let component: EmployeeAccountComponent;
+  let fixture: ComponentFixture<EmployeeAccountComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule,HttpClientTestingModule,HttpClientModule],
-      declarations: [WorkerAccountComponent]
+      declarations: [EmployeeAccountComponent]
     });
-    fixture = TestBed.createComponent(WorkerAccountComponent);
+    fixture = TestBed.createComponent(EmployeeAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

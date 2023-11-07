@@ -1,4 +1,4 @@
-export interface WorkerAccount {
+export interface EmployeeAccount {
   id: string;
   firstName: string;
   lastName: string;
@@ -108,4 +108,9 @@ export interface Page<T> {
   numberOfElements: number,
   first: boolean,
   empty: boolean
+}
+
+export interface idNameListElement {
+    id: number;
+    name: string;
 }
