@@ -1,0 +1,46 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="main" *ngIf="!loading">
+    <div class="content">
+        <!--  Introductory panel-->
+        <div class="container info-panel p-4">
+            <div class="row">
+
+                <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 text-xs-center text-sm-center text-md-start">
+                    <h1 class="name-text">{{organizerAccount.name}}</h1>
+
+                    <h3><i>{{organizerAccount.email}}  |  {{organizerAccount.telephone}}</i></h3>
+
+                    <p class="text-description" *ngIf="organizerAccount.description"> {{organizerAccount.description}} </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Events-->
+        <div class="container info-panel p-4 ">
+            <h2 class="text-center">Zorganizowane wydarzenia</h2>
+            <hr>
+            <div >
+                <app-item-list [items]="jobFairsAsList" (deleteItemOut)="printId($event)" (acceptItemOut)="printId($event)">
+
+                </app-item-list>
+            </div>
+
+        </div>
+
+
+        <!--  Actions Panel-->
+        <div class="container info-panel">
+            <div class="row align-items-center">
+
+                <div class="col-sm-12">
+                    <button class="btn btn-primary w-100 form-button-action" routerLink="/organizer/editInfo">Edytuj informacje
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

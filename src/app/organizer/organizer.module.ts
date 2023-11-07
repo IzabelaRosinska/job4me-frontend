@@ -3,10 +3,13 @@ import {CommonModule} from '@angular/common';
 
 import {OrganizerRoutingModule} from './organizer-routing.module';
 import {UtilitiesModule} from "../utilities/utilities.module";
+import { OrganizerAccountComponent } from './organizer-account/organizer-account.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    OrganizerAccountComponent
+  ],
   exports: [],
   imports: [
     CommonModule,
