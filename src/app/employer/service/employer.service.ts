@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ROUTES} from "../../../environments/environments";
 import {map, shareReplay} from "rxjs/operators";
-import {ApiResponse, EmployerAccount, JobOffer, Page, WorkerAccount} from "../../types";
+import {ApiResponse, EmployerAccount, JobOffer, Page, EmployeeAccount} from "../../types";
 import {Observable} from "rxjs";
 
 @Injectable({

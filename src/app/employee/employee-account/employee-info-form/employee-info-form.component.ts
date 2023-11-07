@@ -5,14 +5,14 @@ import {
     SimpleTrueFalsePopUpComponent
 } from "../../../utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
 import {EmployeeService} from "../../service/employee.service";
-import {WorkerAccount} from "../../../types";
+import {EmployeeAccount} from "../../../types";
 
 @Component({
     selector: 'app-info-form',
-    templateUrl: './worker-info-form.component.html',
-    styleUrls: ['./worker-info-form.component.scss']
+    templateUrl: './employee-info-form.component.html',
+    styleUrls: ['./employee-info-form.component.scss']
 })
-export class WorkerInfoFormComponent implements OnInit {
+export class EmployeeInfoFormComponent implements OnInit {
 
 
     loading: boolean = true;
@@ -27,25 +27,25 @@ export class WorkerInfoFormComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.service.getEmployee().subscribe((response) => {
-                this.workerAccountInfo.id = response.id;
-                this.workerAccountInfo.firstName = response.firstName;
-                this.workerAccountInfo.lastName = response.lastName;
-                this.workerAccountInfo.email = response.email;
-                this.workerAccountInfo.telephone = response.telephone;
-                this.workerAccountInfo.aboutMe = response.aboutMe;
-                this.workerAccountInfo.education = response.education;
-                this.workerAccountInfo.experience = response.experience;
-                this.workerAccountInfo.skills = response.skills;
-                this.workerAccountInfo.projects = response.projects;
-                this.workerAccountInfo.interests = response.interests;
+                this.employeeAccountInfo.id = response.id;
+                this.employeeAccountInfo.firstName = response.firstName;
+                this.employeeAccountInfo.lastName = response.lastName;
+                this.employeeAccountInfo.email = response.email;
+                this.employeeAccountInfo.telephone = response.telephone;
+                this.employeeAccountInfo.aboutMe = response.aboutMe;
+                this.employeeAccountInfo.education = response.education;
+                this.employeeAccountInfo.experience = response.experience;
+                this.employeeAccountInfo.skills = response.skills;
+                this.employeeAccountInfo.projects = response.projects;
+                this.employeeAccountInfo.interests = response.interests;
                 this.loading = false;
-                console.log(this.workerAccountInfo)
+                console.log(this.employeeAccountInfo)
             });
         });
 
     }
 
-    workerAccountInfo: WorkerAccount = {
+    employeeAccountInfo: EmployeeAccount = {
         id: "",
         firstName: "",
         lastName: "",
@@ -62,16 +62,16 @@ export class WorkerInfoFormComponent implements OnInit {
     moduleSaveInfo(list: string[], id: string) {
         switch (id) {
             case "education":
-                this.workerAccountInfo.education = list;
+                this.employeeAccountInfo.education = list;
                 break;
             case "experience":
-                this.workerAccountInfo.experience = list;
+                this.employeeAccountInfo.experience = list;
                 break;
             case "skills":
-                this.workerAccountInfo.skills = list;
+                this.employeeAccountInfo.skills = list;
                 break;
             case "projects":
-                this.workerAccountInfo.projects = list;
+                this.employeeAccountInfo.projects = list;
                 break;
         }
     }
@@ -91,11 +91,11 @@ export class WorkerInfoFormComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
 
 
-            this.service.putEmployee(this.workerAccountInfo).subscribe((response) => {
+            this.service.putEmployee(this.employeeAccountInfo).subscribe((response) => {
                 console.log(response.body);
                 console.log(response);
 
-                this.router.navigate(['worker/account']);
+                this.router.navigate(['employee/account']);
             });
         });
 
@@ -117,7 +117,7 @@ export class WorkerInfoFormComponent implements OnInit {
 
 
             if (result)
-                this.router.navigate(['worker/account']);
+                this.router.navigate(['employee/account']);
         });
     }
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkerInfoFormComponent } from './worker-info-form.component';
+import { EmployeeInfoFormComponent } from './employee-info-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
@@ -9,15 +9,15 @@ import {ExpandedModuleFormComponent} from "../../../utilities/expanded-module-fo
 import {FormsModule} from "@angular/forms";
 
 describe('InfoFormComponent', () => {
-  let component: WorkerInfoFormComponent;
-  let fixture: ComponentFixture<WorkerInfoFormComponent>;
+  let component: EmployeeInfoFormComponent;
+  let fixture: ComponentFixture<EmployeeInfoFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule,RouterTestingModule,HttpClientTestingModule,HttpClientModule, FormsModule],
-      declarations: [WorkerInfoFormComponent, ExpandedModuleFormComponent]
+      declarations: [EmployeeInfoFormComponent, ExpandedModuleFormComponent]
     });
-    fixture = TestBed.createComponent(WorkerInfoFormComponent);
+    fixture = TestBed.createComponent(EmployeeInfoFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

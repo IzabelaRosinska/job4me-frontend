@@ -41,7 +41,7 @@ export class RegisterComponent {
 
           switch (this.registerData.role) {
             case 'EMPLOYEE':
-              this.router.navigate(['/worker/editInfo']);
+              this.router.navigate(['/employee/editInfo']);
               break;
             case 'EMPLOYER':
               this.router.navigate(['/employer/editInfo']);

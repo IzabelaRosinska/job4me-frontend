@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {WorkerAccount} from "../../types";
+import {EmployeeAccount} from "../../types";
 import {shareReplay} from "rxjs/operators";
 import { ROUTES} from "../../../environments/environments";
 
@@ -12,7 +12,7 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  putEmployee(employee: WorkerAccount): Observable<any> {
+  putEmployee(employee: EmployeeAccount): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE +'/employee/cv';
 
     return this.http.request('put', route, {
@@ -23,10 +23,10 @@ export class EmployeeService {
     }).pipe(shareReplay(1));
   }
 
-  getEmployee(): Observable<WorkerAccount> {
+  getEmployee(): Observable<EmployeeAccount> {
 
       const route = ROUTES.BACKEND_ROUTE + '/employee/cv';
-      return this.http.get<WorkerAccount>(route, {
+      return this.http.get<EmployeeAccount>(route, {
         withCredentials: true,
       });
   }
