@@ -8,7 +8,7 @@
                 <label for="first-name">Imię</label>
                 <input type="text" #name id="first-name" name="first-name"
                        class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="name.checkValidity()" [(ngModel)]="workerAccountInfo.firstName"
+                       [maxLength]="100" (change)="name.checkValidity()" [(ngModel)]="employeeAccountInfo.firstName"
                        required>
                 <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
                 <br><br>
@@ -16,7 +16,7 @@
                 <label for="last-name">Nazwisko</label>
                 <input type="text" id="last-name" #lastName name="last-name"
                        class="form-control {{lastName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="lastName.checkValidity()" [(ngModel)]="workerAccountInfo.lastName"
+                       [maxLength]="100" (change)="lastName.checkValidity()" [(ngModel)]="employeeAccountInfo.lastName"
                        required>
                 <div *ngIf="!lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
                 <br><br>
@@ -25,7 +25,7 @@
                 <label for="mail">Email kontaktowy</label>
                 <input type="email" id="mail" #email name="mail"
                        class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="workerAccountInfo.email"
+                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employeeAccountInfo.email"
                        required>
                 <div class="invalid-feedback" *ngIf="!email.checkValidity()"
                      (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
@@ -34,37 +34,37 @@
                 <label for="phone-number">Numer telefonu</label>
                 <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "
                        [maxLength]="20" (change)="phoneNumber.checkValidity()"
-                       [(ngModel)]="workerAccountInfo.telephone"><br><br>
+                       [(ngModel)]="employeeAccountInfo.telephone"><br><br>
 
                 <label for="aboutMe" class="form-label">O mnie</label>
                 <textarea type="text" id="aboutMe" name="aboutMe" class="form-control aboutMe"
-                          [(ngModel)]="workerAccountInfo.aboutMe"></textarea><br><br>
+                          [(ngModel)]="employeeAccountInfo.aboutMe"></textarea><br><br>
 
                 <label for="aboutMe" class="form-label">Zainteresowania</label>
                 <textarea type="text" id="interests" name="interests" class="form-control aboutMe"
-                          [(ngModel)]="workerAccountInfo.interests"></textarea><br><br>
+                          [(ngModel)]="employeeAccountInfo.interests"></textarea><br><br>
 
                 <div class="rounded-4 cv-list-elem">
                     <app-expanded-module-form [title]="'Wykształcenie'" [maxInputLength]="100"
-                                              [listOfTexts]="validList(workerAccountInfo.education)"
+                                              [listOfTexts]="validList(employeeAccountInfo.education)"
                                               (save)="moduleSaveInfo($event,'education')"></app-expanded-module-form>
                 </div>
 
                 <div class="rounded-4 cv-list-elem">
                     <app-expanded-module-form [title]="'Umiejętności'" [maxInputLength]="50" [maxInputCount]="20"
-                                              [listOfTexts]="validList(workerAccountInfo.skills)"
+                                              [listOfTexts]="validList(employeeAccountInfo.skills)"
                                               (save)="moduleSaveInfo($event,'skills')"></app-expanded-module-form>
                 </div>
 
                 <div class="rounded-4 cv-list-elem">
                     <app-expanded-module-form [title]="'Doświadczenie'" [maxInputLength]="255"
-                                              [listOfTexts]="validList(workerAccountInfo.experience)"
+                                              [listOfTexts]="validList(employeeAccountInfo.experience)"
                                               (save)="moduleSaveInfo($event,'experience')"></app-expanded-module-form>
                 </div>
 
                 <div class="rounded-4 cv-list-elem">
                     <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500"
-                                              [listOfTexts]="validList(workerAccountInfo.projects)"
+                                              [listOfTexts]="validList(employeeAccountInfo.projects)"
                                               (save)="moduleSaveInfo($event,'projects')"></app-expanded-module-form>
                 </div>
 

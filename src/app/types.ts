@@ -1,4 +1,4 @@
-export interface WorkerAccount {
+export interface EmployeeAccount {
   id: string;
   firstName: string;
   lastName: string;

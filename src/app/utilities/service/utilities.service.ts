@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {WorkerAccount} from "../../types";
+import {EmployeeAccount} from "../../types";
 import {Observable} from "rxjs";
 import {ROUTES} from "../../../environments/environments";
 import {shareReplay} from "rxjs/operators";

@@ -72,7 +72,7 @@ export class EmployerAccountComponent implements OnInit {
                     this.employerAccount = response;
                     if (!this.employerAccount.companyName || !this.employerAccount.contactEmail || !this.employerAccount.telephone
                         || !this.employerAccount.description || !this.employerAccount.displayDescription) {
-                        this.router.navigate(['employer/editInfo']);
+                        // this.router.navigate(['employer/editInfo']);
                     }
                     this.lodaingAccount = false;
                 });
@@ -147,8 +147,6 @@ export class EmployerAccountComponent implements OnInit {
         this.jobOffersState$.subscribe((response) => {
 
         });
-        this.convertJobOffersToListType();
-
     }
 
     deleteJobOffer(id: number): void {
