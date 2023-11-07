@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiResponse, EmployerAccount, ItemInsideList, JobOffer, Page} from "../../types";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {EmployerService} from "../service/employer.service";
 import {async, BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {map} from "rxjs/operators";
@@ -19,8 +19,10 @@ export class EmployerAccountComponent implements OnInit {
     responseSubject = new BehaviorSubject<Page<JobOffer>>({} as Page<JobOffer>);
     private currentPageSubject = new BehaviorSubject<number>(0);
     currentPage$ = this.currentPageSubject.asObservable();
-    constructor(private serviceEmployer: EmployerService, private route: ActivatedRoute) {
 
+    constructor(private serviceEmployer: EmployerService,
+                private route: ActivatedRoute,
+                private router: Router) {
     }
 
     companyPhoto = '../../assets/company.png';
@@ -57,16 +59,21 @@ export class EmployerAccountComponent implements OnInit {
         }
         this.offersAsList.push(offerAsItemInsideList);
     }
+
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            if(params.get('employer-id')){
+            if (params.get('employer-id')) {
                 this.serviceEmployer.getEmployerById(params.get('employer-id')).subscribe((response) => {
                     this.employerAccount = response;
                     this.lodaingAccount = false;
                 });
-            }else{
+            } else {
                 this.serviceEmployer.getEmployer().subscribe((response) => {
                     this.employerAccount = response;
+                    if (!this.employerAccount.companyName || !this.employerAccount.contactEmail || !this.employerAccount.telephone
+                        || !this.employerAccount.description || !this.employerAccount.displayDescription) {
+                        this.router.navigate(['employer/editInfo']);
+                    }
                     this.lodaingAccount = false;
                 });
             }
@@ -83,13 +90,15 @@ export class EmployerAccountComponent implements OnInit {
                         this.addJobOfferForList(offer);
                     }
                 );
+
                 this.lodaingOffers = false;
 
-                return ({ appState: 'APP_LOADED', appData: response });
+                return ({appState: 'APP_LOADED', appData: response});
             }),
-            startWith({ appState: 'APP_LOADED'}),
-            catchError((error: HttpErrorResponse) =>{
-                return of({ appState: 'APP_ERROR', error })}
+            startWith({appState: 'APP_LOADED'}),
+            catchError((error: HttpErrorResponse) => {
+                    return of({appState: 'APP_ERROR', error})
+                }
             )
         )
 
@@ -113,7 +122,7 @@ export class EmployerAccountComponent implements OnInit {
     gotToPage(name?: string, pageNumber: number = 0): void {
         this.offersAsList = [];
         this.lodaingOffers = true;
-        this.jobOffersState$ = this.serviceEmployer.jobOffers$(pageNumber,this.pageSize).pipe(
+        this.jobOffersState$ = this.serviceEmployer.jobOffers$(pageNumber, this.pageSize).pipe(
             map((response: Page<JobOffer>) => {
 
                 this.responseSubject.next(response);
@@ -126,11 +135,12 @@ export class EmployerAccountComponent implements OnInit {
                 );
                 this.lodaingOffers = false;
                 console.log(response);
-                return ({ appState: 'APP_LOADED', appData: response });
+                return ({appState: 'APP_LOADED', appData: response});
             }),
-            startWith({ appState: 'APP_LOADED', appData: this.responseSubject.value }),
-            catchError((error: HttpErrorResponse) =>{
-                return of({ appState: 'APP_ERROR', error })}
+            startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),
+            catchError((error: HttpErrorResponse) => {
+                    return of({appState: 'APP_ERROR', error})
+                }
             )
         )
 

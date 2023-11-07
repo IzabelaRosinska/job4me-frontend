@@ -1,5 +1,14 @@
 @import "src/app/employer/employer-account/employer-account.component.scss";
 
+div.main{
+  border: 1px solid $BORDER_COLOR;
+  display: flow;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-width: 400px;
+}
+
 .cv-list-elem {
   width: 98%;
   margin: 10px;
