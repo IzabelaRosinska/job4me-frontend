@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployerService} from "../../service/employer.service";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -26,48 +27,64 @@ export class JobOfferEditFormComponent implements OnInit{
               private route: ActivatedRoute,
               private http: HttpClient) { }
 
+
+  loading: boolean = true;
   jobOfferData: JobOffer = {
-    offerName: "Java Developer",
-    employerId: 0,
-    industries: ['IT'],
-    localizations: ['Wrocław', 'Warszawa' ],
-    employmentForms: ['praca zdalna'],
-    salaryFrom: 10000,
-    salaryTo: 12500,
-    contractTypes: ['B2B'],
-    workingTime: "8h",
-    levels: ['Junior','Senior'],
-    requirements: ['Java', 'Spring', 'Hibernate', 'SQL'],
-    extraSkills: ['Ut varius tempus tellus, sed luctus nibh. Etiam ornare ',
-        'Integer id metus euismod, imperdiet dui non, egestas elit. '],
-    duties: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ex purus, tincidunt nec posuere vitae, placerat quis" +
-        " ante. Etiam nisl dolor, aliquet sed accumsan ut, mollis ac velit. Phasellus sodales est vitae lorem dignissim, non" +
-        " fringilla urna volutpat. Suspendisse potenti. Ut maximus magna ex, ac sodales libero cursus non. Proin ut tortor eu" +
-        " felis molestie vulputate sit amet in massa. Nunc est leo, condimentum sit amet condimentum vel, rutrum et odio. Proin" +
-        " facilisis orci a metus congue, vel condimentum nisl tempor. Quisque sed lectus quis tellus accumsan scelerisque eget ",
-    description: "\n" +
-        "Suspendisse sed efficitur tellus. Fusce ullamcorper est at magna fermentum, at fringilla tortor fringilla. " +
-        "Vestibulum commodo felis non nulla luctus elementum. Fusce mollis neque enim, at blandit orci lacinia non. Sed" +
-        " suscipit vitae turpis et elementum. Curabitur sed turpis a nisl condimentum imperdiet quis vel eros. Donec " +
-        "iaculis urna eget nisl malesuada aliquam. Duis tincidunt maximus eros, vitae pulvinar enim lacinia vitae. "
-
+      offerName: "",
+      employerId: 0,
+      industries: [],
+      localizations: [],
+      employmentForms: [],
+      salaryFrom: 0,
+      salaryTo: 0,
+      contractTypes: [],
+      workingTime: "",
+      levels: [],
+      requirements: [],
+      extraSkills: [],
+      duties: "",
+      description: ""
   }
+    // offerName: "Java Developer",
+    // employerId: 0,
+    // industries: ['IT'],
+    // localizations: ['Wrocław', 'Warszawa' ],
+    // employmentForms: ['praca zdalna'],
+    // salaryFrom: 10000,
+    // salaryTo: 12500,
+    // contractTypes: ['B2B'],
+    // workingTime: "8h",
+    // levels: ['Junior','Senior'],
+    // requirements: ['Java', 'Spring', 'Hibernate', 'SQL'],
+    // extraSkills: ['Ut varius tempus tellus, sed luctus nibh. Etiam ornare ',
+    //     'Integer id metus euismod, imperdiet dui non, egestas elit. '],
+    // duties: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ex purus, tincidunt nec posuere vitae, placerat quis" +
+    // " ante. Etiam nisl dolor, aliquet sed accumsan ut, mollis ac velit. Phasellus sodales est vitae lorem dignissim, non" +
+    // " fringilla urna volutpat. Suspendisse potenti. Ut maximus magna ex, ac sodales libero cursus non. Proin ut tortor eu" +
+    // " felis molestie vulputate sit amet in massa. Nunc est leo, condimentum sit amet condimentum vel, rutrum et odio. Proin" +
+    // " facilisis orci a metus congue, vel condimentum nisl tempor. Quisque sed lectus quis tellus accumsan scelerisque eget ",
+    // description: "\n" +
+    // "Suspendisse sed efficitur tellus. Fusce ullamcorper est at magna fermentum, at fringilla tortor fringilla. " +
+    // "Vestibulum commodo felis non nulla luctus elementum. Fusce mollis neque enim, at blandit orci lacinia non. Sed" +
+    // " suscipit vitae turpis et elementum. Curabitur sed turpis a nisl condimentum imperdiet quis vel eros. Donec " +
+    // "iaculis urna eget nisl malesuada aliquam. Duis tincidunt maximus eros, vitae pulvinar enim lacinia vitae. "
 
-    // id: "",
-    // offerName: "",
-    // company: "",
-    // industries: [],
-    // localizations: [],
-    // forms: [],
-    // salaryFrom: 0,
-    // salaryTo: 0,
-    // contractType: [],
-    // workingTime: "",
-    // level: [],
-    // requirements: [],
-    // extraSkills: [],
-    // duties: "",
-    // description: ""
+    // jobOffer$!: Observable<JobOffer>;
+    ngOnInit(): void {
+        this.route.paramMap.subscribe((params) => {
+            if(params.get('id')){
+                // this.jobOffer$ = this.employerService.getJobOffer$(params.get('id'));
+                this.employerService.getJobOffer(params.get('id')).subscribe((response) => {
+                    this.jobOfferData = response;
+                    this.loading = false;
+                });
+            }
+        });
+
+        this.employerService.getEmployer().subscribe((response) => {
+            this.jobOfferData.employerId = response.id;
+        });
+    }
   validate(isValid: boolean, data: HTMLElement){
     if(isValid){
         data.classList.add("valid-module");
@@ -132,9 +149,5 @@ export class JobOfferEditFormComponent implements OnInit{
       });
   }
 
-    ngOnInit(): void {
-      this.employerService.getEmployer().subscribe((response) => {
-            this.jobOfferData.employerId = response.id;
-      });
-    }
+
 }

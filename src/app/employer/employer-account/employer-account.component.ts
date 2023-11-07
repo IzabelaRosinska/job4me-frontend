@@ -59,10 +59,18 @@ export class EmployerAccountComponent implements OnInit {
     }
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            this.serviceEmployer.getEmployer().subscribe((response) => {
-                this.employerAccount = response;
-                this.lodaingAccount = false;
-            });
+            if(params.get('employer-id')){
+                this.serviceEmployer.getEmployerById(params.get('employer-id')).subscribe((response) => {
+                    this.employerAccount = response;
+                    this.lodaingAccount = false;
+                });
+            }else{
+                this.serviceEmployer.getEmployer().subscribe((response) => {
+                    this.employerAccount = response;
+                    this.lodaingAccount = false;
+                });
+            }
+
         });
 
         this.jobOffersState$ = this.serviceEmployer.jobOffers$().pipe(
@@ -75,6 +83,7 @@ export class EmployerAccountComponent implements OnInit {
                         this.addJobOfferForList(offer);
                     }
                 );
+                this.lodaingOffers = false;
 
                 return ({ appState: 'APP_LOADED', appData: response });
             }),
@@ -89,7 +98,6 @@ export class EmployerAccountComponent implements OnInit {
             this.pageSize = response.appData ? response.appData.size : 0;
             this.pageIndex = response.appData ? response.appData.number : 0;
         });
-        this.lodaingOffers = false;
     }
 
 

@@ -19,7 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
       withCredentials: true
 
     });
-    // console.log(newRequest);
+    console.log(newRequest);
     return next.handle(newRequest);
   }
 }

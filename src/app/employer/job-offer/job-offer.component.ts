@@ -28,20 +28,21 @@ export class JobOfferComponent implements OnInit {
     workingTime: "",
     levels: [""],
     requirements: [""],
-    extraSkills: [""],
     duties: "",
     description: ""
   }
 
+  companyPhoto = '../../assets/company.png';
   employerAccountData?: EmployerAccount;
-
+  loading: boolean = true;
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe((params: ParamMap) => {
-    // });
-
-    this.serviceEmployer.getJobOffer().subscribe((response) => {
-      this.jobOfferData = response;
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.serviceEmployer.getJobOffer(params.get('id')).subscribe((response) => {
+        this.jobOfferData = response;
+        this.loading = false;
+        console.log(this.jobOfferData);
+      });
     });
 
     this.serviceEmployer.getEmployer().subscribe((response) => {

@@ -1,9 +1,9 @@
-<div class="container align-content-left text-left main">
+<app-loading-screen *ngIf="loading"></app-loading-screen>
 
-
+<div class="container align-content-left text-left main" *ngIf="!loading">
   <div class="fieldset-outer">
     <fieldset class="common-inputs-fieldset">
-      <form action="">
+      <form>
         <legend>Oferta</legend>
         <label for="name">Nazwa stanowiska</label>
         <input type="text" #name id="name" name="name"
@@ -49,7 +49,7 @@
         <br><br>
 
         <div #branches class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="100" [maxInputCount]="5"
+          <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="100" [maxInputCount]="10"
                                     [listOfTexts]="jobOfferData.industries" [minInputCount]="1"
                                     (valid)="validate($event,branches)"
                                     [placeholder]="'np. IT'"></app-expanded-module-form>
@@ -67,7 +67,7 @@
         </div>
 
         <div #forms class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Typ umowy'" [maxInputLength]="25" [maxInputCount]="5"
+          <app-expanded-module-form [title]="'Typ umowy'" [maxInputLength]="50"
                                     [listOfTexts]="jobOfferData.employmentForms" [minInputCount]="1"
                                     (valid)="validate($event,forms)"
                                     [placeholder]="'np. B2B'"></app-expanded-module-form>
@@ -76,7 +76,7 @@
         </div>
 
         <div #contract_type class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Etat'" [maxInputLength]="25" [maxInputCount]="5"
+          <app-expanded-module-form [title]="'Etat'" [maxInputLength]="50"
                                     [listOfTexts]="jobOfferData.contractTypes" [minInputCount]="1"
                                     (valid)="validate($event,contract_type)"
                                     [placeholder]="'np. Full-time'"></app-expanded-module-form>
@@ -85,7 +85,7 @@
         </div>
 
         <div #level class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Poziom'" [maxInputLength]="25" [maxInputCount]="5"
+          <app-expanded-module-form [title]="'Poziom'" [maxInputLength]="50"
                                     [listOfTexts]="jobOfferData.levels" [minInputCount]="1"
                                     (valid)="validate($event,level)"
                                     [placeholder]="'np. Junior'"></app-expanded-module-form>
@@ -93,7 +93,7 @@
             poziom zatrudnienia</h5>
         </div>
 
-        <div #requirements class="rounded-4 list-elem">
+        <div #requirements class="rounded-4 list-elem" >
           <app-expanded-module-form [title]="'Wymagania'" [maxInputLength]="250" [maxInputCount]="15"
                                     [listOfTexts]="jobOfferData.requirements" [minInputCount]="1"
                                     (valid)="validate($event,requirements)"
@@ -118,7 +118,7 @@
         <br><br>
 
         <div class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="10"
+          <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="15"
                                     [listOfTexts]="jobOfferData.extraSkills? jobOfferData.extraSkills : []"></app-expanded-module-form>
         </div>
 

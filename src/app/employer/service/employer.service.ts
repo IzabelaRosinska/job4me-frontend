@@ -22,8 +22,16 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
+
   getEmployer(): Observable<EmployerAccount> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/account';
+    return this.http.get<EmployerAccount>(route, {
+      withCredentials: true,
+    });
+  }
+
+  getEmployerById(id: number | string | null): Observable<EmployerAccount> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/account/'+ (id? id : 0);
     return this.http.get<EmployerAccount>(route, {
       withCredentials: true,
     });
@@ -41,7 +49,8 @@ export class EmployerService {
   }
 
   putJobOffer(jobOffer: JobOffer): Observable<any> {
-    const route =  ROUTES.BACKEND_ROUTE +'/job-offers/+'+ jobOffer.id;
+    console.log(jobOffer);
+    const route =  ROUTES.BACKEND_ROUTE +'/job-offers/'+ jobOffer.id;
     return this.http.request('put', route, {
       body: jobOffer,
       withCredentials: true,
@@ -50,8 +59,8 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
-  getJobOffer(): Observable<JobOffer> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-offers/:id';
+  getJobOffer(id: string | number | null): Observable<JobOffer> {
+    const route = ROUTES.BACKEND_ROUTE + '/job-offers/'+ (id? id : 0);
     return this.http.get<JobOffer>(route, {
       withCredentials: true,
     });
@@ -64,11 +73,12 @@ export class EmployerService {
     });
   }
 
-  getJobOffers$ = this.http.request<any>('get',ROUTES.BACKEND_ROUTE + '/job-offers', {
-    withCredentials: true
-  });
+  getJobOffer$ = (id: number | string | null): Observable<JobOffer> =>
+      this.http.request<JobOffer>('get',ROUTES.BACKEND_ROUTE + '/job-offers/'+ (id? id : 0), {
+        withCredentials: true
+      });
 
-  jobOffers$ = (page: number = 0, size: number = 3): Observable<Page<JobOffer>> =>
+  jobOffers$ = (page: number = 0, size: number = 5): Observable<Page<JobOffer>> =>
       this.http.get<Page<JobOffer>>(`${ROUTES.BACKEND_ROUTE}/job-offers?&page=${page}&size=${size}`).pipe(shareReplay(1));
   // ApiResponse<Page<JobOffer>>
 
