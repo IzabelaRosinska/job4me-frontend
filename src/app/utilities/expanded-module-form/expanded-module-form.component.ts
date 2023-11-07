@@ -41,8 +41,6 @@ export class ExpandedModuleFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.listOfTextsWithIndexes = this.listOfTexts.map((value, index) => [value, index]);
-
-    //emit valid event
     this.valid.emit(this.listOfTextsWithIndexes.length >= this.minInputCount);
   }
 

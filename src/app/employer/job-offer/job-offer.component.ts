@@ -41,7 +41,6 @@ export class JobOfferComponent implements OnInit {
       this.serviceEmployer.getJobOffer(params.get('id')).subscribe((response) => {
         this.jobOfferData = response;
         this.loading = false;
-        console.log(this.jobOfferData);
       });
     });
 

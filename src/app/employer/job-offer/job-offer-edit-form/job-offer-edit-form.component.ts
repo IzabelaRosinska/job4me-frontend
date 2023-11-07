@@ -20,12 +20,10 @@ export class JobOfferEditFormComponent implements OnInit{
   invalidClassName: string = "invalid-module";
   validClassName: string = "valid-module";
 
-  employerAccountData?: EmployerAccount;
   constructor(public  dialog: MatDialog,
               private router: Router,
               private employerService: EmployerService,
-              private route: ActivatedRoute,
-              private http: HttpClient) { }
+              private route: ActivatedRoute) { }
 
 
   loading: boolean = true;
@@ -45,35 +43,10 @@ export class JobOfferEditFormComponent implements OnInit{
       duties: "",
       description: ""
   }
-    // offerName: "Java Developer",
-    // employerId: 0,
-    // industries: ['IT'],
-    // localizations: ['Wrocław', 'Warszawa' ],
-    // employmentForms: ['praca zdalna'],
-    // salaryFrom: 10000,
-    // salaryTo: 12500,
-    // contractTypes: ['B2B'],
-    // workingTime: "8h",
-    // levels: ['Junior','Senior'],
-    // requirements: ['Java', 'Spring', 'Hibernate', 'SQL'],
-    // extraSkills: ['Ut varius tempus tellus, sed luctus nibh. Etiam ornare ',
-    //     'Integer id metus euismod, imperdiet dui non, egestas elit. '],
-    // duties: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ex purus, tincidunt nec posuere vitae, placerat quis" +
-    // " ante. Etiam nisl dolor, aliquet sed accumsan ut, mollis ac velit. Phasellus sodales est vitae lorem dignissim, non" +
-    // " fringilla urna volutpat. Suspendisse potenti. Ut maximus magna ex, ac sodales libero cursus non. Proin ut tortor eu" +
-    // " felis molestie vulputate sit amet in massa. Nunc est leo, condimentum sit amet condimentum vel, rutrum et odio. Proin" +
-    // " facilisis orci a metus congue, vel condimentum nisl tempor. Quisque sed lectus quis tellus accumsan scelerisque eget ",
-    // description: "\n" +
-    // "Suspendisse sed efficitur tellus. Fusce ullamcorper est at magna fermentum, at fringilla tortor fringilla. " +
-    // "Vestibulum commodo felis non nulla luctus elementum. Fusce mollis neque enim, at blandit orci lacinia non. Sed" +
-    // " suscipit vitae turpis et elementum. Curabitur sed turpis a nisl condimentum imperdiet quis vel eros. Donec " +
-    // "iaculis urna eget nisl malesuada aliquam. Duis tincidunt maximus eros, vitae pulvinar enim lacinia vitae. "
 
-    // jobOffer$!: Observable<JobOffer>;
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
             if(params.get('id')){
-                // this.jobOffer$ = this.employerService.getJobOffer$(params.get('id'));
                 this.employerService.getJobOffer(params.get('id')).subscribe((response) => {
                     this.jobOfferData = response;
                     this.loading = false;
@@ -108,7 +81,6 @@ export class JobOfferEditFormComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
 
-      // add logic for saving data
       if(result){
           if(!this.jobOfferData.id){
               this.employerService.postJobOffer(this.jobOfferData).subscribe((response) => {
@@ -140,7 +112,6 @@ export class JobOfferEditFormComponent implements OnInit{
 
       dialogRef.afterClosed().subscribe(result => {
 
-        // add redirecting to client page
           if(result){
               if(this.jobOfferData.id)
                   this.router.navigate(['employer/job-offer/'+this.jobOfferData.id]);

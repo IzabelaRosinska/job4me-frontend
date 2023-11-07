@@ -89,7 +89,5 @@ export class EmployerService {
 
   jobOffers$ = (page: number = 0, size: number = 5): Observable<Page<JobOffer>> =>
       this.http.get<Page<JobOffer>>(`${ROUTES.BACKEND_ROUTE}/job-offers?&page=${page}&size=${size}`).pipe(shareReplay(1));
-  // ApiResponse<Page<JobOffer>>
-
 
 }
