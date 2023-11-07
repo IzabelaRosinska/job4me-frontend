@@ -13,8 +13,8 @@ import {ItemInsideList} from "../../../types";
 export class ItemInsideListComponent {
   @Input () item: ItemInsideList | null = null;
 
-  @Output() deleteItem = new EventEmitter<string>();
-  @Output() acceptItem = new EventEmitter<string>();
+  @Output() deleteItem = new EventEmitter<number>();
+  @Output() acceptItem = new EventEmitter<number>();
 
 
   constructor(public dialog: MatDialog) {}

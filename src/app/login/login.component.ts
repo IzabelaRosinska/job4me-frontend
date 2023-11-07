@@ -37,9 +37,10 @@ export class LoginComponent implements OnInit{
     ).subscribe(response => {
       switch (response.status) {
         case 200:
-            localStorage.setItem('role', response.body?.toLowerCase() ? response.body?.toLowerCase() : '');
-            this.router.navigate(['/' + response.body?.toLowerCase() +'/account']);
-            break;
+          console.log(response.body);
+          localStorage.setItem('role', response.body?.toLowerCase() ? response.body?.toLowerCase() : '');
+          this.router.navigate(['/' + response.body?.toLowerCase().replace('_enabled','') +'/account']);
+          break;
       }
       loginForm.resetForm({
         username: '',

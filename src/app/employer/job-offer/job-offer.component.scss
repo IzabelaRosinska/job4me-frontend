@@ -1,3 +1,7 @@
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
+@import '@fortawesome/fontawesome-free/scss/regular.scss';
+
 .my-cards{
   margin-bottom: 0.2rem;
   margin-top: 0.2rem;
@@ -21,4 +25,18 @@
 h2{
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.id{
+  margin: 0px;
+}
+
+.useable-icon {
+  font-size: 3em;
+  color: rgba(31, 31, 31, 0.5);
+  transition: all 0.3s linear;
+}
+
+.useable-icon:hover {
+  color: rgba(31, 31, 31, 1);
 }

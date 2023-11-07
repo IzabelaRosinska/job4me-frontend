@@ -16,7 +16,7 @@
                 <label for="mail">Email kontaktowy</label>
                 <input type="email" id="mail" #email name="mail"
                        class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employerAccount.email" required>
+                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employerAccount.contactEmail" required>
                 <div class="invalid-feedback" *ngIf="!email.checkValidity()"
                      (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
                 <br><br>

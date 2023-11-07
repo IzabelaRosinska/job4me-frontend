@@ -13,12 +13,12 @@ export interface WorkerAccount {
 }
 
 export interface EmployerAccount {
-  id: string;
+  id: number;
   companyName: string;
   description: string;
   displayDescription: string;
   telephone: string;
-  email: string;
+  contactEmail: string;
   photo?: string;
   address?:  string;
 }
@@ -46,7 +46,7 @@ export interface ItemInsideList{
   route: string;
   image: string;
   name: string;
-  id: string;
+  id: number;
   description: string;
   useFavorite: boolean;
   isFavorite?: boolean;
@@ -56,19 +56,56 @@ export interface ItemInsideList{
 }
 
 export interface JobOffer {
-  id: string;
+  id?: number;
   offerName: string;
-  company: string ;
+  employerId: number ;
   industries: string[];
   localizations: string[];
-  forms: string[];
+  employmentForms: string[];
   salaryFrom: number;
   salaryTo: number;
-  contractType: string[];
+  contractTypes: string[];
   workingTime: string;
-  level: string[];
+  levels: string[];
   requirements: string[];
   extraSkills?: string[];
   duties: string;
   description?: string;
+}
+
+export interface ApiResponse<T> {
+  timeStamp: string;
+  statusCode: number;
+  status: string;
+  message: string;
+  data: { page: T };
+}
+
+export interface Page<T> {
+  content: T[],
+  pageable: {
+    sort: {
+      empty: boolean,
+      sorted: boolean,
+      unsorted: boolean
+    },
+    offset: number,
+    pageNumber: number,
+    pageSize: number,
+    unpaged: boolean,
+    paged: boolean
+  },
+  last: boolean,
+  totalPages: number,
+  totalElements: number,
+  size: number,
+  number: number,
+  sort: {
+    empty: boolean,
+    sorted: boolean,
+    unsorted: boolean
+  },
+  numberOfElements: number,
+  first: boolean,
+  empty: boolean
 }

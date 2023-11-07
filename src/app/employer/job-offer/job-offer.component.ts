@@ -17,32 +17,31 @@ export class JobOfferComponent implements OnInit {
   }
 
   jobOfferData: JobOffer = {
-    id: "",
     offerName: "",
-    company: "",
+    employerId: 0,
     industries: [],
     localizations: [],
-    forms: [],
+    employmentForms: [],
     salaryFrom: 0,
     salaryTo: 0,
-    contractType: [""],
+    contractTypes: [""],
     workingTime: "",
-    level: [""],
+    levels: [""],
     requirements: [""],
-    extraSkills: [""],
     duties: "",
     description: ""
   }
 
+  companyPhoto = '../../assets/company.png';
   employerAccountData?: EmployerAccount;
-
+  loading: boolean = true;
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe((params: ParamMap) => {
-    // });
-
-    this.serviceEmployer.getJobOffer().subscribe((response) => {
-      this.jobOfferData = response;
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.serviceEmployer.getJobOffer(params.get('id')).subscribe((response) => {
+        this.jobOfferData = response;
+        this.loading = false;
+      });
     });
 
     this.serviceEmployer.getEmployer().subscribe((response) => {

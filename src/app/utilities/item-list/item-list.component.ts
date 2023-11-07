@@ -11,7 +11,7 @@ export class ItemListComponent {
     {
       image: "https://picsum.photos/100/100",
       name: "John Gray",
-      id: "000001",
+      id: 1,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
       route: "/login",
       useFavorite: true,
@@ -21,7 +21,7 @@ export class ItemListComponent {
     {
       image: "https://picsum.photos/100/100",
       name: "John Black",
-      id: "000002",
+      id: 2,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
       route: "/login",
       useFavorite: true,
@@ -31,7 +31,7 @@ export class ItemListComponent {
     {
       image: "https://picsum.photos/100/100",
       name: "John White",
-      id: "000003",
+      id: 3,
       description: "opis opis opis",
       route: "/login",
       useFavorite: false,
@@ -40,19 +40,19 @@ export class ItemListComponent {
   ];
 
 
-  @Output() deleteItemOut = new EventEmitter<string>();
-  @Output() acceptItemOut = new EventEmitter<string>();
+  @Output() deleteItemOut = new EventEmitter<number>();
+  @Output() acceptItemOut = new EventEmitter<number>();
 
   constructor() {}
 
-  deleteItem(id: string): void {
+  deleteItem(id: number): void {
     if(this.items){
       this.items = this.items?.filter((item) => item.id !== id);
       this.deleteItemOut.emit(id);
     }
   }
 
-  acceptItem(id: string): void {
+  acceptItem(id: number): void {
     if(this.items){
       this.items = this.items?.filter((item) => item.id !== id);
       this.acceptItemOut.emit(id);
