@@ -109,3 +109,8 @@ export interface Page<T> {
   first: boolean,
   empty: boolean
 }
+
+export interface idNameListElement {
+    id: number;
+    name: string;
+}

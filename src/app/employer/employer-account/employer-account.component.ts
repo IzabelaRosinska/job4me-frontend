@@ -43,6 +43,8 @@ export class EmployerAccountComponent implements OnInit {
     pageEvent?: PageEvent;
     offersAsList: ItemInsideList[] = [];
 
+    filters: [string, string][] = [["Minimalne wynagrodzenie", ""],["Branża", "/industries"],["Poziomy", "/levels"]];
+
     lodaingAccount: boolean = true;
     lodaingOffers: boolean = true;
 
@@ -158,5 +160,6 @@ export class EmployerAccountComponent implements OnInit {
     print(text: string){
         console.log(text)
     }
+
 
 }

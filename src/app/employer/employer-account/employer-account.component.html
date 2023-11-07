@@ -34,9 +34,10 @@
                      aria-label="Select page">
       </mat-paginator>
       <hr>
+
       <div class="">
         <app-loading-screen *ngIf="lodaingOffers"></app-loading-screen>
-        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers" (deleteItemOut)="deleteJobOffer($event)"></app-item-list>
+        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers" (deleteItemOut)="deleteJobOffer($event)" [filters]="filters"></app-item-list>
       </div>
 
     </div>

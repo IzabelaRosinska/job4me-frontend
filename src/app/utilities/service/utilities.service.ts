@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {EmployeeAccount} from "../../types";
+import {EmployeeAccount, idNameListElement, Page} from "../../types";
 import {Observable} from "rxjs";
 import {ROUTES} from "../../../environments/environments";
-import {shareReplay} from "rxjs/operators";
+import {map, shareReplay} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -23,13 +23,10 @@ export class UtilitiesService {
   //   }).pipe(shareReplay(1));
   // }
 
-  getFilterOptions(endpoint: string): Observable<string[]> {
+  getFilterOptions(endpoint: string): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + endpoint;
-    return new Observable<string[]>(subscriber => {
-        subscriber.next(["All", "Active", "Inactive", "Deleted"]);
+    return this.http.get<Page<idNameListElement>>(route, {
+      withCredentials: true,
     });
-    // return this.http.get<string[]>(route, {
-    //   withCredentials: true,
-    // });
   }
 }

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ItemInsideList} from "../../types";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-item-list',
@@ -38,6 +39,8 @@ export class ItemListComponent {
       useDelete: false
     }
   ];
+
+  @Input() filters: [string,string][] =  []
 
   filterOptionsChecked: string[] = [];
 
