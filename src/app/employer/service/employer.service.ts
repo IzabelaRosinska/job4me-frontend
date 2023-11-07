@@ -59,6 +59,15 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
+  deleteJobOffer(id: number | string | null): Observable<any> {
+    const route =  ROUTES.BACKEND_ROUTE +'/job-offers/'+ (id? id : 0);
+    return this.http.request('delete', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
   getJobOffer(id: string | number | null): Observable<JobOffer> {
     const route = ROUTES.BACKEND_ROUTE + '/job-offers/'+ (id? id : 0);
     return this.http.get<JobOffer>(route, {

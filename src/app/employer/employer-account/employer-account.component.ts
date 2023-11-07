@@ -140,10 +140,11 @@ export class EmployerAccountComponent implements OnInit {
 
     }
 
-    goToNextOrPreviousPage(direction?: string, name?: string): void {
-        this.gotToPage(name, direction === 'forward' ? this.currentPageSubject.value + 1 : this.currentPageSubject.value - 1);
+    deleteJobOffer(id: number): void {
+        this.serviceEmployer.deleteJobOffer(id).subscribe((response) => {
+            this.gotToPage();
+        });
     }
-
 
 
 }

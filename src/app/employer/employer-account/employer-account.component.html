@@ -36,7 +36,7 @@
       <hr>
       <div class="overflow-y-scroll scroll-list-panel">
         <app-loading-screen *ngIf="lodaingOffers"></app-loading-screen>
-        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers"></app-item-list>
+        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers" (deleteItemOut)="deleteJobOffer($event)"></app-item-list>
       </div>
 
     </div>
