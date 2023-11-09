@@ -1,0 +1,66 @@
+<div class="container align-content-left text-left main">
+
+
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <form>
+        <legend>Dane organizatora targów</legend>
+        <label for="name">Nazwa organizatora</label>
+        <input type="text" #name id="name" name="name"
+               class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
+               [maxLength]="100" (change)="name.checkValidity()"
+               [(ngModel)]="organizerAccount.name" required>
+        <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij nazwę organizatora</div>
+        <br><br>
+
+        <label for="mail">Email kontaktowy</label>
+        <input type="email" id="mail" #email name="mail"
+               class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
+               [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="organizerAccount.email" required>
+        <div class="invalid-feedback" *ngIf="!email.checkValidity()"
+             (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
+        <br><br>
+
+        <label for="phone-number">Numer telefonu</label>
+        <input type="text" id="phone-number" #telephone name="phone-number"
+               class="form-control {{telephone.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="9"
+               [maxLength]="20" (change)="telephone.checkValidity()" [(ngModel)]="organizerAccount.telephone"
+               required>
+        <div class="invalid-feedback" *ngIf="!telephone.checkValidity()"
+             (change)="telephone.checkValidity()">{{telephone.value.length >= 9 ? 'Telefon niepoprawny' : 'Uzupełnij numer kontaktowy'}}</div>
+        <br><br>
+
+
+        <label for="description" class="form-label">Opis organizatora</label>
+        <textarea type="text" id="description" #description name="description"
+                  class="form-control aboutMe {{description.checkValidity() ? 'is-valid':'is-invalid' }}"
+                  [minlength]="1" [maxLength]="1000" (change)="description.checkValidity()"
+                  [(ngModel)]="organizerAccount.description" required></textarea>
+        <div class="invalid-feedback" *ngIf="!description.checkValidity()"
+             (change)="description.checkValidity()">{{description.value.length > 0 ? '' : 'Uzupełnij opis organizatora'}}</div>
+        <br><br>
+
+        <div class="container">
+          <div class="row">
+
+            <div class="col ">
+              <button class="btn btn-secondary" (click)="openDeclineDialog()"
+                      [disabled]="!name.checkValidity()  || !email.checkValidity() || !telephone.checkValidity() ">
+                Odrzuć zmiany
+              </button>
+            </div>
+
+            <div class="col w-100 text-end">
+              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
+                      [disabled]="!name.checkValidity() || !email.checkValidity() || !telephone.checkValidity() || !description.checkValidity()">
+                Potwierdź
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+
+</div>
