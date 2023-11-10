@@ -33,71 +33,103 @@
             </div>
             <h3 class="col-1">Do</h3>
             <div class="col">
-
               <input type="number" #salaryEnd id="salaryEnd" name="salaryEnd"
                      class="form-control" [minLength]="1"
                      [maxLength]="6" [(ngModel)]="jobOfferData.salaryTo"
                      [placeholder]="'np. 4000 lub puste'" required>
 
             </div>
-
           </div>
-
-
         </div>
 
         <br><br>
 
-        <div #branches class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Dział rynku'" [maxInputLength]="100" [maxInputCount]="10"
-                                    [listOfTexts]="jobOfferData.industries" [minInputCount]="1"
-                                    (valid)="validate($event,branches)"
-                                    [placeholder]="'np. IT'"></app-expanded-module-form>
-          <h5 *ngIf="branches.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
-            dział rynku</h5>
+
+        <div>
+          <button #industries class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.industries.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Branża
+          </button>
+          <ul class="table dropdown-menu option-menu">
+            <li *ngFor="let option of variableService.industries">
+              <div class="form-check dropdown-item option-item">
+                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="optionClicked(option,'industries')">
+                <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+                  {{option}}
+                </label>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <div #localizations class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Miasto'" [maxInputLength]="50" [maxInputCount]="10"
+        <br><br>
+        <div>
+          <button #forms class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.employmentForms.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Rodzaj pracy
+          </button>
+          <ul class="table dropdown-menu option-menu">
+            <li *ngFor="let option of variableService.employmentForms">
+              <div class="form-check dropdown-item option-item">
+                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="optionClicked(option,'employmentForms'); console.log(jobOfferData.employmentForms)" >
+                <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+                  {{option}}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <br><br>
+        <div>
+          <button #contract_type class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.contractTypes.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Typ umowy
+          </button>
+          <ul class="table dropdown-menu option-menu">
+            <li *ngFor="let option of variableService.contractTypes">
+              <div class="form-check dropdown-item option-item">
+                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="optionClicked(option,'contractTypes')">
+                <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+                  {{option}}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <br><br>
+        <div>
+          <button #level class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.levels.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Poziom
+          </button>
+          <ul class="table dropdown-menu option-menu">
+            <li *ngFor="let option of variableService.levels">
+              <div class="form-check dropdown-item option-item">
+                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="optionClicked(option,'levels')">
+                <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
+                  {{option}}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <br><br>
+        <div #localizations class="rounded-4 list-elem" >
+          <app-expanded-module-form [title]="'Miasta'" [maxInputLength]="50" [maxInputCount]="10"
                                     [listOfTexts]="jobOfferData.localizations" [minInputCount]="1"
                                     (valid)="validate($event,localizations)"
-                                    [placeholder]="'np. Warszawa'"></app-expanded-module-form>
+                                    [placeholder]="'np. Waraszawa'"
+                                    (save)="moduleSaveInfo($event, 'localizations')"></app-expanded-module-form>
           <h5 *ngIf="localizations.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
             jedno miasto</h5>
         </div>
 
-        <div #forms class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Typ umowy'" [maxInputLength]="50"
-                                    [listOfTexts]="jobOfferData.employmentForms" [minInputCount]="1"
-                                    (valid)="validate($event,forms)"
-                                    [placeholder]="'np. B2B'"></app-expanded-module-form>
-          <h5 *ngIf="forms.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden typ
-            umowy</h5>
-        </div>
-
-        <div #contract_type class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Etat'" [maxInputLength]="50"
-                                    [listOfTexts]="jobOfferData.contractTypes" [minInputCount]="1"
-                                    (valid)="validate($event,contract_type)"
-                                    [placeholder]="'np. Full-time'"></app-expanded-module-form>
-          <h5 *ngIf="contract_type.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
-            jedną formę etatu</h5>
-        </div>
-
-        <div #level class="rounded-4 list-elem">
-          <app-expanded-module-form [title]="'Poziom'" [maxInputLength]="50"
-                                    [listOfTexts]="jobOfferData.levels" [minInputCount]="1"
-                                    (valid)="validate($event,level)"
-                                    [placeholder]="'np. Junior'"></app-expanded-module-form>
-          <h5 *ngIf="level.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej jeden
-            poziom zatrudnienia</h5>
-        </div>
-
+        <br>
         <div #requirements class="rounded-4 list-elem" >
           <app-expanded-module-form [title]="'Wymagania'" [maxInputLength]="250" [maxInputCount]="15"
                                     [listOfTexts]="jobOfferData.requirements" [minInputCount]="1"
                                     (valid)="validate($event,requirements)"
-                                    [placeholder]="'np. Java'"></app-expanded-module-form>
+                                    [placeholder]="'np. Java'"
+                                    (save)="moduleSaveInfo($event, 'requirements')"  ></app-expanded-module-form>
           <h5 *ngIf="requirements.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
             jedno wymaganie</h5>
         </div>
@@ -119,7 +151,8 @@
 
         <div class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="15"
-                                    [listOfTexts]="jobOfferData.extraSkills? jobOfferData.extraSkills : []"></app-expanded-module-form>
+                                    [listOfTexts]="jobOfferData.extraSkills? jobOfferData.extraSkills : []"
+                                    (save)="moduleSaveInfo($event, 'extraSkills')"></app-expanded-module-form>
         </div>
 
         <div class="container">
@@ -133,7 +166,7 @@
 
             <div class="col w-100 text-end">
               <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || !salaryStart.checkValidity() || branches.classList.contains(invalidClassName)
+                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || !salaryStart.checkValidity() || industries.classList.contains(invalidClassName)
                                     || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
                                     || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
                                     || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">

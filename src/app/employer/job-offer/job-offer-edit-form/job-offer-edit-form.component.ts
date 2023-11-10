@@ -8,6 +8,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {EmployerService} from "../../service/employer.service";
 import {Observable} from "rxjs";
+import {VariablesService} from "../../../utilities/service/variables.service";
+import {FormControl} from "@angular/forms";
 
 
 @Component({
@@ -23,7 +25,11 @@ export class JobOfferEditFormComponent implements OnInit{
   constructor(public  dialog: MatDialog,
               private router: Router,
               private employerService: EmployerService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public variableService: VariablesService) {
+
+      variableService.initVariables();
+  }
 
 
   loading: boolean = true;
@@ -43,14 +49,17 @@ export class JobOfferEditFormComponent implements OnInit{
       duties: "",
       description: ""
   }
-
     ngOnInit(): void {
+
         this.route.paramMap.subscribe((params) => {
             if(params.get('id')){
                 this.employerService.getJobOffer(params.get('id')).subscribe((response) => {
                     this.jobOfferData = response;
                     this.loading = false;
                 });
+            }
+            else{
+                this.loading = false;
             }
         });
 
@@ -120,5 +129,52 @@ export class JobOfferEditFormComponent implements OnInit{
       });
   }
 
+    dict: Record<string, string[]> = {
+        "industries": this.jobOfferData.industries,
+        "localizations": this.jobOfferData.localizations,
+        "employmentForms": this.jobOfferData.employmentForms,
+        "contractTypes": this.jobOfferData.contractTypes,
+        "levels": this.jobOfferData.levels,
+    };
 
+    moduleSaveInfo(list: string[], id: string) {
+        switch (id) {
+            case "localizations":
+                this.jobOfferData.localizations = list;
+                break;
+            case "requirements":
+                this.jobOfferData.requirements = list;
+                break;
+            case "extraSkills":
+                this.jobOfferData.extraSkills = list;
+                break;
+        }
+    }
+
+    optionClicked(option: string, attribute: string) {
+        if(!this.dict[attribute].includes(option)){
+            this.dict[attribute].push(option);
+        }else {
+            var end = false;
+            const backup: string[] = []
+            for(let i = 0; i < this.dict[attribute].length + backup.length && !end; i++){
+                const elem = this.dict[attribute].pop();
+                if(elem == option){
+                    const k = backup.length;
+                    for(let j = 0; j < k; j++){
+                        this.dict[attribute].push(<string>backup.pop());
+                    }
+                    end = true;
+                }
+                else{
+                    backup.push(<string>elem);
+                }
+
+            }
+        }
+        console.log(this.dict[attribute]);
+    }
+
+
+    protected readonly console = console;
 }

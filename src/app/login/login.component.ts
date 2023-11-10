@@ -4,6 +4,7 @@ import {NgForm} from "@angular/forms";
 import {LoginData} from "../types";
 import {Router} from "@angular/router";
 import {catchError, of, throwError} from "rxjs";
+import {VariablesService} from "../utilities/service/variables.service";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit{
     password: ''
   }
 
-  constructor(private loginService: LoginService,  private router:  Router) {}
+  constructor(private loginService: LoginService,
+              private router:  Router,
+              private variableService: VariablesService) {}
 
   ngOnInit(): void {}
   hide = true;
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit{
     ).subscribe(response => {
       switch (response.status) {
         case 200:
+          this.variableService.initVariables();
           const role = response.body?.toLowerCase().replace('_enabled','');
           localStorage.setItem('role', role? role : '');
           this.router.navigate(['/' + role +'/account']);

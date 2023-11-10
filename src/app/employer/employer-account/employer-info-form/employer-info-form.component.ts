@@ -8,6 +8,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {EmployerService} from "../../service/employer.service";
 import {catchError} from "rxjs";
+import {VariablesService} from "../../../utilities/service/variables.service";
 
 @Component({
     selector: 'app-employer-info-form',
@@ -25,8 +26,7 @@ export class EmployerInfoFormComponent implements OnInit {
     constructor(public dialog: MatDialog,
                 private router: Router,
                 private serviceEmployer: EmployerService,
-                private route: ActivatedRoute,
-                private http: HttpClient) {
+                private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
