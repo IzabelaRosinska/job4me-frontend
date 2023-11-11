@@ -45,8 +45,9 @@ export class EmployerAccountComponent implements OnInit {
 
     filters: [string, string][] = [["Minimalne wynagrodzenie", ""],["Branża", "/industries"],["Poziomy", "/levels"]];
 
-    lodaingAccount: boolean = true;
-    lodaingOffers: boolean = true;
+    loadingAccount: boolean = true;
+    loadingOffers: boolean = true;
+    isOwner: boolean = false;
 
     addJobOfferForList(offer: JobOffer): void {
         let offerAsItemInsideList: ItemInsideList = {
@@ -64,10 +65,11 @@ export class EmployerAccountComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            if (params.get('employer-id')) {
-                this.serviceEmployer.getEmployerById(params.get('employer-id')).subscribe((response) => {
+            const role = localStorage.getItem('role');
+            if (params.get('employer-id') && role) {
+                this.serviceEmployer.getEmployerById(params.get('employer-id'), role).subscribe((response) => {
                     this.employerAccount = response;
-                    this.lodaingAccount = false;
+                    this.loadingAccount = false;
                 });
             } else {
                 this.serviceEmployer.getEmployer().subscribe((response) => {
@@ -76,7 +78,8 @@ export class EmployerAccountComponent implements OnInit {
                         || !this.employerAccount.description || !this.employerAccount.displayDescription) {
                         // this.router.navigate(['employer/editInfo']);
                     }
-                    this.lodaingAccount = false;
+                    this.loadingAccount = false;
+                    this.isOwner = true;
                 });
             }
 
@@ -93,7 +96,7 @@ export class EmployerAccountComponent implements OnInit {
                     }
                 );
 
-                this.lodaingOffers = false;
+                this.loadingOffers = false;
 
                 return ({appState: 'APP_LOADED', appData: response});
             }),
@@ -123,7 +126,7 @@ export class EmployerAccountComponent implements OnInit {
 
     gotToPage(name?: string, pageNumber: number = 0): void {
         this.offersAsList = [];
-        this.lodaingOffers = true;
+        this.loadingOffers = true;
         this.jobOffersState$ = this.serviceEmployer.jobOffers$(pageNumber, this.pageSize).pipe(
             map((response: Page<JobOffer>) => {
 
@@ -135,7 +138,7 @@ export class EmployerAccountComponent implements OnInit {
                         this.addJobOfferForList(offer);
                     }
                 );
-                this.lodaingOffers = false;
+                this.loadingOffers = false;
                 console.log(response);
                 return ({appState: 'APP_LOADED', appData: response});
             }),

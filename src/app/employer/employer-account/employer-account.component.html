@@ -1,6 +1,6 @@
-<app-loading-screen *ngIf="lodaingAccount"></app-loading-screen>
+<app-loading-screen *ngIf="loadingAccount"></app-loading-screen>
 
-<div class="main w-100" *ngIf="!lodaingAccount">
+<div class="main w-100" *ngIf="!loadingAccount">
   <div class="content">
     <!--  Introductory panel-->
     <div class="container info-panel p-4">
@@ -36,14 +36,14 @@
       <hr>
 
       <div class="">
-        <app-loading-screen *ngIf="lodaingOffers"></app-loading-screen>
-        <app-item-list [items]="offersAsList" *ngIf="!lodaingOffers" (deleteItemOut)="deleteJobOffer($event)" [filters]="filters"></app-item-list>
+        <app-loading-screen *ngIf="loadingOffers"></app-loading-screen>
+        <app-item-list [items]="offersAsList" *ngIf="!loadingOffers" (deleteItemOut)="deleteJobOffer($event)" [filters]="filters"></app-item-list>
       </div>
 
     </div>
 
     <!--  Actions Panel-->
-    <div class="container info-panel">
+    <div class="container info-panel"*ngIf="isOwner" >
       <div class="row align-items-center">
 
         <div class="col-sm-12 col-lg-6">
