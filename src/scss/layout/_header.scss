@@ -2,10 +2,13 @@
   color: determine-font-color-from-bg($MAIN_LOGO_BACKGROUND);
   font-size: $MAIN_LOGO_FONT_SIZE;
   letter-spacing: $MAIN_LOGO_LETTER_SPACING;
+  height: 100%;
 }
 
 .logo-toolbar {
+  height: 80px !important;
   background-color: $MAIN_LOGO_BACKGROUND !important;
+  width: 100% !important;
 }
 
 .sidenav-container {

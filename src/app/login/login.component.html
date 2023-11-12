@@ -1,47 +1,60 @@
 <!--Eye required-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
+<div class="container align-content-center text-center pt-5 div-outer-login">
+  <div class="container align-content-center text-center div-login">
+    <form #loginForm="ngForm" (ngSubmit)="logIn(loginForm)">
+      <h1>Logowanie</h1>
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <mdb-form-control>
+          <input mdbInput type="email" id="email" #email
+                 class="form-control login {{!loginForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                 [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                 name="username" placeholder="Email" (change)="email.checkValidity()" [(ngModel)]="loginData.username"
+                 required>
+          <label mdbLabel class="form-label" for="email">Email</label>
 
-<div class="container align-content-center text-center" >
-  <div class="container justify-content-center rounded-1 main" >
-    <form  #loginForm="ngForm" (ngSubmit)="logIn(loginForm)">
-
-      <!--    Text up-->
-      <div class="row rounded-3">
-        <h1 class="text-center py-4 text-capitalize">Log in</h1>
+        </mdb-form-control>
+        <div *ngIf="loginForm.submitted"
+             class="text-start invalid-message">{{email.checkValidity() ? '' : 'Błędny email'}}</div>
       </div>
 
-      <!--    LogIn fields-->
-      <div class="row px-3 pt-3 pb-2 form-group">
-        <input type="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
-        <div *ngIf="loginForm.submitted" class="invalid-feedback text-start" >{{email.checkValidity()? '' : 'Błędny email'}}</div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <mdb-form-control>
+          <input mdbInput matInput type="{{passwordVisible}}" #password id="password" name="password"
+                 class="form-icon-trailing form-control login password {{!loginForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                 (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"
+                 [(ngModel)]="loginData.password" required>
+          <i class="{{visibilityIconClass}} eye trailing" id="togglePassword" (click)="togglePassowrdVisibility()"></i>
+          <label mdbLabel class="form-label" for="password">Hasło</label>
+        </mdb-form-control>
+        <div *ngIf="loginForm.submitted"
+             class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
+
       </div>
 
-      <div class="row px-3 py-2 form-group">
-        <input type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
-        <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
-        <div *ngIf="loginForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
-      </div>
-
-      <!--    LogIn  buttons-->
-      <div class="row px-3 pt-4 align-content-center">
-        <div class="">
-          <button class="btn log" #logInButton type="submit">Log in now</button>
+      <div class="row mb-4">
+        <div class="col">
+          <a href="#!">Nie pamiętasz hasła?</a>
         </div>
       </div>
-    </form>
 
-    <!--    Text under buttons-->
-    <div class="row px-3 py-3">
-      <div class="">
-        <label class="form-check-label">
-          <a  class="text-decoration-none mylink" routerLink="/register">Make a new account</a>
-        </label>
+      <!-- Submit button -->
+      <button type="button" class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się
+      </button>
 
+      <!-- Register buttons -->
+      <div class="text-center">
+        <p>Nie masz konta? <a routerLink="/register">Zarejestruj się</a></p>
+        <!--        <p>lub zaloguj się z:</p>-->
+        <!--        <i class="fab fa-linkedin"></i>-->
+        <!--        <button type="button" class="btn btn-link btn-floating">-->
+        <!--          <i class="fab fa-linkedin"></i>-->
+        <!--        </button>-->
       </div>
-    </div>
-
+    </form>
   </div>
-
 </div>
-
