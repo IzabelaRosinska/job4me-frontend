@@ -1,14 +1,66 @@
 <!--Eye required-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
+<div class="container align-content-center text-center pt-5" >
+  <form>
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <input type="email" id="form2Example1" class="form-control" />
+      <label class="form-label" for="form2Example1">Email address</label>
+    </div>
 
-<div class="container align-content-center text-center" >
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <input type="password" id="form2Example2" class="form-control" />
+      <label class="form-label" for="form2Example2">Password</label>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-center">
+        <!-- Checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+          <label class="form-check-label" for="form2Example31"> Remember me </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- Simple link -->
+        <a href="#!">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+    <!-- Register buttons -->
+    <div class="text-center">
+      <p>Not a member? <a href="#!">Register</a></p>
+      <p>or sign up with:</p>
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-facebook-f"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-google"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-twitter"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-github"></i>
+      </button>
+    </div>
+  </form>
+
   <div class="container justify-content-center rounded-1 main" >
     <form  #loginForm="ngForm" (ngSubmit)="logIn(loginForm)">
 
-      <!--    Text up-->
       <div class="row rounded-3">
-        <h1 class="text-center py-4 text-capitalize">Log in</h1>
+        <h1 class="text-center py-4">Logowanie</h1>
       </div>
 
       <!--    LogIn fields-->
@@ -26,22 +78,25 @@
       <!--    LogIn  buttons-->
       <div class="row px-3 pt-4 align-content-center">
         <div class="">
-          <button class="btn log" #logInButton type="submit">Log in now</button>
+          <button class="btn form-button-action" #logInButton type="submit">Zaloguj się</button>
         </div>
       </div>
     </form>
 
     <!--    Text under buttons-->
     <div class="row px-3 py-3">
-      <div class="">
+      <div class="change-password">
         <label class="form-check-label">
-          <a  class="text-decoration-none mylink" routerLink="/register">Make a new account</a>
+          <a class="text-decoration-none register-link" routerLink="/register">Nie pamiętasz hasła?</a>
         </label>
+      </div>
 
+      <div class="from-login-to-register">
+        <label class="form-check-label">
+          <a class="text-decoration-none register-link" routerLink="/register">Utwórz nowe konto</a>
+        </label>
       </div>
     </div>
-
   </div>
-
 </div>
 

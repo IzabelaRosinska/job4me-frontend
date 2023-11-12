@@ -1,55 +1,61 @@
-$borderColorLogin: #73a9f6;
-
-@import "../../styles.scss";
-
-div.main{
-  border:1px solid $BORDER_COLOR;
-  width: 400px;
-  background-image: linear-gradient( #f3f7fd, $MAIN_COLOR);
-  horiz-align: center
-}
-
-h1{
-  color: #476b9b;
-  text-align: center;
-  font-size: 30px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-family: "Lato Light";
-}
-
-h2{
-  color: #344e6c;
-  text-align: start;
-  font-size: 22px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-family: "Lato Light";
-}
-
-button.log{
-  background-color: #476b9b;
-  width: 60%;
-  color: white;
-}
-
-a.mylink{
-  color: #445a83
-}
-
-input.login{
-  font-size: $INPUT_FONT_SIZE;
-  height: $INPUT_FONT_SIZE * 2.5;
-  border:1px solid $BORDER_COLOR;
-  background-color: #fbfbff;
-}
-
-.eye{
-  width: 15%;
-  align-content: end;
-  margin-left: 80%;
-  margin-top: -8%;
-  cursor: pointer;
-}
-
-
+//$borderColorLogin: #73a9f6;
+//
+//@import "../../styles.scss";
+//
+//div.main {
+//  //@include gradient(lighten($MAIN_LOGO_COLOR, 60%), lighten($MAIN_LOGO_COLOR, 20%));
+//  background-color: lighten($MAIN_LOGO_COLOR, 30%);
+//  border: 1px solid $MAIN_LOGO_BACKGROUND;
+//  width: 450px;
+//  horiz-align: center
+//}
+//
+//h1 {
+//  color: darken($MAIN_LOGO_COLOR, 60%);
+//  text-align: center;
+//  font-size: 30px;
+//  padding-top: 20px;
+//  padding-bottom: 20px;
+//}
+//
+//h2 {
+//  //color: darken($MAIN_LOGO_COLOR, 30%);
+//  text-align: start;
+//  font-size: 22px;
+//  font-weight: 200;
+//  padding-top: 5px;
+//  padding-bottom: 5px;
+//}
+//
+//a.register-link {
+//  color: darken($MAIN_LOGO_COLOR, 40%);
+//
+//  &:hover {
+//    color: darken($MAIN_LOGO_COLOR, 60%);
+//  }
+//}
+//
+//.change-password {;
+//  padding-top: 5px;
+//  padding-bottom: 15px;
+//}
+//
+//.from-login-to-register {
+//  padding-top: 15px;
+//  border-top: 1px solid transparentize($MAIN_LOGO_BACKGROUND, 0.7);
+//}
+//
+//input.login {
+//  font-size: $INPUT_FONT_SIZE;
+//  height: $INPUT_FONT_SIZE * 2.5;
+//  border: 1px solid $MAIN_LOGO_BACKGROUND;
+//  background-color: #fbfbff;
+//}
+//
+//.eye {
+//  width: 15%;
+//  align-content: end;
+//  margin-left: 80%;
+//  margin-top: -8%;
+//  cursor: pointer;
+//}
