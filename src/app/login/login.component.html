@@ -8,24 +8,26 @@
       <!-- Email input -->
       <div class="form-outline mb-4">
         <mdb-form-control>
-<!--          <input mdbInput type="email" #email id="form2Example1" class="form-control" />-->
-<!--          <label mdbLabel class="form-label" for="form2Example1">Email</label>-->
-          <input mdbInput type="email" id="email" #email class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
+          <input mdbInput type="email" id="email" #email class="form-control login {{!loginForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}" [minLength]="1" [maxLength]="100"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" name="username"  placeholder="Email" (change)="email.checkValidity()"  [(ngModel)]="loginData.username" required>
           <label mdbLabel class="form-label" for="email">Email</label>
-          <div *ngIf="loginForm.submitted" class="invalid-feedback text-start" >{{email.checkValidity()? '' : 'Błędny email'}}</div>
+
         </mdb-form-control>
+        <div *ngIf="loginForm.submitted" class="text-start invalid-message" >{{email.checkValidity()? '' : 'Błędny email'}}</div>
       </div>
+
 
       <!-- Password input -->
       <div class="form-outline mb-4">
         <mdb-form-control>
-          <input mdbInput type="{{passwordVisible}}" #password id="password" name="password"  class="form-control login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
-          <i class="{{visibilityIconClass}} eye" id="togglePassword" (click)="togglePassowrdVisibility()" ></i>
+          <input mdbInput matInput type="{{passwordVisible}}" #password id="password" name="password" class="form-icon-trailing form-control login password {{!loginForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                 (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"  [(ngModel)]="loginData.password" required>
+          <i class="{{visibilityIconClass}} eye trailing" id="togglePassword" (click)="togglePassowrdVisibility()"></i>
           <label mdbLabel  class="form-label" for="password">Hasło</label>
-          <div *ngIf="loginForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
-<!--          <input mdbInput  type="password" id="form2Example2" class="form-control" />-->
-<!--          <label mdbLabel  class="form-label" for="form2Example2">Hasło</label>-->
+
         </mdb-form-control>
+
+        <div *ngIf="loginForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać od 5-15 znaków'}}</div>
+
       </div>
 
       <!-- 2 column grid layout for inline styling -->
