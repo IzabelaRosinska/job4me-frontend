@@ -1,5 +1,8 @@
-//@import "../../styles.scss";
-//
+@import "../../styles.scss";
+
+.div-outer-login {
+  min-width: 500px;
+}
 
 .div-login {
   padding-top: 20px;
@@ -7,101 +10,54 @@
 
   a {
     text-decoration: none !important;
-    color: darken(#6ca7b2, 20%);
+    color: darken($MAIN_LOGO_COLOR, 20%);
 
     &:hover {
-      color: darken(#6ca7b2, 20%);
+      color: darken($MAIN_LOGO_COLOR, 20%);
+    }
+
+    &:active {
+      color: darken($MAIN_LOGO_COLOR, 20%) !important;
     }
   }
 }
 
 .btn-login {
-  border-color: darken(#6ca7b2, 40%);
-  background-color: darken(#6ca7b2, 20%);
+  border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
 
   &:hover {
-    background-color: darken(#6ca7b2, 40%);
+    background-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  }
+
+  &:active {
+    border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+    background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
   }
 }
 
-body {
-  background-color: #fafafa !important;
+h1 {
+  color: darken($MAIN_LOGO_COLOR, 60%);
+  text-align: center;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-footer {
-  a {
-    text-decoration: none;
-  }
-}
-
-//$borderColorLogin: #73a9f6;
-//
-//@import "../../styles.scss";
-//
-//div.main {
-//  //@include gradient(lighten($MAIN_LOGO_COLOR, 60%), lighten($MAIN_LOGO_COLOR, 20%));
-//  background-color: lighten($MAIN_LOGO_COLOR, 30%);
-//  border: 1px solid $MAIN_LOGO_BACKGROUND;
-//  width: 450px;
-//  horiz-align: center
-//}
-//
-//h1 {
-//  color: darken($MAIN_LOGO_COLOR, 60%);
-//  text-align: center;
-//  font-size: 30px;
-//  padding-top: 20px;
-//  padding-bottom: 20px;
-//}
-//
-//h2 {
-//  //color: darken($MAIN_LOGO_COLOR, 30%);
-//  text-align: start;
-//  font-size: 22px;
-//  font-weight: 200;
-//  padding-top: 5px;
-//  padding-bottom: 5px;
-//}
-//
-//a.register-link {
-//  color: darken($MAIN_LOGO_COLOR, 40%);
-//
-//  &:hover {
-//    color: darken($MAIN_LOGO_COLOR, 60%);
-//  }
-//}
-//
-//.change-password {;
-//  padding-top: 5px;
-//  padding-bottom: 15px;
-//}
-//
-//.from-login-to-register {
-//  padding-top: 15px;
-//  border-top: 1px solid transparentize($MAIN_LOGO_BACKGROUND, 0.7);
-//}
-//
-//input.login {
-//  font-size: $INPUT_FONT_SIZE;
-//  height: $INPUT_FONT_SIZE * 2.5;
-//  border: 1px solid $MAIN_LOGO_BACKGROUND;
-//  background-color: #fbfbff;
-//}
-//
 .eye {
   width: 15%;
   align-content: end;
   margin-left: 80%;
-  margin-top: 0%;
+  margin-top: 0;
   cursor: pointer;
   z-index: 10;
   pointer-events: auto;
 }
 
-.invalid-message{
+.invalid-message {
   color: #e50101;
   font-size: 12px;
-  margin-top: 0px;
+  margin-top: 0;
   margin-left: 5px;
 }
 
@@ -121,4 +77,3 @@ input.example-right-align::-webkit-inner-spin-button {
 input.example-right-align {
   -moz-appearance: textfield;
 }
-
