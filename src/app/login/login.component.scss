@@ -1,3 +1,39 @@
+//@import "../../styles.scss";
+//
+
+.div-login {
+  padding-top: 20px;
+  width: 45%;
+
+  a {
+    text-decoration: none !important;
+    color: darken(#6ca7b2, 20%);
+
+    &:hover {
+      color: darken(#6ca7b2, 20%);
+    }
+  }
+}
+
+.btn-login {
+  border-color: darken(#6ca7b2, 40%);
+  background-color: darken(#6ca7b2, 20%);
+
+  &:hover {
+    background-color: darken(#6ca7b2, 40%);
+  }
+}
+
+body {
+  background-color: #fafafa !important;
+}
+
+footer {
+  a {
+    text-decoration: none;
+  }
+}
+
 //$borderColorLogin: #73a9f6;
 //
 //@import "../../styles.scss";
@@ -52,10 +88,10 @@
 //  background-color: #fbfbff;
 //}
 //
-//.eye {
-//  width: 15%;
-//  align-content: end;
-//  margin-left: 80%;
-//  margin-top: -8%;
-//  cursor: pointer;
-//}
+.eye {
+  width: 15%;
+  align-content: end;
+  margin-left: 80%;
+  margin-top: -8%;
+  cursor: pointer;
+}

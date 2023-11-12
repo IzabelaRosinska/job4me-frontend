@@ -15,6 +15,7 @@
       <button
         type="button"
         aria-label="Toggle sidenav"
+        class="text-white"
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
@@ -25,8 +26,8 @@
     <!-- Add Content Here -->
     <div>
       <router-outlet class="w-100 h-100"></router-outlet>
+      <app-footer></app-footer>
     </div>
-
 
   </mat-sidenav-content>
 </mat-sidenav-container>
