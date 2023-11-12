@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit{
   constructor(private loginService: LoginService,  private router:  Router) {}
 
   ngOnInit(): void {}
-
+  hide = true;
   logIn(loginForm: NgForm) {
 
     this.loginService.pushLoginData(this.loginData).pipe(

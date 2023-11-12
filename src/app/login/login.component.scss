@@ -1,55 +1,79 @@
-$borderColorLogin: #73a9f6;
-
 @import "../../styles.scss";
 
-div.main{
-  border:1px solid $BORDER_COLOR;
-  width: 400px;
-  background-image: linear-gradient( #f3f7fd, $MAIN_COLOR);
-  horiz-align: center
+.div-outer-login {
+  min-width: 500px;
 }
 
-h1{
-  color: #476b9b;
+.div-login {
+  padding-top: 20px;
+  width: 45%;
+
+  a {
+    text-decoration: none !important;
+    color: darken($MAIN_LOGO_COLOR, 20%);
+
+    &:hover {
+      color: darken($MAIN_LOGO_COLOR, 20%);
+    }
+
+    &:active {
+      color: darken($MAIN_LOGO_COLOR, 20%) !important;
+    }
+  }
+}
+
+.btn-login {
+  border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+
+  &:hover {
+    background-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  }
+
+  &:active {
+    border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+    background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+  }
+}
+
+h1 {
+  color: darken($MAIN_LOGO_COLOR, 60%);
   text-align: center;
   font-size: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  font-family: "Lato Light";
 }
 
-h2{
-  color: #344e6c;
-  text-align: start;
-  font-size: 22px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-family: "Lato Light";
-}
-
-button.log{
-  background-color: #476b9b;
-  width: 60%;
-  color: white;
-}
-
-a.mylink{
-  color: #445a83
-}
-
-input.login{
-  font-size: $INPUT_FONT_SIZE;
-  height: $INPUT_FONT_SIZE * 2.5;
-  border:1px solid $BORDER_COLOR;
-  background-color: #fbfbff;
-}
-
-.eye{
+.eye {
   width: 15%;
   align-content: end;
   margin-left: 80%;
-  margin-top: -8%;
+  margin-top: 0;
   cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
 }
 
+.invalid-message {
+  color: #e50101;
+  font-size: 12px;
+  margin-top: 0;
+  margin-left: 5px;
+}
 
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}

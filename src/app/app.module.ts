@@ -1,29 +1,36 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EmployeeModule} from "./employee/employee.module";
 import {OrganizerModule} from "./organizer/organizer.module";
 import {EmployerModule} from "./employer/employer.module";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppNavComponent } from './app-nav/app-nav.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { LoginComponent } from './login/login.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AppNavComponent} from './app-nav/app-nav.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {LoginComponent} from './login/login.component';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS,  HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptors/request.interceptor";
-import { RegisterComponent } from './login/register/register.component';
-import {UtilitiesModule} from "./utilities/utilities.module";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import { TestBed } from '@angular/core/testing';
-import {LoginService} from "./login/service/login.service";
+import {RegisterComponent} from './login/register/register.component';
+import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
+import {MdbDropdownModule} from 'mdb-angular-ui-kit/dropdown';
+import {MdbFormsModule} from 'mdb-angular-ui-kit/forms';
+import {MdbModalModule} from 'mdb-angular-ui-kit/modal';
+import {MdbPopoverModule} from 'mdb-angular-ui-kit/popover';
+import {MdbRadioModule} from 'mdb-angular-ui-kit/radio';
+import {MdbRangeModule} from 'mdb-angular-ui-kit/range';
+import {MdbValidationModule} from 'mdb-angular-ui-kit/validation';
+import {FooterComponent} from './footer/footer.component';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -32,6 +39,7 @@ import {LoginService} from "./login/service/login.service";
     LoginComponent,
     RegisterComponent,
     AppComponent,
+    FooterComponent,
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +56,17 @@ import {LoginService} from "./login/service/login.service";
     OrganizerModule,
     EmployerModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdbCheckboxModule,
+    MdbDropdownModule,
+    MdbFormsModule,
+    MdbModalModule,
+    MdbPopoverModule,
+    MdbRadioModule,
+    MdbRangeModule,
+    MdbValidationModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
 
   providers: [
@@ -60,4 +78,5 @@ import {LoginService} from "./login/service/login.service";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -15,18 +15,19 @@
       <button
         type="button"
         aria-label="Toggle sidenav"
+        class="text-white"
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="logo">job4me</span>
+      <img src="assets/job4Me.png" alt="job4Me" class="logo">
     </mat-toolbar>
     <!-- Add Content Here -->
     <div>
       <router-outlet class="w-100 h-100"></router-outlet>
+      <app-footer></app-footer>
     </div>
-
 
   </mat-sidenav-content>
 </mat-sidenav-container>
