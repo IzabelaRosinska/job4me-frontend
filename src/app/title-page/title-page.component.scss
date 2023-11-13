@@ -36,3 +36,14 @@ jobfair-photo{
   width: 207px;
   height: 135px;
 }
+
+whole-page{
+  height: 100%;
+  max-height: 0;
+  width: 100%;
+  max-width: 0;
+}
+
+.container{
+  max-width: 100% !important;
+}
