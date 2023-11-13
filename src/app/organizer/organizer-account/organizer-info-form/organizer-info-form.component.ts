@@ -31,7 +31,7 @@ export class OrganizerInfoFormComponent  implements OnInit{
       this.serviceOrganizer.getOrganizer().subscribe((response) => {
         this.organizerAccount.id = response.id;
         this.organizerAccount.name = response.name;
-        this.organizerAccount.email = response.email;
+        this.organizerAccount.contactEmail = response.contactEmail;
         this.organizerAccount.telephone = response.telephone;
         this.organizerAccount.description = response.description;
       });
@@ -41,7 +41,7 @@ export class OrganizerInfoFormComponent  implements OnInit{
   organizerAccount: OrganizerAccount = {
     id: 0,
     name: "",
-    email: "",
+    contactEmail: "",
     telephone: "",
     description: "",
   }
