@@ -5,7 +5,6 @@
 }
 
 .div-login {
-  padding-top: 20px;
   width: 45%;
 
   a {
@@ -55,7 +54,7 @@ h1 {
 }
 
 .invalid-message {
-  color: #e50101;
+  color: $ERROR_COLOR;
   font-size: 12px;
   margin-top: 0;
   margin-left: 5px;

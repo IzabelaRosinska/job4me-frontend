@@ -1,5 +1,28 @@
 @import "src/app/login/login.component.scss";
 
+h2 {
+  font-size: 24px;
+  font-weight: 200;
+  padding-bottom: 0.7rem;
+}
+
+.btn-check {
+  color: darken($MAIN_LOGO_COLOR, 60%) !important;
+  background-color: lighten($MAIN_LOGO_COLOR, 10%) !important;
+
+  &:hover {
+    background-color: lighten($MAIN_LOGO_COLOR, 20%) !important;
+  }
+
+  &:active {
+    background-color: lighten($MAIN_LOGO_COLOR, 40%) !important;
+  }
+}
+
+.label-radio {
+  color: darken($MAIN_LOGO_COLOR, 60%) !important;
+}
+
 .eye-container {
   width: 100%;
   right: 0;
