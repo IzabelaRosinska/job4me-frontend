@@ -14,11 +14,11 @@
         <br><br>
 
         <label for="mail">Email kontaktowy</label>
-        <input type="email" id="mail" #email name="mail"
-               class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
-               [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="organizerAccount.email" required>
-        <div class="invalid-feedback" *ngIf="!email.checkValidity()"
-             (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
+        <input type="email" id="mail" #contactEmail name="mail"
+               class="form-control {{contactEmail.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
+               [maxLength]="100" (change)="contactEmail.checkValidity()" [(ngModel)]="organizerAccount.contactEmail" required>
+        <div class="invalid-feedback" *ngIf="!contactEmail.checkValidity()"
+             (change)="contactEmail.checkValidity()">{{contactEmail.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
         <br><br>
 
         <label for="phone-number">Numer telefonu</label>
@@ -34,7 +34,7 @@
         <label for="description" class="form-label">Opis organizatora</label>
         <textarea type="text" id="description" #description name="description"
                   class="form-control aboutMe {{description.checkValidity() ? 'is-valid':'is-invalid' }}"
-                  [minlength]="1" [maxLength]="1000" (change)="description.checkValidity()"
+                  [minlength]="1" [maxLength]="500" (change)="description.checkValidity()"
                   [(ngModel)]="organizerAccount.description" required></textarea>
         <div class="invalid-feedback" *ngIf="!description.checkValidity()"
              (change)="description.checkValidity()">{{description.value.length > 0 ? '' : 'Uzupełnij opis organizatora'}}</div>
@@ -45,14 +45,14 @@
 
             <div class="col ">
               <button class="btn btn-secondary" (click)="openDeclineDialog()"
-                      [disabled]="!name.checkValidity()  || !email.checkValidity() || !telephone.checkValidity() ">
+                      [disabled]="!name.checkValidity()  || !contactEmail.checkValidity() || !telephone.checkValidity() ">
                 Odrzuć zmiany
               </button>
             </div>
 
             <div class="col w-100 text-end">
               <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                      [disabled]="!name.checkValidity() || !email.checkValidity() || !telephone.checkValidity() || !description.checkValidity()">
+                      [disabled]="!name.checkValidity() || !contactEmail.checkValidity() || !telephone.checkValidity() || !description.checkValidity()">
                 Potwierdź
               </button>
             </div>

@@ -14,7 +14,7 @@ export class OrganizerAccountComponent implements OnInit{
   organizerAccount: OrganizerAccount = {
     id: 100,
     name: "Super jobfair Organizer",
-    email: "super-jobfair-organizer@gmail.com",
+    contactEmail: "super-jobfair-organizer@gmail.com",
     telephone: "876203723",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
         "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
