@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {UtilitiesService} from "../utilities/service/utilities.service";
 
 @Component({
   selector: 'app-title-page',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./title-page.component.scss']
 })
 export class TitlePageComponent {
+
+  constructor(public service: UtilitiesService) { }
+
+  ngOnInit(): void {
+
+  }
+
+
 
 }
