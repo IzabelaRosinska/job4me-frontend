@@ -4,6 +4,8 @@ import {OrganizerAccountComponent} from "./organizer-account/organizer-account.c
 
 const routes: Routes = [
   { path: 'organizer/account', component: OrganizerAccountComponent },
+  { path: 'employer/organizer/:organizer-id/account', component: OrganizerAccountComponent },
+  { path: 'employee/organizer/:organizer-id/account', component: OrganizerAccountComponent },
   { path: 'organizer',redirectTo: 'organizer/account', pathMatch: 'full' },
 ];
 
