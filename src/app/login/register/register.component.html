@@ -1,65 +1,113 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-<div class="text-center align-content-center align-items-center center">
-  <div class="main container">
+<div>
+  <div class="text-center align-content-center align-items-center pt-5 center div-outer-login">
+    <div class="main container align-content-center text-center div-login btn-radio">
+      <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
+        <h1>Zakładanie konta</h1>
+        <!--    Pick your role section-->
+        <div class="text-start">
+          <h2>Typ konta</h2>
+        </div>
+        <div class="btn-group btn-radio">
+          <input
+            mdbRadio
+            type="radio"
+            class="btn-check btn-radio"
+            name="options"
+            [(ngModel)]="registerData.role"
+            [value]="'EMPLOYEE'"
+            id="radioEmployee"
+            #radioEmployee
+            autocomplete="off"
+            [checked]="true"
+          />
+          <label class="btn btn-secondary label-radio {{radioEmployee.checked ? 'checked' : ''}}" for="radioEmployee">Kandydat</label>
+          <input
+            mdbRadio
+            type="radio"
+            class="btn-check btn-radio"
+            name="options"
+            [(ngModel)]="registerData.role"
+            [value]="'EMPLOYER'"
+            #radioEmployer
+            id="radioEmployer"
+            autocomplete="off"
+            (click)="radioEmployer.checked"
+          />
+          <label class="btn btn-secondary label-radio {{radioEmployer.checked ? 'checked' : ''}}" for="radioEmployer">Pracodawca</label>
+          <input
+            mdbRadio
+            type="radio"
+            class="btn-check btn-radio"
+            name="options"
+            [(ngModel)]="registerData.role"
+            [value]="'ORGANIZER'"
+            id="radioOrganizer"
+            #radioOrganizer
+            autocomplete="off"
+          />
+          <label class="btn btn-secondary label-radio {{radioOrganizer.checked ? 'checked' : ''}}" for="radioOrganizer">Organizator</label>
+        </div>
+        <!--    Login Data-->
+        <div class="text-start mt-5">
+          <h2>Dane logowania</h2>
+        </div>
+        <div>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <mdb-form-control>
+              <input mdbInput type="email" id="email" #email
+                     class="form-control login {{!registerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                     name="username" placeholder="Email" (change)="email.checkValidity()"
+                     [(ngModel)]="registerData.username"
+                     required>
+              <label mdbLabel class="form-label" for="email">Email</label>
+            </mdb-form-control>
+            <div *ngIf="registerForm.submitted"
+                 class="invalid-feedback text-start">{{ wrongUsernameMessage ? 'Taki użytkownik już istnieje' : email.checkValidity() ? '' : 'Błędny email'}}</div>
+          </div>
 
-    <h1> Załóż konto</h1>
-<!--    Pick your role section-->
-    <div class="text-start">
-      <h2 >1. Rola</h2>
-    </div>
-    <form  #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
-    <div class="row px-3 py-1">
-      <div class="form-check col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'EMPLOYEE'" id="radioEmployee" >
-        <label class="form-check-label" for="radioEmployee">
-          Pracobiorca
-        </label>
-      </div>
-      <div class="form-check  col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'EMPLOYER'" id="radioEmployer" >
-        <label class="form-check-label" for="radioEmployer">
-          Pracodawca
-        </label>
-      </div>
-      <div class="form-check  col-4">
-        <input class="form-check-input" type="radio" name="radioRegister" [(ngModel)]="registerData.role" [value]="'ORGANIZER'" id="radioOrganizer">
-        <label class="form-check-label" for="radioOrganizer">
-          Organizator
-        </label>
-      </div>
-    </div>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <mdb-form-control>
+              <input mdbInput matInput type="{{passwordVisible}}" #password id="password" name="password"
+                     class="form-icon-trailing form-control login password {{!registerForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"
+                     [(ngModel)]="registerData.password" required>
+              <i class="{{visibilityIconClass}} eye trailing" id="togglePassword"
+                 (click)="togglePassowrdVisibility(false)"></i>
+              <label mdbLabel class="form-label" for="password">Hasło</label>
+            </mdb-form-control>
+            <div *ngIf="registerForm.submitted"
+                 class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
+          </div>
 
-<!--    Login Data-->
-    <div class="text-start mt-5">
-      <h2 >2. Dane logowania</h2>
-    </div>
-    <div>
-      <div class="row px-3 pt-1 pb-2 form-group">
-        <input type="email" class="form-control login {{email.checkValidity()? 'is-valid' : 'is-invalid'}}" [minLength]="1" [maxLength]="100"  name="username" #email  placeholder="Email"  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"  [(ngModel)]="registerData.username"> <!--- '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'--->
-        <div *ngIf="registerForm.submitted" class="invalid-feedback text-start" >{{ wrongUsernameMessage? 'Taki użytkownik już istnieje' :  email.checkValidity()? '' : 'Błędny email'}}</div>
-      </div>
-
-      <div class="row px-3 py-2 form-group align-items-center container_row text-end">
-        <input type="{{passwordVisible}}"  id="password" name="password" #password class="form-control layer1 z-1 login password {{password.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="password.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.password">
-        <div class="text-end layer2 z-2 eye-container"><i class="{{visibilityIconClass}} z-3 register-eye"  id="togglePassword" (click)="togglePassowrdVisibility(false)" ></i></div>
-        <div *ngIf="registerForm.submitted"  class="invalid-feedback text-start">{{password.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
-      </div>
-
-      <div class="row px-3 py-2 form-group text-end align-items-center container_row" >
-          <input type="{{matchingPasswordVisible}}"  id="matchingPassword" #matchingPassword  name="matchingPassword"  class="form-control layer1 z-1 login password {{matchingPassword.checkValidity()? 'is-valid' : 'is-invalid'}}" (change)="matchingPassword.checkValidity()" placeholder="Password" [minLength]="5" [maxLength]="15"   [(ngModel)]="registerData.matchingPassword">
-        <div class="text-end layer2 z-2 eye-container"><i class="{{visibilityMaatchingPassowrdIconClass}} z-3 register-eye" id="toggleMatchingPassword" (click)="togglePassowrdVisibility(true)" ></i></div>
-        <div *ngIf="registerForm.submitted"  class="invalid-feedback text-start">{{matchingPassword.checkValidity()? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
-      </div>
-    </div>
-
-
-        <div class="mt-5 mb-2 text-end">
-          <button class="btn btn-secondary" [disabled]="registerData.password!=registerData.matchingPassword || !email.checkValidity()  || !password.checkValidity()" type="submit"> Przejdź dalej</button>
+          <!-- Matching password input -->
+          <div class="form-outline mb-4">
+            <mdb-form-control>
+              <input mdbInput matInput type="{{matchingPasswordVisible}}" #matchingPassword id="matchingPassword"
+                     name="matchingPassword"
+                     class="form-icon-trailing form-control login password {{!registerForm.submitted ? '' : (matchingPassword.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     (change)="matchingPassword.checkValidity()" placeholder="Powtórz hasło" [minLength]="5"
+                     [maxLength]="15"
+                     [(ngModel)]="registerData.matchingPassword" required>
+              <i class="{{visibilityMaatchingPassowrdIconClass}} eye trailing" id="toggleMatchingPassword"
+                 (click)="togglePassowrdVisibility(true)"></i>
+              <label mdbLabel class="form-label" for="password">Hasło</label>
+            </mdb-form-control>
+            <div *ngIf="registerForm.submitted"
+                 class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
+          </div>
         </div>
 
-    </form>
+        <button class="btn btn-primary btn-block mb-4 btn-login"
+                [disabled]="registerData.password!=registerData.matchingPassword || !email.checkValidity()  || !password.checkValidity()"
+                type="submit">Zarejestruj się
+        </button>
+      </form>
+    </div>
+
   </div>
-
-
 </div>
