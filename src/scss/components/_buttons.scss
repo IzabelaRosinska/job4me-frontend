@@ -1,3 +1,17 @@
+.btn-login {
+  border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+
+  &:hover {
+    background-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+  }
+
+  &:active {
+    border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+    background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+  }
+}
+
 .form-button-action {
   @extend %buttons;
   background-color: $ACTION_BUTTON_BACKGROUND;
@@ -34,3 +48,5 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+

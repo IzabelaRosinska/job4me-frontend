@@ -1,151 +1,147 @@
 <app-loading-screen *ngIf="loading"></app-loading-screen>
 
 <div class="main" *ngIf="!loading">
-    <div class="content">
+    <div class="container align-content-center text-center pt-5">
+      <div class="content">
         <!--  Introductory panel-->
         <div class="container info-panel p-4">
-            <div class="row">
+          <div class="row">
 
-                <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 text-xs-center text-sm-center text-md-start">
-                    <h1 class="name-text">{{employeeAccountInfo.firstName}} {{employeeAccountInfo.lastName}}</h1>
+            <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 text-xs-center text-sm-center text-md-start">
+              <h3 class="name-text">{{employeeAccountInfo.firstName}} {{employeeAccountInfo.lastName}}</h3>
 
-                    <h3><i>{{employeeAccountInfo.email}}  |  {{employeeAccountInfo.telephone}}</i></h3>
+              <h6><i>{{employeeAccountInfo.email}}  |  {{employeeAccountInfo.telephone}}</i></h6>
 
-                    <p class="text-description" *ngIf="employeeAccountInfo.aboutMe"> {{employeeAccountInfo.aboutMe}} </p>
-                </div>
-
+              <p class="text-description" *ngIf="employeeAccountInfo.aboutMe"> {{employeeAccountInfo.aboutMe}} </p>
             </div>
-        </div>
 
+          </div>
+        </div>
 
         <!--  Skills panel-->
         <div class="container info-panel">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
 
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseZero" aria-expanded="false" aria-controls="collapseZero">
-                            Zainteresowania
-                        </button>
-                    </h2>
-                    <div id="collapseZero" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <p> {{employeeAccountInfo.interests}} </p>
-                            <strong *ngIf="!employeeAccountInfo.interests">Brak</strong>
-                        </div>
-                    </div>
-
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseZero" aria-expanded="false" aria-controls="collapseZero">
+                  Zainteresowania
+                </button>
+              </h2>
+              <div id="collapseZero" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p> {{employeeAccountInfo.interests}} </p>
+                  <strong *ngIf="!employeeAccountInfo.interests">Brak</strong>
                 </div>
-
-                <div class="accordion-item">
-
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                            Wykształcenie
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <table *ngIf="employeeAccountInfo.education">
-                                <tr *ngFor="let education of employeeAccountInfo.education">
-                                    <td>
-                                        <p> {{education}} </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <strong *ngIf="!employeeAccountInfo.education">Brak</strong>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="accordion-item">
-
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Umiejetności
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <table *ngIf="employeeAccountInfo.skills">
-                                <tr *ngFor="let skills of employeeAccountInfo.skills">
-                                    <td>
-                                        <p> {{skills}} </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <strong *ngIf="!employeeAccountInfo.skills">Brak</strong>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Doświadczenie
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <table *ngIf="employeeAccountInfo.experience">
-                                <tr *ngFor="let experience of employeeAccountInfo.experience">
-                                    <td>
-                                        <p> {{experience}} </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <strong *ngIf="!employeeAccountInfo.experience">Brak</strong>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseFourth" aria-expanded="false" aria-controls="collapseThree">
-                            Projekty
-                        </button>
-                    </h2>
-                    <div id="collapseFourth" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <table *ngIf="employeeAccountInfo.projects">
-                                <tr *ngFor="let project of employeeAccountInfo.projects">
-                                    <td>
-                                        <p> {{project}} </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <strong *ngIf="!employeeAccountInfo.projects">Brak</strong>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!--  Actions Panel-->
-        <div class="container info-panel">
-            <div class="row align-items-center">
-
-                <div class="col-sm-12 col-lg-6">
-                    <button class="btn btn-primary w-100 form-button-action" routerLink="/employee/editInfo">Edytuj
-                        informacje
-                    </button>
-                </div>
-
-                <div class="col-xs-12 col-lg-6">
-                    <button class="btn btn-primary w-100 form-button-action">Generuj kod QR</button>
-                </div>
+              </div>
 
             </div>
+
+            <div class="accordion-item">
+
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                  Wykształcenie
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table *ngIf="employeeAccountInfo.education">
+                    <tr *ngFor="let education of employeeAccountInfo.education">
+                      <td>
+                        <p> {{education}} </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <strong *ngIf="!employeeAccountInfo.education">Brak</strong>
+                </div>
+              </div>
+
+            </div>
+            <div class="accordion-item">
+
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Umiejetności
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table *ngIf="employeeAccountInfo.skills">
+                    <tr *ngFor="let skills of employeeAccountInfo.skills">
+                      <td>
+                        <p> {{skills}} </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <strong *ngIf="!employeeAccountInfo.skills">Brak</strong>
+                </div>
+              </div>
+
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Doświadczenie
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table *ngIf="employeeAccountInfo.experience">
+                    <tr *ngFor="let experience of employeeAccountInfo.experience">
+                      <td>
+                        <p> {{experience}} </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <strong *ngIf="!employeeAccountInfo.experience">Brak</strong>
+                </div>
+              </div>
+
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFourth" aria-expanded="false" aria-controls="collapseThree">
+                  Projekty
+                </button>
+              </h2>
+              <div id="collapseFourth" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table *ngIf="employeeAccountInfo.projects">
+                    <tr *ngFor="let project of employeeAccountInfo.projects">
+                      <td>
+                        <p> {{project}} </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <strong *ngIf="!employeeAccountInfo.projects">Brak</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row align-items-center pt-5">
+
+              <div class="col-sm-12 col-lg-6">
+                <button class="btn btn-primary w-100 btn-login" routerLink="/employee/editInfo">Edytuj
+                  informacje
+                </button>
+              </div>
+
+              <div class="col-xs-12 pt-1 col-lg-6">
+                <button class="btn btn-primary w-100 btn-login">Generuj kod QR</button>
+              </div>
+
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 </div>
-
