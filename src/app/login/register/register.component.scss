@@ -43,6 +43,10 @@ btn-check {
   }
 }
 
+.checked{
+  background-color: $MAIN_LOGO_COLOR !important;
+}
+
 
 .label-radio {
   color: darken($MAIN_LOGO_COLOR, 60%) !important;

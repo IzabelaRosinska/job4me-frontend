@@ -18,21 +18,24 @@
             [(ngModel)]="registerData.role"
             [value]="'EMPLOYEE'"
             id="radioEmployee"
+            #radioEmployee
             autocomplete="off"
             [checked]="true"
           />
-          <label class="btn btn-secondary label-radio" for="radioEmployee">Kandydat</label>
+          <label class="btn btn-secondary label-radio {{radioEmployee.checked ? 'checked' : ''}}" for="radioEmployee">Kandydat</label>
           <input
             mdbRadio
             type="radio"
-            class="btn-check  btn-radio"
+            class="btn-check btn-radio"
             name="options"
             [(ngModel)]="registerData.role"
             [value]="'EMPLOYER'"
+            #radioEmployer
             id="radioEmployer"
             autocomplete="off"
+            (click)="radioEmployer.checked"
           />
-          <label class="btn btn-secondary label-radio" for="radioEmployer">Pracodawca</label>
+          <label class="btn btn-secondary label-radio {{radioEmployer.checked ? 'checked' : ''}}" for="radioEmployer">Pracodawca</label>
           <input
             mdbRadio
             type="radio"
@@ -41,9 +44,10 @@
             [(ngModel)]="registerData.role"
             [value]="'ORGANIZER'"
             id="radioOrganizer"
+            #radioOrganizer
             autocomplete="off"
           />
-          <label class="btn btn-secondary label-radio" for="radioOrganizer">Organizator</label>
+          <label class="btn btn-secondary label-radio {{radioOrganizer.checked ? 'checked' : ''}}" for="radioOrganizer">Organizator</label>
         </div>
         <!--    Login Data-->
         <div class="text-start mt-5">
