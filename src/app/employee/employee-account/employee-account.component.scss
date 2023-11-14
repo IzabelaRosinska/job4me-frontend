@@ -1,5 +1,12 @@
 @import "../../../styles.scss";
 
+html {
+  --mat-option-selected-state-label-text-color: $MAIN_LOGO_COLOR !important;
+  --mat-badge-background-color: $MAIN_LOGO_COLOR !important;
+  --mat-stepper-header-selected-state-icon-background-color: $MAIN_LOGO_COLOR !important;
+  --mat-stepper-header-done-state-icon-background-color: $MAIN_LOGO_COLOR !important;
+}
+
 .accordion-header {
   &:hover {
     cursor: pointer;
@@ -10,20 +17,18 @@
   }
 
   &:hover:after {
-    color: darken($MAIN_LOGO_COLOR, 20%);
+    color: $MAIN_LOGO_COLOR_DARKER;
   }
 }
 
-.accordion-button:not(.collapsed){
-  color: $MAIN_LOGO_COLOR ;
-  --mdb-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23#{$MAIN_LOGO_COLOR_STRING}'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+.accordion-button:not(.collapsed) {
+  color: darken($MAIN_LOGO_COLOR, 10%);
+  --mdb-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23#{str-slice("#{$MAIN_LOGO_COLOR}", 2)}'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-
-.collapsed{
-  color: black ;
+.collapsed {
+  color: black;
 }
-
 
 .btn-employee-edit {
   width: 60%;

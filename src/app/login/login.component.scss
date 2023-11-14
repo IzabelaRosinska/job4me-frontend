@@ -9,21 +9,21 @@
 
   a {
     text-decoration: none !important;
-    color: darken($MAIN_LOGO_COLOR, 20%);
+    color: $MAIN_LOGO_COLOR_DARKER;
 
     &:hover {
-      color: darken($MAIN_LOGO_COLOR, 20%);
+      color: $MAIN_LOGO_COLOR_DARKER;
     }
 
     &:active {
-      color: darken($MAIN_LOGO_COLOR, 20%) !important;
+      color: $MAIN_LOGO_COLOR_DARKER !important;
     }
   }
 }
 
 .btn-login {
   border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
-  background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+  background-color: $MAIN_LOGO_COLOR_DARKER !important;
 
   &:hover {
     background-color: darken($MAIN_LOGO_COLOR, 40%) !important;
@@ -31,7 +31,7 @@
 
   &:active {
     border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
-    background-color: darken($MAIN_LOGO_COLOR, 20%) !important;
+    background-color: $MAIN_LOGO_COLOR_DARKER !important;
   }
 }
 
