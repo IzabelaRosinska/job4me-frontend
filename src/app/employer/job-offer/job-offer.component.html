@@ -3,7 +3,7 @@
 <div class="main" *ngIf="!loading">
   <div class="offer-header-container">
     <h2 class="offer-header">{{jobOfferData.offerName}}</h2>
-    <h5 class="id"> <i>#{{jobOfferData.id}}</i> </h5>
+    <h5 class="id"><i>#{{jobOfferData.id}}</i></h5>
   </div>
   <div class="container">
     <div class="row">
@@ -11,11 +11,13 @@
         <div class="row">
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-            <app-job-offer-card [header]="'Wynagrodzenie'" [text]="jobOfferData.salaryTo ? jobOfferData.salaryFrom.toString()+'-'+jobOfferData.salaryTo.toString() : jobOfferData.salaryFrom.toString()"></app-job-offer-card>
+            <app-job-offer-card [header]="'Wynagrodzenie'"
+                                [text]="jobOfferData.salaryTo ? jobOfferData.salaryFrom.toString()+'-'+jobOfferData.salaryTo.toString() : jobOfferData.salaryFrom.toString()"></app-job-offer-card>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-            <app-job-offer-card [header]="'Typ umowy'" [text]="jobOfferData.employmentForms.join(', ')"></app-job-offer-card>
+            <app-job-offer-card [header]="'Typ umowy'"
+                                [text]="jobOfferData.employmentForms.join(', ')"></app-job-offer-card>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
@@ -31,7 +33,8 @@
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-            <app-job-offer-card [header]="'Lokalizacje'" [text]="jobOfferData.localizations.join(', ')"></app-job-offer-card>
+            <app-job-offer-card [header]="'Lokalizacje'"
+                                [text]="jobOfferData.localizations.join(', ')"></app-job-offer-card>
           </div>
 
 
@@ -41,14 +44,18 @@
       <div class="col-sm-12 col-md-4 text-center">
         <div class="card mb-3 text-bg-light my-cards text-center align-items-center align-content-center">
           <div class="text-center">
-            <img class="w-75 h-75 image-company-panel" [src]="employerAccountData?.photo ? employerAccountData?.photo : companyPhoto" >
+            <img class="w-75 h-75 image-company-panel"
+                 [src]="employerAccountData?.photo ? employerAccountData?.photo : companyPhoto">
           </div>
-          <div class="card-header text-bg-light "><h2>{{employerAccountData?.companyName ? employerAccountData?.companyName : "Brak"}}</h2> </div>
+          <div class="card-header text-bg-light ">
+            <h2>{{employerAccountData?.companyName ? employerAccountData?.companyName : "Brak"}}</h2></div>
           <div class="card-body">
-            <h4 class="card-text"> <i>{{jobOfferData.industries.join(', ')}}</i></h4>
-            <p class="card-text"> {{employerAccountData?.displayDescription ? employerAccountData?.displayDescription : "Brak"}}</p>
-            <div  class="my-center text-end">
-              <i class="fa-solid fa-right-to-bracket useable-icon" [routerLink]="'/employer/'+employerAccountData?.id"></i>
+            <h4 class="card-text"><i>{{jobOfferData.industries.join(', ')}}</i></h4>
+            <p
+              class="card-text"> {{employerAccountData?.displayDescription ? employerAccountData?.displayDescription : "Brak"}}</p>
+            <div class="my-center text-end">
+              <i class="fa-solid fa-right-to-bracket useable-icon"
+                 [routerLink]="'/employer/'+employerAccountData?.id"></i>
             </div>
 
           </div>
@@ -68,7 +75,7 @@
         </app-job-offer-card>
       </div>
 
-      <div class="col-md-8"  *ngIf="jobOfferData.description && jobOfferData.description.length> 0">
+      <div class="col-md-8" *ngIf="jobOfferData.description && jobOfferData.description.length> 0">
         <app-job-offer-card [header]="'Opis stanowiska'"
                             [text]="jobOfferData.description"
                             [headerBGC]="'primary'">
@@ -90,13 +97,13 @@
       </div>
 
 
-    <div class="row">
-      <div class="col-md-8 text-end mb-3">
-        <button class="btn btn-secondary w-50" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
-          Edytuj
-        </button>
+      <div class="row">
+        <div class="col-md-8 text-end mb-3">
+          <button class="btn btn-secondary w-50" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
+            Edytuj
+          </button>
+        </div>
       </div>
-    </div>
 
 
     </div>

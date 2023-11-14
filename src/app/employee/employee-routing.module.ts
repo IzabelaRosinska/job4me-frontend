@@ -4,7 +4,7 @@ import {EmployeeAccountComponent} from "./employee-account/employee-account.comp
 import {EmployeeInfoFormComponent} from "./employee-account/employee-info-form/employee-info-form.component";
 
 const routes: Routes = [
-  { path: 'employee/editInfo', component: EmployeeInfoFormComponent },
+  {path: 'employee/editInfo', component: EmployeeInfoFormComponent},
   {path: 'employee/account', component: EmployeeAccountComponent},
   {path: 'organizer/employee/:employee-id/account', component: EmployeeAccountComponent},
   {path: 'employer/employee/:employee-id/account', component: EmployeeAccountComponent},

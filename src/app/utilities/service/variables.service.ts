@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {idNameListElement, Page} from "../../types";
 import {ROUTES} from "../../../environments/environments";
@@ -15,9 +15,10 @@ export class VariablesService {
   employmentForms: string[] = []
   contractTypes: string[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  initVariables(){
+  initVariables() {
     this.getLocalizations().subscribe((response) => {
       this.localizations = response.content.map((element) => element.name);
     });

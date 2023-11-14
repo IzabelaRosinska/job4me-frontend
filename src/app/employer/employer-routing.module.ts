@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {EmployerAccountComponent} from "./employer-account/employer-account.component";
 import {JobOfferComponent} from "./job-offer/job-offer.component";
 import {EmployerInfoFormComponent} from "./employer-account/employer-info-form/employer-info-form.component";
@@ -20,4 +20,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EmployerRoutingModule { }
+export class EmployerRoutingModule {
+}

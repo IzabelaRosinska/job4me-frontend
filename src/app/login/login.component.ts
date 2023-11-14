@@ -11,7 +11,7 @@ import {VariablesService} from "../utilities/service/variables.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   passwordVisible: string = 'password';
   visibilityIconClass: string = 'fa fa-eye-slash';
 
@@ -21,29 +21,33 @@ export class LoginComponent implements OnInit{
   }
 
   constructor(private loginService: LoginService,
-              private router:  Router,
-              private variableService: VariablesService) {}
+              private router: Router,
+              private variableService: VariablesService) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
   hide = true;
+
   logIn(loginForm: NgForm) {
 
     this.loginService.pushLoginData(this.loginData).pipe(
-        catchError(err => {
-          if (err.status === 404) {
-            console.log('HTTP Error 404: Resource not found');
-          } else {
-            console.error('HTTP Error', err.status, err.statusText);
-          }
-          return throwError(err);
-        })
+      catchError(err => {
+        if (err.status === 404) {
+          console.log('HTTP Error 404: Resource not found');
+        } else {
+          console.error('HTTP Error', err.status, err.statusText);
+        }
+        return throwError(err);
+      })
     ).subscribe(response => {
       switch (response.status) {
         case 200:
           this.variableService.initVariables();
-          const role = response.body?.toLowerCase().replace('_enabled','');
-          localStorage.setItem('role', role? role : '');
-          this.router.navigate(['/' + role +'/account']);
+          const role = response.body?.toLowerCase().replace('_enabled', '');
+          localStorage.setItem('role', role ? role : '');
+          this.router.navigate(['/' + role + '/account']);
           break;
       }
       loginForm.resetForm({
@@ -54,13 +58,10 @@ export class LoginComponent implements OnInit{
   }
 
   togglePassowrdVisibility() {
-    if(this.passwordVisible == 'password')
-    {
+    if (this.passwordVisible == 'password') {
       this.passwordVisible = 'text';
       this.visibilityIconClass = 'fa fa-eye';
-    }
-    else
-    {
+    } else {
       this.passwordVisible = 'password';
       this.visibilityIconClass = 'fa fa-eye-slash';
     }
