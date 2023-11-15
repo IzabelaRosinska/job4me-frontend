@@ -170,7 +170,7 @@ export class JobOfferEditFormComponent implements OnInit {
 
       }
     }
-    console.log(this.dict[attribute]);
+
   }
 
 
