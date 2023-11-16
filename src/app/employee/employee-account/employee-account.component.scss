@@ -1,11 +1,40 @@
 @import "../../../styles.scss";
 
+html {
+  --mat-option-selected-state-label-text-color: $MAIN_LOGO_COLOR !important;
+  --mat-badge-background-color: $MAIN_LOGO_COLOR !important;
+  --mat-stepper-header-selected-state-icon-background-color: $MAIN_LOGO_COLOR !important;
+  --mat-stepper-header-done-state-icon-background-color: $MAIN_LOGO_COLOR !important;
+}
+
+.accordion-header {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:after {
+    color: $MAIN_LOGO_COLOR !important;
+  }
+
+  &:hover:after {
+    color: $MAIN_LOGO_COLOR_DARKER;
+  }
+}
+
+.accordion-button:not(.collapsed) {
+  color: darken($MAIN_LOGO_COLOR,10) ;
+  --mdb-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23#{str-slice("#{darken($MAIN_LOGO_COLOR,10) }", 2)}'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.collapsed {
+  color: black;
+}
+
+.btn-employee-edit {
+  width: 60%;
+}
 
 div.main {
-  border: 1px solid $BORDER_COLOR;
-  background-position: center !important;
-  background-image: linear-gradient(#ffffff, #edf4ff) !important;
-  background-repeat: repeat-y !important;
   horiz-align: center;
   align-items: center;
   min-height: 100vh;
@@ -13,11 +42,7 @@ div.main {
   width: 100%;
 }
 
-.content {
-  width: 80%;
-}
-
-.info-panel{
+.info-panel {
   background-color: #ffffff;
   border: 1px solid rgba(95, 95, 96, 0.64);
   border-radius: 5px;
@@ -35,18 +60,18 @@ div.main {
   padding: 20px;
 }
 
-.text-description{
+.text-description {
   width: 90%;
   padding-left: 0%;
   padding-top: 0%;
 }
 
-.name-text{
+.name-text {
   margin-bottom: 0px !important;
   padding-bottom: 0px;
 }
 
-.id-text{
+.id-text {
   margin: 0px;
   padding: 0px;
 }
@@ -69,5 +94,3 @@ tr {
 td {
   padding: 8px;
 }
-
-

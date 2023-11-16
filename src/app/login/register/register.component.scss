@@ -1,5 +1,57 @@
 @import "src/app/login/login.component.scss";
 
+
+h2 {
+  font-size: 24px;
+  font-weight: 200;
+  padding-bottom: 0.7rem;
+}
+
+btn-check {
+  color: darken($MAIN_LOGO_COLOR, 60%) !important;
+  background-color: $MAIN_LOGO_COLOR !important;
+
+  &:hover {
+    background-color: $MAIN_LOGO_COLOR !important;
+  }
+
+  &:active {
+    background-color: $MAIN_LOGO_COLOR !important;
+  }
+}
+
+.btn-secondary {
+  color: darken($MAIN_LOGO_COLOR, 60%) !important;
+  background-color: lighten($MAIN_LOGO_COLOR, 10%) !important;
+
+  &:hover {
+    background-color: lighten($MAIN_LOGO_COLOR, 20%) !important;
+  }
+
+  &:active {
+    background-color: lighten($MAIN_LOGO_COLOR, 40%) !important;
+  }
+}
+
+.btn-secondary {
+  --mdb-btn-active-bg: $MAIN_LOGO_COLOR; /* Default value */
+  --mdb-btn-bg: lighten($MAIN_LOGO_COLOR, 30%) !important;
+  background-color: lighten($MAIN_LOGO_COLOR, 30%) !important;
+
+  &:active {
+    background-color: $MAIN_LOGO_COLOR !important;
+  }
+}
+
+.checked{
+  background-color: $MAIN_LOGO_COLOR !important;
+}
+
+
+.label-radio {
+  color: darken($MAIN_LOGO_COLOR, 60%) !important;
+}
+
 .eye-container {
   width: 100%;
   right: 0;

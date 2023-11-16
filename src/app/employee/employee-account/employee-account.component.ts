@@ -12,32 +12,34 @@ import {HttpClient} from "@angular/common/http";
 export class EmployeeAccountComponent implements OnInit {
 
     loading: boolean = true;
+    isOwner: boolean = false;
 
     constructor(private serviceEmployee: EmployeeService,
                 private route: ActivatedRoute,
                 private router:  Router) {}
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            this.serviceEmployee.getEmployee().subscribe((response) => {
-                this.employeeAccountInfo.id = response.id;
-                this.employeeAccountInfo.firstName = response.firstName;
-                this.employeeAccountInfo.lastName = response.lastName;
-                this.employeeAccountInfo.email = response.email;
-                this.employeeAccountInfo.telephone = response.telephone;
-                this.employeeAccountInfo.aboutMe = response.aboutMe;
-                this.employeeAccountInfo.education = response.education;
-                this.employeeAccountInfo.experience = response.experience;
-                this.employeeAccountInfo.skills = response.skills;
-                this.employeeAccountInfo.projects = response.projects;
-                this.employeeAccountInfo.interests = response.interests;
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        const role = localStorage.getItem('role');
+        const id = params.get('employee-id');
+        if (id && role) {
+          this.serviceEmployee.getEmployeeById(id, role).subscribe((response) => {
+            this.employeeAccountInfo = response;
+            this.loading = false;
+          });
+        } else {
+          this.serviceEmployee.getEmployee().subscribe((response) => {
+            this.employeeAccountInfo = response;
 
-                if(!this.employeeAccountInfo.firstName || !this.employeeAccountInfo.lastName || !this.employeeAccountInfo.email){
-                    this.router.navigate(['employee/editInfo']);
-                }
-                this.loading = false;
-            });
-        });
+            if(!this.employeeAccountInfo.firstName || !this.employeeAccountInfo.lastName || !this.employeeAccountInfo.email){
+              this.router.navigate(['employee/editInfo']);
+            }
+            this.loading = false;
+            this.isOwner = true;
+          });
+        }
+
+      });
     }
 
     employeeAccountInfo: EmployeeAccount = {

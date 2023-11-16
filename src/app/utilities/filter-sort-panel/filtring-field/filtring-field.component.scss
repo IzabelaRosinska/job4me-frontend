@@ -1,3 +1,6 @@
+@import "src/scss/components/_dropdowns.scss";
+
+
 .filter-item{
   margin-left: 10%;
   width: 80%;
@@ -7,18 +10,5 @@
   width: 100%;
 }
 
-.dropdown-menu{
-  --bs-dropdown-link-active-bg: #e9ecef;
-}
-
-.dropdown-item-element-consistent{
-  background-color: inherit;
-}
-
-.dropdown{
-  padding-inline: 2px;
-  min-width: 50px;
-  min-height: 30px;
-}
 
 
