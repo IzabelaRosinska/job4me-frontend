@@ -7,12 +7,14 @@ import { OrganizerAccountComponent } from './organizer-account/organizer-account
 import { OrganizerInfoFormComponent } from './organizer-account/organizer-info-form/organizer-info-form.component';
 import {FormsModule} from "@angular/forms";
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
+import { JobfairComponent } from './jobfair/jobfair.component';
 
 
 @NgModule({
   declarations: [
     OrganizerAccountComponent,
-    OrganizerInfoFormComponent
+    OrganizerInfoFormComponent,
+    JobfairComponent
   ],
   exports: [],
   imports: [
