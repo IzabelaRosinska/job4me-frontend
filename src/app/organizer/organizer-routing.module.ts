@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {OrganizerAccountComponent} from "./organizer-account/organizer-account.component";
 import {OrganizerInfoFormComponent} from "./organizer-account/organizer-info-form/organizer-info-form.component";
+import {InputFieldComponent} from "../utilities/input-field/input-field.component";
+import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 const routes: Routes = [
   { path: 'organizer/account', component: OrganizerAccountComponent },
@@ -12,7 +16,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes), MdbFormsModule, FormsModule, NgIf],
+  declarations: [
+    InputFieldComponent
+  ],
+  exports: [RouterModule, InputFieldComponent]
 })
 export class OrganizerRoutingModule { }

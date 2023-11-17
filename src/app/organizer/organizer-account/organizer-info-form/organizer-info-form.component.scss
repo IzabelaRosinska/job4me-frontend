@@ -1,0 +1,11 @@
+@import "../../../../styles.scss";
+
+.white-field{
+  background-color: white !important;
+}
+.invalid-message {
+  color: $ERROR_COLOR;
+  font-size: 12px;
+  margin-top: 0;
+  margin-left: 5px;
+}

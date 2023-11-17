@@ -6,6 +6,7 @@ import {UtilitiesModule} from "../utilities/utilities.module";
 import { OrganizerAccountComponent } from './organizer-account/organizer-account.component';
 import { OrganizerInfoFormComponent } from './organizer-account/organizer-info-form/organizer-info-form.component';
 import {FormsModule} from "@angular/forms";
+import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     OrganizerRoutingModule,
     UtilitiesModule,
-    FormsModule
+    FormsModule,
+    MdbFormsModule,
+
   ]
 })
 export class OrganizerModule {

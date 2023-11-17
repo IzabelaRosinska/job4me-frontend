@@ -1,0 +1,13 @@
+<div class="">
+  <mdb-form-control>
+    <input mdbInput [type]="type" id="element" #element
+           class="form-control login {{!ifSubmitted ? '' : (element.checkValidity()? 'is-valid' : 'is-invalid')}}"
+           [minLength]="minLength" [maxLength]="maxLength" [pattern]="pattern" [required]="required"
+           [name]="name" placeholder="element" (change)="element.checkValidity()" [(ngModel)]="value"
+           required (input)="getValue($event)" (blur)="onTouched()">
+    <label mdbLabel class="form-label" for="element">element</label>
+
+  </mdb-form-control>
+  <div *ngIf="ifSubmitted"
+       class="text-start invalid-message">{{element.checkValidity() ? '' : 'Błędny element'}}</div>
+</div>

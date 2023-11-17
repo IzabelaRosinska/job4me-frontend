@@ -31,7 +31,8 @@ import { FiltringFieldComponent } from './filter-sort-panel/filtring-field/filtr
   ],
   exports: [SimpleTrueFalsePopUpComponent,
     ExpandedModuleFormComponent,LoadingScreenComponent,
-      ItemInsideListComponent, ItemListComponent],
+      ItemInsideListComponent, ItemListComponent,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
