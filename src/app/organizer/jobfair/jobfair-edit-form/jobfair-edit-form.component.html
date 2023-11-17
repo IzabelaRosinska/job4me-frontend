@@ -1,1 +1,79 @@
-<p>jobfair-edit-form works!</p>
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="container align-content-left text-left main" *ngIf="!loading">
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <form #jobfairForm="ngForm" (ngSubmit)="subbmitForm(jobfairForm)">
+        <h1>Targi pracy</h1>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="name" #name
+                   class="form-control login {{!jobfairForm.submitted ? '' : (name.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="100" name="username" placeholder="Targi politechniczne! Edycja 32." (change)="name.checkValidity()"
+                   [(ngModel)]="jobFair.name" required>
+            <label mdbLabel class="form-label" for="name">name</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Za krótka nazwa targów, wymagany conajmniej jeden znak'}}</div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="address" #address
+                   class="form-control login {{!jobfairForm.submitted ? '' : (address.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="200" name="address" placeholder="Targi politechniczne! Edycja 32." (change)="address.checkValidity()"
+                   [(ngModel)]="jobFair.address" required>
+            <label mdbLabel class="form-label" for="address">Adres, pod którym odbywają się targi</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{address.checkValidity() ? '' : 'Za krótka adres, wymagany conajmniej 1 znak'}}</div>
+        </div>
+
+
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="description" #description
+                   class="form-control login {{!jobfairForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="100" name="description" placeholder="Targi politechniczne! Edycja 32." (change)="description.checkValidity()"
+                   [(ngModel)]="jobFair.description" required>
+            <label mdbLabel class="form-label" for="description">Opis targów</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Za krótka adres, wymagany conajmniej 1 znak'}}</div>
+        </div>
+
+
+
+        <!-- Password input -->
+        <div class="row mb-4">
+          <div class="col">
+            <a href="#!">Nie pamiętasz hasła?</a>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się
+        </button>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Nie masz konta? <a routerLink="/register">Zarejestruj się</a></p>
+          <!--        <p>lub zaloguj się z:</p>-->
+          <!--        <i class="fab fa-linkedin"></i>-->
+          <!--        <button type="button" class="btn btn-link btn-floating">-->
+          <!--          <i class="fab fa-linkedin"></i>-->
+          <!--        </button>-->
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</div>
