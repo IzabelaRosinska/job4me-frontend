@@ -8,13 +8,15 @@ import { OrganizerInfoFormComponent } from './organizer-account/organizer-info-f
 import {FormsModule} from "@angular/forms";
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 import { JobfairComponent } from './jobfair/jobfair.component';
+import { JobfairEditFormComponent } from './jobfair/jobfair-edit-form/jobfair-edit-form.component';
 
 
 @NgModule({
   declarations: [
     OrganizerAccountComponent,
     OrganizerInfoFormComponent,
-    JobfairComponent
+    JobfairComponent,
+    JobfairEditFormComponent
   ],
   exports: [],
   imports: [
