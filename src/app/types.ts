@@ -27,7 +27,7 @@ export interface OrganizerAccount {
   id: number;
   name: string;
   description: string;
-  email: string;
+  contactEmail: string;
   telephone: string;
 }
 

@@ -1,0 +1,99 @@
+<div class="container main">
+  <div class="fieldset-outer form-size mt-5">
+    <fieldset class="common-inputs-fieldset align-content-left text-left ">
+      <form #organizerForm="ngForm">
+        <legend class="mb-3">Dane organizatora targów</legend>
+
+        <div class="form-outline mt-0 pt-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="name" #name
+                   class="form-control white-field {{!organizerForm.submitted ? '' : (name.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="100"
+                   name="name" placeholder="Politechnika Wrocławska" (change)="name.checkValidity()"
+                   [(ngModel)]="organizerAccount.name"
+                   required>
+            <label mdbLabel class="form-label" for="name">Nazwa organizatora*</label>
+
+          </mdb-form-control>
+          <div *ngIf="organizerForm.submitted"
+               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Nazwa organizatora jest wymagana'}}</div>
+        </div>
+        <br><br>
+
+        <div class="form-outline">
+          <mdb-form-control>
+            <input mdbInput type="email" id="email" #email
+                   class="form-control white-field {{!organizerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                   name="email" placeholder="firma@wp.pl" (change)="email.checkValidity()"
+                   [(ngModel)]="organizerAccount.contactEmail"
+                   required>
+            <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
+
+          </mdb-form-control>
+          <div *ngIf="organizerForm.submitted && email.value.length == 0"
+               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy jest wymagany'}}</div>
+          <div *ngIf="organizerForm.submitted && email.value.length > 0"
+               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy musi mieć format emaila'}}</div>
+        </div>
+        <br><br>
+
+        <div class="form-outline">
+          <mdb-form-control>
+            <input mdbInput type="text" id="phone" #phone
+                   class="form-control white-field {{!organizerForm.submitted ? '' : (phone.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="9" [maxLength]="20"
+                   name="phone" placeholder="768 932 323" (change)="phone.checkValidity()"
+                   [(ngModel)]="organizerAccount.telephone"
+                   required>
+            <label mdbLabel class="form-label" for="phone">Numer telefonu*</label>
+
+          </mdb-form-control>
+          <div *ngIf="organizerForm.submitted && phone.value.length == 0"
+               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon jest wymagany'}}</div>
+          <div *ngIf="organizerForm.submitted && phone.value.length > 0"
+               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon powinien zwierać od 9 do 20 znaków'}}</div>
+        </div>
+        <br><br>
+
+        <div class="form-outline">
+          <mdb-form-control>
+            <textarea mdbInput type="text" id="description" #description
+                      class="form-control white-field {{!organizerForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                      [minLength]="1" [maxLength]="500"
+                      name="description" placeholder="Uczelnia wyższa znajdująca się we Wrocławiu."
+                      (change)="description.checkValidity()" [(ngModel)]="organizerAccount.description"
+                      required></textarea>
+            <label mdbLabel class="form-label" for="description">Opis*</label>
+
+          </mdb-form-control>
+          <div *ngIf="organizerForm.submitted"
+               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
+        </div>
+        <br><br>
+
+        <div class="container">
+          <div class="row">
+            <div class="col ps-0" *ngIf="!this.register">
+              <button class="btn btn-primary btn-block mb-4 btn-login"
+                      (click)="openDeclineDialog()">
+                Odrzuć zmiany
+              </button>
+            </div>
+
+            <div
+              class="col pe-0 w-100 {{this.register ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
+              <button class="btn btn-primary btn-block mb-4 btn-login  {{this.register ? 'w-50' : 'w-100' }}"
+                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''"
+                      type="submit"
+                      [disabled]="">
+                Potwierdź
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</div>
