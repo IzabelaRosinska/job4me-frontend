@@ -35,9 +35,12 @@ export interface JobFair {
   id: number;
   name: string;
   organizerId: number;
-  date: string;
-  localization: string;
+  dateStart: string;
+  dateEnd: string;
+  address: string;
   description: string;
+  displayDescription: string;
+  photo?: string;
 }
 
 export interface LoginData {
@@ -89,6 +92,7 @@ export interface JobOffer {
   duties: string;
   description?: string;
 }
+
 
 export interface ApiResponse<T> {
   timeStamp: string;
