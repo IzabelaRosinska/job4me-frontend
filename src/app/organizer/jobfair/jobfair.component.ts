@@ -57,7 +57,7 @@ export class JobfairComponent implements OnInit{
   }
 
   convertDate(date: string): string{
-    return date.substring(0,10)+" "+date.substring(15);
+    return date.substring(0,10)+" "+date.substring(14,19);
   }
 
 }
