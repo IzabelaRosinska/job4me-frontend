@@ -13,11 +13,7 @@ import {OrganizerService} from "../../service/organizer.service";
   templateUrl: './organizer-info-form.component.html',
   styleUrls: ['./organizer-info-form.component.scss']
 })
-export class OrganizerInfoFormComponent  implements OnInit{
-  selectedFile: File | null = null;
-  imageData: string | null = null;
-  MAX_FILE_SIZE = 10000;
-
+export class OrganizerInfoFormComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private router: Router,
@@ -47,7 +43,6 @@ export class OrganizerInfoFormComponent  implements OnInit{
   }
 
 
-
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
       data:
@@ -60,9 +55,7 @@ export class OrganizerInfoFormComponent  implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
-        this.selectedFile = null;
         this.serviceOrganizer.postOrganizer(this.organizerAccount).pipe(
           catchError((err) => {
             return [];
