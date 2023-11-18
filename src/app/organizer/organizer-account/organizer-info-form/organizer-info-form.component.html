@@ -1,28 +1,16 @@
 <div class="container align-content-left text-left main">
-
-
   <div class="fieldset-outer">
     <fieldset class="common-inputs-fieldset">
-      <form #organizerForm="ngForm" >
-        <legend>Dane organizatora targów</legend>
+      <form #organizerForm="ngForm">
+        <legend class="mb-3">Dane organizatora targów</legend>
 
-<!--        <app-input-field class=""  [name]="'name'" [(ngModel)]="organizerAccount.name" [required]="true">-->
-
-<!--        </app-input-field>-->
-
-<!--        <label for="name">Nazwa organizatora</label>-->
-<!--        <input type="text" #name id="name" name="name"-->
-<!--               class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"-->
-<!--               [maxLength]="100" (change)="name.checkValidity()"-->
-<!--               [(ngModel)]="organizerAccount.name" required>-->
-<!--        <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij nazwę organizatora</div>-->
-
-        <div class="form-outline mt-5 pt-3">
+        <div class="form-outline mt-0 pt-4">
           <mdb-form-control>
             <input mdbInput type="text" id="name" #name
                    class="form-control white-field {{!organizerForm.submitted ? '' : (name.checkValidity()? 'is-valid' : 'is-invalid')}}"
                    [minLength]="1" [maxLength]="100"
-                   name="name" placeholder="Politechnika Wrocławska" (change)="name.checkValidity()" [(ngModel)]="organizerAccount.name"
+                   name="name" placeholder="Politechnika Wrocławska" (change)="name.checkValidity()"
+                   [(ngModel)]="organizerAccount.name"
                    required>
             <label mdbLabel class="form-label" for="name">Nazwa organizatora</label>
 
@@ -32,19 +20,13 @@
         </div>
         <br><br>
 
-<!--        <label for="mail">Email kontaktowy</label>-->
-<!--        <input type="email" id="mail" #contactEmail name="mail"-->
-<!--               class="form-control {{contactEmail.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"-->
-<!--               [maxLength]="100" (change)="contactEmail.checkValidity()" [(ngModel)]="organizerAccount.contactEmail" required>-->
-<!--        <div class="invalid-feedback" *ngIf="!contactEmail.checkValidity()"-->
-<!--             (change)="contactEmail.checkValidity()">{{contactEmail.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>-->
-
         <div class="form-outline">
           <mdb-form-control>
             <input mdbInput type="email" id="email" #email
                    class="form-control white-field {{!organizerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
                    [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
-                   name="email" placeholder="firma@wp.pl" (change)="email.checkValidity()" [(ngModel)]="organizerAccount.contactEmail"
+                   name="email" placeholder="firma@wp.pl" (change)="email.checkValidity()"
+                   [(ngModel)]="organizerAccount.contactEmail"
                    required>
             <label mdbLabel class="form-label" for="email">Email kontaktowy</label>
 
@@ -54,19 +36,13 @@
         </div>
         <br><br>
 
-<!--        <label for="phone-number">Numer telefonu</label>-->
-<!--        <input type="text" id="phone-number" #telephone name="phone-number"-->
-<!--               class="form-control {{telephone.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="9"-->
-<!--               [maxLength]="20" (change)="telephone.checkValidity()" [(ngModel)]="organizerAccount.telephone"-->
-<!--               required>-->
-<!--        <div class="invalid-feedback" *ngIf="!telephone.checkValidity()"-->
-<!--             (change)="telephone.checkValidity()">{{telephone.value.length >= 9 ? 'Telefon niepoprawny' : 'Uzupełnij numer kontaktowy'}}</div>-->
         <div class="form-outline">
           <mdb-form-control>
             <input mdbInput type="text" id="phone" #phone
                    class="form-control white-field {{!organizerForm.submitted ? '' : (phone.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                   [minLength]="1" [maxLength]="20"
-                   name="phone" placeholder="768 932 323" (change)="phone.checkValidity()" [(ngModel)]="organizerAccount.telephone"
+                   [minLength]="9" [maxLength]="20"
+                   name="phone" placeholder="768 932 323" (change)="phone.checkValidity()"
+                   [(ngModel)]="organizerAccount.telephone"
                    required>
             <label mdbLabel class="form-label" for="phone">Numer telefonu</label>
 
@@ -76,21 +52,14 @@
         </div>
         <br><br>
 
-
-<!--        <label for="description" class="form-label">Opis organizatora</label>-->
-<!--        <textarea type="text" id="description" #description name="description"-->
-<!--                  class="form-control aboutMe {{description.checkValidity() ? 'is-valid':'is-invalid' }}"-->
-<!--                  [minlength]="1" [maxLength]="500" (change)="description.checkValidity()"-->
-<!--                  [(ngModel)]="organizerAccount.description" required></textarea>-->
-<!--        <div class="invalid-feedback" *ngIf="!description.checkValidity()"-->
-<!--             (change)="description.checkValidity()">{{description.value.length > 0 ? '' : 'Uzupełnij opis organizatora'}}</div>-->
         <div class="form-outline">
           <mdb-form-control>
-            <input mdbInput type="text" id="description" #description
-                   class="form-control white-field {{!organizerForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                   [minLength]="1" [maxLength]="500"
-                   name="description" placeholder="Uczelnia wyższa znajdująca się we Wrocławiu." (change)="description.checkValidity()" [(ngModel)]="organizerAccount.description"
-                   required>
+            <textarea mdbInput type="text" id="description" #description
+                      class="form-control white-field {{!organizerForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                      [minLength]="1" [maxLength]="500"
+                      name="description" placeholder="Uczelnia wyższa znajdująca się we Wrocławiu."
+                      (change)="description.checkValidity()" [(ngModel)]="organizerAccount.description"
+                      required></textarea>
             <label mdbLabel class="form-label" for="description">Opis</label>
 
           </mdb-form-control>
@@ -103,14 +72,17 @@
           <div class="row">
 
             <div class="col ">
-              <button class="btn btn-secondary" (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openDeclineDialog():''"
+              <button class="btn btn-primary btn-block mb-4 btn-login"
+                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openDeclineDialog():''"
                       [disabled]=" ">
                 Odrzuć zmiany
               </button>
             </div>
 
             <div class="col w-100 text-end">
-              <button class="btn btn-secondary" (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''" type="submit"
+              <button class="btn btn-primary btn-block mb-4 btn-login"
+                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''"
+                      type="submit"
                       [disabled]="">
                 Potwierdź
               </button>
@@ -121,5 +93,4 @@
       </form>
     </fieldset>
   </div>
-
 </div>
