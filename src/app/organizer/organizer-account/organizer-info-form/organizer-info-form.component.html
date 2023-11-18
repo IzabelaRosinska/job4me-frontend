@@ -12,11 +12,11 @@
                    name="name" placeholder="Politechnika Wrocławska" (change)="name.checkValidity()"
                    [(ngModel)]="organizerAccount.name"
                    required>
-            <label mdbLabel class="form-label" for="name">Nazwa organizatora</label>
+            <label mdbLabel class="form-label" for="name">Nazwa organizatora*</label>
 
           </mdb-form-control>
           <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Błędny name'}}</div>
+               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Nazwa organizatora jest wymagana'}}</div>
         </div>
         <br><br>
 
@@ -28,11 +28,13 @@
                    name="email" placeholder="firma@wp.pl" (change)="email.checkValidity()"
                    [(ngModel)]="organizerAccount.contactEmail"
                    required>
-            <label mdbLabel class="form-label" for="email">Email kontaktowy</label>
+            <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Błędny email'}}</div>
+          <div *ngIf="organizerForm.submitted && email.value.length == 0"
+               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy jest wymagany'}}</div>
+          <div *ngIf="organizerForm.submitted && email.value.length > 0"
+               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Email kontaktowy musi mieć format emaila'}}</div>
         </div>
         <br><br>
 
@@ -44,11 +46,13 @@
                    name="phone" placeholder="768 932 323" (change)="phone.checkValidity()"
                    [(ngModel)]="organizerAccount.telephone"
                    required>
-            <label mdbLabel class="form-label" for="phone">Numer telefonu</label>
+            <label mdbLabel class="form-label" for="phone">Numer telefonu*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Błędny telefon'}}</div>
+          <div *ngIf="organizerForm.submitted && phone.value.length == 0"
+               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon jest wymagany'}}</div>
+          <div *ngIf="organizerForm.submitted && phone.value.length > 0"
+               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon powinien zwierać od 9 do 20 znaków'}}</div>
         </div>
         <br><br>
 
@@ -60,11 +64,11 @@
                       name="description" placeholder="Uczelnia wyższa znajdująca się we Wrocławiu."
                       (change)="description.checkValidity()" [(ngModel)]="organizerAccount.description"
                       required></textarea>
-            <label mdbLabel class="form-label" for="description">Opis</label>
+            <label mdbLabel class="form-label" for="description">Opis*</label>
 
           </mdb-form-control>
           <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Za krótki opis'}}</div>
+               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
         </div>
         <br><br>
 
