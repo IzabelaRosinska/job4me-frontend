@@ -3,9 +3,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-input-field',
-//   template:`
-// <input type="text" [(ngModel)]="value" (input)="onChange($event.target.value)" (blur)="onTouched()">
-// `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -82,7 +82,7 @@
             </div>
 
             <div
-              class="col pe-0 w-100 {{this.register ? 'text-center' : 'text-end' }} d-flex justify-content-center flex-nowrap">
+              class="col pe-0 w-100 {{this.register ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
               <button class="btn btn-primary btn-block mb-4 btn-login  {{this.register ? 'w-50' : 'w-100' }}"
                       (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''"
                       type="submit"
