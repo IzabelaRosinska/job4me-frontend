@@ -4,6 +4,7 @@ import {LoginData, RegisterData} from "../../types";
 import {RequestInterceptor} from "../../interceptors/request.interceptor";
 import {shareReplay} from "rxjs/operators";
 import { ROUTES} from "../../../environments/environments";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,14 @@ export class LoginService {
       responseType: 'text',
       observe: 'response',
     }).pipe(shareReplay(1));
+  }
+
+
+  getLinkedinData(): Observable<string> {
+    const route = ROUTES.BACKEND_ROUTE + '/linkedin/signin';
+    return this.http.get<string>(route, {
+      withCredentials: true,
+    });
   }
 
 

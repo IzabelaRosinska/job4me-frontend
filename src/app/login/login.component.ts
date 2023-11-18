@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {catchError, of, throwError} from "rxjs";
 import {VariablesService} from "../utilities/service/variables.service";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -76,6 +77,14 @@ export class LoginComponent implements OnInit {
       this.passwordVisible = 'password';
       this.visibilityIconClass = 'fa fa-eye-slash';
     }
+  }
+
+
+  getLinkedin() {
+    this.loginService.getLinkedinData().subscribe((response) => {
+      console.log(response);
+      window.location.href = response;
+    });
   }
 
 }
