@@ -6,8 +6,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="login">Logowanie</a>
-      <a mat-list-item *ngIf="localStorage.getItem('role') == 'employee'" routerLink="employee/account">Profil</a>
-      <a mat-list-item *ngIf="localStorage.getItem('role') == 'employer'" routerLink="employer/account">Profil pracodawcy</a>
+      <a mat-list-item routerLink="{{localStorage.getItem('role')}}/account">Profil</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
