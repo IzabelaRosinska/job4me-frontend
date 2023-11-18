@@ -22,6 +22,8 @@ export class OrganizerInfoFormComponent implements OnInit {
   ) {
   }
 
+  register: boolean = false;
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.serviceOrganizer.getOrganizer().subscribe((response) => {
@@ -30,6 +32,12 @@ export class OrganizerInfoFormComponent implements OnInit {
         this.organizerAccount.contactEmail = response.contactEmail;
         this.organizerAccount.telephone = response.telephone;
         this.organizerAccount.description = response.description;
+
+        if(this.organizerAccount.name == "" || this.organizerAccount.contactEmail == "" || this.organizerAccount.telephone == "" || this.organizerAccount.description == "" ||
+        this.organizerAccount.name == null || this.organizerAccount.contactEmail == null || this.organizerAccount.telephone == null || this.organizerAccount.description == null){
+          this.register = true;
+          console.log("Register: "+this.register)
+        }
       });
     });
   }

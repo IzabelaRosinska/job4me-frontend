@@ -1,6 +1,6 @@
-<div class="container align-content-left text-left main">
-  <div class="fieldset-outer">
-    <fieldset class="common-inputs-fieldset">
+<div class="container main">
+  <div class="fieldset-outer form-size mt-5">
+    <fieldset class="common-inputs-fieldset align-content-left text-left ">
       <form #organizerForm="ngForm">
         <legend class="mb-3">Dane organizatora targów</legend>
 
@@ -74,17 +74,16 @@
 
         <div class="container">
           <div class="row">
-
-            <div class="col ">
+            <div class="col ps-0" *ngIf="!this.register">
               <button class="btn btn-primary btn-block mb-4 btn-login"
-                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openDeclineDialog():''"
-                      [disabled]=" ">
+                      (click)="openDeclineDialog()">
                 Odrzuć zmiany
               </button>
             </div>
 
-            <div class="col w-100 text-end">
-              <button class="btn btn-primary btn-block mb-4 btn-login"
+            <div
+              class="col pe-0 w-100 {{this.register ? 'text-center' : 'text-end' }} d-flex justify-content-center flex-nowrap">
+              <button class="btn btn-primary btn-block mb-4 btn-login  {{this.register ? 'w-50' : 'w-100' }}"
                       (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''"
                       type="submit"
                       [disabled]="">
