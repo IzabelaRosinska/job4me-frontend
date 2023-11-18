@@ -34,7 +34,7 @@
           <div *ngIf="organizerForm.submitted && email.value.length == 0"
                class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy jest wymagany'}}</div>
           <div *ngIf="organizerForm.submitted && email.value.length > 0"
-               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Email kontaktowy musi mieć format emaila'}}</div>
+               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy musi mieć format emaila'}}</div>
         </div>
         <br><br>
 
