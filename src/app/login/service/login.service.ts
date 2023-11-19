@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginData, RegisterData} from "../../types";
 import {RequestInterceptor} from "../../interceptors/request.interceptor";
 import {shareReplay} from "rxjs/operators";
-import { ROUTES} from "../../../environments/environments";
+import { environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -15,12 +15,12 @@ export class LoginService {
   }
 
   getLoginData() {
-    return this.http.get<LoginData[]>(ROUTES.BACKEND_ROUTE + '/login', {withCredentials: true}).pipe(shareReplay(1));
+    return this.http.get<LoginData[]>(environment.BACKEND_ROUTE + '/login', {withCredentials: true}).pipe(shareReplay(1));
   }
 
   pushLoginData(loginData: LoginData) {
 
-    const route: string  = ROUTES.BACKEND_ROUTE + '/login';
+    const route: string  = environment.BACKEND_ROUTE + '/login';
     return this.http.request('post', route, {
       body: loginData,
       withCredentials: true,
@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   registerUser(registerData: RegisterData) {
-    const route: string  = ROUTES.BACKEND_ROUTE + '/signup';
+    const route: string  = environment.BACKEND_ROUTE + '/signup';
     return this.http.request('post', route, {
       body: registerData,
       withCredentials: true,
@@ -52,7 +52,7 @@ export class LoginService {
 
 
   getLinkedinData(): Observable<string> {
-    const route = ROUTES.BACKEND_ROUTE + '/linkedin/signin';
+    const route = environment.BACKEND_ROUTE + '/linkedin/signin';
     return this.http.get<string>(route, {
       withCredentials: true,
     });

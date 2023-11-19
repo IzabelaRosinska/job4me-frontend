@@ -3,18 +3,17 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EmployeeAccount} from "../../types";
 import {shareReplay} from "rxjs/operators";
-import {ROUTES} from "../../../environments/environments";
+import { environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   putEmployee(employee: EmployeeAccount): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employee/cv';
+    const route = environment.BACKEND_ROUTE +'/employee/cv';
 
     return this.http.request('put', route, {
       body: employee,
@@ -26,17 +25,10 @@ export class EmployeeService {
 
   getEmployee(): Observable<EmployeeAccount> {
 
-    const route = ROUTES.BACKEND_ROUTE + '/employee/cv';
-    return this.http.get<EmployeeAccount>(route, {
-      withCredentials: true,
-    });
-  }
-
-  getEmployeeById(id: number | string | null, role: string): Observable<EmployeeAccount> {
-    const route = ROUTES.BACKEND_ROUTE + '/' + role + '/employee/' + (id ? id : 0) + '/account/';
-    return this.http.get<EmployeeAccount>(route, {
-      withCredentials: true,
-    });
+      const route = environment.BACKEND_ROUTE + '/employee/cv';
+      return this.http.get<EmployeeAccount>(route, {
+        withCredentials: true,
+      });
   }
 
   getPdf(): Observable<any> {
