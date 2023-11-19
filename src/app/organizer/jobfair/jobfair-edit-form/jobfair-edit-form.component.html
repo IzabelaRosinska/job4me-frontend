@@ -34,8 +34,8 @@
         <div class="form-outline mb-4">
           <mdb-form-control>
             <input mdbInput type="datetime-local" id="dateStart" #dateStart
-                   class="form-control white-field login x {{!jobfairForm.submitted ? '' : (dateStart.checkValidity()? 'is-valid' : 'is-invalid')}} active"
-                    name="dateStart" placeholder="" (change)="dateStart.checkValidity()"
+                   class="form-control white-field login {{!jobfairForm.submitted ? '' : (dateStart.checkValidity()? 'is-valid' : 'is-invalid')}} active"
+                    [minLength]="" name="dateStart"  (change)="dateStart.checkValidity()"
                    [(ngModel)]="jobFair.dateStart" required >
             <label mdbLabel class="form-label active date-label" for="dateStart">Data rozpoczęcia*</label>
           </mdb-form-control>
@@ -47,7 +47,7 @@
           <mdb-form-control>
             <input mdbInput type="datetime-local" id="dateEnd" #dateEnd
                    class="form-control white-field login x {{!jobfairForm.submitted ? '' : (dateEnd.checkValidity()? 'is-valid' : 'is-invalid')}} active"
-                    name="dateEnd" placeholder="" (change)="dateEnd.checkValidity()"
+                   [minLength]="dateStart" name="dateEnd"  (change)="dateEnd.checkValidity()"
                    [(ngModel)]="jobFair.dateEnd" required >
             <label mdbLabel class="form-label active date-label" for="dateEnd">Data zakończenia*</label>
           </mdb-form-control>
@@ -78,6 +78,23 @@
           <div *ngIf="jobfairForm.submitted"
                class="text-start invalid-message">{{displayDescription.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
         </div>
+
+        <label for="fileDropRef" class="form-label">Grafika firmy</label>
+        <div class="dropzone" *ngIf="!this.jobFair.photo">
+          <div>
+            <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
+            <h3>Drag and drop file (max {{MAX_FILE_SIZE / 1000}} kb) here</h3>
+            <h3>lub</h3>
+            <label for="fileDropRef">Szukaj pliku</label>
+          </div>
+        </div>
+        <div *ngIf="this.jobFair.photo">
+          <img [src]="this.jobFair.photo" alt="logo" class="company-icon">
+          <div>
+            <button class="btn btn-danger" (click)="removeFile()">Usuń grafike</button>
+          </div>
+        </div>
+        <br><br>
 
         <div class="container">
           <div class="row">

@@ -20,15 +20,20 @@ export class JobfairEditFormComponent implements OnInit{
   selectedDateTime: Date = new Date();
   firstTime: boolean = false;
 
+  selectedFile: File | null = null;
+  imageData: string | null = null;
+  MAX_FILE_SIZE = 10000;
+
   jobFair = {
     id: 0,
     name: "",
     organizerId: 0,
-    dateStart: '',
-    dateEnd: '',
+    dateStart: "",
+    dateEnd: "",
     address: "",
     description: "",
-    displayDescription: ""
+    displayDescription: "",
+    photo: "",
   }
 
 
@@ -51,12 +56,14 @@ export class JobfairEditFormComponent implements OnInit{
             this.jobFair.id = response.id;
             this.jobFair.name = response.name;
             this.jobFair.organizerId = response.organizerId;
-            this.jobFair.dateStart = response.dateStart;
-            this.jobFair.dateEnd = response.dateEnd;
+            this.jobFair.dateStart = this.convertDate(response.dateStart.toString()) ;
+            this.jobFair.dateEnd = this.convertDate(response.dateEnd.toString());
             this.jobFair.address = response.address;
             this.jobFair.description = response.description;
             this.jobFair.displayDescription = response.displayDescription;
+            this.jobFair.photo = response.photo? response.photo : '';
             console.log(new Date())
+            console.log(response.dateStart)
         });
       }else{
         this.firstTime = true;
@@ -66,15 +73,8 @@ export class JobfairEditFormComponent implements OnInit{
     this.loading = false;
   }
 
-  convertToLocalDateTime(javaDateTime: any): Date {
-    const year = javaDateTime.year();
-    const month = javaDateTime.monthValue() - 1; // Java months are 1-based, while JavaScript months are 0-based
-    const day = javaDateTime.dayOfMonth();
-    const hour = javaDateTime.hour();
-    const minute = javaDateTime.minute();
-    const second = javaDateTime.second();
-
-    return new Date(year, month, day, hour, minute, second);
+  convertDate(date: string): string{
+    return date.substring(0,16);
   }
 
   openConfirmDialog(): void {
@@ -89,18 +89,14 @@ export class JobfairEditFormComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const role = localStorage.getItem('role');
-      if (result && role) {
-        this.serviceJobfair.postJobFair(this.jobFair).pipe(
+
+      if (result) {
+        this.serviceJobfair.putJobFair(this.jobFair, this.jobFair.id).pipe(
           catchError((err) => {
             return [];
           })
         ).subscribe((response) => {
-          if(role == 'organizer'){
-            this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
-          }else{
-            this.router.navigate([role+'/organizer/job-fair/'+this.jobFair.id]);
-          }
+          this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
         });
       }
     });
@@ -118,17 +114,37 @@ export class JobfairEditFormComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const role = localStorage.getItem('role');
       if (result){
-        if(role == 'organizer'){
-          this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
-        }else{
-          this.router.navigate([role+'/organizer/job-fair/'+this.jobFair.id]);
-        }
+        this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
       }
 
     });
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0 && event.target.files[0].type.includes("image") && event.target.files[0].size < this.MAX_FILE_SIZE) {
+      this.selectedFile = event.target.files[0];
+      this.displaySelectedImage();
+    }
+  }
 
+  displaySelectedImage() {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.jobFair.photo = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  removeFile() {
+    this.selectedFile = null;
+    this.jobFair.photo = '';
+  }
+
+
+  protected readonly console = console;
 }

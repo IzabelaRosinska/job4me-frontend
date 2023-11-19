@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'employer/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'employee/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'organizer/:organizer-id/job-fair/:jobfair-id/edit-form', component: JobfairEditFormComponent },
+  { path: 'organizer/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'organizer',redirectTo: 'organizer/account', pathMatch: 'full' },
   { path: 'organizer/edit-info', component: OrganizerInfoFormComponent }
 ];
