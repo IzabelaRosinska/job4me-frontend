@@ -62,15 +62,15 @@ export class JobfairEditFormComponent implements OnInit{
             this.jobFair.description = response.description;
             this.jobFair.displayDescription = response.displayDescription;
             this.jobFair.photo = response.photo? response.photo : '';
-            console.log(new Date())
-            console.log(response.dateStart)
+            this.loading = false;
         });
       }else{
         this.firstTime = true;
+        this.loading = false;
       }
 
     });
-    this.loading = false;
+
   }
 
   convertDate(date: string): string{
