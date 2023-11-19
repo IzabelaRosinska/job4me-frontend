@@ -31,8 +31,8 @@ export class JobfairComponent implements OnInit{
     id: 0,
     name: "",
     organizerId: 0,
-    dateStart: '',
-    dateEnd: '',
+    dateStart: "",
+    dateEnd: "",
     address: "",
     description: "",
     displayDescription: ""
@@ -44,10 +44,15 @@ export class JobfairComponent implements OnInit{
       const jobfairId = Number(params.get('jobfair-id'));
       if(jobfairId){
         this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
-          this.jobFair = response;
-          this.jobFair.dateStart = this.convertDate(this.jobFair.dateStart);
-          this.jobFair.dateEnd = this.convertDate(this.jobFair.dateEnd);
-          this.loading = false;
+            this.jobFair.id = response.id;
+            this.jobFair.name = response.name;
+            this.jobFair.organizerId = response.organizerId;
+            this.jobFair.dateStart = response.dateStart.toString();
+            this.jobFair.dateEnd = response.dateEnd.toString();
+            this.jobFair.address = response.address;
+            this.jobFair.description = response.description;
+            this.jobFair.displayDescription = response.displayDescription;
+            this.loading = false;
         });
       }
       else{
@@ -58,6 +63,15 @@ export class JobfairComponent implements OnInit{
 
   convertDate(date: string): string{
     return date.substring(0,10)+" "+date.substring(14,19);
+  }
+
+  convertToLocalDateTime(javaDateTimeString: string): Date {
+    const [datePart, timePart] = javaDateTimeString.split('T');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hour, minute, second] = timePart.split(':').map(Number);
+    const milliseconds = Number(timePart.split('.')[1]);
+
+    return new Date(year, month - 1, day, hour, minute, second, milliseconds);
   }
 
 }
