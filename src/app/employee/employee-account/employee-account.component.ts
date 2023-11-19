@@ -22,10 +22,7 @@ export class EmployeeAccountComponent implements OnInit {
         const role = localStorage.getItem('role');
         const id = params.get('employee-id');
         if (id && role) {
-          this.serviceEmployee.getEmployeeById(id, role).subscribe((response) => {
-            this.employeeAccountInfo = response;
-            this.loading = false;
-          });
+
         } else {
           this.serviceEmployee.getEmployee().subscribe((response) => {
             this.employeeAccountInfo = response;

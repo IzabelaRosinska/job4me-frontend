@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 import {FiliterType, idNameListElement, Page} from "../../types";
-import {ROUTES} from "../../../environments/environments";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -89,38 +89,36 @@ export class VariablesService implements OnInit {
     // });
   }
 
-
-
   getLocalizations(): Observable<Page<idNameListElement>> {
-    const route = ROUTES.BACKEND_ROUTE + '/localizations';
+    const route = environment.BACKEND_ROUTE + '/localizations';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
   getLevels(): Observable<Page<idNameListElement>> {
-    const route = ROUTES.BACKEND_ROUTE + '/levels';
+    const route = environment.BACKEND_ROUTE + '/levels';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
   getIndustries(): Observable<Page<idNameListElement>> {
-    const route = ROUTES.BACKEND_ROUTE + '/industries';
+    const route = environment.BACKEND_ROUTE + '/industries';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
   getEmploymentFormsNames(): Observable<Page<idNameListElement>> {
-    const route = ROUTES.BACKEND_ROUTE + '/employment-forms';
+    const route = environment.BACKEND_ROUTE + '/employment-forms';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
   getContractTypes(): Observable<Page<idNameListElement>> {
-    const route = ROUTES.BACKEND_ROUTE + '/contract-types';
+    const route = environment.BACKEND_ROUTE + '/contract-types';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
