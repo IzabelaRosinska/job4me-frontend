@@ -5,6 +5,7 @@ import {LoginData} from "../types";
 import {Router} from "@angular/router";
 import {catchError, of, throwError} from "rxjs";
 import {VariablesService} from "../utilities/service/variables.service";
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private router: Router,
-              private variableService: VariablesService) {
+              private variableService: VariablesService,
+              private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
