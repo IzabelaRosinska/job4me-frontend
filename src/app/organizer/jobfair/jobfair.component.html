@@ -23,35 +23,33 @@
 
       <!--Events-->
 
-      <div class="container info-panel">
+      <!--  Offers Panel-->
+      <div class="container info-panel p-4 ">
+        <h2 class="text-center">Oferty</h2>
+        <mat-paginator (page)="handlePageEvent($event)"
+                       [length]="length"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page">
+        </mat-paginator>
+        <hr>
 
-<!--        <div class="row text-end">-->
-<!--          <div class="col-12">-->
-<!--            <div class=" text-end">-->
-<!--              <button #list class="btn btn-close-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                {{selectedListType}}-->
-<!--              </button>-->
-<!--              <ul class="table dropdown-menu filter-menu">-->
-<!--                <li *ngFor="let option of listType" >-->
-<!--                  <div class="form-check dropdown-item filter-item w-100 h-100 p-0 m-0">-->
-<!--                    <label class="form-check-label dropdown-item-element-consistent w-100 h-100 m-0 p-0"  [for]="option"  (click)="list.innerHTML=option">-->
-<!--                      <button class="w-100 h-100 m-0 p-2 button-dropdown"  (click)="selectedListType=option" >{{option}}</button>-->
-<!--                    </label>-->
-<!--                  </div>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--  -->
-<!--        </div>-->
-<!--  -->
-<!--        <hr>-->
-<!--        <div >-->
-<!--          <app-item-list [items]="employersAsList">-->
-<!--  -->
-<!--          </app-item-list>-->
-<!--        </div>-->
-<!--        <hr>-->
+        <div class="">
+          <app-loading-screen *ngIf="loadingEmployers"></app-loading-screen>
+          <app-item-list [items]="employersAsList" *ngIf="!loadingEmployers"
+                         [filters]="filters"></app-item-list>
+        </div>
+
+      </div>
+
+
+      <hr>
+        <div >
+          <app-item-list [items]="employersAsList">
+
+          </app-item-list>
+        </div>
+        <hr>
 
         <!--  Actions Panel-->
         <div class="row align-items-center pt-5 text-center">
@@ -64,4 +62,4 @@
       </div>
     </div>
   </div>
-</div>
+
