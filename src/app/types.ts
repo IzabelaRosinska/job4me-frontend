@@ -80,6 +80,7 @@ export interface ForListBackend {
   photo?: string;
 }
 
+
 export interface JobOffer {
   id?: number;
   offerName: string;
