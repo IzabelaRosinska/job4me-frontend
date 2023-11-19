@@ -91,7 +91,7 @@ export class JobfairEditFormComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
-        this.serviceJobfair.putJobFair(this.jobFair, this.jobFair.id).pipe(
+        this.serviceJobfair.putJobFair(this.jobFair).pipe(
           catchError((err) => {
             return [];
           })

@@ -29,7 +29,7 @@ export class JobfairService {
   }
 
   postJobFair(jobfair: JobFair): Observable<any> {
-    const route =  ROUTES.BACKEND_ROUTE +'/job-fairs';
+    const route =  ROUTES.BACKEND_ROUTE +'/organizer/job-fairs';
     return this.http.request('post', route, {
       body: jobfair,
       withCredentials: true,
@@ -38,8 +38,8 @@ export class JobfairService {
     }).pipe(shareReplay(1));
   }
 
-  putJobFair(jobfair: JobFair, jobfairId: number): Observable<any> {
-    const route =  ROUTES.BACKEND_ROUTE +'/job-fairs/' + jobfairId;
+  putJobFair(jobfair: JobFair): Observable<any> {
+    const route =  ROUTES.BACKEND_ROUTE +'/organizer/job-fairs/' + jobfair.id;
     return this.http.request('put', route, {
       body: jobfair,
       withCredentials: true,
