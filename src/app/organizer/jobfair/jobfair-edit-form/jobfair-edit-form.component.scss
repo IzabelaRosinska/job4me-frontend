@@ -1,0 +1,32 @@
+@import "../../../../styles.scss";
+
+.form-control:focus {
+  border-color: #fe8686 !important;
+
+}
+
+.form-group .form-label.active {
+  transform: translateY(-100%) scale(0.75);
+}
+
+.date-label {
+  transform: translateY(-1rem) translateY(0.1rem) scale(0.8);
+  z-index: 500;
+  background-color: inherit;
+}
+
+.white-field{
+  background-color: white !important;
+}
+.invalid-message {
+  color: $ERROR_COLOR;
+  font-size: 12px;
+  margin-top: 0;
+  margin-left: 5px;
+}
+
+.form-size{
+  max-width: 800px !important;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -10,8 +10,9 @@ import { JobfairComponent } from './jobfair/jobfair.component';
 import { JobfairEditFormComponent } from './jobfair/jobfair-edit-form/jobfair-edit-form.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {FormsModule} from "@angular/forms";
-import {MatFormFieldControl, MatFormFieldModule} from "@angular/material/form-field";
+import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatDatepickerModule,
     FormsModule,
     MatFormFieldModule,
+    MatInputModule,
     MatNativeDateModule
   ]
 })
