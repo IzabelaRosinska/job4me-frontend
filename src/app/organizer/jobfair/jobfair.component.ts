@@ -117,9 +117,9 @@ export class JobfairComponent implements OnInit{
       image: employer.photo ? employer.photo : this.companyPhoto,
       name: employer.companyName,
       id: employer.id ? employer.id : 0,
-      description: `${employer.displayDescription}`,
-      useFavorite: false,
-      isFavorite: false,
+      displayDescription: `${employer.displayDescription}`,
+      useSaved: false,
+      isSaved: false,
       useDelete: true
     }
     this.employersAsList.push(offerAsItemInsideList);

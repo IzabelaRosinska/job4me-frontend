@@ -69,9 +69,9 @@ export interface ItemInsideList{
   image: string;
   name: string;
   id: number;
-  description: string;
-  useFavorite: boolean;
-  isFavorite?: boolean;
+  displayDescription: string;
+  useSaved: boolean;
+  isSaved?: boolean;
   useDelete?: boolean;
   useApprove?: boolean;
   useGettingInside?: boolean;

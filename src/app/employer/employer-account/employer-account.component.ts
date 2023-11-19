@@ -55,9 +55,9 @@ export class EmployerAccountComponent implements OnInit {
       image: this.employerAccount.photo ? this.employerAccount.photo : this.companyPhoto,
       name: offer.offerName,
       id: offer.id ? offer.id : 0,
-      description: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo}`,
-      useFavorite: false,
-      isFavorite: false,
+      displayDescription: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo}`,
+      useSaved: false,
+      isSaved: false,
       useDelete: true
     }
     this.offersAsList.push(offerAsItemInsideList);

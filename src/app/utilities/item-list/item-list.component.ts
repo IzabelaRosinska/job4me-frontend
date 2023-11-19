@@ -13,29 +13,29 @@ export class ItemListComponent {
       image: "https://picsum.photos/100/100",
       name: "John Gray",
       id: 1,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
+      displayDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
       route: "/login",
-      useFavorite: true,
-      isFavorite: true,
+      useSaved: true,
+      isSaved: true,
       useDelete: true
     },
     {
       image: "https://picsum.photos/100/100",
       name: "John Black",
       id: 2,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+      displayDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
       route: "/login",
-      useFavorite: true,
-      isFavorite: false,
+      useSaved: true,
+      isSaved: false,
       useDelete: false
     },
     {
       image: "https://picsum.photos/100/100",
       name: "John White",
       id: 3,
-      description: "opis opis opis",
+      displayDescription: "opis opis opis",
       route: "/login",
-      useFavorite: false,
+      useSaved: false,
       useDelete: false
     }
   ];
