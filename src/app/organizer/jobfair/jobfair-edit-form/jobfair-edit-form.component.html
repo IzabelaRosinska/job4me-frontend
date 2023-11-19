@@ -1,0 +1,124 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="container align-content-left text-left main" *ngIf="!loading">
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
+      <form #jobfairForm="ngForm" (ngSubmit)="subbmitForm(jobfairForm)">
+        <h1>Targi pracy</h1>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="name" #name
+                   class="form-control white-field login {{!jobfairForm.submitted ? '' : (name.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="100" name="username" placeholder="Targi politechniczne! Edycja 32." (change)="name.checkValidity()"
+                   [(ngModel)]="jobFair.name" required>
+            <label mdbLabel class="form-label" for="name">Nazwa targów*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Za krótka nazwa targów, wymagany conajmniej jeden znak'}}</div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="address" #address
+                   class="form-control white-field login {{!jobfairForm.submitted ? '' : (address.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="200" name="address" placeholder="ul. Wojskowa 17, 98-200 Wrocław" (change)="address.checkValidity()"
+                   [(ngModel)]="jobFair.address" required>
+            <label mdbLabel class="form-label" for="address">Adres, pod którym odbywają się targi*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{address.checkValidity() ? '' : 'Za krótki adres, wymagany conajmniej 1 znak'}}</div>
+        </div>
+
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="datetime-local" id="dateStart" #dateStart
+                   class="form-control white-field login {{!jobfairForm.submitted ? '' : (dateStart.checkValidity()? 'is-valid' : 'is-invalid')}} active"
+                    [minLength]="" name="dateStart"  (change)="dateStart.checkValidity()"
+                   [(ngModel)]="jobFair.dateStart" required >
+            <label mdbLabel class="form-label active date-label" for="dateStart">Data rozpoczęcia*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{dateStart.checkValidity() ? '' : 'Data rozpoczęcia targów jest wymagana'}}</div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <input mdbInput type="datetime-local" id="dateEnd" #dateEnd
+                   class="form-control white-field login x {{!jobfairForm.submitted ? '' : (dateEnd.checkValidity()? 'is-valid' : 'is-invalid')}} active"
+                   [minLength]="dateStart" name="dateEnd"  (change)="dateEnd.checkValidity()"
+                   [(ngModel)]="jobFair.dateEnd" required >
+            <label mdbLabel class="form-label active date-label" for="dateEnd">Data zakończenia*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{dateEnd.checkValidity() ? '' : 'Data zakończenia targów jest wymagana'}}</div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <textarea mdbInput type="text" id="description" #description
+                   class="form-control white-field login {{!jobfairForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                   [minLength]="1" [maxLength]="1000" name="description" placeholder="To już nasze 10 targi, dlatego z tej okazji...." (change)="description.checkValidity()"
+                      [(ngModel)]="jobFair.description" required></textarea>
+            <label mdbLabel class="form-label" for="description">Opis targów*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <mdb-form-control>
+            <textarea mdbInput type="text" id="displayDescription" #displayDescription
+                      class="form-control white-field login {{!jobfairForm.submitted ? '' : (displayDescription.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                      [minLength]="1" [maxLength]="1000" name="displayDescription" placeholder="Targi techniczne, zakres targów - IT oraz przemysł" (change)="displayDescription.checkValidity()"
+                      [(ngModel)]="jobFair.displayDescription" required></textarea>
+            <label mdbLabel class="form-label" for="displayDescription">Krótki opis targów*</label>
+          </mdb-form-control>
+          <div *ngIf="jobfairForm.submitted"
+               class="text-start invalid-message">{{displayDescription.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
+        </div>
+
+        <label for="fileDropRef" class="form-label">Grafika firmy</label>
+        <div class="dropzone" *ngIf="!this.jobFair.photo">
+          <div>
+            <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
+            <h3>Drag and drop file (max {{MAX_FILE_SIZE / 1000}} kb) here</h3>
+            <h3>lub</h3>
+            <label for="fileDropRef">Szukaj pliku</label>
+          </div>
+        </div>
+        <div *ngIf="this.jobFair.photo">
+          <img [src]="this.jobFair.photo" alt="logo" class="company-icon">
+          <div>
+            <button class="btn btn-danger" (click)="removeFile()">Usuń grafike</button>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="container">
+          <div class="row">
+            <div class="col ps-0" *ngIf="!this.firstTime">
+              <button class="btn btn-primary btn-block mb-4 btn-login"
+                      (click)="openDeclineDialog()">
+                Odrzuć zmiany
+              </button>
+            </div>
+
+            <div
+              class="col pe-0 w-100 {{this.firstTime ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
+              <button class="btn btn-primary btn-block mb-4 btn-login  {{this.firstTime ? 'w-50' : 'w-100' }}"
+                      (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() &&
+                       dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?openConfirmDialog():''"
+                      type="submit"
+                      [disabled]="">
+                Potwierdź
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</div>
