@@ -12,66 +12,35 @@ export class OrganizerAccountComponent implements OnInit{
   loading: boolean = true;
 
   organizerAccount: OrganizerAccount = {
-    id: 100,
-    name: "Super jobfair Organizer",
-    contactEmail: "super-jobfair-organizer@gmail.com",
-    telephone: "876203723",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-        "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
-        "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    id: 0,
+    name: "",
+    contactEmail: "",
+    telephone: "",
+    description: "",
   }
-  jobFairs: JobFair[] = [
-    // {    id: "101",
-    //   name: "Super Event 3",
-    //   organizerId: 1,
-    //   dateStart: new Date(),
-    //   dateEnd: new Date(),
-    //   address: "Jagiellońska 74, 03-301 Warszawa",
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-    //     "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
-    //     "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //     "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //     "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //     "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    //   displayDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-    //     "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ",
-    //   photo: "https://picsum.photos/100/100"
-    // },
-    // {id: 102,
-    //   name: "Super jobfair 2",
-    //   organizerId: this.organizerAccount.id,
-    //   localization: "Wroclaw",
-    //   date: "2021-05-10",
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-    //       "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
-    //       "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    // },
-    // {id: 103,
-    //   name: "Super jobfair 3",
-    //   organizerId: this.organizerAccount.id,
-    //   localization: "Krakow",
-    //   date: "2021-05-15",
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-    //       "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
-    //       "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    // },
-    // {id: 104,
-    //   name: "Super jobfair 3",
-    //   organizerId: this.organizerAccount.id,
-    //   localization: "Krakow",
-    //   date: "2021-05-15",
-    //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-    //       "dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " +
-    //       "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
-    //       "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    // },
-  ]
+  jobFairs: JobFair[] = []
   jobFairsAsList: ItemInsideList[] = []
 
 
+  tabs: [key: string, value: boolean][] = [
+    ["tab1", true],
+    ["tab2", false],
+    ["tab3", false]
+  ]
+
+  changeTab(tab: string) {
+    this.tabs.map((elem) => {
+      if (elem[0] === tab) {
+        elem[1] = true;
+      }else{
+        elem[1] = false;
+      }
+    })
+  }
+
+  foundValueByNameInTab(tab: string): boolean{
+    return this.tabs.filter((elem) => elem[0] === tab)[0][1];
+  }
   convertjobfairsToListType(){
     this.jobFairs.forEach(jobfair => {
       let offerAsList: ItemInsideList = {

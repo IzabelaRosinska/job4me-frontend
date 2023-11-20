@@ -55,6 +55,8 @@ export class EmployerInfoFormComponent implements OnInit {
     address: ""
   }
 
+
+
   onFileSelected(event: any) {
     if (event.target.files.length > 0 && event.target.files[0].type.includes("image") && event.target.files[0].size < this.MAX_FILE_SIZE) {
       this.selectedFile = event.target.files[0];

@@ -17,16 +17,74 @@
             </div>
         </div>
 
-        <!--Events-->
+        <!--  Offers Panel-->
         <div class="container info-panel p-4 ">
-            <h2 class="text-center">Zorganizowane wydarzenia</h2>
-            <hr>
-            <div >
-                <app-item-list [items]="jobFairsAsList" (deleteItemOut)="printId($event)" (acceptItemOut)="printId($event)">
 
-                </app-item-list>
+            <!-- Pills navs -->
+            <div class="row nav nav-pills mb-3" id="ex1" role="tablist">
+                <div class="col nav-item" role="presentation">
+                    <h1
+                            class="nav-link {{foundValueByNameInTab('tab1')? 'active' : ''}}"
+                            id="ex1-tab-1"
+                            data-mdb-toggle="pill"
+                            (click)="changeTab('tab1')"
+                            role="tab"
+                            aria-controls="ex1-pills-1"
+                            aria-selected="true"
+                    >Zorganizowane wydarzenia</h1>
+                </div>
+                <div class="col nav-item" role="presentation">
+                    <h1
+                            class="nav-link {{foundValueByNameInTab('tab2')? 'active' : ''}}"
+                            id="ex1-tab-2"
+                            data-mdb-toggle="pill"
+                            (click)="changeTab('tab2')"
+                            role="tab"
+                            aria-controls="ex1-pills-2"
+                            aria-selected="false"
+                    >Oczekujący pracodawcy</h1>
+                </div>
+                <div class="col nav-item" role="presentation">
+                    <h1
+                            class="nav-link {{foundValueByNameInTab('tab3')? 'active' : ''}}"
+                            id="ex1-tab-3"
+                            data-mdb-toggle="pill"
+                            (click)="changeTab('tab3')"
+                            role="tab"
+                            aria-controls="ex1-pills-3"
+                            aria-selected="false"
+                    >Zaakceptowani pracodawcy</h1>
+                </div>
             </div>
+            <!-- Pills navs -->
 
+            <!-- Pills content -->
+            <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade {{foundValueByNameInTab('tab1')? 'show active' : ''}}" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+
+                    <!--                    <mat-paginator (page)="handlePageEvent($event)"-->
+                    <!--                                   [length]="length"-->
+                    <!--                                   [pageSize]="pageSize"-->
+                    <!--                                   [pageSizeOptions]="[5, 10, 25, 100]"-->
+                    <!--                                   aria-label="Select page">-->
+                    <!--                    </mat-paginator>-->
+                    <hr>
+
+                    <div class="">
+                        <app-loading-screen *ngIf="loading"></app-loading-screen>
+                        <app-item-list [items]="jobFairsAsList" (deleteItemOut)="printId($event)" (acceptItemOut)="printId($event)">
+
+                        </app-item-list>
+                    </div>
+                </div>
+                <div class="tab-pane fade {{foundValueByNameInTab('tab2')? 'show active' : ''}}" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                    Tab 2 content
+                </div>
+                <div class="tab-pane fade {{foundValueByNameInTab('tab3')? 'show active' : ''}}" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                    Tab3  content
+                </div>
+            </div>
+            <!-- Pills content -->
         </div>
 
 

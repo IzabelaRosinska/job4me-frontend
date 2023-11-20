@@ -45,9 +45,20 @@ export class LoginComponent implements OnInit {
       switch (response.status) {
         case 200:
           this.variableService.initVariables();
-          const role = response.body?.toLowerCase().replace('_enabled', '');
-          localStorage.setItem('role', role ? role : '');
-          this.router.navigate(['/' + role + '/account']);
+          if(response.body){
+            const bodyParameters =  response.body?.split(';');
+            const role = bodyParameters[0].toLowerCase().replace('_enabled', '');
+            const token = bodyParameters[1];
+
+            localStorage.setItem('role', role);
+            localStorage.setItem('token', token);
+
+            this.router.navigate(['/' + role + '/account']);
+          }
+          else{
+            this.router.navigate(['/login']);
+          }
+
           break;
       }
       loginForm.resetForm({
