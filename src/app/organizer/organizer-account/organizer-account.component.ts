@@ -47,7 +47,7 @@ export class OrganizerAccountComponent implements OnInit{
   tabs: [key: string, value: boolean][] = [
     ["tab1", true],
     ["tab2", false],
-    ["tab3 ", false]
+    ["tab3", false]
   ]
 
   constructor(private serviceOrganizer: OrganizerService,
@@ -82,6 +82,7 @@ export class OrganizerAccountComponent implements OnInit{
                     this.addJobFairForList(jobfair);
                   }
               );
+              console.log("jobFairsAsList " + this.jobFairsAsList);
               return response;
             }
         ));
