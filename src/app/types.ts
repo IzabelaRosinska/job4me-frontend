@@ -77,6 +77,13 @@ export interface ItemInsideList{
   useGettingInside?: boolean;
 }
 
+export interface ForListBackend {
+  id: number;
+  name: string;
+  displayDescription: string;
+  photo?: string;
+}
+
 export interface JobOffer {
   id?: number;
   offerName: string;

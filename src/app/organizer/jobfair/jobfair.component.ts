@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployerAccount, ItemInsideList, JobFair, JobOffer, Page} from "../../types";
+import {EmployerAccount, ForListBackend, ItemInsideList, JobFair, JobOffer, Page} from "../../types";
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -14,13 +14,13 @@ import {map} from "rxjs/operators";
 })
 export class JobfairComponent implements OnInit{
 
-  jobFairsState$!: Observable<{ appState: string, appData?: Page<EmployerAccount>, error?: HttpErrorResponse }>;
-  responseSubject = new BehaviorSubject<Page<EmployerAccount>>({} as Page<EmployerAccount>);
+  jobFairsState$!: Observable<{ appState: string, appData?: Page<ForListBackend>, error?: HttpErrorResponse }>;
+  responseSubject = new BehaviorSubject<Page<ForListBackend>>({} as Page<ForListBackend>);
   private currentPageSubject = new BehaviorSubject<number>(0);
   currentPage$ = this.currentPageSubject.asObservable();
 
 
-  constructor(private route: ActivatedRoute,
+  constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService) {}
 
 
@@ -30,8 +30,26 @@ export class JobfairComponent implements OnInit{
   length: number = 20;
   employersAsList: ItemInsideList[] = [];
   companyPhoto = '../../assets/company.png';
-  filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"], ["Poziomy", "/levels"]];
+  filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"]];
 
+  tabs: [key: string, value: boolean][] = [
+    ["tab1", true],
+    ["tab2", false]
+  ]
+
+  changeTab(tab: string) {
+      this.tabs.map((elem) => {
+          if (elem[0] === tab) {
+              elem[1] = true;
+          }else{
+              elem[1] = false;
+          }
+      })
+  }
+
+  foundValueByNameInTab(tab: string): boolean{
+    return this.tabs.filter((elem) => elem[0] === tab)[0][1];
+  }
 
   loading: boolean = true;
   loadingEmployers = true;
@@ -64,12 +82,15 @@ export class JobfairComponent implements OnInit{
             this.jobFair.id = response.id;
             this.jobFair.name = response.name;
             this.jobFair.organizerId = response.organizerId;
-            this.jobFair.dateStart = this.convertDate(this.jobFair.dateStart);
-            this.jobFair.dateEnd = this.convertDate(this.jobFair.dateEnd);
+            this.jobFair.dateStart = this.convertDate(response.dateStart);
+            this.jobFair.dateEnd = this.convertDate(response.dateEnd);
             this.jobFair.address = response.address;
             this.jobFair.description = response.description;
             this.jobFair.displayDescription = response.displayDescription;
             this.loading = false;
+
+            console.log( "dateStart: " + this.jobFair.dateStart);
+            console.log("dateEnd: " + this.jobFair.dateEnd);
         });
 
         this.jobFairsState$ = this.serviceJobFair.participationEmployers$(jobfairId).pipe(
@@ -111,32 +132,34 @@ export class JobfairComponent implements OnInit{
     });
   }
 
-  addEmployerForList(employer: EmployerAccount): void {
-    let offerAsItemInsideList: ItemInsideList = {
-      route: "/employer/job-offer/" + employer.id,
+  addEmployerForList(employer: ForListBackend): void {
+    const role = localStorage.getItem('role');
+    let employerAsItemInsideList: ItemInsideList = {
+      route: "/employer/"+employer.id+"/account",
       image: employer.photo ? employer.photo : this.companyPhoto,
-      name: employer.companyName,
+      name: employer.name,
       id: employer.id ? employer.id : 0,
       displayDescription: `${employer.displayDescription}`,
       useSaved: false,
       isSaved: false,
-      useDelete: true
+      useDelete: false
     }
-    this.employersAsList.push(offerAsItemInsideList);
+    console.log("Route: " + employerAsItemInsideList.route);
+    this.employersAsList.push(employerAsItemInsideList);
   }
 
   gotToPage(jobfairId: number ,name?: string, pageNumber: number = 0): void {
     this.employersAsList = [];
     this.loadingEmployers = true;
     this.jobFairsState$ = this.serviceJobFair.participationEmployers$(jobfairId, pageNumber, this.pageSize).pipe(
-        map((response: Page<EmployerAccount>) => {
+        map((response: Page<ForListBackend>) => {
 
           this.responseSubject.next(response);
           this.currentPageSubject.next(response.number);
 
           response.content.forEach(
-              (offer) => {
-                this.addEmployerForList(offer);
+              (employerForList) => {
+                this.addEmployerForList(employerForList);
               }
           );
           this.loadingEmployers = false;
@@ -153,7 +176,7 @@ export class JobfairComponent implements OnInit{
   }
 
   convertDate(date: string): string{
-    return date.substring(0,10)+" "+date.substring(13);
+    return date.substring(0,10)+" "+date.substring(11);
   }
 
 }

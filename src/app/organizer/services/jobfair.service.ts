@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {JobFair, JobOffer, OrganizerAccount,EmployerAccount, Page} from "../../types";
+import {JobFair, JobOffer, OrganizerAccount, EmployerAccount, Page, ForListBackend} from "../../types";
 import {ROUTES} from "../../../environments/environments";
 import {shareReplay} from "rxjs/operators";
 
@@ -46,8 +46,8 @@ export class JobfairService {
     }).pipe(shareReplay(1));
   }
 
-  participationEmployers$ = (jobFairId: number, page: number = 0, size: number = 5): Observable<Page<EmployerAccount>> =>
-      this.http.get<Page<EmployerAccount>>(`${ROUTES.BACKEND_ROUTE}/organizer/job-fairs/${jobFairId}/employer-participation?&page=${page}&size=${size}`).pipe(shareReplay(1));
+  participationEmployers$ = (jobFairId: number, page: number = 0, size: number = 5): Observable<Page<ForListBackend>> =>
+      this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}/job-fairs/${jobFairId}/employers?&page=${page}&size=${size}`).pipe(shareReplay(1));
 
 
 }

@@ -21,11 +21,47 @@
         </div>
       </div>
 
-      <!--Events-->
+      <!--  Empolyers Panel-->
+      <div class="container info-panel p-4">
+        <!-- Pills navs -->
+        <div class="row nav nav-pills mb-3" id="ex1" role="tablist">
+          <div class="col nav-item" role="presentation">
+            <h1
+                    class="nav-link {{foundValueByNameInTab('tab1')? 'active' : ''}}"
+                    id="ex1-tab-1"
+                    data-mdb-toggle="pill"
+                    (click)="changeTab('tab1')"
+                    role="tab"
+                    aria-controls="ex1-pills-1"
+                    aria-selected="true"
+            >Pracodawcy</h1
+            >
+          </div>
+          <div class="col nav-item" role="presentation">
+            <h1
+                    class="nav-link {{foundValueByNameInTab('tab2')? 'active' : ''}}"
+                    id="ex1-tab-2"
+                    data-mdb-toggle="pill"
+                    (click)="changeTab('tab2')"
+                    role="tab"
+                    aria-controls="ex1-pills-2"
+                    aria-selected="false"
+            >Oferty</h1
+            >
+          </div>
+        </div>
+        <!-- Pills navs -->
 
-      <!--  Offers Panel-->
-      <div class="container info-panel p-4 ">
-        <h2 class="text-center">Oferty</h2>
+        <!-- Pills content -->
+        <div class="tab-content" id="ex1-content">
+          <div class="tab-pane fade {{foundValueByNameInTab('tab1')? 'show active' : ''}}" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            Tab 1 content
+          </div>
+          <div class="tab-pane fade {{foundValueByNameInTab('tab2')? 'show active' : ''}}" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            Tab 2 content
+          </div>
+        </div>
+        <!-- Pills content -->
         <mat-paginator (page)="handlePageEvent($event)"
                        [length]="length"
                        [pageSize]="pageSize"
@@ -43,12 +79,6 @@
       </div>
 
 
-      <hr>
-        <div >
-          <app-item-list [items]="employersAsList">
-
-          </app-item-list>
-        </div>
         <hr>
 
         <!--  Actions Panel-->
@@ -58,6 +88,8 @@
             </button>
           </div>
         </div>
+
+
 
       </div>
     </div>
