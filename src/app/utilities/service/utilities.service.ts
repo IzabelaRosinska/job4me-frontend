@@ -10,9 +10,6 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 })
 export class UtilitiesService {
 
-  // jobOffersState$!: Observable<{ appState: string, appData?: Page<T>, error?: HttpErrorResponse }>;
-  // responseSubject = new BehaviorSubject<Page<T>>({} as Page<T>);
-  // private currentPageSubject = new BehaviorSubject<number>(0);
 
   pageSize: number = 5;
   pageIndex: number = 0;

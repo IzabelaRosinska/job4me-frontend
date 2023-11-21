@@ -15,8 +15,7 @@ export class RequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const jwtToken = localStorage.getItem('token');
-    // console.log("Jwt: " + jwtToken);
-    console.log(request)
+
     if (jwtToken!=null && jwtToken!=undefined && jwtToken!='') {
       const newRequest = request.clone({
         setHeaders: {
