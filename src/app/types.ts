@@ -142,6 +142,7 @@ export interface idNameListElement {
 
 export interface PaginationUse<T> {
   id: string,
+  active: boolean,
   pageSize: number,
   pageIndex: number,
   length: number,
@@ -149,7 +150,8 @@ export interface PaginationUse<T> {
   params?: string,
   state: Observable<Page<T>>,
   class?: string,
-  list: ItemInsideList[]
+  list: ItemInsideList[],
+  loading: boolean,
 }
 
 export interface ParticipationRequest{
