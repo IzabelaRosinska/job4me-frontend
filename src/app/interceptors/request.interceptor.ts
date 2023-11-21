@@ -13,10 +13,23 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const newRequest = request.clone({
-      withCredentials: true
-    });
-    console.log(newRequest);
-    return next.handle(newRequest);
+
+    const jwtToken = localStorage.getItem('token');
+    console.log("Jwt: " + jwtToken);
+
+    if (jwtToken!=null && jwtToken!=undefined && jwtToken!='') {
+      const newRequest = request.clone({
+        setHeaders: {
+          Authorization: jwtToken,
+        },
+        withCredentials: true
+      });
+      return next.handle(newRequest);
+    }else{
+      const newRequest = request.clone({
+        withCredentials: true
+      });
+      return next.handle(newRequest);
+    }
   }
 }

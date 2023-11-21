@@ -62,12 +62,12 @@
             <div class="tab-content" id="ex1-content">
                 <div class="tab-pane fade {{foundValueByNameInTab('tab1')? 'show active' : ''}}" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
 
-                    <!--                    <mat-paginator (page)="handlePageEvent($event)"-->
-                    <!--                                   [length]="length"-->
-                    <!--                                   [pageSize]="pageSize"-->
-                    <!--                                   [pageSizeOptions]="[5, 10, 25, 100]"-->
-                    <!--                                   aria-label="Select page">-->
-                    <!--                    </mat-paginator>-->
+                    <mat-paginator (page)="handlePageEvent($event)"
+                                   [length]="length"
+                                   [pageSize]="pageSize"
+                                   [pageSizeOptions]="[5, 10, 25, 100]"
+                                   aria-label="Select page">
+                    </mat-paginator>
                     <hr>
 
                     <div class="">

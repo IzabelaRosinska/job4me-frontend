@@ -13,6 +13,7 @@ import {FormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -23,17 +24,18 @@ import {MatInputModule} from "@angular/material/input";
     JobfairEditFormComponent
   ],
   exports: [],
-  imports: [
-    CommonModule,
-    OrganizerRoutingModule,
-    UtilitiesModule,
-    MdbFormsModule,
-    MatDatepickerModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule
-  ]
+    imports: [
+        CommonModule,
+        OrganizerRoutingModule,
+        UtilitiesModule,
+        MdbFormsModule,
+        MatDatepickerModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatNativeDateModule,
+        MatPaginatorModule
+    ]
 })
 export class OrganizerModule {
 }

@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {ItemInsideList, JobFair, JobOffer, OrganizerAccount, Page} from "../../types";
+import {
+  ItemInsideList,
+  JobFair,
+  JobOffer,
+  OrganizerAccount,
+  Page,
+  PaginationUse,
+  ParticipationRequest
+} from "../../types";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -7,6 +15,7 @@ import {EmployerService} from "../../employer/service/employer.service";
 import {PageEvent} from "@angular/material/paginator";
 import {map} from "rxjs/operators";
 import {OrganizerService} from "../service/organizer.service";
+import {UtilitiesService} from "../../utilities/service/utilities.service";
 
 @Component({
   selector: 'app-organizer-account',
@@ -38,7 +47,6 @@ export class OrganizerAccountComponent implements OnInit{
   length: number = 20;
 
   pageEvent?: PageEvent;
-  offersAsList: ItemInsideList[] = [];
 
   filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"], ["Poziomy", "/levels"]];
 
@@ -50,8 +58,41 @@ export class OrganizerAccountComponent implements OnInit{
     ["tab3", false]
   ]
 
+  paginationUseList: PaginationUse<any>[] = [
+    {
+      id: "jobFairs",
+      pageSize: 5,
+      pageIndex: 0,
+      length: 20,
+      state: new Observable<Page<JobFair>>(),
+      route: "/organizer/jobfair/"
+    } as PaginationUse<JobFair>,
+    {
+      id: "acceptedEmployers",
+      pageSize: 5,
+      pageIndex: 0,
+      length: 20,
+      params: "?status=true",
+      state: new Observable<Page<ParticipationRequest>>(),
+      route: "/organizer/employer-participation"
+    } as PaginationUse<ParticipationRequest>,
+    {
+      id: "pendingEmployers",
+      pageSize: 5,
+      pageIndex: 0,
+      length: 20,
+      params: "?status=false",
+      state: new Observable<Page<ParticipationRequest>>(),
+      route: "/organizer/jobfair/"
+    } as PaginationUse<ParticipationRequest>
+  ];
+
   constructor(private serviceOrganizer: OrganizerService,
+              private serviceUtilities: UtilitiesService,
               private route: ActivatedRoute) {
+
+
+
   }
 
   ngOnInit(): void {this.route.paramMap.subscribe((params: ParamMap) => {
@@ -87,6 +128,21 @@ export class OrganizerAccountComponent implements OnInit{
             }
         ));
 
+    this.paginationUseList.forEach((paginationUse) => {
+
+      paginationUse.state = this.serviceUtilities.paginateDataWithParams$<paginationUse.class>(paginationUse.route, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params? paginationUse.params:'').pipe(
+        map((response: Page<typeof paginationUse.class>) => {
+            response.content.forEach(
+              (jobfair: JobFair | ParticipationRequest) => {
+                this.addJobFairForList(jobfair);
+              }
+            );
+            console.log("jobFairsAsList " + this.jobFairsAsList);
+            return response;
+          }
+        ));
+    });
+
     this.jobFairState$.subscribe((response) => {
       this.length = response ? response.totalElements : 0;
       this.pageSize = response ? response.size : 0;
@@ -105,6 +161,7 @@ export class OrganizerAccountComponent implements OnInit{
 
 
   gotToPage(status: boolean = false, pageNumber: number = 0): void {
+
     this.jobFairState$ = this.serviceOrganizer.jobfairsOrganizer$(status, pageNumber, this.pageSize).pipe(
         map((response: Page<JobFair>) => {
           response.content.forEach(
@@ -116,9 +173,7 @@ export class OrganizerAccountComponent implements OnInit{
         }
     ));
 
-    this.jobFairState$.subscribe((response) => {
 
-    });
   }
 
   deleteJobOffer(id: number): void {
@@ -127,18 +182,22 @@ export class OrganizerAccountComponent implements OnInit{
     // });
   }
 
-  addJobFairForList(jobFair: JobFair): void {
-    let offerAsItemInsideList: ItemInsideList = {
-      route: "/employer/job-offer/" + jobFair.id,
-      image:  this.companyPhoto,
-      name: jobFair.name,
-      id: jobFair.id ? jobFair.id : 0,
-      description: `${jobFair.displayDescription}`,
-      useFavorite: false,
-      isFavorite: false,
-      useDelete: true
+  addJobFairForList(jobFair: JobFair | ParticipationRequest): void {
+    const x = jobFair instanceof ParticipationRequest;
+    if(x){
+      let offerAsItemInsideList: ItemInsideList = {
+        route: "/employer/job-offer/" + jobFair.id,
+        image:  this.companyPhoto,
+        name: jobFair.name,
+        id: jobFair.id ? jobFair.id : 0,
+        description: `${jobFair.displayDescription}`,
+        useFavorite: false,
+        isFavorite: false,
+        useDelete: true
+      }
+      this.jobFairsAsList.push(offerAsItemInsideList);
     }
-    this.offersAsList.push(offerAsItemInsideList);
+
   }
 
   addJobOfferForList(offer: JobOffer): void {
@@ -152,7 +211,7 @@ export class OrganizerAccountComponent implements OnInit{
       isFavorite: false,
       useDelete: true
     }
-    this.offersAsList.push(offerAsItemInsideList);
+    // this.offersAsList.push(offerAsItemInsideList);
   }
 
   changeTab(tab: string) {
@@ -189,3 +248,5 @@ export class OrganizerAccountComponent implements OnInit{
 
 
 }
+
+
