@@ -82,7 +82,6 @@ export class EmployerAccountComponent implements OnInit {
           this.isOwner = true;
         });
       }
-
     });
 
     this.jobOffersState$ = this.serviceEmployer.jobOffers$().pipe(
