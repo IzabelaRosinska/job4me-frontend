@@ -1,3 +1,5 @@
+import {Observable} from "rxjs";
+
 export interface EmployeeAccount {
   id: string;
   firstName: string;
@@ -137,3 +139,27 @@ export interface idNameListElement {
     id: number;
     name: string;
 }
+
+export interface PaginationUse<T> {
+  id: string,
+  active: boolean,
+  pageSize: number,
+  pageIndex: number,
+  length: number,
+  route: string,
+  params?: string,
+  state: Observable<Page<T>>,
+  class?: string,
+  list: ItemInsideList[],
+  loading: boolean,
+}
+
+export interface ParticipationRequest{
+  id: number,
+  jobFairId: number,
+  jobFairName: string,
+  employerId: number,
+  employerCompanyName: string,
+  isAccepted: boolean
+}
+
