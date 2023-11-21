@@ -45,6 +45,6 @@ export class UtilitiesService {
       this.http.get<Page<T>>(`${ROUTES.BACKEND_ROUTE}/${route}?&page=${page}&size=${size}`).pipe(shareReplay(1));
 
   paginateDataWithParams$ = <T>(route: string, page: number = 0, size: number = 5, params?: string): Observable<Page<T>> =>
-    this.http.get<Page<T>>(`${ROUTES.BACKEND_ROUTE}/${route}?&page=${page}&size=${size}${params?params:''}`).pipe(shareReplay(1));
+    this.http.get<Page<T>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}${params?params:''}`).pipe(shareReplay(1));
 
 }

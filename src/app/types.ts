@@ -148,7 +148,8 @@ export interface PaginationUse<T> {
   route: string,
   params?: string,
   state: Observable<Page<T>>,
-  class?: string
+  class?: string,
+  list: ItemInsideList[]
 }
 
 export interface ParticipationRequest{

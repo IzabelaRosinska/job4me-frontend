@@ -65,25 +65,28 @@ export class OrganizerAccountComponent implements OnInit{
       pageIndex: 0,
       length: 20,
       state: new Observable<Page<JobFair>>(),
-      route: "/organizer/jobfair/"
+      route: "/organizer/jobfair/",
+      list: []
     } as PaginationUse<JobFair>,
     {
       id: "acceptedEmployers",
       pageSize: 5,
       pageIndex: 0,
       length: 20,
-      params: "?status=true",
+      params: "&status=true",
       state: new Observable<Page<ParticipationRequest>>(),
-      route: "/organizer/employer-participation"
+      route: "/organizer/employer-participation",
+      list: []
     } as PaginationUse<ParticipationRequest>,
     {
       id: "pendingEmployers",
       pageSize: 5,
       pageIndex: 0,
       length: 20,
-      params: "?status=false",
+      params: "&status=false",
       state: new Observable<Page<ParticipationRequest>>(),
-      route: "/organizer/jobfair/"
+      route: "/organizer/employer-participation",
+      list: []
     } as PaginationUse<ParticipationRequest>
   ];
 
@@ -95,28 +98,29 @@ export class OrganizerAccountComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {this.route.paramMap.subscribe((params: ParamMap) => {
-    const role = localStorage.getItem('role');
-    const organizerId = localStorage.getItem('organizerId');
-    if (organizerId && role) {
-      this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
-        this.organizerAccount = response;
-        this.loading = false;
-      });
-    } else {
-      this.serviceOrganizer.getOrganizer().subscribe((response) => {
-        this.organizerAccount = response;
-        if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
-            || !this.organizerAccount.description) {
-          // this.router.navigate(['employer/editInfo']);
-        }
-        this.loading = false;
-        this.isOwner = true;
-      });
-    }
-  });
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const role = localStorage.getItem('role');
+      const organizerId = localStorage.getItem('organizerId');
+      if (organizerId && role) {
+        this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
+          this.organizerAccount = response;
+          this.loading = false;
+        });
+      } else {
+        this.serviceOrganizer.getOrganizer().subscribe((response) => {
+          this.organizerAccount = response;
+          if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
+              || !this.organizerAccount.description) {
+            // this.router.navigate(['employer/editInfo']);
+          }
+          this.loading = false;
+          this.isOwner = true;
+        });
+      }
+    });
 
-    this.jobFairState$ = this.serviceOrganizer.jobfairsOrganizer$(false).pipe(
+    this.jobFairState$ = this.serviceOrganizer.jobfairsOrganizer$().pipe(
         map((response: Page<JobFair>) => {
               response.content.forEach(
                   (jobfair) => {
@@ -128,19 +132,45 @@ export class OrganizerAccountComponent implements OnInit{
             }
         ));
 
-    this.paginationUseList.forEach((paginationUse) => {
+    this.paginationUseList[0].state = this.serviceOrganizer.jobfairsOrganizer$().pipe(
+      map((response: Page<JobFair>) => {
+          response.content.forEach(
+            (jobfair) => {
+              this.addJobFairForList(jobfair);
+            }
+          );
+          console.log("jobFairsAsList " + this.jobFairsAsList);
+          return response;
+        }
+      ));
+    //
+    // this.paginationUseList[1].state = this.serviceUtilities.paginateDataWithParams$<ParticipationRequest>(this.paginationUseList[1].route, this.paginationUseList[1].pageIndex, this.paginationUseList[1].pageSize, this.paginationUseList[1].params? this.paginationUseList[1].params:'').pipe(
+    //     map((response: Page<ParticipationRequest>) => {
+    //             response.content.forEach(
+    //                 (request: ParticipationRequest) => {
+    //                     console.log(2)
+    //                     this.addRequestForList(request, this.paginationUseList[1]);
+    //                 }
+    //             );
+    //             console.log("jobFairsAsList " + this.jobFairsAsList);
+    //             return response;
+    //         }
+    //     ));
 
-      paginationUse.state = this.serviceUtilities.paginateDataWithParams$<paginationUse.class>(paginationUse.route, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params? paginationUse.params:'').pipe(
-        map((response: Page<typeof paginationUse.class>) => {
+    this.paginationUseList.filter((pag, index) => index!=0).forEach((paginationUse: PaginationUse<ParticipationRequest>) => {
+      console.log(1);
+      paginationUse.state = this.serviceUtilities.paginateDataWithParams$<ParticipationRequest>(paginationUse.route, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params? paginationUse.params:'').pipe(
+        map((response: Page<ParticipationRequest>) => {
             response.content.forEach(
-              (jobfair: JobFair | ParticipationRequest) => {
-                this.addJobFairForList(jobfair);
+              (request: ParticipationRequest) => {
+                console.log(2)
+                  this.addRequestForList(request, paginationUse);
               }
             );
             console.log("jobFairsAsList " + this.jobFairsAsList);
             return response;
           }
-        ));
+        )) as typeof paginationUse.state;
     });
 
     this.jobFairState$.subscribe((response) => {
@@ -148,7 +178,58 @@ export class OrganizerAccountComponent implements OnInit{
       this.pageSize = response ? response.size : 0;
       this.pageIndex = response ? response.number : 0;
     });
+
+    this.paginationUseList[1].state.subscribe((response) => {});
+    this.paginationUseList[2].state.subscribe((response) => {});
   }
+  addRequestForList(request: ParticipationRequest, paginationUse: PaginationUse<ParticipationRequest>): void {
+    if(paginationUse.id === "acceptedEmployers"){
+      let itemInsideList: ItemInsideList = {
+        route: "/employer/job-offer/" + request.id,
+        image:  this.companyPhoto,
+        name: request.jobFairName +" - "+ request.employerCompanyName,
+        id: request.id,
+        description: `${request.jobFairName+"#"+request.jobFairId} \n ${request.employerCompanyName+"#"+request.employerId}`,
+        useFavorite: false,
+        isFavorite: false,
+        useDelete: true,
+        useGettingInside: false
+      }
+      this.paginationUseList.find(paginationUse => paginationUse.id === "acceptedEmployers")?.list?.push(itemInsideList);
+    }
+    else{
+        let itemInsideList: ItemInsideList = {
+            route: "/employer/job-offer/" + request.id,
+            image:  this.companyPhoto,
+            name: request.jobFairName +" - "+ request.employerCompanyName,
+            id: request.id,
+            description: `${request.jobFairName+"#"+request.jobFairId} \n ${request.employerCompanyName+"#"+request.employerId}`,
+            useFavorite: false,
+            isFavorite: false,
+            useDelete: true,
+            useGettingInside: false,
+            useApprove: true
+        }
+        this.paginationUseList.find(paginationUse => paginationUse.id === "pendingEmployers")?.list?.push(itemInsideList);
+    }
+  }
+
+    addJobFairForList(jobFair: JobFair): void {
+        if(jobFair){
+            let offerAsItemInsideList: ItemInsideList = {
+                route: "/employer/job-offer/" + jobFair.id,
+                image:  this.companyPhoto,
+                name: jobFair.name,
+                id: jobFair.id ? jobFair.id : 0,
+                description: `${jobFair.displayDescription}`,
+                useFavorite: false,
+                isFavorite: false,
+                useDelete: true
+            }
+            this.jobFairsAsList.push(offerAsItemInsideList);
+        }
+    }
+
 
 
   handlePageEvent(e: PageEvent, status: boolean = false) {
@@ -172,8 +253,6 @@ export class OrganizerAccountComponent implements OnInit{
           return response;
         }
     ));
-
-
   }
 
   deleteJobOffer(id: number): void {
@@ -182,23 +261,7 @@ export class OrganizerAccountComponent implements OnInit{
     // });
   }
 
-  addJobFairForList(jobFair: JobFair | ParticipationRequest): void {
-    const x = jobFair instanceof ParticipationRequest;
-    if(x){
-      let offerAsItemInsideList: ItemInsideList = {
-        route: "/employer/job-offer/" + jobFair.id,
-        image:  this.companyPhoto,
-        name: jobFair.name,
-        id: jobFair.id ? jobFair.id : 0,
-        description: `${jobFair.displayDescription}`,
-        useFavorite: false,
-        isFavorite: false,
-        useDelete: true
-      }
-      this.jobFairsAsList.push(offerAsItemInsideList);
-    }
 
-  }
 
   addJobOfferForList(offer: JobOffer): void {
     let offerAsItemInsideList: ItemInsideList = {
@@ -222,6 +285,17 @@ export class OrganizerAccountComponent implements OnInit{
         elem[1] = false;
       }
     })
+    this.updatePagination(tab);
+  }
+
+  updatePagination(tab: string){
+
+  }
+
+  acceptEmployer(id: number): void {
+    this.serviceOrganizer.acceptEmployerParticipation(id).subscribe((response) => {
+      this.gotToPage();
+    });
   }
 
   foundValueByNameInTab(tab: string): boolean{
@@ -247,6 +321,7 @@ export class OrganizerAccountComponent implements OnInit{
   }
 
 
+    protected readonly console = console;
 }
 
 

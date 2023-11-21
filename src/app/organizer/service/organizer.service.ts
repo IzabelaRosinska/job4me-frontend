@@ -35,7 +35,18 @@ export class OrganizerService {
     });
   }
 
-  jobfairsOrganizer$ = (status: boolean, page: number = 0, size: number = 5): Observable<Page<JobFair>> =>
+  jobfairsOrganizer$ = (status: boolean = true, page: number = 0, size: number = 5): Observable<Page<JobFair>> =>
       this.http.get<Page<JobFair>>(`${ROUTES.BACKEND_ROUTE}/organizer/employer-participation?&page=${page}&size=${size}&status=${status}`).pipe(shareReplay(1));
+
+
+    acceptEmployerParticipation(requestId: number): Observable<any> {
+        const route =  ROUTES.BACKEND_ROUTE +'/organizer/employer-participation/'+requestId+'/accept';
+        return this.http.request('put', route, {
+            body: null,
+            withCredentials: true,
+            responseType: 'text',
+            observe: 'response',
+        }).pipe(shareReplay(1));
+    }
 
 }
