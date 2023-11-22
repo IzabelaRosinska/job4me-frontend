@@ -24,18 +24,18 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     JobfairEditFormComponent
   ],
   exports: [],
-    imports: [
-        CommonModule,
-        OrganizerRoutingModule,
-        UtilitiesModule,
-        MdbFormsModule,
-        MatDatepickerModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatNativeDateModule,
-        MatPaginatorModule
-    ]
+  imports: [
+    CommonModule,
+    OrganizerRoutingModule,
+    UtilitiesModule,
+    MdbFormsModule,
+    MatDatepickerModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+  ]
 })
 export class OrganizerModule {
 }

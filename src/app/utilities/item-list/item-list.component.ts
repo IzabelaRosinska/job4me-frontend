@@ -8,37 +8,7 @@ import {filter} from "rxjs";
   styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent {
-  @Input() items: ItemInsideList[] | null = [
-    {
-      image: "https://picsum.photos/100/100",
-      name: "John Gray",
-      id: 1,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
-      route: "/login",
-      useFavorite: true,
-      isFavorite: true,
-      useDelete: true
-    },
-    {
-      image: "https://picsum.photos/100/100",
-      name: "John Black",
-      id: 2,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-      route: "/login",
-      useFavorite: true,
-      isFavorite: false,
-      useDelete: false
-    },
-    {
-      image: "https://picsum.photos/100/100",
-      name: "John White",
-      id: 3,
-      description: "opis opis opis",
-      route: "/login",
-      useFavorite: false,
-      useDelete: false
-    }
-  ];
+  @Input() items: ItemInsideList[] | null = [];
 
   @Input() filters: [string,string][] =  []
 

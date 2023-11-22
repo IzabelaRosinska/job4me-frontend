@@ -98,3 +98,8 @@ td {
 .pointer {
   cursor: pointer;
 }
+
+.nav-pills .nav-link.active{
+    background-color: $MAIN_LOGO_COLOR;
+    color: white;
+}
