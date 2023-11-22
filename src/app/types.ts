@@ -159,6 +159,15 @@ export interface PaginationUse<T> {
   class?: string,
   list: ItemInsideList[],
   loading: boolean,
+  ListButtonsOptions?: ListButtonsOptions
+}
+
+export interface ListButtonsOptions {
+  useSaved: boolean;
+  isSaved: boolean;
+  useDelete: boolean;
+  useApprove: boolean;
+  useGettingInside: boolean;
 }
 
 export interface ParticipationRequest{

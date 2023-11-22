@@ -31,8 +31,6 @@ export class OrganizerAccountComponent implements OnInit {
         description: "",
     }
 
-    jobFairs: JobFair[] = []
-    jobFairsAsList: ItemInsideList[] = []
     companyPhoto = '../../assets/company.png';
     length: number = 20;
 
@@ -202,7 +200,8 @@ export class OrganizerAccountComponent implements OnInit {
                 isSaved: false,
                 useDelete: true
             }
-            this.jobFairsAsList.push(offerAsItemInsideList);
+            this.paginationUseList[0].list.push(offerAsItemInsideList);
+            // this.jobFairsAsList.push(offerAsItemInsideList);
         }
     }
 

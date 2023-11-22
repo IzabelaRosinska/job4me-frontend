@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ForListBackend, ItemInsideList, Page, PaginationUse} from "../../types";
+import {ForListBackend, ItemInsideList, ListButtonsOptions, Page, PaginationUse} from "../../types";
 import {map, shareReplay} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {Observable} from "rxjs";
@@ -24,8 +24,24 @@ export class PaginationService {
     return elem;
   }
 
-  changePaginationState(paginationUse: PaginationUse<ForListBackend>, useSaved: boolean, isSaved: boolean = false,
-                        useApprove: boolean = false, useGettingInside: boolean = false, useDelete: boolean = false): void {
+  getDisplayListById(tabId: string, paginationUseList: PaginationUse<ForListBackend>[]): ItemInsideList[]{
+    const paginationUse = this.getPaginationUseById(tabId, paginationUseList);
+    if(paginationUse){
+      return paginationUse.list;
+    }
+    return [];
+  }
+
+  isActiveById(id: string, paginationUseList: PaginationUse<ForListBackend>[]): boolean{
+    const paginationUse = this.getPaginationUseById(id, paginationUseList);
+    if(paginationUse){
+      return paginationUse?.active;
+    }
+    return false;
+  }
+
+
+  changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined): void {
     paginationUse.list = [];
     paginationUse.loading = true;
     paginationUse.state = this.paginateDataWithParams$(
@@ -33,7 +49,7 @@ export class PaginationService {
         map((response: Page<ForListBackend>) => {
               response.content.forEach(
                   (elem) => {
-                    paginationUse.list.push(this.addElementToDisplayList(elem, paginationUse.route, useSaved, isSaved, useApprove, useGettingInside, useDelete));
+                    paginationUse.list.push(this.addElementToDisplayList(elem, paginationUse.route, listButtonsOptions));
                   }
               );
               paginationUse.loading = false;
@@ -43,8 +59,7 @@ export class PaginationService {
         ));
   }
 
-  addElementToDisplayList(elem: ForListBackend, route: string, useSaved: boolean, isSaved: boolean = false,
-                          useApprove: boolean = false, useGettingInside: boolean = false, useDelete: boolean = false): ItemInsideList {
+  addElementToDisplayList(elem: ForListBackend, route: string, listButtonsOptions: ListButtonsOptions | undefined): ItemInsideList {
 
     let insideList: ItemInsideList = {
       route: route + elem.id,
@@ -52,11 +67,11 @@ export class PaginationService {
       name: elem.name,
       id: elem.id,
       displayDescription: elem.displayDescription,
-      useSaved: useSaved,
-      isSaved: isSaved,
-      useDelete: useDelete,
-      useApprove: useApprove,
-      useGettingInside: useGettingInside
+      useSaved: listButtonsOptions? listButtonsOptions.useSaved : false,
+      isSaved: listButtonsOptions? listButtonsOptions.isSaved : false,
+      useDelete: listButtonsOptions? listButtonsOptions.useDelete : false,
+      useApprove: listButtonsOptions? listButtonsOptions.useApprove : false,
+      useGettingInside: listButtonsOptions? listButtonsOptions.useGettingInside : false
     }
     return insideList;
   }
@@ -78,14 +93,14 @@ export class PaginationService {
   gotToPage(paginationUseList: PaginationUse<ForListBackend>[], paginationUseId?: string): void {
     const elem = this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId, paginationUseList);
     if (elem) {
-      this.changePaginationState(elem, false);
+      this.changePaginationState(elem, elem.ListButtonsOptions);
     }
   }
 
-  changeTab(tab: string, paginationUseList: PaginationUse<ForListBackend>[]) {
-    this.currentTabId = tab;
+  changeTab(tabId: string, paginationUseList: PaginationUse<ForListBackend>[]) {
+    this.currentTabId = tabId;
     paginationUseList.map((elem) => {
-      if (elem.id === tab) {
+      if (elem.id === tabId) {
         elem.active = true;
       } else {
         elem.active = false;
@@ -115,7 +130,7 @@ export class PaginationService {
       }
 
   paginateDataWithParams$ = (route: string, page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
-      this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}${params?params:''}`).pipe(shareReplay(1));
+      this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params?params:''}`).pipe(shareReplay(1));
 
 
 }

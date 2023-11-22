@@ -1,11 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployerAccount, ForListBackend, ItemInsideList, JobFair, JobOffer, Page} from "../../types";
+import {
+    EmployerAccount,
+    ForListBackend,
+    ItemInsideList,
+    JobFair,
+    JobOffer,
+    Page,
+    PaginationUse,
+    ParticipationRequest
+} from "../../types";
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
 import {PageEvent} from "@angular/material/paginator";
 import {map} from "rxjs/operators";
+import {PaginationService} from "../../utilities/service/pagination.service";
 
 @Component({
   selector: 'app-jobfair',
@@ -19,9 +29,6 @@ export class JobfairComponent implements OnInit{
   private currentPageSubject = new BehaviorSubject<number>(0);
   currentPage$ = this.currentPageSubject.asObservable();
 
-
-  constructor(public route: ActivatedRoute,
-              private serviceJobFair: JobfairService) {}
 
 
   pageEvent?: PageEvent;
@@ -37,15 +44,150 @@ export class JobfairComponent implements OnInit{
     ["tab2", false]
   ]
 
-  changeTab(tab: string) {
-      this.tabs.map((elem) => {
-          if (elem[0] === tab) {
-              elem[1] = true;
-          }else{
-              elem[1] = false;
-          }
-      })
+
+  loadingSite: boolean = true;
+  currentTabId = "jobFairs";
+  paginationUseList: PaginationUse<ForListBackend>[] = [];
+  isOwner: boolean = false;
+
+  getPaginationService(){
+    return this.servicePagination;
   }
+
+  constructor(public route: ActivatedRoute,
+                private serviceJobFair: JobfairService,
+                private servicePagination: PaginationService) {
+      const role = localStorage.getItem('role');
+
+  }
+
+  getDisplayList(tabId: string): ItemInsideList[]{
+    const paginationUse = this.servicePagination.getPaginationUseById(tabId, this.paginationUseList);
+    if(paginationUse){
+      return paginationUse.list;
+    }
+    return [];
+  }
+
+  ngOnInit(): void {
+
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const jobfairId = Number(params.get('jobfair-id'));
+            if(jobfairId){
+                this.paginationUseList = [
+                    {
+                        id: "employers",
+                        active: true,
+                        pageSize: 5,
+                        pageIndex: 0,
+                        length: 20,
+                        state: new Observable<Page<ForListBackend>>(),
+                        route:  "/job-fairs/"+jobfairId+"/employers",
+                        list: [],
+                        loading: true,
+                        ListButtonsOptions: {
+                            useGettingInside: true,
+                            useDelete: this.isOwner,
+                            useSaved: false,
+                            isSaved: false,
+                            useApprove: false
+                        }
+                    },
+                    {
+                        id: "job-offers",
+                        active: false,
+                        pageSize: 5,
+                        pageIndex: 0,
+                        length: 20,
+                        state: new Observable<Page<ForListBackend>>(),
+                        route: "/job-fairs/"+jobfairId+"/job-offers/list-display",
+                        list: [],
+                        loading: true,
+                        ListButtonsOptions: {
+                            useGettingInside: true,
+                            useDelete: false,
+                            useSaved: false,
+                            isSaved: false,
+                            useApprove: false
+                        }
+                    }
+                ]
+
+
+                this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
+                    this.jobFair.id = response.id;
+                    this.jobFair.name = response.name;
+                    this.jobFair.organizerId = response.organizerId;
+                    this.jobFair.dateStart = this.convertDate(response.dateStart);
+                    this.jobFair.dateEnd = this.convertDate(response.dateEnd);
+                    this.jobFair.address = response.address;
+                    this.jobFair.description = response.description;
+                    this.jobFair.displayDescription = response.displayDescription;
+                    this.loading = false;
+
+                    console.log( "dateStart: " + this.jobFair.dateStart);
+                    console.log("dateEnd: " + this.jobFair.dateEnd);
+                });
+
+                this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+                });
+
+                // this.jobFairsState$ = this.serviceJobFair.participationEmployers$(jobfairId).pipe(
+                //     map((response) => {
+                //         console.log(response);
+                //         this.responseSubject.next(response);
+                //         this.currentPageSubject.next(response.number);
+                //
+                //         response.content.forEach(
+                //             (offer) => {
+                //                 this.addEmployerForList(offer);
+                //             }
+                //         );
+                //
+                //         this.loadingEmployers = false;
+                //
+                //         return ({appState: 'APP_LOADED', appData: response});
+                //     }),
+                //     startWith({appState: 'APP_LOADED'}),
+                //     catchError((error: HttpErrorResponse) => {
+                //             return of({appState: 'APP_ERROR', error})
+                //         }
+                //     )
+                // )
+            }
+            else{
+                this.loading = false;
+            }
+        });
+
+      this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+          paginationUse.state.subscribe((response) => {
+              paginationUse.length = response ? response.totalElements : 0;
+              paginationUse.pageSize = response ? response.size : 0;
+              paginationUse.pageIndex = response ? response.number : 0;
+          });
+      });
+
+        // this.jobFairsState$.subscribe((response) => {
+        //     this.length = response.appData ? response.appData.totalElements : 0;
+        //     this.pageSize = response.appData ? response.appData.size : 0;
+        //     this.pageIndex = response.appData ? response.appData.number : 0;
+        // });
+    }
+
+
+
+    changeTab(tabId: string) {
+        this.currentTabId = tabId;
+        this.paginationUseList.map((elem) => {
+            if (elem.id === tabId) {
+                elem.active = true;
+            } else {
+                elem.active = false;
+            }
+        })
+    }
 
   foundValueByNameInTab(tab: string): boolean{
     return this.tabs.filter((elem) => elem[0] === tab)[0][1];
@@ -73,62 +215,7 @@ export class JobfairComponent implements OnInit{
     this.gotToPage(this.jobFair.id,'', e.pageIndex);
   }
 
-  ngOnInit(): void {
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      const jobfairId = Number(params.get('jobfair-id'));
-      if(jobfairId){
-        this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
-            this.jobFair.id = response.id;
-            this.jobFair.name = response.name;
-            this.jobFair.organizerId = response.organizerId;
-            this.jobFair.dateStart = this.convertDate(response.dateStart);
-            this.jobFair.dateEnd = this.convertDate(response.dateEnd);
-            this.jobFair.address = response.address;
-            this.jobFair.description = response.description;
-            this.jobFair.displayDescription = response.displayDescription;
-            this.loading = false;
-
-            console.log( "dateStart: " + this.jobFair.dateStart);
-            console.log("dateEnd: " + this.jobFair.dateEnd);
-        });
-
-        this.jobFairsState$ = this.serviceJobFair.participationEmployers$(jobfairId).pipe(
-            map((response) => {
-              console.log(response);
-              this.responseSubject.next(response);
-              this.currentPageSubject.next(response.number);
-
-              response.content.forEach(
-                  (offer) => {
-                    this.addEmployerForList(offer);
-                  }
-              );
-
-              this.loadingEmployers = false;
-
-              return ({appState: 'APP_LOADED', appData: response});
-            }),
-            startWith({appState: 'APP_LOADED'}),
-            catchError((error: HttpErrorResponse) => {
-                  return of({appState: 'APP_ERROR', error})
-                }
-            )
-        )
-      }
-      else{
-        this.loading = false;
-      }
-    });
-
-
-
-    this.jobFairsState$.subscribe((response) => {
-      this.length = response.appData ? response.appData.totalElements : 0;
-      this.pageSize = response.appData ? response.appData.size : 0;
-      this.pageIndex = response.appData ? response.appData.number : 0;
-    });
-  }
 
   addEmployerForList(employer: ForListBackend): void {
     const role = localStorage.getItem('role');

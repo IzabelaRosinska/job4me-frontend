@@ -19,6 +19,13 @@ export class JobfairService {
     });
   }
 
+  getJobFairByIdForList(id: number): Observable<ForListBackend> {
+    const route = ROUTES.BACKEND_ROUTE + '/job-fairs/'+id+'/job-offers/list-display';
+    return this.http.get<ForListBackend>(route, {
+      withCredentials: true,
+    });
+  }
+
   getJobFairs(): Observable<JobFair> {
     const route = ROUTES.BACKEND_ROUTE + '/job-fairs';
     return this.http.get<JobFair>(route, {
