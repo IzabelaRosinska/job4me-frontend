@@ -83,7 +83,7 @@
 
               <div class="">
                 <app-loading-screen *ngIf="getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"></app-loading-screen>
-                <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"
+                <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"
                                [filters]="[['asd', 'asd']]"></app-item-list>
               </div>
 

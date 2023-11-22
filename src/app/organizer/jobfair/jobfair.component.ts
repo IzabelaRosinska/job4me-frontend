@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FiltringData, ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
+import {JobOfferFilterDto, ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
 import {Observable} from "rxjs";
 
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -19,7 +19,7 @@ export class JobfairComponent implements OnInit {
     employersAsList: ItemInsideList[] = [];
     companyPhoto = '../../assets/company.png';
     // filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"]];
-    filters: FiltringData = {
+    filters: JobOfferFilterDto = {
         contractTypeNames: [
             "umowa o pracę"
         ]
@@ -63,7 +63,9 @@ export class JobfairComponent implements OnInit {
                             useSaved: false,
                             isSaved: false,
                             useApprove: false
-                        }
+                        },
+                        ifGet: true,
+                        filters: null
                     },
                     {
                         id: "job-offers",
@@ -82,6 +84,12 @@ export class JobfairComponent implements OnInit {
                             useSaved: false,
                             isSaved: false,
                             useApprove: false
+                        },
+                        ifGet: false,
+                        filters: {
+                            contractTypeNames: [
+                                "umowa o pracę"
+                            ]
                         }
                     }
                 ]
@@ -97,8 +105,6 @@ export class JobfairComponent implements OnInit {
                     this.jobFair.displayDescription = response.displayDescription;
                     this.loading = false;
 
-                    console.log("dateStart: " + this.jobFair.dateStart);
-                    console.log("dateEnd: " + this.jobFair.dateEnd);
                 });
 
                 this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
@@ -116,7 +122,7 @@ export class JobfairComponent implements OnInit {
                 paginationUse.pageSize = response ? response.size : 0;
                 paginationUse.pageIndex = response ? response.number : 0;
             });
-            console.log("paginationUse: " + paginationUse.list.length);
+
         });
     }
 

@@ -51,7 +51,8 @@ export class OrganizerAccountComponent implements OnInit {
             state: new Observable<Page<JobFair>>(),
             route: "/organizer/jobfair/",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<JobFair>,
         {
             id: "acceptedEmployers",
@@ -63,7 +64,8 @@ export class OrganizerAccountComponent implements OnInit {
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<ParticipationRequest>,
         {
             id: "pendingEmployers",
@@ -75,7 +77,8 @@ export class OrganizerAccountComponent implements OnInit {
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<ParticipationRequest>
     ];
 

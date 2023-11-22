@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FiltringData, ForListBackend, ItemInsideList, ListButtonsOptions, Page, PaginationUse} from "../../types";
+import {JobOfferFilterDto, ForListBackend, ItemInsideList, ListButtonsOptions, Page, PaginationUse} from "../../types";
 import {map, shareReplay} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {Observable} from "rxjs";
@@ -27,6 +27,7 @@ export class PaginationService {
 
     getDisplayListById(tabId: string, paginationUseList: PaginationUse<ForListBackend>[]): ItemInsideList[] {
         const paginationUse = this.getPaginationUseById(tabId, paginationUseList);
+
         if (paginationUse) {
             return paginationUse.list;
         }
@@ -42,15 +43,16 @@ export class PaginationService {
     }
 
 
-    changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined, filters: FiltringData): void {
+    changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined, filters: JobOfferFilterDto): void {
         paginationUse.list = [];
         paginationUse.loading = true;
         paginationUse.state = this.paginateDataWithParams$(
-            paginationUse.route, filters,  paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params ? paginationUse.params : '').pipe(
+            paginationUse.route, paginationUse.filters,paginationUse.ifGet, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params ? paginationUse.params : '').pipe(
             map((response: Page<ForListBackend>) => {
                     response.content.forEach(
                         (elem) => {
-                            paginationUse.list.push(this.addElementToDisplayList(elem, paginationUse.route, listButtonsOptions));
+                            const insideList = this.addElementToDisplayList(elem, paginationUse.route, listButtonsOptions);
+                            paginationUse.list.push(insideList);
                         }
                     );
                     paginationUse.loading = false;
@@ -78,7 +80,7 @@ export class PaginationService {
         return insideList;
     }
 
-    handlePageEvent(pe: PageEvent, tabId: string, paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData): void {
+    handlePageEvent(pe: PageEvent, tabId: string, paginationUseList: PaginationUse<ForListBackend>[], filters: JobOfferFilterDto): void {
         const paginationUse = this.getPaginationUseById(tabId, paginationUseList);
         if (paginationUse) {
             paginationUse.length = pe.length;
@@ -92,7 +94,7 @@ export class PaginationService {
 
     }
 
-    gotToPage(paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData, paginationUseId?: string): void {
+    gotToPage(paginationUseList: PaginationUse<ForListBackend>[], filters: JobOfferFilterDto, paginationUseId?: string): void {
         const elem = this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId, paginationUseList);
         if (elem) {
             this.changePaginationState(elem, elem.ListButtonsOptions, filters);
@@ -110,7 +112,7 @@ export class PaginationService {
         })
     }
 
-    updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData): void {
+    updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[], filters: JobOfferFilterDto): void {
         const elem = this.getPaginationUseById(this.currentTabId, paginationUseList);
         if (elem) {
             elem.length = elem.length - 1;
@@ -120,15 +122,12 @@ export class PaginationService {
         }
     }
 
-    paginateDataWithParams$ = (route: string, body: FiltringData, page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
-        !body?
+    paginateDataWithParams$ = (route: string, body: JobOfferFilterDto | null | undefined, ifGet: boolean , page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
+        ifGet?
         this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`).pipe(shareReplay(1))
-        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`, {
-        body: body,
-        withCredentials: true,
-        responseType: 'text',
-        observe: 'response',
-    }).pipe(shareReplay(1));
+        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`,
+        body?body:''
+    ).pipe(shareReplay(1));
 
 
 }

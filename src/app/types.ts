@@ -150,12 +150,14 @@ export interface PaginationUse<T> {
   pageIndex: number,
   length: number,
   route: string,
+  ifGet: boolean,
   params?: string,
   state: Observable<Page<T>>,
   class?: string,
   list: ItemInsideList[],
   loading: boolean,
-  ListButtonsOptions?: ListButtonsOptions
+  ListButtonsOptions?: ListButtonsOptions,
+  filters?: JobOfferFilterDto | null
 }
 
 export interface ListButtonsOptions {
@@ -175,7 +177,7 @@ export interface ParticipationRequest{
   isAccepted: boolean
 }
 
-export interface FiltringData {
+export interface JobOfferFilterDto {
   cities?: string[],
   employmentFormNames?: string[],
   levelNames?: string[],
