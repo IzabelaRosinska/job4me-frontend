@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ForListBackend, ItemInsideList, ListButtonsOptions, Page, PaginationUse} from "../../types";
+import {FiltringData, ForListBackend, ItemInsideList, ListButtonsOptions, Page, PaginationUse} from "../../types";
 import {map, shareReplay} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {Observable} from "rxjs";
@@ -42,11 +42,11 @@ export class PaginationService {
     }
 
 
-    changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined): void {
+    changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined, filters: FiltringData): void {
         paginationUse.list = [];
         paginationUse.loading = true;
         paginationUse.state = this.paginateDataWithParams$(
-            paginationUse.route, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params ? paginationUse.params : '').pipe(
+            paginationUse.route, filters,  paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params ? paginationUse.params : '').pipe(
             map((response: Page<ForListBackend>) => {
                     response.content.forEach(
                         (elem) => {
@@ -78,13 +78,13 @@ export class PaginationService {
         return insideList;
     }
 
-    handlePageEvent(pe: PageEvent, tabId: string, paginationUseList: PaginationUse<ForListBackend>[]) {
+    handlePageEvent(pe: PageEvent, tabId: string, paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData): void {
         const paginationUse = this.getPaginationUseById(tabId, paginationUseList);
         if (paginationUse) {
             paginationUse.length = pe.length;
             paginationUse.pageSize = pe.pageSize;
             paginationUse.pageIndex = pe.pageIndex;
-            this.gotToPage(paginationUseList, paginationUse.id);
+            this.gotToPage(paginationUseList,filters, paginationUse.id);
             paginationUse.state.subscribe((response) => {
                 paginationUse.length = response ? response.totalElements : 0;
             });
@@ -92,10 +92,10 @@ export class PaginationService {
 
     }
 
-    gotToPage(paginationUseList: PaginationUse<ForListBackend>[], paginationUseId?: string): void {
+    gotToPage(paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData, paginationUseId?: string): void {
         const elem = this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId, paginationUseList);
         if (elem) {
-            this.changePaginationState(elem, elem.ListButtonsOptions);
+            this.changePaginationState(elem, elem.ListButtonsOptions, filters);
         }
     }
 
@@ -110,18 +110,25 @@ export class PaginationService {
         })
     }
 
-    updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[]): void {
+    updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[], filters: FiltringData): void {
         const elem = this.getPaginationUseById(this.currentTabId, paginationUseList);
         if (elem) {
             elem.length = elem.length - 1;
-            this.gotToPage(paginationUseList);
+            this.gotToPage(paginationUseList, filters);
             elem.state.subscribe((response) => {
             });
         }
     }
 
-    paginateDataWithParams$ = (route: string, page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
-        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`).pipe(shareReplay(1));
+    paginateDataWithParams$ = (route: string, body: FiltringData, page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
+        !body?
+        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`).pipe(shareReplay(1))
+        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`, {
+        body: body,
+        withCredentials: true,
+        responseType: 'text',
+        observe: 'response',
+    }).pipe(shareReplay(1));
 
 
 }

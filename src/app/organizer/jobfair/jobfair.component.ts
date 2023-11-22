@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
+import {FiltringData, ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
 import {Observable} from "rxjs";
 
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -18,7 +18,12 @@ export class JobfairComponent implements OnInit {
     length: number = 20;
     employersAsList: ItemInsideList[] = [];
     companyPhoto = '../../assets/company.png';
-    filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"]];
+    // filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"]];
+    filters: FiltringData = {
+        contractTypeNames: [
+            "umowa o pracę"
+        ]
+    };
 
     loadingSite: boolean = true;
     currentTabId = "jobFairs";
@@ -67,7 +72,8 @@ export class JobfairComponent implements OnInit {
                         pageIndex: 0,
                         length: 20,
                         state: new Observable<Page<ForListBackend>>(),
-                        route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+                        // route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+                        route: "/job-offers/list-display/filter",
                         list: [],
                         loading: true,
                         ListButtonsOptions: {
@@ -96,7 +102,7 @@ export class JobfairComponent implements OnInit {
                 });
 
                 this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions, this.filters);
                 });
 
             } else {
@@ -110,6 +116,7 @@ export class JobfairComponent implements OnInit {
                 paginationUse.pageSize = response ? response.size : 0;
                 paginationUse.pageIndex = response ? response.number : 0;
             });
+            console.log("paginationUse: " + paginationUse.list.length);
         });
     }
 

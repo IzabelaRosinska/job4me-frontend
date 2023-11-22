@@ -6,7 +6,7 @@ import {
 } from "../../../utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {OrganizerService} from "../../service/organizer.service";
+import {OrganizerService} from "../../services/organizer.service";
 import {JobfairService} from "../../services/jobfair.service";
 
 @Component({

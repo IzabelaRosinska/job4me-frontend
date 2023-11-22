@@ -10,7 +10,7 @@ import {
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {map} from "rxjs/operators";
-import {OrganizerService} from "../service/organizer.service";
+import {OrganizerService} from "../services/organizer.service";
 import {UtilitiesService} from "../../utilities/service/utilities.service";
 import {Observable} from "rxjs";
 

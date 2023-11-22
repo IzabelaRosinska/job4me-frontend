@@ -175,3 +175,14 @@ export interface ParticipationRequest{
   isAccepted: boolean
 }
 
+export interface FiltringData {
+  cities?: string[],
+  employmentFormNames?: string[],
+  levelNames?: string[],
+  contractTypeNames?: string[],
+  salaryFrom?: number,
+  salaryTo?: number,
+  industryNames?: string[],
+  offerName?: string
+}
+
