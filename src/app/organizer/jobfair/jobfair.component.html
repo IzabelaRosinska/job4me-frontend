@@ -21,37 +21,79 @@
         </div>
       </div>
 
-      <!--Events-->
+      <!--  Empolyers Panel-->
+      <div class="container info-panel p-4">
+        <!-- Pills navs -->
+        <div class="row nav nav-pills mb-3" id="ex1" role="tablist">
+          <div class="col nav-item" role="presentation">
+            <h1
+                    class="nav-link {{getPaginationService().isActiveById('employers',paginationUseList)? 'active' : ''}}"
+                    id="ex1-tab-1"
+                    data-mdb-toggle="pill"
+                    (click)="getPaginationService().changeTab('employers',paginationUseList)"
+                    role="tab"
+                    aria-controls="ex1-pills-1"
+                    aria-selected="true"
+            >Pracodawcy</h1
+            >
+          </div>
+          <div class="col nav-item" role="presentation">
+            <h1
+                    class="nav-link {{getPaginationService().isActiveById('job-offers',paginationUseList)? 'active' : ''}}"
+                    id="ex1-tab-2"
+                    data-mdb-toggle="pill"
+                    (click)="getPaginationService().changeTab('job-offers',paginationUseList)"
+                    role="tab"
+                    aria-controls="ex1-pills-2"
+                    aria-selected="false"
+            >Oferty</h1
+            >
+          </div>
+        </div>
+        <!-- Pills navs -->
 
-      <div class="container info-panel">
+        <!-- Pills content -->
+        <div class="tab-content" id="ex1-content">
+          <div class="tab-pane fade {{getPaginationService().isActiveById('employers', paginationUseList)? 'show active' : ''}}" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            <!-- Pills content -->
+            <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'employers', paginationUseList)"
+                           [length]="length"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="[5, 10, 25, 100]"
+                           aria-label="Select page">
+            </mat-paginator>
+            <hr>
 
-<!--        <div class="row text-end">-->
-<!--          <div class="col-12">-->
-<!--            <div class=" text-end">-->
-<!--              <button #list class="btn btn-close-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                {{selectedListType}}-->
-<!--              </button>-->
-<!--              <ul class="table dropdown-menu filter-menu">-->
-<!--                <li *ngFor="let option of listType" >-->
-<!--                  <div class="form-check dropdown-item filter-item w-100 h-100 p-0 m-0">-->
-<!--                    <label class="form-check-label dropdown-item-element-consistent w-100 h-100 m-0 p-0"  [for]="option"  (click)="list.innerHTML=option">-->
-<!--                      <button class="w-100 h-100 m-0 p-2 button-dropdown"  (click)="selectedListType=option" >{{option}}</button>-->
-<!--                    </label>-->
-<!--                  </div>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--  -->
-<!--        </div>-->
-<!--  -->
-<!--        <hr>-->
-<!--        <div >-->
-<!--          <app-item-list [items]="employersAsList">-->
-<!--  -->
-<!--          </app-item-list>-->
-<!--        </div>-->
-<!--        <hr>-->
+            <div class="">
+              <app-loading-screen *ngIf="getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"></app-loading-screen>
+              <app-item-list [items]="getPaginationService().getDisplayListById('employers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"
+                             [filters]="filters"></app-item-list>
+            </div>
+
+          </div>
+          <div class="tab-pane fade {{getPaginationService().isActiveById('job-offers', paginationUseList)? 'show active' : ''}}" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+              <!-- Pills content -->
+              <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
+                             [length]="length"
+                             [pageSize]="pageSize"
+                             [pageSizeOptions]="[5, 10, 25, 100]"
+                             aria-label="Select page">
+              </mat-paginator>
+              <hr>
+
+              <div class="">
+                <app-loading-screen *ngIf="getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"></app-loading-screen>
+                <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"
+                               [filters]="filters"></app-item-list>
+              </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+        <hr>
 
         <!--  Actions Panel-->
         <div class="row align-items-center pt-5 text-center">
@@ -61,7 +103,9 @@
           </div>
         </div>
 
+
+
       </div>
     </div>
   </div>
-</div>
+

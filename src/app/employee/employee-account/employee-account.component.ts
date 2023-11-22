@@ -42,6 +42,15 @@ export class EmployeeAccountComponent implements OnInit {
       });
     }
 
+    generatePdf(): void {
+        this.serviceEmployee.getPdf().subscribe((response) => {
+            const blob = new Blob([response], {type: 'application/pdf'});
+            const url = window.URL.createObjectURL(blob);
+            window.open(url);
+        });
+    }
+
+
     employeeAccountInfo: EmployeeAccount = {
         id: "",
         firstName: "",

@@ -1,77 +1,153 @@
 import {Component, OnInit} from '@angular/core';
-import {JobFair, Page} from "../../types";
-import {BehaviorSubject, Observable} from "rxjs";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
+import {Observable} from "rxjs";
+
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
+import {PaginationService} from "../../utilities/service/pagination.service";
 
 @Component({
-  selector: 'app-jobfair',
-  templateUrl: './jobfair.component.html',
-  styleUrls: ['./jobfair.component.scss']
+    selector: 'app-jobfair',
+    templateUrl: './jobfair.component.html',
+    styleUrls: ['./jobfair.component.scss']
 })
-export class JobfairComponent implements OnInit{
+export class JobfairComponent implements OnInit {
 
-  jobFairsState$!: Observable<{ appState: string, appData?: Page<JobFair>, error?: HttpErrorResponse }>;
-  responseSubject = new BehaviorSubject<Page<JobFair>>({} as Page<JobFair>);
-  private currentPageSubject = new BehaviorSubject<number>(0);
-  currentPage$ = this.currentPageSubject.asObservable();
+    pageSize: number = 5;
+    pageIndex: number = 0;
+    length: number = 20;
+    employersAsList: ItemInsideList[] = [];
+    companyPhoto = '../../assets/company.png';
+    filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"]];
 
+    loadingSite: boolean = true;
+    currentTabId = "jobFairs";
+    paginationUseList: PaginationUse<ForListBackend>[] = [];
+    isOwner: boolean = false;
 
-  constructor(private route: ActivatedRoute,
-              private serviceJobFair: JobfairService) {}
+    getPaginationService() {
+        return this.servicePagination;
+    }
 
-  pageSize: number = 5;
-  pageIndex: number = 0;
-  length: number = 20;
+    constructor(public route: ActivatedRoute,
+                private serviceJobFair: JobfairService,
+                private servicePagination: PaginationService) {
+        const role = localStorage.getItem('role');
 
-  loading: boolean = true;
+    }
 
-  jobFair: JobFair = {
-    id: 0,
-    name: "",
-    organizerId: 0,
-    dateStart: "",
-    dateEnd: "",
-    address: "",
-    description: "",
-    displayDescription: ""
-  }
+    ngOnInit(): void {
 
-  ngOnInit(): void {
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const jobfairId = Number(params.get('jobfair-id'));
+            if (jobfairId) {
+                this.paginationUseList = [
+                    {
+                        id: "employers",
+                        active: true,
+                        pageSize: 5,
+                        pageIndex: 0,
+                        length: 20,
+                        state: new Observable<Page<ForListBackend>>(),
+                        route: "/job-fairs/" + jobfairId + "/employers",
+                        list: [],
+                        loading: true,
+                        ListButtonsOptions: {
+                            useGettingInside: true,
+                            useDelete: this.isOwner,
+                            useSaved: false,
+                            isSaved: false,
+                            useApprove: false
+                        }
+                    },
+                    {
+                        id: "job-offers",
+                        active: false,
+                        pageSize: 5,
+                        pageIndex: 0,
+                        length: 20,
+                        state: new Observable<Page<ForListBackend>>(),
+                        route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+                        list: [],
+                        loading: true,
+                        ListButtonsOptions: {
+                            useGettingInside: true,
+                            useDelete: false,
+                            useSaved: false,
+                            isSaved: false,
+                            useApprove: false
+                        }
+                    }
+                ]
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      const jobfairId = Number(params.get('jobfair-id'));
-      if(jobfairId){
-        this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
-            this.jobFair.id = response.id;
-            this.jobFair.name = response.name;
-            this.jobFair.organizerId = response.organizerId;
-            this.jobFair.dateStart = response.dateStart.toString();
-            this.jobFair.dateEnd = response.dateEnd.toString();
-            this.jobFair.address = response.address;
-            this.jobFair.description = response.description;
-            this.jobFair.displayDescription = response.displayDescription;
-            this.loading = false;
+                this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
+                    this.jobFair.id = response.id;
+                    this.jobFair.name = response.name;
+                    this.jobFair.organizerId = response.organizerId;
+                    this.jobFair.dateStart = this.convertDate(response.dateStart);
+                    this.jobFair.dateEnd = this.convertDate(response.dateEnd);
+                    this.jobFair.address = response.address;
+                    this.jobFair.description = response.description;
+                    this.jobFair.displayDescription = response.displayDescription;
+                    this.loading = false;
+
+                    console.log("dateStart: " + this.jobFair.dateStart);
+                    console.log("dateEnd: " + this.jobFair.dateEnd);
+                });
+
+                this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+                });
+
+            } else {
+                this.loading = false;
+            }
         });
-      }
-      else{
-        this.loading = false;
-      }
-    });
-  }
 
-  convertDate(date: string): string{
-    return date.substring(0,10)+" "+date.substring(14,19);
-  }
+        this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+            paginationUse.state.subscribe((response) => {
+                paginationUse.length = response ? response.totalElements : 0;
+                paginationUse.pageSize = response ? response.size : 0;
+                paginationUse.pageIndex = response ? response.number : 0;
+            });
+        });
+    }
 
-  convertToLocalDateTime(javaDateTimeString: string): Date {
-    const [datePart, timePart] = javaDateTimeString.split('T');
-    const [year, month, day] = datePart.split('-').map(Number);
-    const [hour, minute, second] = timePart.split(':').map(Number);
-    const milliseconds = Number(timePart.split('.')[1]);
+    loading: boolean = true;
 
-    return new Date(year, month - 1, day, hour, minute, second, milliseconds);
-  }
+    jobFair: JobFair = {
+        id: 0,
+        name: "",
+        organizerId: 0,
+        dateStart: "",
+        dateEnd: "",
+        address: "",
+        description: "",
+        displayDescription: ""
+    }
+
+    addEmployerForList(employer: ForListBackend): void {
+        const role = localStorage.getItem('role');
+        let employerAsItemInsideList: ItemInsideList = {
+            route: "/employer/" + employer.id + "/account",
+            image: employer.photo ? employer.photo : this.companyPhoto,
+            name: employer.name,
+            id: employer.id ? employer.id : 0,
+            displayDescription: `${employer.displayDescription}`,
+            ListButtonsOptions: {
+                useGettingInside: true,
+                useApprove: false,
+                useSaved: false,
+                isSaved: false,
+                useDelete: false
+            }
+
+        }
+        this.employersAsList.push(employerAsItemInsideList);
+    }
+
+    convertDate(date: string): string {
+        return date.substring(0, 10) + " " + date.substring(11);
+    }
 
 }

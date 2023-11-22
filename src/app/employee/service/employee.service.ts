@@ -39,5 +39,12 @@ export class EmployeeService {
     });
   }
 
+  getPdf(): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/generate-pdf';
+    return this.http.get(route, {
+      withCredentials: true,
+    });
+  }
+
 
 }

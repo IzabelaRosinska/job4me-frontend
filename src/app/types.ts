@@ -69,12 +69,15 @@ export interface ItemInsideList{
   image: string;
   name: string;
   id: number;
-  description: string;
-  useFavorite: boolean;
-  isFavorite?: boolean;
-  useDelete?: boolean;
-  useApprove?: boolean;
-  useGettingInside?: boolean;
+  displayDescription: string;
+  ListButtonsOptions: ListButtonsOptions;
+}
+
+export interface ForListBackend {
+  id: number;
+  name: string;
+  displayDescription: string;
+  photo?: string;
 }
 
 export interface JobOffer {
@@ -152,6 +155,15 @@ export interface PaginationUse<T> {
   class?: string,
   list: ItemInsideList[],
   loading: boolean,
+  ListButtonsOptions?: ListButtonsOptions
+}
+
+export interface ListButtonsOptions {
+  useSaved: boolean;
+  isSaved: boolean;
+  useDelete: boolean;
+  useApprove: boolean;
+  useGettingInside: boolean;
 }
 
 export interface ParticipationRequest{

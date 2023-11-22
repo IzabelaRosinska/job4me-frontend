@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {JobFair, JobOffer, OrganizerAccount} from "../../types";
+import {JobFair, JobOffer, OrganizerAccount, EmployerAccount, Page, ForListBackend} from "../../types";
 import {ROUTES} from "../../../environments/environments";
 import {shareReplay} from "rxjs/operators";
 
@@ -10,13 +10,18 @@ import {shareReplay} from "rxjs/operators";
 })
 export class JobfairService {
 
-
-
   constructor(private http: HttpClient ) {}
 
   getJobFairById(id: number): Observable<JobFair> {
     const route = ROUTES.BACKEND_ROUTE + '/job-fairs/' + id;
     return this.http.get<JobFair>(route, {
+      withCredentials: true,
+    });
+  }
+
+  getJobFairByIdForList(id: number): Observable<ForListBackend> {
+    const route = ROUTES.BACKEND_ROUTE + '/job-fairs/'+id+'/job-offers/list-display';
+    return this.http.get<ForListBackend>(route, {
       withCredentials: true,
     });
   }
@@ -47,5 +52,9 @@ export class JobfairService {
       observe: 'response',
     }).pipe(shareReplay(1));
   }
+
+  participationEmployers$ = (jobFairId: number, page: number = 0, size: number = 5): Observable<Page<ForListBackend>> =>
+      this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}/job-fairs/${jobFairId}/employers?&page=${page}&size=${size}`).pipe(shareReplay(1));
+
 
 }
