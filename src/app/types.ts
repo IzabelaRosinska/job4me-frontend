@@ -70,11 +70,7 @@ export interface ItemInsideList{
   name: string;
   id: number;
   displayDescription: string;
-  useSaved: boolean;
-  isSaved?: boolean;
-  useDelete?: boolean;
-  useApprove?: boolean;
-  useGettingInside?: boolean;
+  ListButtonsOptions: ListButtonsOptions;
 }
 
 export interface ForListBackend {

@@ -165,10 +165,13 @@ export class OrganizerAccountComponent implements OnInit {
                 name: request.jobFairName + " - " + request.employerCompanyName,
                 id: request.id,
                 displayDescription: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
-                useSaved: false,
-                isSaved: false,
-                useDelete: true,
-                useGettingInside: false
+                ListButtonsOptions: {
+                    useApprove: false,
+                    useGettingInside: false,
+                    useDelete: true,
+                    isSaved: false,
+                    useSaved: false
+                }
             }
             this.paginationUseList.find(paginationUse => paginationUse.id === "acceptedEmployers")?.list?.push(itemInsideList);
         } else {
@@ -178,11 +181,13 @@ export class OrganizerAccountComponent implements OnInit {
                 name: request.jobFairName + " - " + request.employerCompanyName,
                 id: request.id,
                 displayDescription: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
-                useSaved: false,
-                isSaved: false,
-                useDelete: true,
-                useGettingInside: false,
-                useApprove: true
+                ListButtonsOptions: {
+                    useSaved: false,
+                    isSaved: false,
+                    useDelete: true,
+                    useGettingInside: false,
+                    useApprove: true
+                }
             }
             this.paginationUseList.find(paginationUse => paginationUse.id === "pendingEmployers")?.list?.push(itemInsideList);
         }
@@ -196,9 +201,13 @@ export class OrganizerAccountComponent implements OnInit {
                 name: jobFair.name,
                 id: jobFair.id ? jobFair.id : 0,
                 displayDescription: `${jobFair.displayDescription}`,
-                useSaved: false,
-                isSaved: false,
-                useDelete: true
+                ListButtonsOptions: {
+                    useSaved: false,
+                    isSaved: false,
+                    useDelete: true,
+                    useGettingInside: true,
+                    useApprove: false
+                }
             }
             this.paginationUseList[0].list.push(offerAsItemInsideList);
             // this.jobFairsAsList.push(offerAsItemInsideList);

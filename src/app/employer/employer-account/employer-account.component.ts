@@ -56,9 +56,13 @@ export class EmployerAccountComponent implements OnInit {
       name: offer.offerName,
       id: offer.id ? offer.id : 0,
       displayDescription: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo}`,
-      useSaved: false,
-      isSaved: false,
-      useDelete: true
+      ListButtonsOptions: {
+        useSaved: false,
+        isSaved: false,
+        useDelete: true,
+        useGettingInside: true,
+        useApprove: false
+      }
     }
     this.offersAsList.push(offerAsItemInsideList);
   }

@@ -67,11 +67,13 @@ export class PaginationService {
       name: elem.name,
       id: elem.id,
       displayDescription: elem.displayDescription,
-      useSaved: listButtonsOptions? listButtonsOptions.useSaved : false,
-      isSaved: listButtonsOptions? listButtonsOptions.isSaved : false,
-      useDelete: listButtonsOptions? listButtonsOptions.useDelete : false,
-      useApprove: listButtonsOptions? listButtonsOptions.useApprove : false,
-      useGettingInside: listButtonsOptions? listButtonsOptions.useGettingInside : false
+      ListButtonsOptions: {
+        useSaved: listButtonsOptions? listButtonsOptions.useSaved : false,
+        isSaved: listButtonsOptions? listButtonsOptions.isSaved : false,
+        useDelete: listButtonsOptions? listButtonsOptions.useDelete : false,
+        useApprove: listButtonsOptions? listButtonsOptions.useApprove : false,
+        useGettingInside: listButtonsOptions? listButtonsOptions.useGettingInside : false
+      }
     }
     return insideList;
   }

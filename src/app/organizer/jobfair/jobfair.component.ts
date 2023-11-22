@@ -225,9 +225,14 @@ export class JobfairComponent implements OnInit{
       name: employer.name,
       id: employer.id ? employer.id : 0,
       displayDescription: `${employer.displayDescription}`,
-      useSaved: false,
-      isSaved: false,
-      useDelete: false
+      ListButtonsOptions: {
+          useGettingInside: true,
+          useApprove: false,
+          useSaved: false,
+          isSaved: false,
+          useDelete: false
+      }
+
     }
     console.log("Route: " + employerAsItemInsideList.route);
     this.employersAsList.push(employerAsItemInsideList);
