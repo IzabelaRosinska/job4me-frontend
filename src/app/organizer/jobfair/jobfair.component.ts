@@ -115,8 +115,6 @@ export class JobfairComponent implements OnInit{
                 }
             )
         )
-
-
       }
       else{
         this.loading = false;

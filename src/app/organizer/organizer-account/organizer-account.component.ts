@@ -87,13 +87,6 @@ export class OrganizerAccountComponent implements OnInit {
                 private router: Router) {
     }
 
-    getPangiationUseById(id: string): PaginationUse<any> {
-        const elem = this.paginationUseList.find(item => item.id === id);
-        if (elem == undefined) {
-            return this.paginationUseList[0];
-        }
-        return elem;
-    }
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
@@ -135,6 +128,14 @@ export class OrganizerAccountComponent implements OnInit {
         });
     }
 
+    getPaginationUseById(id: string): PaginationUse<any> {
+        const elem = this.paginationUseList.find(item => item.id === id);
+        if (elem == undefined) {
+            return this.paginationUseList[0];
+        }
+        return elem;
+    }
+
     changePaginationState<T>(paginationUse: PaginationUse<any>, isJobFair: boolean = false): void {
         paginationUse.list = [];
         paginationUse.loading = true;
@@ -157,16 +158,17 @@ export class OrganizerAccountComponent implements OnInit {
             ));
     }
 
-    addRequestForList(request: ParticipationRequest, paginationUse: PaginationUse<ParticipationRequest>): void {
+    addRequestForList(request: ParticipationRequest, paginationUse: PaginationUse<ParticipationRequest>): void
+    {
         if (paginationUse.id === "acceptedEmployers") {
             let itemInsideList: ItemInsideList = {
                 route: "/employer/job-offer/" + request.id,
                 image: this.companyPhoto,
                 name: request.jobFairName + " - " + request.employerCompanyName,
                 id: request.id,
-                description: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
-                useFavorite: false,
-                isFavorite: false,
+                displayDescription: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
+                useSaved: false,
+                isSaved: false,
                 useDelete: true,
                 useGettingInside: false
             }
@@ -177,9 +179,9 @@ export class OrganizerAccountComponent implements OnInit {
                 image: this.companyPhoto,
                 name: request.jobFairName + " - " + request.employerCompanyName,
                 id: request.id,
-                description: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
-                useFavorite: false,
-                isFavorite: false,
+                displayDescription: `${request.jobFairName + "#" + request.jobFairId} \n ${request.employerCompanyName + "#" + request.employerId}`,
+                useSaved: false,
+                isSaved: false,
                 useDelete: true,
                 useGettingInside: false,
                 useApprove: true
@@ -195,9 +197,9 @@ export class OrganizerAccountComponent implements OnInit {
                 image: this.companyPhoto,
                 name: jobFair.name,
                 id: jobFair.id ? jobFair.id : 0,
-                description: `${jobFair.displayDescription}`,
-                useFavorite: false,
-                isFavorite: false,
+                displayDescription: `${jobFair.displayDescription}`,
+                useSaved: false,
+                isSaved: false,
                 useDelete: true
             }
             this.jobFairsAsList.push(offerAsItemInsideList);
@@ -205,7 +207,7 @@ export class OrganizerAccountComponent implements OnInit {
     }
 
     handlePageEvent(e: PageEvent, tabId: string, status: boolean = false) {
-        const paginationUse = this.getPangiationUseById(tabId);
+        const paginationUse = this.getPaginationUseById(tabId);
         this.pageEvent = e;
         paginationUse.length = e.length;
         paginationUse.pageSize = e.pageSize;
@@ -219,9 +221,9 @@ export class OrganizerAccountComponent implements OnInit {
     gotToPage<T>(status: boolean = false, pageNumber: number = 0, paginationUseId?: string): void {
         const isJobFair = (paginationUseId ? paginationUseId == "jobFairs" : this.currentTabId == "jobFairs");
         if (isJobFair) {
-            this.changePaginationState<JobFair>(this.getPangiationUseById(paginationUseId ? paginationUseId : this.currentTabId), isJobFair);
+            this.changePaginationState<JobFair>(this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId), isJobFair);
         } else {
-            this.changePaginationState<ParticipationRequest>(this.getPangiationUseById(paginationUseId ? paginationUseId : this.currentTabId), isJobFair);
+            this.changePaginationState<ParticipationRequest>(this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId), isJobFair);
         }
     }
 
@@ -249,7 +251,7 @@ export class OrganizerAccountComponent implements OnInit {
     }
 
     updateCurrentTabIdPagination(): void {
-        const elem = this.getPangiationUseById(this.currentTabId);
+        const elem = this.getPaginationUseById(this.currentTabId);
         elem.length = elem.length - 1;
         this.gotToPage();
         elem.state.subscribe((response) => {
