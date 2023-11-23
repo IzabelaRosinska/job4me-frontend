@@ -24,7 +24,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 mt-2 h-100" *ngFor="let option of filterOptions">
       <app-filtring-field [title]="option[0]" [options]="option[1]"
-                          (optionsSelectedOutput)="filterOptionClicked($event)">
+                          (optionsSelectedOutput)="filterOptionClicked(option[0],$event)">
 
       </app-filtring-field>
     </div>

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ItemInsideList} from "../../types";
+import {FiliterType, ItemInsideList} from "../../types";
 import {filter} from "rxjs";
 
 @Component({
@@ -10,9 +10,9 @@ import {filter} from "rxjs";
 export class ItemListComponent {
   @Input() items: ItemInsideList[] | null = [];
 
-  @Input() filters: [string,string][] =  []
+  @Input() filters: FiliterType[] =  []
 
-  filterOptionsChecked: string[] = [];
+  filterOptionsChecked: [string,string[]][] = [];
 
   constructor() {}
 
@@ -33,7 +33,7 @@ export class ItemListComponent {
     }
   }
 
-  filterOptionUpdate(selectedItems: string[]) {
+  filterOptionUpdate(selectedItems: [string,string[]][]) {
     this.filterOptionsChecked = selectedItems;
     console.log(this.filterOptionsChecked);
   }

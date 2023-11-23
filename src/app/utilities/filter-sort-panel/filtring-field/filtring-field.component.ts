@@ -12,8 +12,8 @@ export class FiltringFieldComponent {
   @Input() options: string[] = [];
   filterOptionSelected: string[] = [];
 
-  @Output() optionsSelectedOutput:EventEmitter<string[]> = new EventEmitter<string[]>();
-  @Output() textOutput:EventEmitter<string> = new EventEmitter<string>();
+  @Output() optionsSelectedOutput: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() textOutput: EventEmitter<string> = new EventEmitter<string>();
 
 
     constructor() {
@@ -32,5 +32,6 @@ export class FiltringFieldComponent {
 
   textChanged(text: string) {
     this.textOutput.emit(text);
+    this.optionsSelectedOutput.emit([text]);
   }
 }

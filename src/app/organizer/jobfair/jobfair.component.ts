@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {JobOfferFilterDto, ForListBackend, ItemInsideList, JobFair, Page, PaginationUse,} from "../../types";
+import {
+  JobOfferFilterDto,
+  ForListBackend,
+  ItemInsideList,
+  JobFair,
+  Page,
+  PaginationUse,
+  FiliterType,
+} from "../../types";
 import {Observable} from "rxjs";
 
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -163,4 +171,5 @@ export class JobfairComponent implements OnInit {
         return date.substring(0, 10) + " " + date.substring(11);
     }
 
+  protected readonly FiliterType = FiliterType;
 }

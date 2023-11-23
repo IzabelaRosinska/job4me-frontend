@@ -67,7 +67,7 @@
             <div class="">
               <app-loading-screen *ngIf="getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"></app-loading-screen>
               <app-item-list [items]="getPaginationService().getDisplayListById('employers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"
-                             [filters]="[['asd', 'asd']]"></app-item-list>
+                             [filters]="[FiliterType.cities, FiliterType.employmentFormNames]"></app-item-list>
             </div>
 
           </div>
@@ -84,7 +84,7 @@
               <div class="">
                 <app-loading-screen *ngIf="getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"></app-loading-screen>
                 <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)" *ngIf="!getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"
-                               [filters]="[['asd', 'asd']]"></app-item-list>
+                               [filters]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames]"></app-item-list>
               </div>
 
           </div>
