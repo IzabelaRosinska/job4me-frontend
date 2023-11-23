@@ -75,7 +75,7 @@ export class JobfairComponent implements OnInit {
                         length: 20,
                         state: new Observable<Page<ForListBackend>>(),
                         // route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
-                        route: "/job-offers/list-display/filter",
+                        route: "/job-offers/list-display",
                         list: [],
                         loading: true,
                         ListButtonsOptions: {

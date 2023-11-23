@@ -123,9 +123,9 @@ export class PaginationService {
     }
 
     paginateDataWithParams$ = (route: string, body: JobOfferFilterDto | null | undefined, ifGet: boolean , page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
-        ifGet?
+        body==null || body == undefined?
         this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`).pipe(shareReplay(1))
-        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`,
+        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?&page=${page}&size=${size}&order=1${params ? params : ''}`,
         body?body:''
     ).pipe(shareReplay(1));
 
