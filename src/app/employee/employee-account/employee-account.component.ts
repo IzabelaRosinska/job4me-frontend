@@ -42,28 +42,12 @@ export class EmployeeAccountComponent implements OnInit {
     }
 
     generatePdf(): void {
-        this.serviceEmployee.getPdf().subscribe((response) => {
-            console.log(response);
-            const blob = new Blob([response], {type: 'application/pdf'});
-            const url = window.URL.createObjectURL(blob);
-            window.open(url);
-        });
+      this.serviceEmployee.getPdf().subscribe((response) => {
+        const blob = new Blob([response.body], {type: 'application/pdf'});
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      });
     }
-
-    // generatePdf(): void {
-    //   this.serviceEmployee.getPdf().subscribe(
-    //     (response) => {
-    //       console.log(response); // Log the response to inspect the blob
-    //       const blob = new Blob([response], { type: 'application/pdf' });
-    //       const url = window.URL.createObjectURL(blob);
-    //       window.open(url);
-    //     },
-    //     (error) => {
-    //       console.error(error); // Log any errors
-    //     }
-    //   );
-    // }
-
 
     employeeAccountInfo: EmployeeAccount = {
         id: "",
