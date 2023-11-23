@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeAccount} from "../../types";
 import {EmployeeService} from "../service/employee.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-employee-account',
@@ -44,11 +43,26 @@ export class EmployeeAccountComponent implements OnInit {
 
     generatePdf(): void {
         this.serviceEmployee.getPdf().subscribe((response) => {
+            console.log(response);
             const blob = new Blob([response], {type: 'application/pdf'});
             const url = window.URL.createObjectURL(blob);
             window.open(url);
         });
     }
+
+    // generatePdf(): void {
+    //   this.serviceEmployee.getPdf().subscribe(
+    //     (response) => {
+    //       console.log(response); // Log the response to inspect the blob
+    //       const blob = new Blob([response], { type: 'application/pdf' });
+    //       const url = window.URL.createObjectURL(blob);
+    //       window.open(url);
+    //     },
+    //     (error) => {
+    //       console.error(error); // Log any errors
+    //     }
+    //   );
+    // }
 
 
     employeeAccountInfo: EmployeeAccount = {
