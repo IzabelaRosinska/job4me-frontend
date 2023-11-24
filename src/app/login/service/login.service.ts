@@ -51,13 +51,55 @@ export class LoginService {
   }
 
 
-  getLinkedinData(): Observable<string> {
-    const route = environment.BACKEND_ROUTE + '/linkedin/signin';
+  getLinkedinData(): Observable<Object> {
+    const route = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77ebvrc0c0fjtq&redirect_uri=http://localhost:8080/auth/linkedin/callback&state=foobar&scope=openid%20profile%20email';
+    console.log(route);
+    // return this.http.jsonp(route, 'callback');
     return this.http.get<string>(route, {
-      withCredentials: true,
+      withCredentials: true
     });
   }
-
+//
+//   getLinkedinData(): Observable<Object> {
+//     const route = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77ebvrc0c0fjtq&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Flinkedin%2Fcallback&state=foobar&scope=openid%20profile%20email';
+//
+// // Create custom headers
+//     const headers = new HttpHeaders({
+//       'Content-Type': 'application/json',
+//     });
+//
+// // Create custom callback function
+//     const callback = 'callback';
+//     window[callback] = (data: any) => {
+//       console.log(data);
+//     };
+//
+// // Create script element for JSONP request
+//     const script = document.createElement('script');
+//     script.src = `${route}&callback=${callback}`;
+//     document.body.appendChild(script);
+//
+//
+//     return new Observable(observer => {
+// // Cleanup function to remove script element
+//       const cleanup = () => {
+//         document.body.removeChild(script);
+//         // delete window[callback];
+//       };
+//
+// // Handle script load and error events
+//       script.onload = () => {
+//         observer.next();
+//         observer.complete();
+//         cleanup();
+//       };
+//
+//       script.onerror = (error: any) => {
+//         observer.error(error);
+//         cleanup();
+//       };
+//     });
+//   }
 
 }
 

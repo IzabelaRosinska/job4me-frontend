@@ -19,16 +19,20 @@ export class RequestInterceptor implements HttpInterceptor {
 
     if (jwtToken!=null && jwtToken!=undefined && jwtToken!='') {
       const newRequest = request.clone({
-        setHeaders: {
-          Authorization: jwtToken,
-        },
+        // setHeaders: {
+        //   Authorization: jwtToken,
+        // },
         withCredentials: true
       });
+      newRequest.headers.keys().forEach(header => newRequest.headers.delete(header));
+      console.log("newRequest: " + newRequest.headers.keys());
       return next.handle(newRequest);
     }else{
       const newRequest = request.clone({
         withCredentials: true
       });
+      newRequest.headers.keys().forEach(header => newRequest.headers.delete(header));
+      console.log("newRequest: " + newRequest.headers.keys());
       return next.handle(newRequest);
     }
   }

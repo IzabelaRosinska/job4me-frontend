@@ -6,5 +6,14 @@
     "pathRewrite": {
       "^/api": ""
     }
+  },
+  "/linkedin": {
+    "target": "https://www.linkedin.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/linkedin": ""
+    }
   }
 }

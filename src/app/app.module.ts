@@ -18,7 +18,7 @@ import {MatListModule} from '@angular/material/list';
 import {LoginComponent} from './login/login.component';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientJsonpModule} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptors/request.interceptor";
 import {RegisterComponent} from './login/register/register.component';
 import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
