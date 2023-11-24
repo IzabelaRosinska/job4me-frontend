@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
+import {LoginService} from "../login/service/login.service";
 
 
 @Component({
@@ -13,8 +14,16 @@ export class AppNavComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
 
-   constructor() {
+   constructor(private loginService: LoginService) {
        console.log("role: " +  localStorage.getItem('role'))
+   }
+
+   getLoginService() {
+      return this.loginService;
+   }
+
+   isLogged() {
+     return localStorage.getItem('role') != '';
    }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)

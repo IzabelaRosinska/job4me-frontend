@@ -38,6 +38,17 @@ export class LoginService {
     }).pipe(shareReplay(1));
   }
 
+  logout() {
+    localStorage.setItem('role', '');
+    localStorage.setItem('token', '');
+    const route: string  = ROUTES.BACKEND_ROUTE + '/logout';
+    return this.http.request('post', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
 
 }
 
