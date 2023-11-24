@@ -68,9 +68,6 @@
             <hr>
 
             <div class="">
-              <!--              <div  class="pb-3">-->
-              <!--                <app-filter-sort-panel (filterOptionSelectedOutput)="filterOptionUpdate($event)" [filter]="filters"></app-filter-sort-panel>-->
-              <!--              </div>-->
               <app-loading-screen
                 *ngIf="getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"></app-loading-screen>
               <app-item-list [items]="getPaginationService().getDisplayListById('employers',paginationUseList)"
@@ -95,7 +92,8 @@
             <div class="">
               <div class="pb-3">
                 <app-filter-sort-panel
-                  (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)" (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
+                  (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)"
+                  (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
                   [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
               </div>
               <app-loading-screen
@@ -122,8 +120,6 @@
           </button>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
