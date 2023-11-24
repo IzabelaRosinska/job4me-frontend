@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UtilitiesService} from "../service/utilities.service";
-import {BehaviorSubject, Observable} from "rxjs";
-import {JobOffer, Page} from "../../types";
-import {HttpErrorResponse} from "@angular/common/http";
+import {FiliterType} from "../../types";
+import {VariablesService} from "../service/variables.service";
 
 
 @Component({
@@ -12,57 +10,61 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class FilterSortPanelComponent implements OnInit {
 
-  @Input() filter: [string, string][] = [];
-  @Input() filterOptions: [string, string[]][] = [];
+  @Input() filter: FiliterType[] = [];
+  @Input() filterOptions: [FiliterType, string[]][] = [];
 
-  @Input() sortOptions: string[] = ["0 -> 100", "100 -> 0", "A-Z", "Z-A"];
+  @Input() sortOptions: string[] = [];
 
   filterOptionSelected: string[] = [];
   start: boolean = false;
 
-  @Output() filterOptionSelectedOutput: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType, string[]][]> = new EventEmitter<[FiliterType, string[]][]>();
+  filterOptionSelectedOutputPrepare: [FiliterType, string[]][] = [];
 
-  @Output() sortOptionSelectedOutput: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sortOptionSelectedOutput: EventEmitter<number> = new EventEmitter<number>();
 
-  state$!: Observable<{ appState: string, appData?: Page<string[]>, error?: HttpErrorResponse }>;
-  responseSubject = new BehaviorSubject<Page<string[]>>({} as Page<string[]>);
-  private currentPageSubject = new BehaviorSubject<number>(0);
 
-  constructor(private utilitiesService: UtilitiesService) {
+  constructor(private variablesService: VariablesService) {
   }
 
   ngOnInit(): void {
     for (let i = 0; i < this.filter.length; i++) {
-      if (this.filter[i][1] !== "") {
-        this.utilitiesService.getFilterOptions(this.filter[i][1]).subscribe((options) => {
-          const pair: [string, string[]] = [this.filter[i][0], options.content.map((elem) => elem.name) as string[]];
-          this.filterOptions.push(pair);
-          this.start = true;
-        });
+      const filterName = this.filter[i];
+      console.log(filterName + " " + this.variablesService.dictionaryIfLoaded[filterName]);
+      if (this.variablesService.dictionaryIfLoaded[filterName]) {
+        console.log(this.variablesService.dictionaryOfLoadedData[filterName] + " " + filterName + " " + this.variablesService.dictionaryOfLoadedData["industryNames"]);
+        const pair: [FiliterType, string[]] = [filterName, this.variablesService.dictionaryOfLoadedData[filterName]];
+        this.filterOptions.push(pair);
+        this.start = true;
       } else {
-        const pair: [string, string[]] = [this.filter[i][0], []];
+        const pair: [FiliterType, string[]] = [filterName, []];
         this.filterOptions.push(pair);
         this.start = true;
       }
-
+      this.filterOptionSelectedOutputPrepare.push([this.filter[i], []]);
     }
-
-
-    console.log(this.filterOptions)
-    console.log(this.filter)
+    this.sortOptions = this.variablesService.getSortingOffersOptionsStrings();
   }
 
-  filterOptionClicked(options: string[]) {
-    this.filterOptionSelectedOutput.emit(options);
+  findfilterOptionSelectedOutputPrepare(title: FiliterType): number {
+    for (let i = 0; i < this.filterOptionSelectedOutputPrepare.length; i++) {
+      if (this.filterOptionSelectedOutputPrepare[i][0] == title) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  filterOptionClicked(title: FiliterType, options: string[]) {
+    const index = this.findfilterOptionSelectedOutputPrepare(title);
+    if (index != -1) {
+      this.filterOptionSelectedOutputPrepare[index][1] = options;
+    }
+    this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
   }
 
   sortOptionClicked(option: string) {
-    this.sortOptionSelectedOutput.emit(option);
+    this.sortOptionSelectedOutput.emit(this.variablesService.sortOffersOptions[option]);
   }
-
-  print(text: string) {
-    console.log(text)
-  }
-
 
 }

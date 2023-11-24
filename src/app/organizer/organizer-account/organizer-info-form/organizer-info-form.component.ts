@@ -6,7 +6,7 @@ import {catchError} from "rxjs";
 import {OrganizerAccount} from "../../../types";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {OrganizerService} from "../../service/organizer.service";
+import {OrganizerService} from "../../services/organizer.service";
 
 @Component({
   selector: 'app-organizer-info-form',

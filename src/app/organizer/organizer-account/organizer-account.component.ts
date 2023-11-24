@@ -10,7 +10,7 @@ import {
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {map} from "rxjs/operators";
-import {OrganizerService} from "../service/organizer.service";
+import {OrganizerService} from "../services/organizer.service";
 import {UtilitiesService} from "../../utilities/service/utilities.service";
 import {Observable} from "rxjs";
 
@@ -50,8 +50,10 @@ export class OrganizerAccountComponent implements OnInit {
             length: 20,
             state: new Observable<Page<JobFair>>(),
             route: "/organizer/jobfair/",
+            routeToElement: "/organizer/jobfair/",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<JobFair>,
         {
             id: "acceptedEmployers",
@@ -62,8 +64,10 @@ export class OrganizerAccountComponent implements OnInit {
             params: "&status=true",
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
+            routeToElement: "/organizer/employer-participation",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<ParticipationRequest>,
         {
             id: "pendingEmployers",
@@ -74,8 +78,10 @@ export class OrganizerAccountComponent implements OnInit {
             params: "&status=false",
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
+            routeToElement: "/organizer/employer-participation",
             list: [],
-            loading: true
+            loading: true,
+            ifGet: true
         } as PaginationUse<ParticipationRequest>
     ];
 
