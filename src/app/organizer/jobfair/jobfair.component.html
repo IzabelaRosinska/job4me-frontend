@@ -78,16 +78,24 @@
 
           </div>
           <div
-            class="tab-pane fade {{getPaginationService().isActiveById('job-offers', paginationUseList)? 'show active' : ''}}"
+            class="container tab-pane fade {{getPaginationService().isActiveById('job-offers', paginationUseList)? 'show active' : ''}}"
             id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <div class="row">
+              <div class="col-sm-4 p-0 m-0 text-start w-50">
+                <button class="ms-3 btn btn-primary btn-login" (click)="recommendOffers('job-offers')">Rekomendacja</button>
+
+              </div>
+              <div class="col-sm-4 p-0 m-0 text-end w-50">
+                <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
+                               [length]="getPaginationService().getLengthById('job-offers',paginationUseList)"
+                               [pageSize]="getPaginationService().getPageSizeById('job-offers',paginationUseList)"
+                               [pageSizeOptions]="[5, 10, 25, 100]"
+                               aria-label="Select page">
+                </mat-paginator>
+              </div>
+            </div>
             <!-- Pills content -->
-            <button (click)="recommendOffers('job-offers')">Rekomendacja</button>
-            <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
-                           [length]="getPaginationService().getLengthById('job-offers',paginationUseList)"
-                           [pageSize]="getPaginationService().getPageSizeById('job-offers',paginationUseList)"
-                           [pageSizeOptions]="[5, 10, 25, 100]"
-                           aria-label="Select page">
-            </mat-paginator>
+
             <hr>
 
             <div class="">
