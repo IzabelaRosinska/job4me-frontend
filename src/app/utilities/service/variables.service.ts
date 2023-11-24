@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {FiliterType, idNameListElement, Page} from "../../types";
 import {ROUTES} from "../../../environments/environments";
@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class VariablesService {
+export class VariablesService implements OnInit {
 
   cities: string[] = []
   levels: string[] = []
@@ -18,7 +18,19 @@ export class VariablesService {
   dictionaryIfLoaded!: Record<FiliterType, boolean>
   dictionaryOfLoadedData!: Record<FiliterType, string[]>
 
+  filterTranslations: Record<FiliterType, string> = {
+    cities: "Miasto",
+    employmentFormNames: "Forma zatrudnienia",
+    levelNames: "Poziom",
+    industryNames: "Branża",
+    salaryFrom: "Wynagrodzenie od",
+    salaryTo: "Wynagrodzenie do",
+    contractTypeNames: "Typ umowy",
+    offerName: "Nazwa oferty",
+  }
+
   constructor(private http: HttpClient) {
+    this.initVariables();
   }
 
   initVariables() {
@@ -100,6 +112,10 @@ export class VariablesService {
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

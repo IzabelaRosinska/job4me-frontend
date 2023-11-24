@@ -12,12 +12,13 @@ export class ItemListComponent {
 
   @Input() filters: FiliterType[] =  []
 
-  filterOptionsChecked: [string,string[]][] = [];
+  filterOptionsChecked: [FiliterType,string[]][] = [];
 
   constructor() {}
 
   @Output() deleteItemOut = new EventEmitter<number>();
   @Output() acceptItemOut = new EventEmitter<number>();
+  @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType,string[]][]> = new EventEmitter<[FiliterType,string[]][]>();
 
   deleteItem(id: number): void {
     if(this.items){
@@ -33,9 +34,10 @@ export class ItemListComponent {
     }
   }
 
-  filterOptionUpdate(selectedItems: [string,string[]][]) {
+  filterOptionUpdate(selectedItems: [FiliterType,string[]][]) {
     this.filterOptionsChecked = selectedItems;
     console.log(this.filterOptionsChecked);
+    this.filterOptionSelectedOutput.emit(this.filterOptionsChecked);
   }
 
 }

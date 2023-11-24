@@ -1,4 +1,6 @@
+@import "src/scss/utils/_variables.scss";
 @import "src/scss/components/_dropdowns.scss";
+
 
 
 .filter-item{
@@ -10,5 +12,27 @@
   width: 100%;
 }
 
+.dropdown-color{
+  background-color: $MAIN_LOGO_COLOR_DARKER;
+  border-color: $MAIN_LOGO_COLOR_DARKER;
+}
+
+
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
 
 

@@ -1,3 +1,4 @@
+@import "src/scss/utils/_variables.scss";
 .filter-item{
   margin-left: 10%;
   width: 80%;
@@ -17,4 +18,9 @@
 
 .dropdown{
   padding-inline: 2px;
+}
+
+.dropdown-color{
+  background-color: $MAIN_LOGO_COLOR_DARKER;
+  border-color: $MAIN_LOGO_COLOR_DARKER;
 }

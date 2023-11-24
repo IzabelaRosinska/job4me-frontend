@@ -14,15 +14,15 @@ import {VariablesService} from "../service/variables.service";
 export class FilterSortPanelComponent implements OnInit {
 
   @Input() filter: FiliterType[] = [];
-  @Input() filterOptions: [string, string[]][] = [];
+  @Input() filterOptions: [FiliterType, string[]][] = [];
 
   @Input() sortOptions: string[] = ["0 -> 100", "100 -> 0", "A-Z", "Z-A"];
 
   filterOptionSelected: string[] = [];
   start: boolean = false;
 
-  @Output() filterOptionSelectedOutput: EventEmitter<[string,string[]][]> = new EventEmitter<[string,string[]][]>();
-  filterOptionSelectedOutputPrepare: [string,string[]][] = [];
+  @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType,string[]][]> = new EventEmitter<[FiliterType,string[]][]>();
+  filterOptionSelectedOutputPrepare: [FiliterType,string[]][] = [];
 
   @Output() sortOptionSelectedOutput: EventEmitter<string> = new EventEmitter<string>();
 
@@ -40,11 +40,11 @@ export class FilterSortPanelComponent implements OnInit {
       console.log(filterName + " " + this.variablesService.dictionaryIfLoaded[filterName]);
       if(this.variablesService.dictionaryIfLoaded[filterName]){
         console.log(this.variablesService.dictionaryOfLoadedData[filterName] + " " + filterName+ " " + this.variablesService.dictionaryOfLoadedData["industryNames"]);
-        const pair: [string, string[]] = [filterName, this.variablesService.dictionaryOfLoadedData[filterName]];
+        const pair: [FiliterType, string[]] = [filterName, this.variablesService.dictionaryOfLoadedData[filterName]];
         this.filterOptions.push(pair);
         this.start = true;
       }else{
-        const pair: [string, string[]] = [filterName,[]];
+        const pair: [FiliterType, string[]] = [filterName,[]];
         this.filterOptions.push(pair);
         this.start = true;
       }
@@ -65,7 +65,7 @@ export class FilterSortPanelComponent implements OnInit {
     }
   }
 
-  findfilterOptionSelectedOutputPrepare(title: string): number {
+  findfilterOptionSelectedOutputPrepare(title: FiliterType): number {
     for (let i = 0; i < this.filterOptionSelectedOutputPrepare.length; i++) {
       if (this.filterOptionSelectedOutputPrepare[i][0] == title) {
         return i;
@@ -74,7 +74,7 @@ export class FilterSortPanelComponent implements OnInit {
     return -1;
   }
 
-  filterOptionClicked(title: string, options: string[]) {
+  filterOptionClicked(title: FiliterType, options: string[]) {
     const index = this.findfilterOptionSelectedOutputPrepare(title);
     if(index != -1) {
       this.filterOptionSelectedOutputPrepare[index][1] = options;

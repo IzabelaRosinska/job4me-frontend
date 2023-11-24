@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {VariablesService} from "../../service/variables.service";
+import {FiliterType} from "../../../types";
 
 @Component({
   selector: 'app-filtring-field',
@@ -8,7 +10,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class FiltringFieldComponent {
 
 
-  @Input() title: string = "Title";
+  @Input() title: FiliterType = FiliterType.offerName;
   @Input() options: string[] = [];
   filterOptionSelected: string[] = [];
 
@@ -16,9 +18,14 @@ export class FiltringFieldComponent {
   @Output() textOutput: EventEmitter<string> = new EventEmitter<string>();
 
 
-    constructor() {
+  constructor(private variablesService: VariablesService){
 
-    }
+  }
+
+  getCorrectTitleName(title: FiliterType): string {
+    return this.variablesService.filterTranslations[title];
+  }
+
   filterOptionClicked(option: string) {
     if(!this.filterOptionSelected.includes(option)){
       this.filterOptionSelected.push(option);

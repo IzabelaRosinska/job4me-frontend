@@ -94,11 +94,7 @@ export class JobfairComponent implements OnInit {
                             useApprove: false
                         },
                         ifGet: false,
-                        filters: {
-                            contractTypeNames: [
-                                "umowa o pracę"
-                            ]
-                        }
+                        filters: {}
                     }
                 ]
 
@@ -116,7 +112,7 @@ export class JobfairComponent implements OnInit {
                 });
 
                 this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions, this.filters);
+                    this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
                 });
 
             } else {
@@ -172,4 +168,5 @@ export class JobfairComponent implements OnInit {
     }
 
   protected readonly FiliterType = FiliterType;
+
 }
