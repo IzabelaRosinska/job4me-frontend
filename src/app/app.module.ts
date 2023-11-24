@@ -31,6 +31,7 @@ import {MdbRangeModule} from 'mdb-angular-ui-kit/range';
 import {MdbValidationModule} from 'mdb-angular-ui-kit/validation';
 import {FooterComponent} from './footer/footer.component';
 import {MatInputModule} from '@angular/material/input';
+import { TitlePageComponent } from './title-page/title-page.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {MatInputModule} from '@angular/material/input';
     RegisterComponent,
     AppComponent,
     FooterComponent,
+    TitlePageComponent,
   ],
   imports: [
     HttpClientModule,
