@@ -35,6 +35,7 @@ export class JobfairComponent implements OnInit {
   currentTabId = "jobFairs";
   paginationUseList: PaginationUse<ForListBackend>[] = [];
   isOwner: boolean = false;
+  routeForChange: string = "";
 
   getPaginationService() {
     return this.servicePagination;
@@ -97,6 +98,7 @@ export class JobfairComponent implements OnInit {
             filters: {}
           }
         ]
+        this.routeForChange = "/employee/job-offers/list-display/job-fair/"+jobfairId+"/recommendation";
 
         this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
           this.jobFair.id = response.id;
@@ -140,6 +142,19 @@ export class JobfairComponent implements OnInit {
     address: "",
     description: "",
     displayDescription: ""
+  }
+
+  recommendOffers(id: string): void {
+    const elem = this.getPaginationService().getPaginationUseById(id, this.paginationUseList);
+    if(elem){
+      const temp = elem.route;
+      this.servicePagination.setRouteToElement(this.routeForChange, elem);
+      this.routeForChange = temp;
+
+      this.servicePagination.gotToPage(this.paginationUseList);
+      elem.state.subscribe((response) => {});
+    }
+
   }
 
   addEmployerForList(employer: ForListBackend): void {

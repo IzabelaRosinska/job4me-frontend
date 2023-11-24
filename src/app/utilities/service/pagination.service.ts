@@ -210,6 +210,12 @@ export class PaginationService {
         })
     }
 
+    setRouteToElement(route: string, paginationUse: PaginationUse<ForListBackend>): void {
+        if (paginationUse) {
+          paginationUse.route = route;
+        }
+    }
+
     updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[]): void {
         const elem = this.getPaginationUseById(this.currentTabId, paginationUseList);
         if (elem) {

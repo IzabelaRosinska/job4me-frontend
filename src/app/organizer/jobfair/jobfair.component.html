@@ -81,6 +81,7 @@
             class="tab-pane fade {{getPaginationService().isActiveById('job-offers', paginationUseList)? 'show active' : ''}}"
             id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
             <!-- Pills content -->
+            <button (click)="recommendOffers('job-offers')">Rekomendacja</button>
             <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
                            [length]="getPaginationService().getLengthById('job-offers',paginationUseList)"
                            [pageSize]="getPaginationService().getPageSizeById('job-offers',paginationUseList)"
