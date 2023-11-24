@@ -32,6 +32,9 @@ import {MdbValidationModule} from 'mdb-angular-ui-kit/validation';
 import {FooterComponent} from './footer/footer.component';
 import {MatInputModule} from '@angular/material/input';
 import { TitlePageComponent } from './title-page/title-page.component';
+import { JobfairSearchingPanelComponent } from './jobfair-searching-panel/jobfair-searching-panel.component';
+import {UtilitiesModule} from "./utilities/utilities.module";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { TitlePageComponent } from './title-page/title-page.component';
     AppComponent,
     FooterComponent,
     TitlePageComponent,
+    JobfairSearchingPanelComponent,
   ],
   imports: [
     HttpClientModule,
@@ -68,7 +72,9 @@ import { TitlePageComponent } from './title-page/title-page.component';
     MdbRangeModule,
     MdbValidationModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    UtilitiesModule,
+    MatPaginatorModule
   ],
 
   providers: [

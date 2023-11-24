@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {JobfairComponent} from "./jobfair/jobfair.component";
 import {JobfairEditFormComponent} from "./jobfair/jobfair-edit-form/jobfair-edit-form.component";
+import {JobfairSearchingPanelComponent} from "../jobfair-searching-panel/jobfair-searching-panel.component";
 
 const routes: Routes = [
   { path: 'employer/organizer/:organizer-id/account', component: OrganizerAccountComponent },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'organizer', redirectTo: 'organizer/account', pathMatch: 'full' },
   { path: 'organizer/:organizer-id/job-fair/:jobfair-id/edit-form', component: JobfairEditFormComponent },
   { path: 'organizer/job-fair/:jobfair-id', component: JobfairComponent },
+
+  { path: 'job-fairs', component: JobfairSearchingPanelComponent }
 
 
 ];

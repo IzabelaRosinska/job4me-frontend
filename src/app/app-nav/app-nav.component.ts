@@ -17,8 +17,6 @@ export class AppNavComponent {
        console.log("role: " +  localStorage.getItem('role'))
    }
 
-
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
