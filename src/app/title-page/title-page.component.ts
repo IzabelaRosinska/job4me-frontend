@@ -10,10 +10,4 @@ export class TitlePageComponent {
 
   constructor(public service: UtilitiesService) { }
 
-  ngOnInit(): void {
-
-  }
-
-
-
 }
