@@ -5,7 +5,9 @@
 
     <tr *ngFor="let item of items">
       <td>
-        <app-item-inside-list class="list-item" [id]="item.id"  [item]="item" (deleteItem)="deleteItem($event)" (acceptItem)="acceptItem($event)">
+        <app-item-inside-list class="list-item"  [item]="item" (saveItem)="saveItem($event)"
+                              (deleteItem)="deleteItem($event)" (acceptItem)="acceptItem($event)">
+
 
           </app-item-inside-list>
         </td>

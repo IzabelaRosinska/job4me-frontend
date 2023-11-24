@@ -111,6 +111,7 @@
               <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)"
                              *ngIf="!getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"
                              [filters]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames]"
+                             (saveItemOut)="saveJobOffer($event)"
               ></app-item-list>
             </div>
 

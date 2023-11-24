@@ -231,7 +231,7 @@ export class PaginationService {
             displayDescription: elem.displayDescription,
             ListButtonsOptions: {
                 useSaved: listButtonsOptions ? listButtonsOptions.useSaved : false,
-                isSaved: listButtonsOptions ? listButtonsOptions.isSaved : false,
+                isSaved: elem.isSaved ? elem.isSaved : false,
                 useDelete: listButtonsOptions ? listButtonsOptions.useDelete : false,
                 useApprove: listButtonsOptions ? listButtonsOptions.useApprove : false,
                 useGettingInside: listButtonsOptions ? listButtonsOptions.useGettingInside : false

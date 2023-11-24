@@ -78,6 +78,7 @@ export interface ForListBackend {
   name: string;
   displayDescription: string;
   photo?: string;
+  isSaved?: boolean;
 }
 
 export interface JobOffer {

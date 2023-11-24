@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
 import {PaginationService} from "../../utilities/service/pagination.service";
+import {EmployeeService} from "../../employee/service/employee.service";
 import {VariablesService} from "../../utilities/service/variables.service";
 
 @Component({
@@ -47,7 +48,9 @@ export class JobfairComponent implements OnInit {
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService,
-              private variablesService: VariablesService) {
+              private variablesService: VariablesService,
+              private serviceEmployee: EmployeeService) {
+    const role = localStorage.getItem('role');
 
   }
 
@@ -92,7 +95,7 @@ export class JobfairComponent implements OnInit {
             ListButtonsOptions: {
               useGettingInside: true,
               useDelete: false,
-              useSaved: false,
+              useSaved: role=='employee',
               isSaved: false,
               useApprove: false
             },
@@ -181,6 +184,14 @@ export class JobfairComponent implements OnInit {
 
   convertDate(date: string): string {
     return date.substring(0, 10) + " " + date.substring(11);
+  }
+
+  saveJobOffer(jobOffer: ItemInsideList): void {
+    if(jobOffer.ListButtonsOptions.isSaved){
+      this.serviceEmployee.saveJobOffer(jobOffer.id).subscribe((response) => {});
+    }else{
+      this.serviceEmployee.unsaveJobOffer(jobOffer.id).subscribe((response) => {});
+    }
   }
 
   protected readonly FiliterType = FiliterType;
