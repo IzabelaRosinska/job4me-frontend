@@ -83,6 +83,17 @@ export class PaginationService {
       }
     }
 
+    updateSorting(id: string, paginationUseList: PaginationUse<ForListBackend>[], sorting: number): void {
+      const paginationUse = this.getPaginationUseById(id, paginationUseList);
+      if (paginationUse) {
+        paginationUse.params = "&order=" + sorting;
+        this.gotToPage(paginationUseList, id);
+        paginationUse.state.subscribe((response) => {
+          paginationUse.length = response ? response.totalElements : 0;
+        });
+      }
+    }
+
     convertFiltersToFiltersDto(filters: [FiliterType,string[]][]): JobOfferFilterDto {
       const x: JobOfferFilterDto = {
         cities: this.getFilter(filters, FiliterType.cities) as string[],
@@ -197,8 +208,8 @@ export class PaginationService {
 
     paginateDataWithParams$ = (route: string, body: JobOfferFilterDto | null | undefined, ifGet: boolean , page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
         body==null || body == undefined?
-        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}&order=1${params ? params : ''}`).pipe(shareReplay(1))
-        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?&page=${page}&size=${size}&order=1${params ? params : ''}`,
+        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}${params ? params : ''}`).pipe(shareReplay(1))
+        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?&page=${page}&size=${size}${params ? params : ''}`,
         body?body:''
     ).pipe(shareReplay(1));
 

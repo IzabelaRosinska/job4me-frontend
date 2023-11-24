@@ -29,8 +29,20 @@ export class VariablesService implements OnInit {
     offerName: "Nazwa oferty",
   }
 
+  sortOffersOptions: Record<string, number> = {
+    "Nie sortuj" : 1,
+    "Po wynagrodzeniu od najniższego" : 2,
+    "Po wynagrodzeniu od najwyższego" : 3,
+    "Po nazwie od A do Z" : 4,
+    "Po nazwie od Z do A" : 5
+  }
+
   constructor(private http: HttpClient) {
     this.initVariables();
+  }
+
+  getSortingOffersOptionsStrings(): string[] {
+    return Object.keys(this.sortOffersOptions);
   }
 
   initVariables() {

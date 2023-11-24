@@ -95,7 +95,7 @@
             <div class="">
               <div class="pb-3">
                 <app-filter-sort-panel
-                  (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)"
+                  (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)" (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
                   [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
               </div>
               <app-loading-screen

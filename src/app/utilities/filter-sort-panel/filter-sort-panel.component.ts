@@ -16,7 +16,7 @@ export class FilterSortPanelComponent implements OnInit {
   @Input() filter: FiliterType[] = [];
   @Input() filterOptions: [FiliterType, string[]][] = [];
 
-  @Input() sortOptions: string[] = ["0 -> 100", "100 -> 0", "A-Z", "Z-A"];
+  @Input() sortOptions: string[] = [];
 
   filterOptionSelected: string[] = [];
   start: boolean = false;
@@ -24,7 +24,7 @@ export class FilterSortPanelComponent implements OnInit {
   @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType,string[]][]> = new EventEmitter<[FiliterType,string[]][]>();
   filterOptionSelectedOutputPrepare: [FiliterType,string[]][] = [];
 
-  @Output() sortOptionSelectedOutput: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sortOptionSelectedOutput: EventEmitter<number> = new EventEmitter<number>();
 
   state$!: Observable<{ appState: string, appData?: Page<string[]>, error?: HttpErrorResponse }>;
   responseSubject = new BehaviorSubject<Page<string[]>>({} as Page<string[]>);
@@ -59,10 +59,9 @@ export class FilterSortPanelComponent implements OnInit {
       //   this.filterOptions.push(pair);
       //   this.start = true;
       // }
-
-
       this.filterOptionSelectedOutputPrepare.push([this.filter[i],[]]);
     }
+    this.sortOptions = this.variablesService.getSortingOffersOptionsStrings();
   }
 
   findfilterOptionSelectedOutputPrepare(title: FiliterType): number {
@@ -83,7 +82,7 @@ export class FilterSortPanelComponent implements OnInit {
   }
 
   sortOptionClicked(option: string) {
-    this.sortOptionSelectedOutput.emit(option);
+    this.sortOptionSelectedOutput.emit(this.variablesService.sortOffersOptions[option]);
   }
 
   print(text: string) {
