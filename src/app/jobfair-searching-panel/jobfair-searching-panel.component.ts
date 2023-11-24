@@ -10,12 +10,13 @@ import {Observable} from "rxjs";
   templateUrl: './jobfair-searching-panel.component.html',
   styleUrls: ['./jobfair-searching-panel.component.scss']
 })
-export class JobfairSearchingPanelComponent implements  OnInit{
+export class JobfairSearchingPanelComponent implements OnInit {
 
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService) {
   }
+
   protected readonly FiliterType = FiliterType;
   paginationUseList: PaginationUse<ForListBackend>[] = [];
 
@@ -49,8 +50,5 @@ export class JobfairSearchingPanelComponent implements  OnInit{
 
     this.servicePagination.initPagination(this.paginationUseList);
   }
-
-
-
 
 }
