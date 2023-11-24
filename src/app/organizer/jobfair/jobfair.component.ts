@@ -185,7 +185,13 @@ export class JobfairComponent implements OnInit {
     return date.substring(0, 10) + " " + date.substring(11);
   }
 
-
+  saveJobOffer(jobOffer: ItemInsideList): void {
+    if(jobOffer.ListButtonsOptions.isSaved){
+      this.serviceEmployee.saveJobOffer(jobOffer.id).subscribe((response) => {});
+    }else{
+      this.serviceEmployee.unsaveJobOffer(jobOffer.id).subscribe((response) => {});
+    }
+  }
 
   protected readonly FiliterType = FiliterType;
 
