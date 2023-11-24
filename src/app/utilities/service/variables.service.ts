@@ -46,8 +46,8 @@ export class VariablesService implements OnInit {
   }
 
   initVariables() {
-    this.getLocalizations().subscribe((response0) => {
-      this.cities = response0.content.map((element) => element.name);
+    // this.getLocalizations().subscribe((response0) => {
+    //   this.cities = response0.content.map((element) => element.name);
 
       this.getLevels().subscribe((response1) => {
         this.levels = response1.content.map((element) => element.name);
@@ -62,7 +62,7 @@ export class VariablesService implements OnInit {
               this.contractTypes = response4.content.map((element) => element.name);
 
               this.dictionaryIfLoaded = {
-                cities: true,
+                cities: false,
                 levelNames: true,
                 industryNames: true,
                 employmentFormNames: true,
@@ -73,7 +73,7 @@ export class VariablesService implements OnInit {
               }
 
               this.dictionaryOfLoadedData = {
-                cities: this.cities,
+                cities: [],
                 levelNames: this.levels,
                 industryNames: this.industries,
                 employmentFormNames: this.employmentFormNames,
@@ -86,7 +86,7 @@ export class VariablesService implements OnInit {
           });
         });
       });
-    });
+    // });
   }
 
 

@@ -95,8 +95,8 @@ export class PaginationService {
     }
 
     convertFiltersToFiltersDto(filters: [FiliterType,string[]][]): JobOfferFilterDto {
-      const x: JobOfferFilterDto = {
-        cities: this.getFilter(filters, FiliterType.cities) as string[],
+      const jobOfferFilterDto: JobOfferFilterDto = {
+        cities: [this.getFilter(filters, FiliterType.cities)] as string[],
         employmentFormNames: this.getFilter(filters, FiliterType.employmentFormNames) as string[],
         levelNames: this.getFilter(filters, FiliterType.levelNames) as string[],
         contractTypeNames: this.getFilter(filters, FiliterType.contractTypeNames) as string[],
@@ -105,11 +105,11 @@ export class PaginationService {
         industryNames: this.getFilter(filters, FiliterType.industryNames) as string[],
         offerName: this.getFilter(filters, FiliterType.offerName) as string
       }
-      return x
+      return jobOfferFilterDto
     }
 
     convertFiltersDtoToFilters(filters: JobOfferFilterDto): [FiliterType,string[]][] {
-      const x: [FiliterType,string[]][] = [
+      const filter: [FiliterType,string[]][] = [
         [FiliterType.cities, filters.cities?filters.cities:[]],
         [FiliterType.employmentFormNames, filters.employmentFormNames?filters.employmentFormNames:[]],
         [FiliterType.levelNames, filters.levelNames?filters.levelNames:[]],
@@ -119,7 +119,7 @@ export class PaginationService {
         [FiliterType.industryNames, filters.industryNames?filters.industryNames:[]],
         [FiliterType.offerName, filters.offerName?[filters.offerName]:[]]
       ]
-      return x
+      return filter
     }
 
     getFilter(filters: [FiliterType,string[]][], filterType: FiliterType): string[] | string | undefined {
