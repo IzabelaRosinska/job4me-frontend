@@ -1,13 +1,17 @@
-#intro {
-  height: 100%;
-}
 
 #intro {
-  background: url("../../assets/C-13.jpg") no-repeat center center fixed;
+  background: url("../../assets/title-page-photo.jpg") no-repeat center center fixed;
+  background-color: rgba(62,69,81,0.7);
+  max-height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.rgba-stylish-strong {
+  background-color: rgba(62,69,81,0.7);
+  margin-top: 7.5vh;
 }
 
 .mask-main{
@@ -37,12 +41,7 @@ jobfair-photo{
   height: 135px;
 }
 
-whole-page{
-  height: 100%;
-  max-height: 0;
-  width: 100%;
-  max-width: 0;
-}
+
 
 .container{
   max-width: 100% !important;
