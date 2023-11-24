@@ -52,6 +52,7 @@ export class JobfairComponent implements OnInit {
     ngOnInit(): void {
 
         this.route.paramMap.subscribe((params: ParamMap) => {
+            const role = localStorage.getItem('role');
             const jobfairId = Number(params.get('jobfair-id'));
             if (jobfairId) {
                 this.paginationUseList = [
@@ -63,6 +64,7 @@ export class JobfairComponent implements OnInit {
                         length: 20,
                         state: new Observable<Page<ForListBackend>>(),
                         route: "/job-fairs/" + jobfairId + "/employers",
+                        routeToElement: "/"+role+"/employer/",
                         list: [],
                         loading: true,
                         ListButtonsOptions: {
@@ -82,8 +84,8 @@ export class JobfairComponent implements OnInit {
                         pageIndex: 0,
                         length: 20,
                         state: new Observable<Page<ForListBackend>>(),
-                        // route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
-                        route: "/job-offers/list-display",
+                        route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+                        routeToElement: "/employer/job-offer/",
                         list: [],
                         loading: true,
                         ListButtonsOptions: {

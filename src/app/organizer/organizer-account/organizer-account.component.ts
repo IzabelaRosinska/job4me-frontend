@@ -50,6 +50,7 @@ export class OrganizerAccountComponent implements OnInit {
             length: 20,
             state: new Observable<Page<JobFair>>(),
             route: "/organizer/jobfair/",
+            routeToElement: "/organizer/jobfair/",
             list: [],
             loading: true,
             ifGet: true
@@ -63,6 +64,7 @@ export class OrganizerAccountComponent implements OnInit {
             params: "&status=true",
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
+            routeToElement: "/organizer/employer-participation",
             list: [],
             loading: true,
             ifGet: true
@@ -76,6 +78,7 @@ export class OrganizerAccountComponent implements OnInit {
             params: "&status=false",
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
+            routeToElement: "/organizer/employer-participation",
             list: [],
             loading: true,
             ifGet: true

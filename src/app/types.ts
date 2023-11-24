@@ -150,6 +150,7 @@ export interface PaginationUse<T> {
   pageIndex: number,
   length: number,
   route: string,
+  routeToElement: string,
   ifGet: boolean,
   params?: string,
   state: Observable<Page<T>>,

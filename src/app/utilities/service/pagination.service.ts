@@ -61,7 +61,7 @@ export class PaginationService {
             map((response: Page<ForListBackend>) => {
                     response.content.forEach(
                         (elem) => {
-                            const insideList = this.addElementToDisplayList(elem, paginationUse.route, listButtonsOptions);
+                            const insideList = this.addElementToDisplayList(elem, paginationUse.routeToElement, listButtonsOptions);
                             paginationUse.list.push(insideList);
                         }
                     );

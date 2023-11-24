@@ -10,15 +10,19 @@ import {JobfairComponent} from "./jobfair/jobfair.component";
 import {JobfairEditFormComponent} from "./jobfair/jobfair-edit-form/jobfair-edit-form.component";
 
 const routes: Routes = [
-  { path: 'organizer/account', component: OrganizerAccountComponent },
   { path: 'employer/organizer/:organizer-id/account', component: OrganizerAccountComponent },
-  { path: 'employee/organizer/:organizer-id/account', component: OrganizerAccountComponent },
   { path: 'employer/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
+
+  { path: 'employee/organizer/:organizer-id/account', component: OrganizerAccountComponent },
   { path: 'employee/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
+
+  { path: 'organizer/account', component: OrganizerAccountComponent },
+  { path: 'organizer/edit-info', component: OrganizerInfoFormComponent },
+  { path: 'organizer', redirectTo: 'organizer/account', pathMatch: 'full' },
   { path: 'organizer/:organizer-id/job-fair/:jobfair-id/edit-form', component: JobfairEditFormComponent },
   { path: 'organizer/job-fair/:jobfair-id', component: JobfairComponent },
-  { path: 'organizer',redirectTo: 'organizer/account', pathMatch: 'full' },
-  { path: 'organizer/edit-info', component: OrganizerInfoFormComponent }
+
+
 ];
 
 @NgModule({
