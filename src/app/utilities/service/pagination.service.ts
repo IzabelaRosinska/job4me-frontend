@@ -27,6 +27,20 @@ export class PaginationService {
     basePhoto = '../../assets/company.png';
     currentTabId: string = "";
 
+    initPagination(paginationUseList: PaginationUse<ForListBackend>[]){
+      paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+        this.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+      });
+
+      paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+        paginationUse.state.subscribe((response) => {
+          paginationUse.length = response ? response.totalElements : 0;
+          paginationUse.pageSize = response ? response.size : 0;
+          paginationUse.pageIndex = response ? response.number : 0;
+        });
+      });
+    }
+
     getPaginationUseById(id: string, paginationList: PaginationUse<ForListBackend>[]): PaginationUse<ForListBackend> | null {
         const elem = paginationList.find(item => item.id === id);
         if (elem == undefined) {
@@ -208,8 +222,8 @@ export class PaginationService {
 
     paginateDataWithParams$ = (route: string, body: JobOfferFilterDto | null | undefined, ifGet: boolean , page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
         body==null || body == undefined?
-        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?&page=${page}&size=${size}${params ? params : ''}`).pipe(shareReplay(1))
-        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?&page=${page}&size=${size}${params ? params : ''}`,
+        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?page=${page}&size=${size}${params ? params : ''}`).pipe(shareReplay(1))
+        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?page=${page}&size=${size}${params ? params : ''}`,
         body?body:''
     ).pipe(shareReplay(1));
 

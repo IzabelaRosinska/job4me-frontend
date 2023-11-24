@@ -126,7 +126,6 @@ export class JobfairComponent implements OnInit {
         paginationUse.pageSize = response ? response.size : 0;
         paginationUse.pageIndex = response ? response.number : 0;
       });
-
     });
   }
 
