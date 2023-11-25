@@ -52,7 +52,7 @@ export class LoginService {
 
 
   getLinkedinData(): Observable<Object> {
-    const route = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77ebvrc0c0fjtq&redirect_uri=http://localhost:8080/auth/linkedin/callback&state=foobar&scope=openid%20profile%20email';
+    const route = environment.BACKEND_ROUTE + '/linkedin/signin';
     console.log(route);
     // return this.http.jsonp(route, 'callback');
     return this.http.get<string>(route, {
