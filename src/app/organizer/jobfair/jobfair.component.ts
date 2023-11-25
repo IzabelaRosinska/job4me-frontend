@@ -44,7 +44,6 @@ export class JobfairComponent implements OnInit {
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService) {
-    const role = localStorage.getItem('role');
 
   }
 

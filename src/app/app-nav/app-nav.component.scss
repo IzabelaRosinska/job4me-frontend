@@ -1,4 +1,9 @@
+@import "../../styles.scss";
 
-.icon-route{
-  cursor: pointer;
+
+.nav-bar-text{
+  color: white;
+  &:hover{
+    color: $MAIN_LOGO_COLOR_LIGHTER;
+  }
 }
