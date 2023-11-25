@@ -42,7 +42,7 @@ export class LoginService {
   logout() {
     localStorage.setItem('role', '');
     localStorage.setItem('token', '');
-    const route: string  = ROUTES.BACKEND_ROUTE + '/logout';
+    const route: string  = environment.BACKEND_ROUTE + '/logout';
     return this.http.request('post', route, {
       withCredentials: true,
       responseType: 'text',

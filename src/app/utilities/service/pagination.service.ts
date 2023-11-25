@@ -11,7 +11,7 @@ import {
 import {map, shareReplay} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {Observable} from "rxjs";
-import {ROUTES} from "../../../environments/environments";
+import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {VariablesService} from "./variables.service";
 
@@ -222,8 +222,8 @@ export class PaginationService {
 
     paginateDataWithParams$ = (route: string, body: JobOfferFilterDto | null | undefined, ifGet: boolean , page: number = 0, size: number = 5, params?: string): Observable<Page<ForListBackend>> =>
         body==null || body == undefined?
-        this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}${route}?page=${page}&size=${size}${params ? params : ''}`).pipe(shareReplay(1))
-        :this.http.post<Page<ForListBackend>>( `${ROUTES.BACKEND_ROUTE}${route}/filter?page=${page}&size=${size}${params ? params : ''}`,
+        this.http.get<Page<ForListBackend>>(`${environment.BACKEND_ROUTE}${route}?page=${page}&size=${size}${params ? params : ''}`).pipe(shareReplay(1))
+        :this.http.post<Page<ForListBackend>>( `${environment.BACKEND_ROUTE}${route}/filter?page=${page}&size=${size}${params ? params : ''}`,
         body?body:''
     ).pipe(shareReplay(1));
 
