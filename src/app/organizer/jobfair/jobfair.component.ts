@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
 import {PaginationService} from "../../utilities/service/pagination.service";
+import {VariablesService} from "../../utilities/service/variables.service";
 
 @Component({
   selector: 'app-jobfair',
@@ -43,12 +44,13 @@ export class JobfairComponent implements OnInit {
 
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
-              private servicePagination: PaginationService) {
+              private servicePagination: PaginationService,
+              private variablesService: VariablesService) {
 
   }
 
   ngOnInit(): void {
-
+    this.variablesService.initVariables();
     this.route.paramMap.subscribe((params: ParamMap) => {
       const role = localStorage.getItem('role');
       const jobfairId = Number(params.get('jobfair-id'));

@@ -17,9 +17,10 @@ export class FiltringFieldComponent {
   @Output() optionsSelectedOutput: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() textOutput: EventEmitter<string> = new EventEmitter<string>();
 
+  id: number = 0;
 
   constructor(private variablesService: VariablesService){
-
+    this.id = Math.random();
   }
 
   getCorrectTitleName(title: FiliterType): string {
@@ -34,6 +35,11 @@ export class FiltringFieldComponent {
         return value != option;
       })
     }
+    this.optionsSelectedOutput.emit(this.filterOptionSelected);
+  }
+
+  clear() {
+    this.filterOptionSelected = [];
     this.optionsSelectedOutput.emit(this.filterOptionSelected);
   }
 

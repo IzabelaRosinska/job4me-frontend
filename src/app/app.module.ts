@@ -50,6 +50,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
   imports: [
     HttpClientModule,
     NgbModule,
+    UtilitiesModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -73,7 +74,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MdbValidationModule,
     MatInputModule,
     MatFormFieldModule,
-    UtilitiesModule,
     MatPaginatorModule
   ],
 

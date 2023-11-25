@@ -18,6 +18,8 @@ export class VariablesService implements OnInit {
   dictionaryIfLoaded!: Record<FiliterType, boolean>
   dictionaryOfLoadedData!: Record<FiliterType, string[]>
 
+  private initialized: boolean = false;
+
   filterTranslations: Record<FiliterType, string> = {
     cities: "Miasto",
     employmentFormNames: "Forma zatrudnienia",
@@ -46,8 +48,10 @@ export class VariablesService implements OnInit {
   }
 
   initVariables() {
-    // this.getLocalizations().subscribe((response0) => {
-    //   this.cities = response0.content.map((element) => element.name);
+
+    if(!this.initialized) {
+      // this.getLocalizations().subscribe((response0) => {
+      //   this.cities = response0.content.map((element) => element.name);
 
       this.getLevels().subscribe((response1) => {
         this.levels = response1.content.map((element) => element.name);
@@ -82,11 +86,13 @@ export class VariablesService implements OnInit {
                 salaryTo: [],
                 offerName: [],
               }
+              this.initialized = true;
             });
           });
         });
       });
-    // });
+      // });
+    }
   }
 
 

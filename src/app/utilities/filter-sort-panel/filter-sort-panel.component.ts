@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FiliterType} from "../../types";
 import {VariablesService} from "../service/variables.service";
+import {FiltringFieldComponent} from "./filtring-field/filtring-field.component";
 
 
 @Component({
@@ -18,16 +19,23 @@ export class FilterSortPanelComponent implements OnInit {
   filterOptionSelected: string[] = [];
   start: boolean = false;
 
+  isFilterPanelOpen: boolean = false;
+
+  @ViewChild('item') myInput!: ElementRef;
+
+
   @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType, string[]][]> = new EventEmitter<[FiliterType, string[]][]>();
   filterOptionSelectedOutputPrepare: [FiliterType, string[]][] = [];
 
   @Output() sortOptionSelectedOutput: EventEmitter<number> = new EventEmitter<number>();
 
 
-  constructor(private variablesService: VariablesService) {
+  constructor(private variablesService: VariablesService,
+              private elementRef: ElementRef) {
   }
 
   ngOnInit(): void {
+    this.variablesService.initVariables();
     for (let i = 0; i < this.filter.length; i++) {
       const filterName = this.filter[i];
       console.log(filterName + " " + this.variablesService.dictionaryIfLoaded[filterName]);
@@ -44,6 +52,7 @@ export class FilterSortPanelComponent implements OnInit {
       this.filterOptionSelectedOutputPrepare.push([this.filter[i], []]);
     }
     this.sortOptions = this.variablesService.getSortingOffersOptionsStrings();
+    this.isFilterPanelOpen = true;
   }
 
   findfilterOptionSelectedOutputPrepare(title: FiliterType): number {
@@ -60,8 +69,34 @@ export class FilterSortPanelComponent implements OnInit {
     if (index != -1) {
       this.filterOptionSelectedOutputPrepare[index][1] = options;
     }
+    // this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
+  }
+
+  isSelectedNothing(): boolean {
+    for (let i = 0; i < this.filterOptionSelectedOutputPrepare.length; i++) {
+      if (this.filterOptionSelectedOutputPrepare[i][1].length > 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  clearFilters() {
+    this.isFilterPanelOpen = false;
+    for (let i = 0; i < this.filterOptionSelectedOutputPrepare.length; i++) {
+       // const filtringField = this.myInput.nativeElement as FiltringFieldComponent;
+       // filtringField.clear();
+      this.filterOptionSelectedOutputPrepare[i][1] = [];
+    }
+    this.isFilterPanelOpen = true;
     this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
   }
+
+  useFilters() {
+    this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
+  }
+
+
 
   sortOptionClicked(option: string) {
     this.sortOptionSelectedOutput.emit(this.variablesService.sortOffersOptions[option]);
