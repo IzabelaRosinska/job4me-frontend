@@ -14,6 +14,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatOption, MatOptionModule} from "@angular/material/core";
 
+import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {MatOption, MatOptionModule} from "@angular/material/core";
     MatPaginatorModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MdbFormsModule,
   ]
 })
 export class EmployerModule {

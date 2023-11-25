@@ -7,6 +7,7 @@ import {EmployeeAccountComponent} from "./employee-account/employee-account.comp
 import { EmployeeInfoFormComponent } from './employee-account/employee-info-form/employee-info-form.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {HttpClientModule} from "@angular/common/http";
     UtilitiesModule,
     FormsModule,
     HttpClientModule,
+    MdbFormsModule,
   ]
 })
 export class EmployeeModule {

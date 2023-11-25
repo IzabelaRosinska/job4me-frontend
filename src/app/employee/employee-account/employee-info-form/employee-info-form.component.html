@@ -3,17 +3,157 @@
 <div class="container align-content-left text-left main" *ngIf="!loading">
     <div class="fieldset-outer">
         <fieldset class="common-inputs-fieldset">
-            <form action="">
-                <legend>Dane osobowe</legend>
+            <form #employeeForm="ngForm" action="">
+
+                <legend class="mb-3">Dane osobowe</legend>
+
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        
+                        <input mdbInput type="text" id="first-name" #name
+                             class="form-control white-field {{name.checkValidity()? 'is-valid':'is-invalid' }}"
+                             [minLength]="1" [maxLength]="100"
+                             name="first-name" placeholder="Twoje imię" (change)="name.checkValidity()"
+                             [(ngModel)]="employeeAccountInfo.firstName"
+                             required>
+                      <label mdbLabel class="form-label" for="first-name">Imię*</label>
+                    </mdb-form-control>
+                    
+                    <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
+                    <br>
+                </div> 
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        
+                        <input mdbInput type="text" id="last-name" #lastName
+                             class="form-control white-field {{lastName.checkValidity()? 'is-valid':'is-invalid' }}"
+                             [minLength]="1" [maxLength]="100"
+                             name="last-name" placeholder="Twoje nazwisko" (change)="lastName.checkValidity()"
+                             [(ngModel)]="employeeAccountInfo.lastName"
+                             required>
+                      <label mdbLabel class="form-label" for="last-name">Nazwisko*</label>
+                    </mdb-form-control>
+                    
+                    <div *ngIf="!lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
+                    <br><br>
+                </div> 
+
+                <legend class="mb-3">Kontakt</legend>
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        
+                        <input mdbInput type="email" id="mail" #email
+                             class="form-control white-field {{email.checkValidity()? 'is-valid':'is-invalid' }}"
+                             [minLength]="1" [maxLength]="100"
+                             name="mail" placeholder="Twój email kontaktowy" (change)="email.checkValidity()"
+                             [(ngModel)]="employeeAccountInfo.email"
+                             required>
+                      <label mdbLabel class="form-label" for="mail">Email kontaktowy*</label>
+                    </mdb-form-control>
+                    
+                    <div *ngIf="!email.checkValidity()" class="invalid-feedback" (change)="email.checkValidity()">
+                        {{email.value.length > 0 ? 'Niepoprawny email' : 'Uzupełnij email'}}</div>
+                    <br>
+                </div> 
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        
+                        <input mdbInput type="text" id="phone-number" #phoneNumber
+                             class="form-control white-field {{phoneNumber.checkValidity()? 'is-valid':'is-invalid' }}"
+                             [maxLength]="20"
+                             name="phone-number" placeholder="Twój numer telefonu" (change)="phoneNumber.checkValidity()"
+                             [(ngModel)]="employeeAccountInfo.telephone">
+                      <label mdbLabel class="form-label" for="phone-number">Numer telefonu</label>
+                    </mdb-form-control>
+                    <br>
+                </div> 
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <textarea mdbInput type="text" id="aboutMe" #aboutMe
+                             class="form-control white-field {{aboutMe.checkValidity()? 'is-valid':'is-invalid' }}"
+                             name="aboutMe" placeholder="Napisz coś o sobie"
+                             [(ngModel)]="employeeAccountInfo.aboutMe" rows="5"></textarea>
+                        <label mdbLabel class="form-label" for="aboutMe">O mnie</label>
+                    </mdb-form-control>
+                    <br>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <textarea mdbInput type="text" id="interests" #interests
+                             class="form-control white-field {{interests.checkValidity()? 'is-valid':'is-invalid' }}"
+                             name="interests" placeholder="Opisz swoje zainteresowania"
+                             [(ngModel)]="employeeAccountInfo.interests" rows="5"></textarea>
+                        <label mdbLabel class="form-label" for="interests">Zainteresowania</label>
+                    </mdb-form-control>
+                    <br>
+                </div>
+
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Wykształcenie'" [maxInputLength]="100"
+                                              [listOfTexts]="validList(employeeAccountInfo.education)"
+                                              (save)="moduleSaveInfo($event,'education')"></app-expanded-module-form>
+                </div>
+
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Umiejętności'" [maxInputLength]="50" [maxInputCount]="20"
+                                              [listOfTexts]="validList(employeeAccountInfo.skills)"
+                                              (save)="moduleSaveInfo($event,'skills')"></app-expanded-module-form>
+                </div>
+
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Doświadczenie'" [maxInputLength]="255"
+                                              [listOfTexts]="validList(employeeAccountInfo.experience)"
+                                              (save)="moduleSaveInfo($event,'experience')"></app-expanded-module-form>
+                </div>
+
+                <div class="rounded-4 cv-list-elem">
+                    <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500"
+                                              [listOfTexts]="validList(employeeAccountInfo.projects)"
+                                              (save)="moduleSaveInfo($event,'projects')"></app-expanded-module-form>
+                </div>
+                
+<!-- 
+                <label for="aboutMe" class="form-label">O mnie</label>
+                <textarea type="text" id="aboutMe" name="aboutMe" class="form-control aboutMe"
+                          [(ngModel)]="employeeAccountInfo.aboutMe"></textarea><br><br>
+
+                <label for="aboutMe" class="form-label">Zainteresowania</label>
+                <textarea type="text" id="interests" name="interests" class="form-control aboutMe"
+                          [(ngModel)]="employeeAccountInfo.interests"></textarea><br><br> -->
+
+                <!-- <label for="phone-number">Numer telefonu</label>
+                <input type="text" id="phone-number" #phoneNumber name="phone-number" class="form-control "
+                       [maxLength]="20" (change)="phoneNumber.checkValidity()"
+                       [(ngModel)]="employeeAccountInfo.telephone"><br><br> -->
+
+
+                <!-- <legend>Kontakt</legend>
+                <label for="mail">Email kontaktowy</label>
+                <input type="email" id="mail" #email name="mail"
+                       class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
+                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employeeAccountInfo.email"
+                       required>
+                <div class="invalid-feedback" *ngIf="!email.checkValidity()"
+                     (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
+                <br><br> -->
+
+
+
+                <!-- <legend>Dane osobowe</legend>
                 <label for="first-name">Imię</label>
                 <input type="text" #name id="first-name" name="first-name"
                        class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
                        [maxLength]="100" (change)="name.checkValidity()" [(ngModel)]="employeeAccountInfo.firstName"
                        required>
                 <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
-                <br><br>
+                <br><br> -->
 
-                <label for="last-name">Nazwisko</label>
+                <!-- <label for="last-name">Nazwisko</label>
                 <input type="text" id="last-name" #lastName name="last-name"
                        class="form-control {{lastName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
                        [maxLength]="100" (change)="lastName.checkValidity()" [(ngModel)]="employeeAccountInfo.lastName"
@@ -66,10 +206,32 @@
                     <app-expanded-module-form [title]="'Projekty'" [maxInputLength]="500"
                                               [listOfTexts]="validList(employeeAccountInfo.projects)"
                                               (save)="moduleSaveInfo($event,'projects')"></app-expanded-module-form>
-                </div>
-
+                </div> -->
 
                 <div class="container">
+                    <div class="row">
+                      <div class="col ps-0">
+                        <button class="btn btn-primary btn-block mb-4 btn-login"
+                                (click)="openDeclineDialog()">
+                          Odrzuć zmiany
+                        </button>
+                      </div>
+          
+                      <div
+                        class="col pe-0 w-100 'text-center ps-0' d-flex justify-content-center flex-nowrap">
+                        <button class="btn btn-primary btn-block mb-4 btn-login 'w-50'"
+                                (click)="openConfirmDialog()"
+                                type="submit"
+                                [disabled]="!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity() ">
+                          Potwierdź
+                        </button>
+                      </div>
+          
+                    </div>
+                  </div>
+
+
+                <!-- <div class="container">
                     <div class="row">
 
                         <div class="col ">
@@ -87,8 +249,18 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
             </form>
         </fieldset>
     </div>
 </div>
+
+<!-- <script>
+    // Pobierz referencję do pola formularza
+    var nameInput = document.getElementById("first-name");
+
+    // Ustaw focus na polu formularza
+    window.onload = function() {
+        nameInput.focus();
+    };
+</script> -->
