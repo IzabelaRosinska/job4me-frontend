@@ -5,9 +5,10 @@
                [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="login">Logowanie</a>
-      <a mat-list-item routerLink="{{localStorage.getItem('role')}}/account">Profil</a>
-      <a mat-list-item routerLink="organizer/job-fair/2">Targi pracy</a>
+      <a mat-list-item *ngIf="!isLogged()" routerLink="login">Logowanie</a>
+      <a mat-list-item *ngIf="isLogged()" routerLink="{{localStorage.getItem('role')}}/account">Profil</a>
+      <a mat-list-item routerLink="job-fairs">Targi pracy</a>
+      <a mat-list-item *ngIf="isLogged()" (click)="getLoginService().logout()"  routerLink="title-page">Wyloguj</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

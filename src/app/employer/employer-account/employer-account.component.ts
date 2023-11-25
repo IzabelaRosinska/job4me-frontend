@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiResponse, EmployerAccount, ItemInsideList, JobOffer, Page} from "../../types";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {EmployerAccount, FiliterType, ItemInsideList, JobOffer, Page} from "../../types";
+import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {EmployerService} from "../service/employer.service";
-import {async, BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
+import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {map} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 
@@ -43,7 +42,7 @@ export class EmployerAccountComponent implements OnInit {
   pageEvent?: PageEvent;
   offersAsList: ItemInsideList[] = [];
 
-  filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"], ["Poziomy", "/levels"]];
+  filters: FiliterType[] = [FiliterType.offerName, FiliterType.salaryFrom, FiliterType.salaryTo, FiliterType.industryNames, FiliterType.employmentFormNames];
 
   loadingAccount: boolean = true;
   loadingOffers: boolean = true;

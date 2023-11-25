@@ -5,6 +5,7 @@
         <fieldset class="common-inputs-fieldset">
             <form action="">
                 <legend>Dane osobowe</legend>
+
                 <label for="first-name">Imię</label>
                 <input type="text" #name id="first-name" name="first-name"
                        class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"

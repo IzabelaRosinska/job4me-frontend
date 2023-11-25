@@ -17,6 +17,7 @@ import {RouterLink} from "@angular/router";
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { FilterSortPanelComponent } from './filter-sort-panel/filter-sort-panel.component';
 import { FiltringFieldComponent } from './filter-sort-panel/filtring-field/filtring-field.component';
+import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 
 
 @NgModule({
@@ -29,23 +30,24 @@ import { FiltringFieldComponent } from './filter-sort-panel/filtring-field/filtr
     FilterSortPanelComponent,
     FiltringFieldComponent
   ],
-  exports: [SimpleTrueFalsePopUpComponent,
-    ExpandedModuleFormComponent,LoadingScreenComponent,
-      ItemInsideListComponent, ItemListComponent,
-  ],
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatDialogModule,
-    MatInputModule,
-    HttpClientModule,
-    FormsModule,
-    RouterLink
-  ]
+    exports: [SimpleTrueFalsePopUpComponent,
+        ExpandedModuleFormComponent, LoadingScreenComponent,
+        ItemInsideListComponent, ItemListComponent, FilterSortPanelComponent,
+    ],
+    imports: [
+        CommonModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatDialogModule,
+        MatInputModule,
+        HttpClientModule,
+        FormsModule,
+        RouterLink,
+        MdbFormsModule
+    ]
 })
 export class UtilitiesModule {
 }
