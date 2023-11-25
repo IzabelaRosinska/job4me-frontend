@@ -1,5 +1,5 @@
 export const environment = {
-  BACKEND_ROUTE: 'http://localhost:4200/api',
-  LINKEDIN_ROUTE: 'http://localhost:4200/linkedin',
+  BACKEND_ROUTE: 'https://job4me.azurewebsites.net',
+  LINKEDIN_ROUTE: 'https://www.linkedin.com',
   BASE_ROUTE: 'http://localhost:4200',
 };
