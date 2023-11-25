@@ -19,6 +19,8 @@ export class FilterSortPanelComponent implements OnInit {
   filterOptionSelected: string[] = [];
   start: boolean = false;
 
+  filtringFieldComponents: FiltringFieldComponent[] = [];
+
   isFilterPanelOpen: boolean = false;
 
   @ViewChild('item') myInput!: ElementRef;
@@ -82,13 +84,14 @@ export class FilterSortPanelComponent implements OnInit {
   }
 
   clearFilters() {
-    this.isFilterPanelOpen = false;
+
     for (let i = 0; i < this.filterOptionSelectedOutputPrepare.length; i++) {
-       // const filtringField = this.myInput.nativeElement as FiltringFieldComponent;
-       // filtringField.clear();
       this.filterOptionSelectedOutputPrepare[i][1] = [];
     }
-    this.isFilterPanelOpen = true;
+    this.isFilterPanelOpen = false;
+    setTimeout(() => {
+      this.isFilterPanelOpen = true;
+    }, 1);
     this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
   }
 
