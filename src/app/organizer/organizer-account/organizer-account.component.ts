@@ -55,7 +55,8 @@ export class OrganizerAccountComponent implements OnInit {
             routeToElement: "/organizer/jobfair/",
             list: [],
             loading: true,
-            ifGet: true
+            ifGet: true,
+
         } as PaginationUse<JobFair>,
         {
             id: "acceptedEmployers",
@@ -69,7 +70,14 @@ export class OrganizerAccountComponent implements OnInit {
             routeToElement: "/organizer/employer-participation",
             list: [],
             loading: true,
-            ifGet: true
+            ifGet: true,
+            ListButtonsOptions: {
+              useSaved: false,
+              isSaved: false,
+              useDelete: true,
+              useApprove: false,
+              useGettingInside: false
+            }
         } as PaginationUse<ParticipationRequest>,
         {
             id: "pendingEmployers",
@@ -83,7 +91,14 @@ export class OrganizerAccountComponent implements OnInit {
             routeToElement: "/organizer/employer-participation",
             list: [],
             loading: true,
-            ifGet: true
+            ifGet: true,
+            ListButtonsOptions: {
+              useSaved: false,
+              isSaved: false,
+              useDelete: true,
+              useApprove: true,
+              useGettingInside: false
+            }
         } as PaginationUse<ParticipationRequest>
     ];
 

@@ -217,6 +217,7 @@ export class PaginationService {
     }
 
     updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[]): void {
+      console.log( "Current  id: " + this.currentTabId)
         const elem = this.getPaginationUseById(this.currentTabId, paginationUseList);
         if (elem) {
             elem.length = elem.length - 1;
