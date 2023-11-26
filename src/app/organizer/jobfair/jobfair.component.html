@@ -60,8 +60,8 @@
             id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
             <!-- Pills content -->
             <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'employers', paginationUseList)"
-                           [length]="length"
-                           [pageSize]="pageSize"
+                           [length]="getPaginationService().getLengthById('employers',paginationUseList)"
+                           [pageSize]="getPaginationService().getPageSizeById('employers',paginationUseList)"
                            [pageSizeOptions]="[5, 10, 25, 100]"
                            aria-label="Select page">
             </mat-paginator>
