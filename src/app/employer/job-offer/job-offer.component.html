@@ -55,7 +55,7 @@
               class="card-text"> {{employerAccountData?.displayDescription ? employerAccountData?.displayDescription : "Brak"}}</p>
             <div class="my-center text-end">
               <i class="fa-solid fa-right-to-bracket useable-icon"
-                 [routerLink]="'/employer/'+employerAccountData?.id"></i>
+                 [routerLink]="isOwner? '/employer/account' : '/'+role+'/employer/'+employerAccountData?.id"></i>
             </div>
 
           </div>
@@ -97,7 +97,7 @@
       </div>
 
 
-      <div class="row">
+      <div class="row" *ngIf="isOwner">
         <div class="col-md-8 text-end mb-3">
           <button class="btn btn-secondary" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
             Edytuj

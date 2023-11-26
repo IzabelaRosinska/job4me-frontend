@@ -47,10 +47,11 @@ export class EmployerAccountComponent implements OnInit {
   loadingAccount: boolean = true;
   loadingOffers: boolean = true;
   isOwner: boolean = false;
+  role = localStorage.getItem('role');
 
   addJobOfferForList(offer: JobOffer): void {
     let offerAsItemInsideList: ItemInsideList = {
-      route: "/employer/job-offer/" + offer.id,
+      route: this.isOwner?"/employer/job-offer/" + offer.id : "/"+this.role+"/employer/job-offer/" + offer.id,
       image: this.employerAccount.photo ? this.employerAccount.photo : this.companyPhoto,
       name: offer.offerName,
       id: offer.id ? offer.id : 0,
@@ -69,8 +70,9 @@ export class EmployerAccountComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const role = localStorage.getItem('role');
-      if (params.get('employer-id') && role) {
-        this.serviceEmployer.getEmployerById(params.get('employer-id'), role).subscribe((response) => {
+      const employerId = Number(params.get('employer-id'));
+      if (employerId && role) {
+        this.serviceEmployer.getEmployerById(employerId, role).subscribe((response) => {
           this.employerAccount = response;
           this.loadingAccount = false;
         });

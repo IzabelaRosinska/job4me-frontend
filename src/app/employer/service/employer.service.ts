@@ -31,8 +31,8 @@ export class EmployerService {
     });
   }
 
-  getEmployerById(id: number | string | null, role: string): Observable<EmployerAccount> {
-    const route = ROUTES.BACKEND_ROUTE + '/' + role + '/employer/' + (id ? id : 0) + '/account/';
+  getEmployerById(id: number | string, role: string): Observable<EmployerAccount> {
+    const route = ROUTES.BACKEND_ROUTE + '/' + role + '/employer/' + id + '/account';
     return this.http.get<EmployerAccount>(route, {
       withCredentials: true,
     });

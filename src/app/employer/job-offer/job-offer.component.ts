@@ -35,18 +35,36 @@ export class JobOfferComponent implements OnInit {
   companyPhoto = '../../assets/company.png';
   employerAccountData?: EmployerAccount;
   loading: boolean = true;
+  isOwner: boolean = false;
+  role!: string | null;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.serviceEmployer.getJobOffer(params.get('id')).subscribe((response) => {
+      this.role = localStorage.getItem('role');
+      this.serviceEmployer.getJobOffer(params.get('job-offer-id')).subscribe((response) => {
         this.jobOfferData = response;
-        this.loading = false;
+        this.route.url.subscribe((url) => {
+          console.log(url);
+          if(url.length == 3 && this.role=="employer"){
+            this.isOwner = true;
+            this.serviceEmployer.getEmployer().subscribe((responseEmployer) => {
+              this.employerAccountData = responseEmployer;
+              this.loading = false;
+              console.log(this.isOwner);
+            });
+          }else if(this.role){
+            this.serviceEmployer.getEmployerById(response.employerId, this.role).subscribe((responseEmployer) => {
+              this.employerAccountData = responseEmployer;
+              this.loading = false;
+            });
+          }
+        });
+
+
       });
     });
 
-    this.serviceEmployer.getEmployer().subscribe((response) => {
-      this.employerAccountData = response;
-    });
+
 
 
   }
