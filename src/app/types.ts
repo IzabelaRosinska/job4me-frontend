@@ -20,7 +20,7 @@ export interface EmployerAccount {
   description: string;
   displayDescription: string;
   telephone: string;
-  contactEmail: string;
+  email: string;
   photo?: string;
   address?:  string;
 }

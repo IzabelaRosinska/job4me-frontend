@@ -53,8 +53,8 @@ export class JobOfferEditFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((params) => {
-      if (params.get('id')) {
-        this.employerService.getJobOffer(params.get('id')).subscribe((response) => {
+      if (params.get('job-offer-id')) {
+        this.employerService.getJobOffer(params.get('job-offer-id')).subscribe((response) => {
           this.jobOfferData = response;
           this.loading = false;
         });
@@ -168,7 +168,7 @@ export class JobOfferEditFormComponent implements OnInit {
 
       }
     }
-    console.log(this.dict[attribute]);
+    console.log( this.dict[attribute]);
   }
 
 

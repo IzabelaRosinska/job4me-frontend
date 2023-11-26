@@ -1,64 +1,76 @@
 <app-loading-screen *ngIf="loadingAccount"></app-loading-screen>
 
 <div class="main w-100" *ngIf="!loadingAccount">
-  <div class="content">
-    <!--  Introductory panel-->
-    <div class="container info-panel p-4">
-      <div class="row ">
+    <div class="content">
+        <!--  Introductory panel-->
+        <div class="container info-panel p-4">
+            <div class="row ">
 
 
-        <div class="col-xs-10 col-md-5 col-lg-4 col-xl-3 text-xs-center text-sm-center text-md-start">
-          <img [src]="employerAccount.photo ? employerAccount.photo : companyPhoto " class="company-icon">
+                <div class="col-xs-10 col-md-5 col-lg-4 col-xl-3 text-xs-center text-sm-center text-md-start">
+                    <img [src]="employerAccount.photo ? employerAccount.photo : companyPhoto " class="company-icon">
+                </div>
+
+                <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start">
+                    <h1 class="name-text">{{employerAccount.companyName}}</h1>
+
+                    <h3><i>{{employerAccount.email}}  |  {{employerAccount.telephone}} </i><br>
+                        <i>{{employerAccount.address}} </i>
+                    </h3>
+
+                    <p class="text-description"
+                       *ngIf="employerAccount.description"> {{employerAccount.description}} </p>
+                </div>
+
+            </div>
         </div>
 
-        <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start">
-          <h1 class="name-text">{{employerAccount.companyName}}</h1>
+        <!--  Offers Panel-->
+        <div class="container info-panel p-4 ">
+            <h2 class="text-center">Oferty</h2>
+            <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
+                           [length]="getPaginationService().getLengthById('job-offers',paginationUseList)"
+                           [pageSize]="getPaginationService().getPageSizeById('job-offers',paginationUseList)"
+                           [pageSizeOptions]="[5, 10, 25, 100]"
+                           aria-label="Select page">
+            </mat-paginator>
+            <hr>
 
-          <h3><i>{{employerAccount.contactEmail}}  |  {{employerAccount.telephone}} </i><br>
-            <i>{{employerAccount.address}} </i>
-          </h3>
+            <div class="">
+                <div class="pb-3">
+                    <app-filter-sort-panel
+                            (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)"
+                            (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
+                            [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+                </div>
+                <app-loading-screen
+                        *ngIf="getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"></app-loading-screen>
+                <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)"
+                               *ngIf="!getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"
+                               (deleteItemOut)="deleteJobOffer($event)"
+                               ></app-item-list>
+            </div>
 
-          <p class="text-description" *ngIf="employerAccount.description"> {{employerAccount.description}} </p>
         </div>
 
-      </div>
+        <!--  Actions Panel-->
+        <div class="container info-panel" *ngIf="isOwner">
+            <div class="row align-items-center">
+
+                <div class="col-sm-12 col-lg-6">
+                    <button class="btn btn-primary w-100 form-button-action" routerLink="/employer/editInfo">Edytuj
+                        informacje
+                    </button>
+                </div>
+
+                <div class="col-sm-12 col-lg-6">
+                    <button class="btn btn-primary w-100 form-button-action" routerLink="/employer/add-job-offer">Dodaj
+                        ofertę
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-    <!--  Offers Panel-->
-    <div class="container info-panel p-4 ">
-      <h2 class="text-center">Oferty</h2>
-      <mat-paginator (page)="handlePageEvent($event)"
-                     [length]="length"
-                     [pageSize]="pageSize"
-                     [pageSizeOptions]="[5, 10, 25, 100]"
-                     aria-label="Select page">
-      </mat-paginator>
-      <hr>
-
-      <div class="">
-        <app-loading-screen *ngIf="loadingOffers"></app-loading-screen>
-        <app-item-list [items]="offersAsList" *ngIf="!loadingOffers" (deleteItemOut)="deleteJobOffer($event)"
-                       [filters]="filters"></app-item-list>
-      </div>
-
-    </div>
-
-    <!--  Actions Panel-->
-    <div class="container info-panel" *ngIf="isOwner">
-      <div class="row align-items-center">
-
-        <div class="col-sm-12 col-lg-6">
-          <button class="btn btn-primary w-100 form-button-action" routerLink="/employer/editInfo">Edytuj informacje
-          </button>
-        </div>
-
-        <div class="col-sm-12 col-lg-6">
-          <button class="btn btn-primary w-100 form-button-action" routerLink="/employer/add-job-offer">Dodaj ofertę
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
 </div>
 

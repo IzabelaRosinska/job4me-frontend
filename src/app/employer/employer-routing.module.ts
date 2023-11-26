@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},
   {path: 'employer/job-offer/:job-offer-id/edit-form', component: JobOfferEditFormComponent},
   {path: 'employer/job-offer/:job-offer-id', component: JobOfferComponent},
-  {path: 'employer/editInfo', component: EmployerInfoFormComponent},
+  {path: 'employer/edit-form', component: EmployerInfoFormComponent},
   {path: 'employer/add-job-offer', component: JobOfferEditFormComponent},
 ];
 
