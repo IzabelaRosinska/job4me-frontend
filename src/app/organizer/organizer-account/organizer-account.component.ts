@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  ForListBackend,
-  ItemInsideList,
-  JobFair,
-  OrganizerAccount,
-  Page,
-  PaginationUse,
-  ParticipationRequest
+    FiliterType,
+    ForListBackend,
+    ItemInsideList,
+    JobFair,
+    OrganizerAccount,
+    Page,
+    PaginationUse,
+    ParticipationRequest
 } from "../../types";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
@@ -64,7 +65,7 @@ export class OrganizerAccountComponent implements OnInit {
             pageSize: 5,
             pageIndex: 0,
             length: 20,
-            params: "&status=true",
+            params: [["status","true"]],
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
             routeToElement: "/organizer/employer-participation",
@@ -85,7 +86,7 @@ export class OrganizerAccountComponent implements OnInit {
             pageSize: 5,
             pageIndex: 0,
             length: 20,
-            params: "&status=false",
+            params: [["status","false"]],
             state: new Observable<Page<ParticipationRequest>>(),
             route: "/organizer/employer-participation",
             routeToElement: "/organizer/employer-participation",
@@ -163,6 +164,8 @@ export class OrganizerAccountComponent implements OnInit {
 
 
     protected readonly console = console;
+    protected readonly FiliterType = FiliterType;
+
 }
 
 

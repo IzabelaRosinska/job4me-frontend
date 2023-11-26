@@ -152,7 +152,7 @@ export interface PaginationUse<T> {
   route: string,
   routeToElement: string,
   ifGet: boolean,
-  params?: string,
+  params?: [string,string][],
   state: Observable<Page<T>>,
   class?: string,
   list: ItemInsideList[],
@@ -198,6 +198,8 @@ export enum FiliterType {
   contractTypeNames = "contractTypeNames",
   salaryFrom = "salaryFrom",
   salaryTo = "salaryTo",
-  offerName = "offerName"
+  offerName = "offerName",
+  jobFairName = "jobFairName",
+  employerCompanyName = "employerCompanyName",
 }
 

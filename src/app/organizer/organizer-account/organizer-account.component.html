@@ -97,6 +97,12 @@
           <hr>
 
           <div class="">
+            <div class="pb-3">
+              <app-filter-sort-panel
+                (filterOptionSelectedOutput)="getPaginationService().updateFilters('pendingEmployers',paginationUseList, $event)"
+                (sortOptionSelectedOutput)="getPaginationService().updateSorting('pendingEmployers',paginationUseList,$event)"
+                [filter]="[FiliterType.jobFairName, FiliterType.employerCompanyName]"></app-filter-sort-panel>
+            </div>
             <app-loading-screen
               *ngIf="getPaginationService().getPaginationUseById('pendingEmployers',paginationUseList)?.loading"></app-loading-screen>
             <app-item-list *ngIf="!getPaginationService().getPaginationUseById('pendingEmployers',paginationUseList)?.loading"
@@ -120,6 +126,12 @@
           <hr>
 
           <div class="">
+            <div class="pb-3">
+              <app-filter-sort-panel
+                (filterOptionSelectedOutput)="getPaginationService().updateFilters('acceptedEmployers',paginationUseList, $event)"
+                (sortOptionSelectedOutput)="getPaginationService().updateSorting('acceptedEmployers',paginationUseList,$event)"
+                [filter]="[FiliterType.jobFairName, FiliterType.employerCompanyName]"></app-filter-sort-panel>
+            </div>
             <app-loading-screen
               *ngIf="getPaginationService().getPaginationUseById('acceptedEmployers',paginationUseList)?.loading"></app-loading-screen>
             <app-item-list *ngIf="!getPaginationService().getPaginationUseById('acceptedEmployers',paginationUseList)?.loading"

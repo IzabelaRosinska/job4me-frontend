@@ -66,46 +66,108 @@ export class PaginationService {
         return false;
     }
 
+    convertParamsToString(params: [string, string][] | undefined): string {
+      if(params){
+          let paramsString = '';
+          params.forEach((elem) => {
+              paramsString += '&' + elem[0] + '=' + elem[1];
+          })
+          return paramsString;
+      }else{
+          return '';
+      }
+    }
 
     changePaginationState(paginationUse: PaginationUse<ForListBackend>, listButtonsOptions: ListButtonsOptions | undefined): void {
         paginationUse.list = [];
         paginationUse.loading = true;
         paginationUse.state = this.paginateDataWithParams$(
-            paginationUse.route, paginationUse.filters,paginationUse.ifGet, paginationUse.pageIndex, paginationUse.pageSize, paginationUse.params ? paginationUse.params : '').pipe(
+            paginationUse.route, paginationUse.filters,paginationUse.ifGet, paginationUse.pageIndex, paginationUse.pageSize, this.convertParamsToString(paginationUse.params)).pipe(
             map((response: Page<ForListBackend>) => {
-                    response.content.forEach(
-                        (elem) => {
-                            const insideList = this.addElementToDisplayList(elem, paginationUse.routeToElement, listButtonsOptions);
-                            paginationUse.list.push(insideList);
-                        }
-                    );
+                    if(response.content){
+                        response.content.forEach(
+                            (elem) => {
+                                const insideList = this.addElementToDisplayList(elem, paginationUse.routeToElement, listButtonsOptions);
+                                paginationUse.list.push(insideList);
+                            }
+                        );
+                    }
                     paginationUse.loading = false;
                     return response;
                 }
             ));
     }
 
-    updateFilters(id: string, paginationUseList: PaginationUse<ForListBackend>[], filters: [FiliterType,string[]][]): void {
 
-      const paginationUse = this.getPaginationUseById(id, paginationUseList);
-      if (paginationUse) {
-        paginationUse.filters = this.convertFiltersToFiltersDto(filters);
-        this.gotToPage(paginationUseList, id);
-        paginationUse.state.subscribe((response) => {
-          paginationUse.length = response ? response.totalElements : 0;
-        });
+
+    getParamIndexByName(name: string, paginationUse: PaginationUse<ForListBackend>): number | undefined {
+      const param = paginationUse.params?.find((elem) => elem[0] === name);
+      if (param) {
+        return paginationUse.params?.indexOf(param);
+      }
+      return undefined;
+    }
+
+    addParam(paginationUse: PaginationUse<ForListBackend>, param: [string, string | undefined]): void {
+      if(param[1]){
+          if(paginationUse.params){
+              const paramIndex = this.getParamIndexByName(param[0], paginationUse);
+
+              console.log(paramIndex+ " "+ param[0] + " " + param[1]);
+
+              if(paramIndex){
+                  if(param[1] == ""){
+                      paginationUse.params.splice(paramIndex, 1);
+                  }
+                  paginationUse.params[paramIndex][1] = param[1]
+              }else{
+                  paginationUse.params?.push([param[0], param[1]]);
+              }
+          }else{
+              paginationUse.params = [[param[0], param[1]]];
+          }
+      }else{
+          if(paginationUse.params){
+              const paramIndex = this.getParamIndexByName(param[0], paginationUse);
+              if(paramIndex){
+                  paginationUse.params.splice(paramIndex, 1);
+              }
+          }
       }
     }
 
     updateSorting(id: string, paginationUseList: PaginationUse<ForListBackend>[], sorting: number): void {
       const paginationUse = this.getPaginationUseById(id, paginationUseList);
       if (paginationUse) {
-        paginationUse.params = "&order=" + sorting;
+        this.addParam(paginationUse, ["order", sorting.toString()]);
         this.gotToPage(paginationUseList, id);
         paginationUse.state.subscribe((response) => {
-          paginationUse.length = response ? response.totalElements : 0;
-        });
+          paginationUse.length = response ? response.totalElements : 0;});
       }
+    }
+
+    updateFilters(id: string, paginationUseList: PaginationUse<ForListBackend>[], filters: [FiliterType,string[]][]): void {
+
+        const paginationUse = this.getPaginationUseById(id, paginationUseList);
+        if (paginationUse) {
+          var filterIsObject = false;
+          filters.forEach((elem) => {
+            console.log(elem[0] + " " + elem[1][0]);
+            if(!this.variablesService.dictionaryIfObjectFilter[elem[0]]){
+                this.addParam(paginationUse, [elem[0], elem[1][0]]);
+            }else{
+                filterIsObject = true;
+            }
+          });
+          if(filterIsObject){
+              paginationUse.filters = this.convertFiltersToFiltersDto(filters);
+          }
+          this.gotToPage(paginationUseList, id);
+          paginationUse.state.subscribe((response) => {
+              paginationUse.length = response ? response.totalElements : 0;
+          });
+
+        }
     }
 
     convertFiltersToFiltersDto(filters: [FiliterType,string[]][]): JobOfferFilterDto {

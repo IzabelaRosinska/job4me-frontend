@@ -15,10 +15,15 @@ export class VariablesService implements OnInit {
   employmentFormNames: string[] = []
   contractTypes: string[] = []
 
-  dictionaryIfLoaded!: Record<FiliterType, boolean>
-  dictionaryOfLoadedData!: Record<FiliterType, string[]>
+
 
   private initialized: boolean = false;
+
+
+  dictionaryIfObjectFilter!: Record<FiliterType, boolean>
+
+  dictionaryIfLoaded!: Record<FiliterType, boolean>
+  dictionaryOfLoadedData!: Record<FiliterType, string[]>
 
   filterTranslations: Record<FiliterType, string> = {
     cities: "Miasto",
@@ -29,6 +34,8 @@ export class VariablesService implements OnInit {
     salaryTo: "Wynagrodzenie do",
     contractTypeNames: "Typ umowy",
     offerName: "Nazwa oferty",
+    jobFairName: "Nazwa targów",
+    employerCompanyName: "Nazwa firmy",
   }
 
   sortOffersOptions: Record<string, number> = {
@@ -74,6 +81,8 @@ export class VariablesService implements OnInit {
                 salaryFrom: false,
                 salaryTo: false,
                 offerName: false,
+                jobFairName: false,
+                employerCompanyName: false,
               }
 
               this.dictionaryOfLoadedData = {
@@ -85,6 +94,21 @@ export class VariablesService implements OnInit {
                 salaryFrom: [],
                 salaryTo: [],
                 offerName: [],
+                jobFairName: [],
+                employerCompanyName: [],
+              }
+
+              this.dictionaryIfObjectFilter = {
+                cities: true,
+                levelNames: true,
+                industryNames: true,
+                employmentFormNames: true,
+                contractTypeNames: true,
+                salaryFrom: true,
+                salaryTo: true,
+                offerName: true,
+                jobFairName: false,
+                employerCompanyName: false,
               }
               this.initialized = true;
             });
