@@ -33,6 +33,10 @@ export interface OrganizerAccount {
   telephone: string;
 }
 
+export interface PaymentCheckout {
+  url: string
+}
+
 export interface JobFair {
   id: number;
   name: string;
