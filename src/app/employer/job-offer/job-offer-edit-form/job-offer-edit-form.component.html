@@ -102,7 +102,7 @@
             Rodzaj pracy
           </button>
           <ul class="table dropdown-menu option-menu">
-            <li *ngFor="let option of variableService.employmentForms">
+            <li *ngFor="let option of variableService.employmentFormNames">
               <div class="form-check dropdown-item option-item">
                 <input class="form-check-input" type="checkbox" [value]="option" [id]="option"
                   (click)="optionClicked(option,'employmentForms'); console.log(jobOfferData.employmentForms)" >

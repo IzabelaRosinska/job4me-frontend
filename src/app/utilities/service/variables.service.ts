@@ -1,40 +1,95 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {idNameListElement, Page} from "../../types";
+import {FiliterType, idNameListElement, Page} from "../../types";
 import {ROUTES} from "../../../environments/environments";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
-export class VariablesService {
+export class VariablesService implements OnInit {
 
-  localizations: string[] = []
+  cities: string[] = []
   levels: string[] = []
   industries: string[] = []
-  employmentForms: string[] = []
+  employmentFormNames: string[] = []
   contractTypes: string[] = []
 
+  dictionaryIfLoaded!: Record<FiliterType, boolean>
+  dictionaryOfLoadedData!: Record<FiliterType, string[]>
+
+  filterTranslations: Record<FiliterType, string> = {
+    cities: "Miasto",
+    employmentFormNames: "Forma zatrudnienia",
+    levelNames: "Poziom",
+    industryNames: "Branża",
+    salaryFrom: "Wynagrodzenie od",
+    salaryTo: "Wynagrodzenie do",
+    contractTypeNames: "Typ umowy",
+    offerName: "Nazwa oferty",
+  }
+
+  sortOffersOptions: Record<string, number> = {
+    "Nie sortuj" : 1,
+    "Po wynagrodzeniu od najniższego" : 2,
+    "Po wynagrodzeniu od najwyższego" : 3,
+    "Po nazwie od A do Z" : 4,
+    "Po nazwie od Z do A" : 5
+  }
+
   constructor(private http: HttpClient) {
+    this.initVariables();
+  }
+
+  getSortingOffersOptionsStrings(): string[] {
+    return Object.keys(this.sortOffersOptions);
   }
 
   initVariables() {
-    this.getLocalizations().subscribe((response) => {
-      this.localizations = response.content.map((element) => element.name);
-    });
-    this.getLevels().subscribe((response) => {
-      this.levels = response.content.map((element) => element.name);
-    });
-    this.getIndustries().subscribe((response) => {
-      this.industries = response.content.map((element) => element.name);
-    });
-    this.getEmploymentForms().subscribe((response) => {
-      this.employmentForms = response.content.map((element) => element.name);
-    });
-    this.getContractTypes().subscribe((response) => {
-      this.contractTypes = response.content.map((element) => element.name);
-    });
+    // this.getLocalizations().subscribe((response0) => {
+    //   this.cities = response0.content.map((element) => element.name);
+
+      this.getLevels().subscribe((response1) => {
+        this.levels = response1.content.map((element) => element.name);
+
+        this.getIndustries().subscribe((response2) => {
+          this.industries = response2.content.map((element) => element.name);
+
+          this.getEmploymentFormsNames().subscribe((response3) => {
+            this.employmentFormNames = response3.content.map((element) => element.name);
+
+            this.getContractTypes().subscribe((response4) => {
+              this.contractTypes = response4.content.map((element) => element.name);
+
+              this.dictionaryIfLoaded = {
+                cities: false,
+                levelNames: true,
+                industryNames: true,
+                employmentFormNames: true,
+                contractTypeNames: true,
+                salaryFrom: false,
+                salaryTo: false,
+                offerName: false,
+              }
+
+              this.dictionaryOfLoadedData = {
+                cities: [],
+                levelNames: this.levels,
+                industryNames: this.industries,
+                employmentFormNames: this.employmentFormNames,
+                contractTypeNames: this.contractTypes,
+                salaryFrom: [],
+                salaryTo: [],
+                offerName: [],
+              }
+            });
+          });
+        });
+      });
+    // });
   }
+
+
 
   getLocalizations(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/localizations';
@@ -57,7 +112,7 @@ export class VariablesService {
     });
   }
 
-  getEmploymentForms(): Observable<Page<idNameListElement>> {
+  getEmploymentFormsNames(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/employment-forms';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
@@ -69,6 +124,10 @@ export class VariablesService {
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ItemInsideList} from "../../types";
+import {FiliterType, ItemInsideList} from "../../types";
 import {filter} from "rxjs";
 
 @Component({
@@ -10,14 +10,15 @@ import {filter} from "rxjs";
 export class ItemListComponent {
   @Input() items: ItemInsideList[] | null = [];
 
-  @Input() filters: [string,string][] =  []
+  @Input() filters: FiliterType[] =  []
 
-  filterOptionsChecked: string[] = [];
+  filterOptionsChecked: [FiliterType,string[]][] = [];
 
   constructor() {}
 
   @Output() deleteItemOut = new EventEmitter<number>();
   @Output() acceptItemOut = new EventEmitter<number>();
+  @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType,string[]][]> = new EventEmitter<[FiliterType,string[]][]>();
 
   deleteItem(id: number): void {
     if(this.items){
@@ -33,9 +34,10 @@ export class ItemListComponent {
     }
   }
 
-  filterOptionUpdate(selectedItems: string[]) {
+  filterOptionUpdate(selectedItems: [FiliterType,string[]][]) {
     this.filterOptionsChecked = selectedItems;
     console.log(this.filterOptionsChecked);
+    this.filterOptionSelectedOutput.emit(this.filterOptionsChecked);
   }
 
 }

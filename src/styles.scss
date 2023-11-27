@@ -18,6 +18,7 @@ body {
 /* Importing components*/
 @import "scss/components/_buttons.scss";
 
+
 /* Importing layout*/
 @import "scss/layout/_header.scss";
 @import "scss/layout/_body.scss";
@@ -27,5 +28,5 @@ body {
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
- 
+
 @import 'mdb-angular-ui-kit/assets/scss/mdb.scss';

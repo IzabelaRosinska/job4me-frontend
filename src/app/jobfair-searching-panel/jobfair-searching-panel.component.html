@@ -1,0 +1,31 @@
+<div class="m-5 p-5">
+  <div
+    class="{{getPaginationService().isActiveById('job-fairs', paginationUseList)? 'show active' : ''}}"
+    id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+    <!-- Pills content -->
+    <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-fairs', paginationUseList)"
+                   [length]="getPaginationService().getLengthById('job-fairs',paginationUseList)"
+                   [pageSize]="getPaginationService().getPageSizeById('job-fairs',paginationUseList)"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   class="white-background" aria-label="Select page">
+    </mat-paginator>
+    <hr>
+
+    <div class="">
+      <div class="pb-3">
+        <app-filter-sort-panel
+          (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-fairs',paginationUseList, $event)"
+          (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-fairs',paginationUseList,$event)"
+          [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+      </div>
+      <app-loading-screen
+        *ngIf="getPaginationService().getPaginationUseById('job-fairs',paginationUseList)?.loading"></app-loading-screen>
+      <app-item-list [items]="getPaginationService().getDisplayListById('job-fairs',paginationUseList)"
+                     *ngIf="!getPaginationService().getPaginationUseById('job-fairs',paginationUseList)?.loading"
+                     [filters]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames]"
+      ></app-item-list>
+    </div>
+
+  </div>
+</div>
+

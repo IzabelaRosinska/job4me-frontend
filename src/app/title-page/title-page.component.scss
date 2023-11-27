@@ -1,0 +1,47 @@
+
+#intro {
+  background: url("../../assets/title-page-photo.jpg") no-repeat center center fixed;
+  background-color: rgba(62, 69, 81, 0.7);
+  max-height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.rgba-stylish-strong {
+  background-color: rgba(62, 69, 81, 0.7);
+  margin-top: 7.5vh;
+}
+
+.mask-main {
+  height: 100vh !important;
+  width: 100%;
+}
+
+h1 {
+  text-outline: 10px #465e8c;
+  font-size: 70px;
+  outline: 10px #465e8c;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.text-shadow-solid {
+  text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, -1px 2px 0 #000, 2px 2px 0 #000;
+}
+
+jobfair-photo {
+  width: 207px;
+  height: 135px;
+}
+
+.container {
+  max-width: 100% !important;
+}
