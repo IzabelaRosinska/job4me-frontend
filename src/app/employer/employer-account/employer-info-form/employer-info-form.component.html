@@ -1,10 +1,9 @@
-<div class="container align-content-left text-left main">
-
-
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+<div class="container align-content-left text-left main" *ngIf="!loading">
     <div class="fieldset-outer">
         <fieldset class="common-inputs-fieldset">
             <form #employerForm="ngForm" action="">
-                
+
                 <legend class="mb-3">Dane firmowe</legend>
 
                 <div class="form-outline mt-0 pt-4">
@@ -16,7 +15,7 @@
                             [(ngModel)]="employerAccount.companyName"
                             required>
                         <label mdbLabel class="form-label" for="companyName">Nazwa firmy*</label>
-          
+
                     </mdb-form-control>
                     <div *ngIf="employerForm.submitted && !companyName.checkValidity()"
                          class="text-start invalid-message">Uzupełnij nazwę firmy</div>
@@ -28,11 +27,11 @@
                             class="form-control white-field {{email.checkValidity() ? 'is-valid' : 'is-invalid'}}"
                             [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                             name="email" placeholder="Adres kontaktowy email"
-                            [(ngModel)]="employerAccount.contactEmail" required>
+                            [(ngModel)]="employerAccount.email" required>
                         <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
-          
+
                     </mdb-form-control>
-                    <div *ngIf="!email.checkValidity() && (employerForm.submitted || email.value.length > 0)" class="text-start invalid-message"> 
+                    <div *ngIf="!email.checkValidity() && (employerForm.submitted || email.value.length > 0)" class="text-start invalid-message">
                         {{email.value.length == 0 ? 'Email kontaktowy jest wymagany' : 'Email kontaktowy musi mieć format emaila'}}</div>
                 </div>
 
@@ -44,7 +43,7 @@
                             name="phoneNumber" placeholder="Numer telefonu" (change)="phoneNumber.checkValidity()"
                             [(ngModel)]="employerAccount.telephone">
                         <label mdbLabel class="form-label" for="phoneNumber">Numer telefonu</label>
-          
+
                     </mdb-form-control>
                     <div *ngIf="employerForm.submitted && !phoneNumber.checkValidity()" (change)="phoneNumber.checkValidity()"
                          class="text-start invalid-message">Podano niepoprawny numer telefonu</div>
@@ -58,7 +57,7 @@
                             name="description" (change)="description.checkValidity()"
                             [(ngModel)]="employerAccount.description" rows="10" required></textarea>
                         <label mdbLabel class="form-label" for="description">Opis firmy*</label>
-          
+
                     </mdb-form-control>
                     <div *ngIf="employerForm.submitted && !description.checkValidity()" (change)="description.checkValidity()"
                          class="text-start invalid-message">{{description.value.length > 0 ? '' : 'Uzupełnij opis firmy'}}</div>
@@ -72,7 +71,7 @@
                             name="displayDescription" placeholder="Krótki, reprezentatywny opis firmy" (change)="displayDescription.checkValidity()"
                             [(ngModel)]="employerAccount.displayDescription" rows="3" required></textarea>
                         <label mdbLabel class="form-label" for="displayDescription">Krótki opis firmy*</label>
-          
+
                     </mdb-form-control>
                     <div *ngIf="employerForm.submitted && !displayDescription.checkValidity()" (change)="displayDescription.checkValidity()"
                          class="text-start invalid-message">{{displayDescription.value.length > 0 ? '' : 'Uzupełnij reprezentacyjny opis firmy'}}</div>
@@ -86,12 +85,12 @@
                             name="addres" placeholder="Adres" (change)="addres.checkValidity()"
                             [(ngModel)]="employerAccount.address">
                         <label mdbLabel class="form-label" for="addres">Adres</label>
-          
+
                     </mdb-form-control>
                     <div *ngIf="!addres.checkValidity()" (change)="addres.checkValidity()"
                          class="text-start invalid-message">Podano niepoprawny adres</div>
                 </div>
-                
+
                 <br><br>
 
                 <label for="fileDropRef" class="form-label">Grafika firmy</label>
@@ -112,7 +111,6 @@
                 </div>
                 <br><br>
 
-
                 <div class="container">
                     <div class="row">
                       <div class="col ps-0">
@@ -121,7 +119,7 @@
                           Odrzuć zmiany
                         </button>
                       </div>
-          
+
                       <div
                         class="col pe-0 w-100 text-center ps-0'">
                         <button class="btn btn-primary btn-block mb-4 btn-login w-100"
@@ -131,7 +129,7 @@
                           Potwierdź
                         </button>
                       </div>
-          
+
                     </div>
                 </div>
             </form>

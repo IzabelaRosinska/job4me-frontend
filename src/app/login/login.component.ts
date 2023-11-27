@@ -26,12 +26,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = false;
   }
 
   hide = true;
+  loading: boolean = true;
 
   logIn(loginForm: NgForm) {
-
+    this.loading = true;
     this.loginService.pushLoginData(this.loginData).pipe(
       catchError(err => {
         if (err.status === 404) {
@@ -54,9 +56,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', token);
 
             this.router.navigate(['/' + role + '/account']);
+            this.loading = false;
           }
           else{
             this.router.navigate(['/login']);
+            this.loading = false;
           }
 
           break;

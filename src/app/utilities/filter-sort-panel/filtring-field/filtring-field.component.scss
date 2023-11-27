@@ -17,6 +17,11 @@
   border-color: $MAIN_LOGO_COLOR_DARKER;
 }
 
+.dropdown-color-selected{
+  background-color: darken($MAIN_LOGO_COLOR,10%) ;
+  border-color: darken($MAIN_LOGO_COLOR,10%);
+}
+
 
 .example-container mat-form-field + mat-form-field {
   margin-left: 8px;
@@ -39,5 +44,4 @@ input.example-right-align {
   background-color: white;
   border-color: white;
 }
-
 

@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployerAccount, FiliterType, ItemInsideList, JobOffer, Page} from "../../types";
+import {EmployerAccount, FiliterType, ForListBackend, ItemInsideList, JobOffer, Page, PaginationUse} from "../../types";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {EmployerService} from "../service/employer.service";
 import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {map} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
+import {PaginationService} from "../../utilities/service/pagination.service";
 
 @Component({
   selector: 'app-employer-account',
@@ -14,13 +15,9 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class EmployerAccountComponent implements OnInit {
 
-  jobOffersState$!: Observable<{ appState: string, appData?: Page<JobOffer>, error?: HttpErrorResponse }>;
-  responseSubject = new BehaviorSubject<Page<JobOffer>>({} as Page<JobOffer>);
-  private currentPageSubject = new BehaviorSubject<number>(0);
-  currentPage$ = this.currentPageSubject.asObservable();
-
   constructor(private serviceEmployer: EmployerService,
               private route: ActivatedRoute,
+              private paginationService: PaginationService,
               private router: Router) {
   }
 
@@ -29,28 +26,29 @@ export class EmployerAccountComponent implements OnInit {
   employerAccount: EmployerAccount = {
     id: 0,
     companyName: "",
-    contactEmail: "",
+    email: "",
     telephone: "",
     description: '',
     displayDescription: "",
   }
 
   pageSize: number = 5;
-  pageIndex: number = 0;
   length: number = 20;
 
-  pageEvent?: PageEvent;
+
   offersAsList: ItemInsideList[] = [];
 
   filters: FiliterType[] = [FiliterType.offerName, FiliterType.salaryFrom, FiliterType.salaryTo, FiliterType.industryNames, FiliterType.employmentFormNames];
 
+  paginationUseList: PaginationUse<ForListBackend>[] = []
   loadingAccount: boolean = true;
   loadingOffers: boolean = true;
   isOwner: boolean = false;
+  role = localStorage.getItem('role');
 
   addJobOfferForList(offer: JobOffer): void {
     let offerAsItemInsideList: ItemInsideList = {
-      route: "/employer/job-offer/" + offer.id,
+      route: this.isOwner?"/employer/job-offer/" + offer.id : "/"+this.role+"/employer/job-offer/" + offer.id,
       image: this.employerAccount.photo ? this.employerAccount.photo : this.companyPhoto,
       name: offer.offerName,
       id: offer.id ? offer.id : 0,
@@ -66,105 +64,103 @@ export class EmployerAccountComponent implements OnInit {
     this.offersAsList.push(offerAsItemInsideList);
   }
 
+  initPaginationUseList(role: string, employerId: number): void {
+    this.paginationUseList = [
+      {
+        id: "active-job-offers",
+        active: true,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        state: new Observable<Page<ForListBackend>>(),
+        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employer/"+employerId,
+        routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
+        params: [['isActive', 'true']],
+        list: [],
+        loading: true,
+        ListButtonsOptions: {
+          useGettingInside: true,
+          useDelete: true,
+          useSaved: false,
+          isSaved: false,
+          useApprove: false
+        },
+        ifGet: false,
+        filters: {}
+      },
+      {
+        id: "inactive-job-offers",
+        active: false,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        state: new Observable<Page<ForListBackend>>(),
+        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employer/"+employerId,
+        routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
+        params: [['isActive', 'false']],
+        list: [],
+        loading: true,
+        ListButtonsOptions: {
+          useGettingInside: true,
+          useDelete: true,
+          useSaved: false,
+          isSaved: false,
+          useApprove: false
+        },
+        ifGet: false,
+        filters: {}
+      }
+    ]
+    console.log("EmployerId: "+employerId);
+    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+      this.paginationService.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+    });
+    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
+      paginationUse.state.subscribe((response) => {
+        paginationUse.length = response ? response.totalElements : 0;
+        paginationUse.pageSize = response ? response.size : 0;
+        paginationUse.pageIndex = response ? response.number : 0;
+      });
+    });
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const role = localStorage.getItem('role');
-      if (params.get('employer-id') && role) {
-        this.serviceEmployer.getEmployerById(params.get('employer-id'), role).subscribe((response) => {
+      const employerId = Number(params.get('employer-id'));
+      if (employerId && role) {
+
+        this.serviceEmployer.getEmployerById(employerId, role).subscribe((response) => {
           this.employerAccount = response;
+          this.initPaginationUseList(role, employerId);
           this.loadingAccount = false;
         });
       } else {
         this.serviceEmployer.getEmployer().subscribe((response) => {
           this.employerAccount = response;
-          if (!this.employerAccount.companyName || !this.employerAccount.contactEmail || !this.employerAccount.telephone
+          if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.telephone
             || !this.employerAccount.description || !this.employerAccount.displayDescription) {
-            // this.router.navigate(['employer/editInfo']);
+            this.router.navigate(['employer/edit-form']);
           }
-          this.loadingAccount = false;
           this.isOwner = true;
+          this.initPaginationUseList(role?role:'', employerId);
+          this.loadingAccount = false;
         });
       }
-    });
 
-    this.jobOffersState$ = this.serviceEmployer.jobOffers$().pipe(
-      map((response) => {
-        this.responseSubject.next(response);
-        this.currentPageSubject.next(response.number);
-
-        response.content.forEach(
-          (offer) => {
-            this.addJobOfferForList(offer);
-          }
-        );
-
-        this.loadingOffers = false;
-
-        return ({appState: 'APP_LOADED', appData: response});
-      }),
-      startWith({appState: 'APP_LOADED'}),
-      catchError((error: HttpErrorResponse) => {
-          return of({appState: 'APP_ERROR', error})
-        }
-      )
-    )
-
-    this.jobOffersState$.subscribe((response) => {
-      this.length = response.appData ? response.appData.totalElements : 0;
-      this.pageSize = response.appData ? response.appData.size : 0;
-      this.pageIndex = response.appData ? response.appData.number : 0;
     });
   }
 
-
-  handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
-    this.gotToPage('', e.pageIndex);
-  }
-
-
-  gotToPage(name?: string, pageNumber: number = 0): void {
-    this.offersAsList = [];
-    this.loadingOffers = true;
-    this.jobOffersState$ = this.serviceEmployer.jobOffers$(pageNumber, this.pageSize).pipe(
-      map((response: Page<JobOffer>) => {
-
-        this.responseSubject.next(response);
-        this.currentPageSubject.next(response.number);
-
-        response.content.forEach(
-          (offer) => {
-            this.addJobOfferForList(offer);
-          }
-        );
-        this.loadingOffers = false;
-        console.log(response);
-        return ({appState: 'APP_LOADED', appData: response});
-      }),
-      startWith({appState: 'APP_LOADED', appData: this.responseSubject.value}),
-      catchError((error: HttpErrorResponse) => {
-          return of({appState: 'APP_ERROR', error})
-        }
-      )
-    )
-
-    this.jobOffersState$.subscribe((response) => {
-
-    });
+  getPaginationService(){
+    return this.paginationService;
   }
 
   deleteJobOffer(id: number): void {
     this.serviceEmployer.deleteJobOffer(id).subscribe((response) => {
-      this.gotToPage();
+        this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
     });
   }
 
-  print(text: string) {
-    console.log(text)
-  }
 
-
+  protected readonly FiliterType = FiliterType;
 }
