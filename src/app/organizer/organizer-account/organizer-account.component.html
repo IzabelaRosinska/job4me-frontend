@@ -148,11 +148,16 @@
 
 
     <!--  Actions Panel-->
-    <div class="container info-panel">
+    <div class="container info-panel" *ngIf="isOwner">
       <div class="row align-items-center">
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-md-6" >
           <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/edit-info">Edytuj informacje
+          </button>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/add-job-fair">Dodaj targi pracy
           </button>
         </div>
 
