@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {JobFair, JobOffer, OrganizerAccount, Page} from "../../types";
+import {JobFair, JobOffer, OrganizerAccount, Page, PaymentCheckout} from "../../types";
 import {Observable} from "rxjs";
 import {ROUTES} from "../../../environments/environments";
 import {shareReplay} from "rxjs/operators";
@@ -59,9 +59,9 @@ export class OrganizerService {
     }).pipe(shareReplay(1));
   }
 
-  getPayment(){
-    const route = ROUTES.BACKEND_ROUTE+'/payment';
-    return this.http.post<string>(route, {
+  getPayment() {
+    const route = ROUTES.BACKEND_ROUTE + '/payment';
+    return this.http.get<PaymentCheckout>(route, {
       headers: {"Content-Type": 'application/json'},
       withCredentials: true,
     });
