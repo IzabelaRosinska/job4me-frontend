@@ -16,6 +16,7 @@ export class EmployeeInfoFormComponent implements OnInit {
 
 
   loading: boolean = true;
+  creatingEmployee: boolean = false;
 
   constructor(public dialog: MatDialog,
               private router: Router,
@@ -39,7 +40,10 @@ export class EmployeeInfoFormComponent implements OnInit {
         this.employeeAccountInfo.projects = response.projects;
         this.employeeAccountInfo.interests = response.interests;
         this.loading = false;
-        console.log(this.employeeAccountInfo)
+
+        if(!this.employeeAccountInfo.firstName || !this.employeeAccountInfo.lastName || !this.employeeAccountInfo.email || !this.employeeAccountInfo.telephone){
+          this.creatingEmployee = true;
+        }
       });
     });
 
