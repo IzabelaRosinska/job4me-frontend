@@ -93,4 +93,10 @@ export class OrganizerInfoFormComponent implements OnInit {
     });
   }
 
+  payment(){
+    this.serviceOrganizer.getPayment().subscribe((response) => {
+
+    });
+  }
+
 }

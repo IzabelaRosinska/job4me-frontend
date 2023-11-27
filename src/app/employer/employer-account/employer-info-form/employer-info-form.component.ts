@@ -21,6 +21,7 @@ export class EmployerInfoFormComponent implements OnInit {
   selectedFile: File | null = null;
   imageData: string | null = null;
   MAX_FILE_SIZE = 10000;
+  loading: boolean = true;
 
 
   constructor(public dialog: MatDialog,
@@ -40,6 +41,7 @@ export class EmployerInfoFormComponent implements OnInit {
         this.employerAccount.displayDescription = response.displayDescription;
         this.employerAccount.photo = response.photo;
         this.employerAccount.address = response.address;
+        this.loading = false;
       });
     });
   }
@@ -94,14 +96,17 @@ export class EmployerInfoFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.loading = true;
         this.selectedFile = null;
         this.serviceEmployer.postEmployer(this.employerAccount).pipe(
           catchError((err) => {
+            this.loading = false;
             console.log(err);
             return [];
           })
         ).subscribe((response) => {
           this.router.navigate(['employer/account']);
+          this.loading = false;
         });
       }
     });

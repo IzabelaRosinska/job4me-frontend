@@ -59,4 +59,11 @@ export class OrganizerService {
     }).pipe(shareReplay(1));
   }
 
+  getPayment(){
+    const route = ROUTES.BACKEND_ROUTE+'/payment';
+    return this.http.get(route, {
+      withCredentials: true,
+    });
+  }
+
 }
