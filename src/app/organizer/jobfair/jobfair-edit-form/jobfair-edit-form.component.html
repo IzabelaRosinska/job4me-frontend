@@ -98,7 +98,7 @@
 
         <div class="container">
           <div class="row">
-            <div class="col ps-0" *ngIf="!this.firstTime">
+            <div class="col ps-0" *ngIf="!this.creatingJobFair">
               <button class="btn btn-primary btn-block mb-4 btn-login"
                       (click)="openDeclineDialog()">
                 Odrzuć zmiany
@@ -106,8 +106,8 @@
             </div>
 
             <div
-              class="col pe-0 w-100 {{this.firstTime ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
-              <button class="btn btn-primary btn-block mb-4 btn-login  {{this.firstTime ? 'w-50' : 'w-100' }}"
+              class="col pe-0 w-100 {{this.creatingJobFair ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
+              <button class="btn btn-primary btn-block mb-4 btn-login  {{this.creatingJobFair ? 'w-50' : 'w-100' }}"
                       (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() &&
                        dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?openConfirmDialog():''"
                       type="submit"

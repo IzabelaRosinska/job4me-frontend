@@ -18,7 +18,7 @@ export class JobfairEditFormComponent implements OnInit{
 
   loading: boolean = true;
   selectedDateTime: Date = new Date();
-  firstTime: boolean = false;
+  creatingJobFair: boolean = false;
 
   selectedFile: File | null = null;
   imageData: string | null = null;
@@ -65,7 +65,7 @@ export class JobfairEditFormComponent implements OnInit{
             this.loading = false;
         });
       }else{
-        this.firstTime = true;
+        this.creatingJobFair = true;
         this.loading = false;
       }
 
