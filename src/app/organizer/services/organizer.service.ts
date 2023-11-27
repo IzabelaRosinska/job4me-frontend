@@ -61,7 +61,8 @@ export class OrganizerService {
 
   getPayment(){
     const route = ROUTES.BACKEND_ROUTE+'/payment';
-    return this.http.get(route, {
+    return this.http.post<string>(route, {
+      headers: {"Content-Type": 'application/json'},
       withCredentials: true,
     });
   }
