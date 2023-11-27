@@ -75,11 +75,23 @@ export class ExpandedModuleFormComponent implements OnInit {
   }
 
   startAddingNewText() {
+    if (this.editMode != -1) this.addText(this.editMode)
+    if (this.newTextInputVisibile == true) this.addText()
+    this.newText = "";
+    this.editMode = -1;
     if(this.listOfTextsWithIndexes.length >= this.maxInputCount) return;
     this.newTextInputVisibile = true;
   }
 
   editText(index: number) {
+    this.newTextInputVisibile = false;
+    if (this.editMode != -1) {
+      if (this.editMode == index) {
+        this.addText(this.editMode)
+        return
+      }
+      this.addText(this.editMode)
+    }
     this.editMode = index;
     this.newText = this.listOfTextsWithIndexes[index][0];
   }

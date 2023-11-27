@@ -11,3 +11,23 @@
 .aboutMe{
   height: 150px;
 }
+
+.white-field{
+  background-color: white !important;
+}
+.invalid-message {
+  color: $ERROR_COLOR;
+  font-size: 12px;
+  margin-top: 0;
+  margin-left: 5px;
+}
+
+.form-size{
+  max-width: 800px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+:host ::ng-deep app-expanded-module-form h2 {
+  margin-left: 50px;
+}

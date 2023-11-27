@@ -1,4 +1,4 @@
-@import "../../../../scss/components/_dropdowns.scss";
+@import "src/scss/utils/_variables.scss";
 
 .list-elem {
   width: 98%;
@@ -35,5 +35,17 @@
   width: 60%;
 }
 
+.container-label {
+  margin-left: 40px;
+  border-left: 40px solid transparent;
 
+  p {
+    background-color: #eeeeee;
+  }
+}
+
+.double-field-form {
+  width: 30%;
+  min-width: 100px;
+}
 

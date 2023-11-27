@@ -53,8 +53,16 @@ export class JobfairService {
     }).pipe(shareReplay(1));
   }
 
+  recommendJobOffer(jobOfferId: number, jobFairId: number): Observable<any> {
+    const route =  ROUTES.BACKEND_ROUTE +'employee/job-offers/list-display/job-fair/'+jobOfferId+'/recommendation';
+    return this.http.request('put', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
   participationEmployers$ = (jobFairId: number, page: number = 0, size: number = 5): Observable<Page<ForListBackend>> =>
       this.http.get<Page<ForListBackend>>(`${ROUTES.BACKEND_ROUTE}/job-fairs/${jobFairId}/employers?&page=${page}&size=${size}`).pipe(shareReplay(1));
-
 
 }

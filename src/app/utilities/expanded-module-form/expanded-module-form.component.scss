@@ -48,4 +48,24 @@ input
   width: 90%;
 }
 
+.arrow
+{
+  min-width: 100px;
+}
 
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.element-on-left {
+  flex: 1;
+}
+
+.element-on-left.element-sticky {
+  margin-left: -10px; /* Dostosuj wartość marginesu do uzyskania pożądanego efektu */
+}
+
+.element-on-right {
+  margin-left: auto;
+}
