@@ -112,6 +112,19 @@
           <button type="submit" id="checkout-button" (click)="payment()" >Checkout</button>
         </form>
       </section>
+
+      <section>
+        <div class="product">
+          <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+          <div class="description">
+            <h3>Linkedin</h3>
+            <h5></h5>
+          </div>
+        </div>
+        <form action="/create-checkout-session" method="POST">
+          <button type="submit" id="checkout-button-linkedin" (click)="linkedinLogin()" >Checkout</button>
+        </form>
+      </section>
     </fieldset>
   </div>
 </div>

@@ -37,6 +37,10 @@ export interface PaymentCheckout {
   url: string
 }
 
+export interface LinkedinCheckout {
+  url: string
+}
+
 export interface JobFair {
   id: number;
   name: string;
