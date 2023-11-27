@@ -97,15 +97,20 @@
       </div>
 
 
-      <div class="row" *ngIf="isOwner">
+      <div class="row pt-5" *ngIf="isOwner">
         <div class="col-md-8 text-end mb-3">
-          <button class="btn btn-secondary btn-login" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
+          <button class="btn btn-secondary btn-login w-100" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
             Edytuj
           </button>
         </div>
-        <div class="col-md-8 text-end mb-3">
-          <button class="btn btn-secondary btn-login" [routerLink]="'/employer/job-offer/'+ jobOfferData.id +'/edit-form'">
-            Aktywuj oferte
+        <div class="col-md-8 text-end mb-3" *ngIf="!jobOfferData.isActive">
+          <button class="btn btn-secondary btn-login w-100" (click)="activatedOffer()">
+            Aktywuj ofertę
+          </button>
+        </div>
+        <div class="col-md-8 text-end mb-3" *ngIf="jobOfferData.isActive">
+          <button class="btn btn-secondary btn-login w-100" (click)="deactivatedOffer()">
+            Dezaktywuj ofertę
           </button>
         </div>
       </div>

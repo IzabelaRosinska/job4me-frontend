@@ -67,8 +67,8 @@ export class EmployerAccountComponent implements OnInit {
   initPaginationUseList(role: string, employerId: number): void {
     this.paginationUseList = [
       {
-        id: "job-offers",
-        active: false,
+        id: "active-job-offers",
+        active: true,
         pageSize: 5,
         pageIndex: 0,
         length: 20,
@@ -80,7 +80,29 @@ export class EmployerAccountComponent implements OnInit {
         loading: true,
         ListButtonsOptions: {
           useGettingInside: true,
-          useDelete: false,
+          useDelete: true,
+          useSaved: false,
+          isSaved: false,
+          useApprove: false
+        },
+        ifGet: false,
+        filters: {}
+      },
+      {
+        id: "inactive-job-offers",
+        active: false,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        state: new Observable<Page<ForListBackend>>(),
+        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employer/"+employerId,
+        routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
+        params: [['isActive', 'false']],
+        list: [],
+        loading: true,
+        ListButtonsOptions: {
+          useGettingInside: true,
+          useDelete: true,
           useSaved: false,
           isSaved: false,
           useApprove: false
@@ -126,38 +148,7 @@ export class EmployerAccountComponent implements OnInit {
         });
       }
 
-
-
-
     });
-
-    // this.jobOffersState$ = this.serviceEmployer.jobOffers$().pipe(
-    //   map((response) => {
-    //     this.responseSubject.next(response);
-    //     this.currentPageSubject.next(response.number);
-    //
-    //     response.content.forEach(
-    //       (offer) => {
-    //         this.addJobOfferForList(offer);
-    //       }
-    //     );
-    //
-    //     this.loadingOffers = false;
-    //
-    //     return ({appState: 'APP_LOADED', appData: response});
-    //   }),
-    //   startWith({appState: 'APP_LOADED'}),
-    //   catchError((error: HttpErrorResponse) => {
-    //       return of({appState: 'APP_ERROR', error})
-    //     }
-    //   )
-    // )
-    //
-    // this.jobOffersState$.subscribe((response) => {
-    //   this.length = response.appData ? response.appData.totalElements : 0;
-    //   this.pageSize = response.appData ? response.appData.size : 0;
-    //   this.pageIndex = response.appData ? response.appData.number : 0;
-    // });
   }
 
   getPaginationService(){

@@ -96,6 +96,7 @@ export interface JobOffer {
   extraSkills?: string[];
   duties: string;
   description?: string;
+  isActive?: boolean;
 }
 
 

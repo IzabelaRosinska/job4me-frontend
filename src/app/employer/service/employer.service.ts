@@ -61,7 +61,7 @@ export class EmployerService {
   }
 
   deleteJobOffer(id: number | string | null): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-offers/' + (id ? id : 0);
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + (id ? id : 0);
     return this.http.request('delete', route, {
       withCredentials: true,
       responseType: 'text',
@@ -74,6 +74,24 @@ export class EmployerService {
     return this.http.get<JobOffer>(route, {
       withCredentials: true,
     });
+  }
+
+  activateJobOffer(id: string | number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/activate';
+    return this.http.request('put', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  deactivateJobOffer(id: string | number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/deactivate';
+    return this.http.request('put', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
   }
 
   getJobOffers(page: number = 0, size: number = 20): Observable<any> {

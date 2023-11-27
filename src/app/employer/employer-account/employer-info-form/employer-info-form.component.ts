@@ -93,7 +93,6 @@ export class EmployerInfoFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
         this.selectedFile = null;
         this.serviceEmployer.postEmployer(this.employerAccount).pipe(
