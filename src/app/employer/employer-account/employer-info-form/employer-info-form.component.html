@@ -3,57 +3,98 @@
 
     <div class="fieldset-outer">
         <fieldset class="common-inputs-fieldset">
-            <form action="">
-                <legend>Dane firmowe</legend>
-                <label for="companyName">Nazwa firmy</label>
-                <input type="text" #companyName id="companyName" name="companyName"
-                       class="form-control {{companyName.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="companyName.checkValidity()"
-                       [(ngModel)]="employerAccount.companyName" required>
-                <div *ngIf="!companyName.checkValidity()" class="invalid-feedback">Uzupełnij nazwę firmy</div>
+            <form #employerForm="ngForm" action="">
+                
+                <legend class="mb-3">Dane firmowe</legend>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <input mdbInput type="text" id="companyName" #companyName
+                            class="form-control white-field {{companyName.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="1" [maxLength]="100"
+                            name="companyName" placeholder="Nazwa Twojej firmy" (change)="companyName.checkValidity()"
+                            [(ngModel)]="employerAccount.companyName"
+                            required>
+                        <label mdbLabel class="form-label" for="companyName">Nazwa firmy*</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="employerForm.submitted && !companyName.checkValidity()"
+                         class="text-start invalid-message">Uzupełnij nazwę firmy</div>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <input mdbInput type="text" id="email" #email
+                            class="form-control white-field {{email.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                            name="email" placeholder="Adres kontaktowy email"
+                            [(ngModel)]="employerAccount.contactEmail" required>
+                        <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="!email.checkValidity() && (employerForm.submitted || email.value.length > 0)" class="text-start invalid-message"> 
+                        {{email.value.length == 0 ? 'Email kontaktowy jest wymagany' : 'Email kontaktowy musi mieć format emaila'}}</div>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <input mdbInput type="text" id="phoneNumber" #phoneNumber
+                            class="form-control white-field {{phoneNumber.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="9" [maxLength]="20"
+                            name="phoneNumber" placeholder="Numer telefonu" (change)="phoneNumber.checkValidity()"
+                            [(ngModel)]="employerAccount.telephone">
+                        <label mdbLabel class="form-label" for="phoneNumber">Numer telefonu</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="employerForm.submitted && !phoneNumber.checkValidity()" (change)="phoneNumber.checkValidity()"
+                         class="text-start invalid-message">Podano niepoprawny numer telefonu</div>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <textarea mdbInput type="text" id="description" #description
+                            class="form-control white-field {{description.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="1" [maxLength]="1000"
+                            name="description" (change)="description.checkValidity()"
+                            [(ngModel)]="employerAccount.description" rows="10" required></textarea>
+                        <label mdbLabel class="form-label" for="description">Opis firmy*</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="employerForm.submitted && !description.checkValidity()" (change)="description.checkValidity()"
+                         class="text-start invalid-message">{{description.value.length > 0 ? '' : 'Uzupełnij opis firmy'}}</div>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <textarea mdbInput type="text" id="displayDescription" #displayDescription
+                            class="form-control white-field {{displayDescription.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="1" [maxLength]="150"
+                            name="displayDescription" placeholder="Krótki, reprezentatywny opis firmy" (change)="displayDescription.checkValidity()"
+                            [(ngModel)]="employerAccount.displayDescription" rows="3" required></textarea>
+                        <label mdbLabel class="form-label" for="displayDescription">Krótki opis firmy*</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="employerForm.submitted && !displayDescription.checkValidity()" (change)="displayDescription.checkValidity()"
+                         class="text-start invalid-message">{{displayDescription.value.length > 0 ? '' : 'Uzupełnij reprezentacyjny opis firmy'}}</div>
+                </div>
+
+                <div class="form-outline mt-0 pt-4">
+                    <mdb-form-control>
+                        <input mdbInput type="text" id="addres" #addres
+                            class="form-control white-field {{addres.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                            [minLength]="1" [maxLength]="100"
+                            name="addres" placeholder="Adres" (change)="addres.checkValidity()"
+                            [(ngModel)]="employerAccount.address">
+                        <label mdbLabel class="form-label" for="addres">Adres</label>
+          
+                    </mdb-form-control>
+                    <div *ngIf="!addres.checkValidity()" (change)="addres.checkValidity()"
+                         class="text-start invalid-message">Podano niepoprawny adres</div>
+                </div>
+                
                 <br><br>
 
-                <label for="mail">Email kontaktowy</label>
-                <input type="email" id="mail" #email name="mail"
-                       class="form-control {{email.checkValidity() ? 'is-valid':'is-invalid' }}" [minLength]="1"
-                       [maxLength]="100" (change)="email.checkValidity()" [(ngModel)]="employerAccount.contactEmail" required>
-                <div class="invalid-feedback" *ngIf="!email.checkValidity()"
-                     (change)="email.checkValidity()">{{email.value.length > 0 ? 'Email niepoprawny' : 'Uzupełnij email'}}</div>
-                <br><br>
-
-                <label for="phone-number">Numer telefonu</label>
-                <input type="text" id="phone-number" #phoneNumber name="phone-number"
-                       class="form-control {{phoneNumber.checkValidity() ? 'is-valid':'is-invalid' }}" [minlength]="9"
-                       [maxLength]="20" (change)="phoneNumber.checkValidity()" [(ngModel)]="employerAccount.telephone"
-                       required>
-                <div class="invalid-feedback" *ngIf="!phoneNumber.checkValidity()"
-                     (change)="phoneNumber.checkValidity()">{{phoneNumber.value.length >= 9 ? 'Telefon niepoprawny' : 'Uzupełnij numer kontaktowy'}}</div>
-                <br><br>
-
-
-                <label for="description" class="form-label">Opis firmy</label>
-                <textarea type="text" id="description" #description name="description"
-                          class="form-control aboutMe {{description.checkValidity() ? 'is-valid':'is-invalid' }}"
-                          [minlength]="1" [maxLength]="1000" (change)="description.checkValidity()"
-                          [(ngModel)]="employerAccount.description" required></textarea>
-                <div class="invalid-feedback" *ngIf="!description.checkValidity()"
-                     (change)="description.checkValidity()">{{description.value.length > 0 ? '' : 'Uzupełnij opis firmy'}}</div>
-                <br><br>
-
-                <label for="displayDescription" class="form-label">Krótki opis firmy</label>
-                <textarea type="text" id="displayDescription" #displayDescription name="displayDescription"
-                          class="form-control {{displayDescription.checkValidity() ? 'is-valid':'is-invalid' }}"
-                          [minlength]="1" [maxLength]="150" (change)="displayDescription.checkValidity()"
-                          [(ngModel)]="employerAccount.displayDescription" required></textarea>
-                <div class="invalid-feedback" *ngIf="!displayDescription.checkValidity()"
-                     (change)="displayDescription.checkValidity()">{{displayDescription.value.length > 0 ? '' : 'Uzupełnij krótki opis firmy'}}</div>
-                <br><br>
-
-                <label for="addres" class="form-label">Adres</label>
-                <input type="text" id="addres" #addres name="addres" class="form-control" [maxlength]="100"
-                       (change)="addres.checkValidity()" [(ngModel)]="employerAccount.address"><br><br>
-
-                <label for="addres" class="form-label">Grafika firmy</label>
+                <label for="fileDropRef" class="form-label">Grafika firmy</label>
 
                 <div class="dropzone" *ngIf="!this.employerAccount.photo">
                     <div>
@@ -66,28 +107,31 @@
                 <div *ngIf="this.employerAccount.photo">
                     <img [src]="this.employerAccount.photo" alt="logo" class="company-icon">
                     <div>
-                        <button class="btn btn-danger" (click)="removeFile()">Usuń grafike</button>
+                        <button class="btn btn-danger" (click)="removeFile()">Usuń grafikę</button>
                     </div>
                 </div>
                 <br><br>
 
+
                 <div class="container">
                     <div class="row">
-
-                        <div class="col ">
-                            <button class="btn btn-secondary" (click)="openDeclineDialog()"
-                                    [disabled]="!companyName.checkValidity()  || !email.checkValidity() || !phoneNumber.checkValidity() ">
-                                Odrzuć zmiany
-                            </button>
-                        </div>
-
-                        <div class="col w-100 text-end">
-                            <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                                    [disabled]="!companyName.checkValidity() || !email.checkValidity() || !phoneNumber.checkValidity() || !description.checkValidity() || !displayDescription.checkValidity()">
-                                Potwierdź
-                            </button>
-                        </div>
-
+                      <div class="col ps-0">
+                        <button class="btn btn-primary btn-block mb-4 btn-login"
+                                (click)="openDeclineDialog()">
+                          Odrzuć zmiany
+                        </button>
+                      </div>
+          
+                      <div
+                        class="col pe-0 w-100 text-center ps-0'">
+                        <button class="btn btn-primary btn-block mb-4 btn-login w-100"
+                                (click)="(companyName.checkValidity() && email.checkValidity() && phoneNumber.checkValidity() && description.checkValidity() && displayDescription.checkValidity()) ? openConfirmDialog() : ''"
+                                type="submit"
+                                [disabled]="">
+                          Potwierdź
+                        </button>
+                      </div>
+          
                     </div>
                 </div>
             </form>

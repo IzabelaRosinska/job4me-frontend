@@ -125,5 +125,4 @@ export class EmployerInfoFormComponent implements OnInit {
         this.router.navigate(['employer/account']);
     });
   }
-
 }

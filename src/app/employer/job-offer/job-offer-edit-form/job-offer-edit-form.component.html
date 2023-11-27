@@ -3,50 +3,84 @@
 <div class="container align-content-left text-left main" *ngIf="!loading">
   <div class="fieldset-outer">
     <fieldset class="common-inputs-fieldset">
-      <form>
-        <legend>Oferta</legend>
-        <label for="name">Nazwa stanowiska</label>
-        <input type="text" #name id="name" name="name"
-               class="form-control {{name.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1" [maxLength]="120"
-               (change)="name.checkValidity()" [(ngModel)]="jobOfferData.offerName" required>
-        <div *ngIf="!name.checkValidity()" class="invalid-feedback">Uzupełnij nazwę stanowiska</div>
+      <form #jobOfferForm="ngForm">
+        <legend class="mb-3">Oferta</legend>
+
+
+        <div class="form-outline mt-0 pt-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="name" #name
+                   class="form-control white-field name.checkValidity()? 'is-valid' : 'is-invalid'"
+                   [minLength]="1" [maxLength]="120"
+                   name="name" placeholder="Nazwa stanowiska pracy" (change)="name.checkValidity()"
+                   [(ngModel)]="jobOfferData.offerName"
+                   required>
+            <label mdbLabel class="form-label" for="name">Nazwa stanowiska*</label>
+
+          </mdb-form-control>
+          <div *ngIf="jobOfferForm.submitted && !name.checkValidity()"
+               class="text-start invalid-message">Uzupełnij nazwę stanowiska</div>
+        </div>
+        <br>
+
+        <div class="form-outline mt-0 pt-4">
+          <mdb-form-control>
+            <input mdbInput type="text" id="workingTime" #workingTime
+                   class="form-control white-field workingTime.checkValidity()? 'is-valid' : 'is-invalid'"
+                   [minLength]="1" [maxLength]="20"
+                   name="workingTime" placeholder="Nazwa stanowiska pracy" (change)="workingTime.checkValidity()"
+                   [(ngModel)]="jobOfferData.workingTime"
+                   required>
+            <label mdbLabel class="form-label" for="workingTime">Etat/dzienny czas pracy*</label>
+
+          </mdb-form-control>
+          <div *ngIf="jobOfferForm.submitted && !workingTime.checkValidity()"
+               class="text-start invalid-message">Uzupełnij wymiar czasu pracy</div>
+        </div>
         <br><br>
 
-        <label for="workingTime">Dzienny czas pracy</label>
-        <input type="text" #workingTime id="workingTime" name="workingTime"
-               class="form-control {{workingTime.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-               [maxLength]="20" (change)="workingTime.checkValidity()" [(ngModel)]="jobOfferData.workingTime"
-               [placeholder]="'np. 8h'" required>
-        <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
-        <br><br>
-
-        <label for="workingTime">Wynagrodzenie</label>
-        <div class="container">
-          <div class="row w-100">
-            <h3 class="col-1" style="margin: 0">Od</h3>
-            <div class="col">
-              <input type="number" #salaryStart id="salaryStart" name="salaryStart"
-                     class="form-control {{salaryStart.checkValidity()? 'is-valid':'is-invalid' }} " [minLength]="1"
-                     [maxLength]="6" (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryFrom"
-                     [placeholder]="'np. 2000'" required>
-              <div *ngIf="!workingTime.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
+        <div class="container border border-secondary border-2 position-relative p-3 rounded-2">
+          <div class="position-absolute top-0 start-0 translate-middle p-2 container-label">
+            <p>Wynagrodzenie</p>
+          </div>
+        
+          <div class="d-flex justify-content-center align-items-center" id="salary">
+          
+            <div class="form-group mx-2 form-outline double-field-form">
+              <mdb-form-control>
+                <input mdbInput type="number" id="salaryStart" name="salaryStart" #salaryStart
+                  class="form-control white-field salaryStart.checkValidity()? 'is-valid' : 'is-invalid'"
+                  [minLength]="1" [maxLength]="6" 
+                  (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryFrom" [placeholder]="'np. 2000'" required>
+                <label mdbLabel class="form-label" for="salaryStart">Minimum*</label>
+              </mdb-form-control>
+              <div *ngIf="jobOfferForm.submitted && !salaryStart.checkValidity()"
+                class="invalid-feedback">Uzupełnij minimalne wynagrodzenie</div>
             </div>
-            <h3 class="col-1">Do</h3>
-            <div class="col">
-              <input type="number" #salaryEnd id="salaryEnd" name="salaryEnd"
-                     class="form-control" [minLength]="1"
-                     [maxLength]="6" [(ngModel)]="jobOfferData.salaryTo"
-                     [placeholder]="'np. 4000 lub puste'" required>
 
+            <h3 style="text-align: center;"> &nbsp;&nbsp;_&nbsp;&nbsp; </h3>
+      
+            <div class="form-group mx-2 form-outline double-field-form">
+              <mdb-form-control>
+                <input mdbInput type="number" id="salaryEnd" name="salaryEnd" #salaryEnd
+                  class="form-control white-field salaryEnd.checkValidity()? 'is-valid' : 'is-invalid'"
+                  [minLength]="1" [maxLength]="6"
+                  (change)="salaryEnd.checkValidity()" [(ngModel)]="jobOfferData.salaryTo" [placeholder]="'np. 4000 lub puste'">
+                <label mdbLabel class="form-label" for="salaryEnd">Maksimum</label>
+              </mdb-form-control>
+              <div *ngIf="jobOfferForm.submitted && salaryStart.value > salaryEnd.value"
+                class="invalid-feedback">Wartość maksymalna pensji musi być niemniejsza minimalnej</div>
             </div>
           </div>
+        
         </div>
 
         <br><br>
 
 
         <div>
-          <button #industries class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.industries.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button #industries class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.industries.length > 0 ? 'valid-module' : 'invalid-module' }}"
+            type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Branża
           </button>
           <ul class="table dropdown-menu option-menu">
@@ -63,13 +97,15 @@
 
         <br><br>
         <div>
-          <button #forms class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.employmentForms.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button #forms class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.employmentForms.length > 0 ? 'valid-module' : 'invalid-module' }}"
+            type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Rodzaj pracy
           </button>
           <ul class="table dropdown-menu option-menu">
             <li *ngFor="let option of variableService.employmentFormNames">
               <div class="form-check dropdown-item option-item">
-                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="optionClicked(option,'employmentForms'); console.log(jobOfferData.employmentForms)" >
+                <input class="form-check-input" type="checkbox" [value]="option" [id]="option"
+                  (click)="optionClicked(option,'employmentForms'); console.log(jobOfferData.employmentForms)" >
                 <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
                   {{option}}
                 </label>
@@ -80,7 +116,8 @@
 
         <br><br>
         <div>
-          <button #contract_type class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.contractTypes.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button #contract_type class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.contractTypes.length > 0 ? 'valid-module' : 'invalid-module' }}"
+            type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Typ umowy
           </button>
           <ul class="table dropdown-menu option-menu">
@@ -97,7 +134,8 @@
 
         <br><br>
         <div>
-          <button #level class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.levels.length > 0 ? 'valid-module' : 'invalid-module' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button #level class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.levels.length > 0 ? 'valid-module' : 'invalid-module' }}"
+            type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Poziom
           </button>
           <ul class="table dropdown-menu option-menu">
@@ -114,40 +152,26 @@
 
         <br><br>
         <div #localizations class="rounded-4 list-elem" >
-          <app-expanded-module-form [title]="'Miasta'" [maxInputLength]="50" [maxInputCount]="10"
+          <app-expanded-module-form [title]="'Miasta*'" [maxInputLength]="50" [maxInputCount]="10"
                                     [listOfTexts]="jobOfferData.localizations" [minInputCount]="1"
                                     (valid)="validate($event,localizations)"
                                     [placeholder]="'np. Waraszawa'"
                                     (save)="moduleSaveInfo($event, 'localizations')"></app-expanded-module-form>
-          <h5 *ngIf="localizations.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
-            jedno miasto</h5>
+          <h5 *ngIf="jobOfferForm.submitted && localizations.classList.contains(invalidClassName)"
+            class="invalid-module-text">Wpisz conajmniej jedno miasto</h5>
         </div>
 
         <br>
         <div #requirements class="rounded-4 list-elem" >
-          <app-expanded-module-form [title]="'Wymagania'" [maxInputLength]="250" [maxInputCount]="15"
+          <app-expanded-module-form [title]="'Wymagania*'" [maxInputLength]="250" [maxInputCount]="15"
                                     [listOfTexts]="jobOfferData.requirements" [minInputCount]="1"
                                     (valid)="validate($event,requirements)"
                                     [placeholder]="'np. Java'"
                                     (save)="moduleSaveInfo($event, 'requirements')"  ></app-expanded-module-form>
-          <h5 *ngIf="requirements.classList.contains(invalidClassName)" class="invalid-module-text">Wpisz conajmniej
-            jedno wymaganie</h5>
+          <h5 *ngIf="jobOfferForm.submitted && requirements.classList.contains(invalidClassName)"
+            class="invalid-module-text">Wpisz conajmniej jedno wymaganie</h5>
         </div>
 
-        <label for="duties">Obowiązki</label>
-        <textarea type="text" #duties id="duties" name="duties"
-                  class="form-control big-textarea {{duties.checkValidity()? 'is-valid':'is-invalid' }}" [minLength]="1"
-                  [maxLength]="1000" (change)="duties.checkValidity()" [(ngModel)]="jobOfferData.duties"
-                  required></textarea>
-        <div *ngIf="!duties.checkValidity()" class="invalid-feedback">Uzupełnij obowiązki pracownika</div>
-        <br><br>
-
-        <label for="description">Opis</label>
-        <textarea type="text" #description id="description" name="description" class="form-control big-textarea"
-                  [maxLength]="500" (change)="description.checkValidity()"
-                  [(ngModel)]="jobOfferData.description"></textarea>
-        <div *ngIf="!description.checkValidity()" class="invalid-feedback">Uzupełnij czas dzienny pracy</div>
-        <br><br>
 
         <div class="rounded-4 list-elem">
           <app-expanded-module-form [title]="'Dodatkowe umiejętności'" [maxInputLength]="200" [maxInputCount]="15"
@@ -155,21 +179,51 @@
                                     (save)="moduleSaveInfo($event, 'extraSkills')"></app-expanded-module-form>
         </div>
 
+        <div class="form-outline mt-0 pt-4">
+          <mdb-form-control>
+              <textarea mdbInput type="text" id="duties" #duties
+                  class="form-control white-field {{duties.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                  [minLength]="1" [maxLength]="1000"
+                  name="duties" (change)="duties.checkValidity()"
+                  [(ngModel)]="jobOfferData.duties" rows="10" required></textarea>
+              <label mdbLabel class="form-label" for="duties">Obowiązki*</label>
+
+          </mdb-form-control>
+          <div *ngIf="jobOfferForm.submitted && !duties.checkValidity()" (change)="duties.checkValidity()"
+               class="text-start invalid-message">Uzupełnij obowiązki pracownika</div>
+        </div>
+
+        <div class="form-outline mt-0 pt-4">
+          <mdb-form-control>
+              <textarea mdbInput type="text" id="description" #description
+                  class="form-control white-field {{description.checkValidity() ? 'is-valid' : 'is-invalid'}}"
+                  [minLength]="1" [maxLength]="500"
+                  name="description" (change)="description.checkValidity()"
+                  [(ngModel)]="jobOfferData.description" rows="5"></textarea>
+              <label mdbLabel class="form-label" for="description">Opis stanowiska</label>
+
+          </mdb-form-control>
+        </div>
+        <br><br>
+
         <div class="container">
           <div class="row">
-
-            <div class="col">
-              <button class="btn btn-secondary" (click)="openDeclineDialog()">
+            <div class="col ps-0">
+              <button class="btn btn-primary btn-block mb-4 btn-login"
+                      (click)="openDeclineDialog()">
                 Odrzuć zmiany
               </button>
             </div>
 
-            <div class="col w-100 text-end">
-              <button class="btn btn-secondary" (click)="openConfirmDialog()" type="submit"
-                      [disabled]="!name.checkValidity() || !workingTime.checkValidity() || !salaryStart.checkValidity() || industries.classList.contains(invalidClassName)
-                                    || localizations.classList.contains(invalidClassName) || forms.classList.contains(invalidClassName)
-                                    || contract_type.classList.contains(invalidClassName) || level.classList.contains(invalidClassName)
-                                    || requirements.classList.contains(invalidClassName) || !duties.checkValidity()">
+            <div
+              class="col pe-0 w-100 text-center ps-0'">
+              <button class="btn btn-primary btn-block mb-4 btn-login w-100"
+                      (click)="(name.checkValidity() && workingTime.checkValidity() && salaryStart.checkValidity() && !industries.classList.contains(invalidClassName)
+                      && !localizations.classList.contains(invalidClassName) && !forms.classList.contains(invalidClassName)
+                      && !contract_type.classList.contains(invalidClassName) && !level.classList.contains(invalidClassName)
+                      && !requirements.classList.contains(invalidClassName) && duties.checkValidity() && (salaryEnd.value === null || salaryEnd.value > salaryStart.value)) ? openConfirmDialog() : ''" 
+                      type="submit"
+                      [disabled]="">
                 Potwierdź
               </button>
             </div>
