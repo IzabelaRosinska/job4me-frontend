@@ -125,10 +125,4 @@ export class EmployerInfoFormComponent implements OnInit {
         this.router.navigate(['employer/account']);
     });
   }
-
-  // onInputBlur() {
-  //   console.log('Input stracił focus');
-  //   // Tutaj możesz dodać dodatkową logikę lub manipulacje, gdy input straci focus
-  // }
-
 }
