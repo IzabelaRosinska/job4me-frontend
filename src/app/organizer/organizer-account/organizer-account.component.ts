@@ -52,8 +52,15 @@ export class OrganizerAccountComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<JobFair>>(),
-            route: "/organizer/jobfair/",
-            routeToElement: "/organizer/jobfair/",
+            route: "/organizer/job-fairs",
+            routeToElement: "/organizer/job-fair/",
+            ListButtonsOptions: {
+              useSaved: false,
+              isSaved: false,
+              useDelete: true,
+              useApprove: false,
+              useGettingInside: true
+            },
             list: [],
             loading: true,
             ifGet: true,
