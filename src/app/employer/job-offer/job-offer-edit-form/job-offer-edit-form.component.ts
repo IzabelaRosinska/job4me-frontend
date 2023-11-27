@@ -50,6 +50,46 @@ export class JobOfferEditFormComponent implements OnInit {
     description: ""
   }
 
+  changeContractTypes(option: string) {
+    let index = this.jobOfferData.contractTypes.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.contractTypes.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.contractTypes.push(option)
+    }
+  }
+
+  changeIndustry(option: string) {
+    let index = this.jobOfferData.industries.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.industries.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.industries.push(option)
+    }
+  }
+
+  changeLevels(option: string) {
+    let index = this.jobOfferData.levels.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.levels.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.levels.push(option)
+    }
+  }
+
+  changeEmploymentForms(option: string) {
+    let index = this.jobOfferData.employmentForms.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.employmentForms.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.employmentForms.push(option)
+    }
+  }
+
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((params) => {
