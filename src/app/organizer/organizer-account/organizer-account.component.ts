@@ -40,9 +40,10 @@ export class OrganizerAccountComponent implements OnInit {
     pageEvent?: PageEvent;
 
     filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"], ["Poziomy", "/levels"]];
-    isOwner: boolean = false;
 
     currentTabId = "jobFairs";
+
+    isOwner: boolean = false;
 
     paginationUseList: PaginationUse<any>[] = [
         {
