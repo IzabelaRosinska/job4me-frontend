@@ -101,8 +101,6 @@ export class JobOfferEditFormComponent implements OnInit {
             this.router.navigate(['employer/job-offer/' + this.jobOfferData.id]);
           });
         }
-      } else {
-        this.router.navigate(['employer/account']);
       }
     });
   }

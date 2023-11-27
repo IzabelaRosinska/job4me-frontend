@@ -54,7 +54,24 @@ input
 }
 
 
-.titleField
-{
-  margin-left: 5%;
+// .titleField
+// {
+//   margin-left: 5%;
+// }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.element-on-left {
+  flex: 1;
+}
+
+.element-on-left.element-sticky {
+  margin-left: -10px; /* Dostosuj wartość marginesu do uzyskania pożądanego efektu */
+}
+
+.element-on-right {
+  margin-left: auto;
 }
