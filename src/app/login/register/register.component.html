@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-<div>
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+<div *ngIf="!loading">
   <div class="text-center align-content-center align-items-center pt-5 center div-outer-login">
     <div class="main container align-content-center text-center div-login btn-radio">
       <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">

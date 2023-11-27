@@ -23,6 +23,7 @@ export class OrganizerInfoFormComponent implements OnInit {
   }
 
   register: boolean = false;
+  loading: boolean = true;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -38,6 +39,7 @@ export class OrganizerInfoFormComponent implements OnInit {
           this.register = true;
           console.log("Register: "+this.register)
         }
+        this.loading = false;
       });
     });
   }
@@ -64,12 +66,15 @@ export class OrganizerInfoFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.loading = true;
         this.serviceOrganizer.postOrganizer(this.organizerAccount).pipe(
           catchError((err) => {
+            this.loading = false;
             return [];
           })
         ).subscribe((response) => {
           this.router.navigate(['organizer/account']);
+          this.loading = false;
         });
       }
     });
@@ -90,6 +95,12 @@ export class OrganizerInfoFormComponent implements OnInit {
 
       if (result)
         this.router.navigate(['organizer/account']);
+    });
+  }
+
+  payment(){
+    this.serviceOrganizer.getPayment().subscribe((response) => {
+      window.location.href = response;
     });
   }
 

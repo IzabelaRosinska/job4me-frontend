@@ -91,12 +91,15 @@ export class JobfairEditFormComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
+        this.loading = true;
         this.serviceJobfair.putJobFair(this.jobFair).pipe(
           catchError((err) => {
+            this.loading = false;
             return [];
           })
         ).subscribe((response) => {
           this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+          this.loading = false;
         });
       }
     });

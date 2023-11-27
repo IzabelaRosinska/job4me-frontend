@@ -1,6 +1,5 @@
-<div class="container align-content-left text-left main">
-
-
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+<div class="container align-content-left text-left main" *ngIf="!loading">
     <div class="fieldset-outer">
         <fieldset class="common-inputs-fieldset">
             <form #employerForm="ngForm" action="">

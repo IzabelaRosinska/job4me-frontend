@@ -50,6 +50,8 @@ export class JobOfferEditFormComponent implements OnInit {
     description: ""
   }
 
+  createForm: boolean = false;
+
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((params) => {
@@ -60,6 +62,7 @@ export class JobOfferEditFormComponent implements OnInit {
         });
       } else {
         this.loading = false;
+        this.createForm = true;
       }
     });
 
@@ -92,13 +95,16 @@ export class JobOfferEditFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
+        this.loading = true;
         if (!this.jobOfferData.id) {
           this.employerService.postJobOffer(this.jobOfferData).subscribe((response) => {
             this.router.navigate(['employer/account']);
+            this.loading = false;
           });
         } else {
           this.employerService.putJobOffer(this.jobOfferData).subscribe((response) => {
             this.router.navigate(['employer/job-offer/' + this.jobOfferData.id]);
+            this.loading = false;
           });
         }
       }
@@ -119,9 +125,14 @@ export class JobOfferEditFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
-        if (this.jobOfferData.id)
+        this.loading = true;
+        if (this.createForm){
           this.router.navigate(['employer/job-offer/' + this.jobOfferData.id]);
-        this.router.navigate(['employer/account']);
+          this.loading = false;
+        } else {
+          this.router.navigate(['employer/account']);
+          this.loading = false;
+        }
       }
     });
   }
