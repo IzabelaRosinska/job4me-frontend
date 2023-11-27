@@ -12,7 +12,9 @@ import {HttpClient} from "@angular/common/http";
 export class JobOfferComponent implements OnInit {
 
 
-  constructor(private serviceEmployer: EmployerService, private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private serviceEmployer: EmployerService,
+              private route: ActivatedRoute,
+              private http: HttpClient) {
 
   }
 
@@ -35,19 +37,52 @@ export class JobOfferComponent implements OnInit {
   companyPhoto = '../../assets/company.png';
   employerAccountData?: EmployerAccount;
   loading: boolean = true;
+  isOwner: boolean = false;
+  role!: string | null;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.serviceEmployer.getJobOffer(params.get('id')).subscribe((response) => {
+      this.role = localStorage.getItem('role');
+      this.serviceEmployer.getJobOffer(params.get('job-offer-id')).subscribe((response) => {
         this.jobOfferData = response;
-        this.loading = false;
+        console.log("Response: ", response);
+        this.route.url.subscribe((url) => {
+          console.log(url);
+          if(url.length == 3 && this.role=="employer"){
+            this.isOwner = true;
+            this.serviceEmployer.getEmployer().subscribe((responseEmployer) => {
+              this.employerAccountData = responseEmployer;
+              this.loading = false;
+              console.log(this.isOwner);
+            });
+          }else if(this.role){
+            this.serviceEmployer.getEmployerById(response.employerId, this.role).subscribe((responseEmployer) => {
+              this.employerAccountData = responseEmployer;
+              this.loading = false;
+            });
+          }
+        });
       });
     });
-
-    this.serviceEmployer.getEmployer().subscribe((response) => {
-      this.employerAccountData = response;
-    });
-
-
   }
+
+  activatedOffer(){
+    if(!this.jobOfferData.id) return;
+    this.loading = true;
+    this.serviceEmployer.activateJobOffer(this.jobOfferData.id).subscribe((response) => {
+      this.jobOfferData.isActive = true;
+      this.loading = false;
+    });
+  }
+
+  deactivatedOffer(){
+    if(!this.jobOfferData.id) return;
+    this.loading = true;
+    this.serviceEmployer.deactivateJobOffer(this.jobOfferData.id).subscribe((response) => {
+      this.jobOfferData.isActive = false;
+      this.loading = false;
+    });
+  }
+
+
 }

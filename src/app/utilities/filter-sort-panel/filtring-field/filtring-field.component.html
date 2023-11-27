@@ -1,26 +1,31 @@
 <div class="dropdown" *ngIf="options.length!=0">
-    <div>
-        <button class="btn btn-secondary dropdown-toggle dropdown-color w-100 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{getCorrectTitleName(title)}}
-        </button>
-        <ul class="table dropdown-menu filter-menu">
-            <li *ngFor="let option of options">
-                <div class="form-check dropdown-item filter-item">
-                    <input class="form-check-input" type="checkbox" [value]="option" [id]="option" (click)="filterOptionClicked(option)">
-                    <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
-                        {{option}}
-                    </label>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div>
+    <button
+      class="form-icon-trailing btn btn-secondary dropdown-toggle {{filterOptionSelected.length==0?'dropdown-color':'dropdown-color-selected'}} w-100 "
+      type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{getCorrectTitleName(title)}} {{filterOptionSelected.length > 0 ? (' (' + filterOptionSelected.length + ')') : ''}}
+    </button>
+
+    <ul class="table dropdown-menu filter-menu">
+      <li *ngFor="let option of options">
+        <div class="form-check dropdown-item filter-item">
+          <input class="form-check-input" type="checkbox" [value]="option" [id]="option"
+                 (click)="filterOptionClicked(option)">
+          <label class="form-check-label dropdown-item-element-consistent" [for]="option">
+            {{option}}
+          </label>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div *ngIf="options.length==0">
-    <div class="form-group mt-1">
-      <mdb-form-control>
-        <input mdbInput type="form-control input-background  text" #text id="text" class="form-control input-lg" (change)="textChanged(text.value)">
-        <label mdbLabel class="form-label" for="text">{{getCorrectTitleName(title)}}</label>
-      </mdb-form-control>
-    </div>
+  <div class="form-group mt-1">
+    <mdb-form-control>
+      <input mdbInput type="form-control input-background  text" #text [id]="id" class="form-control input-lg"
+             (change)="textChanged(text.value)">
+      <label mdbLabel class="form-label" [for]="id">{{getCorrectTitleName(title)}}</label>
+    </mdb-form-control>
+  </div>
 </div>

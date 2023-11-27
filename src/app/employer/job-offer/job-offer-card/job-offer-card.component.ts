@@ -8,6 +8,6 @@ import {Component, Input} from '@angular/core';
 export class JobOfferCardComponent {
   @Input() header: string = "";
   @Input() text: string = "";
-  @Input() headerBGC: string = "success";
+  @Input() headerBGC: string = "darker";
   @Input() textBGC: string = "light";
 }

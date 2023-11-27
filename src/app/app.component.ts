@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {VariablesService} from "./utilities/service/variables.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'job4me';
+
+  constructor(private variablesService: VariablesService) {
+    this.variablesService.initVariables();
+  }
 }

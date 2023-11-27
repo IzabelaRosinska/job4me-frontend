@@ -1,3 +1,15 @@
+@import "../../../../styles.scss";
+
 p{
   white-space: pre-line;
+}
+
+.text-bg-lighter{
+  background-color: $MAIN_LOGO_COLOR !important;
+  color: #e9ecef;
+}
+
+.text-bg-darker{
+  background-color: $MAIN_LOGO_COLOR_DARKER !important;
+  color: #e9ecef;
 }

@@ -77,3 +77,9 @@ td {
   width: 150px;
   height: 150px;
 }
+
+.nav-pills .nav-link.active{
+  background-color: $MAIN_LOGO_COLOR;
+  color: white;
+}
+

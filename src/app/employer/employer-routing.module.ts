@@ -11,14 +11,20 @@ const routes: Routes = [
 
   {path: 'organizer/employer/:employer-id/account', component: EmployerAccountComponent},
   {path: 'organizer/employer/:employer-id', redirectTo: '/organizer/employer/:employer-id/account', pathMatch: 'full'},
+  {path: 'organizer/employer/job-offer/:job-offer-id', component: JobOfferComponent},
 
   {path: 'employee/employer/:employer-id/account', component: EmployerAccountComponent},
   {path: 'employee/employer/:employer-id', redirectTo: '/employee/employer/:employer-id/account', pathMatch: 'full'},
+  {path: 'employee/employer/job-offer/:job-offer-id', component: JobOfferComponent},
+
+  {path: 'employer/employer/:employer-id/account', component: EmployerAccountComponent},
+  {path: 'employer/employer/:employer-id', redirectTo: '/employee/employer/:employer-id/account', pathMatch: 'full'},
+  {path: 'employer/employer/job-offer/:job-offer-id', component: JobOfferComponent},
 
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},
-  {path: 'employer/job-offer/:id/edit-form', component: JobOfferEditFormComponent},
-  {path: 'employer/job-offer/:id', component: JobOfferComponent},
-  {path: 'employer/editInfo', component: EmployerInfoFormComponent},
+  {path: 'employer/job-offer/:job-offer-id/edit-form', component: JobOfferEditFormComponent},
+  {path: 'employer/job-offer/:job-offer-id', component: JobOfferComponent},
+  {path: 'employer/edit-form', component: EmployerInfoFormComponent},
   {path: 'employer/add-job-offer', component: JobOfferEditFormComponent},
 ];
 

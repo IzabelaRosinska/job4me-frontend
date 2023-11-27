@@ -15,6 +15,13 @@ export class VariablesService implements OnInit {
   employmentFormNames: string[] = []
   contractTypes: string[] = []
 
+
+
+  private initialized: boolean = false;
+
+
+  dictionaryIfObjectFilter!: Record<FiliterType, boolean>
+
   dictionaryIfLoaded!: Record<FiliterType, boolean>
   dictionaryOfLoadedData!: Record<FiliterType, string[]>
 
@@ -27,6 +34,8 @@ export class VariablesService implements OnInit {
     salaryTo: "Wynagrodzenie do",
     contractTypeNames: "Typ umowy",
     offerName: "Nazwa oferty",
+    jobFairName: "Nazwa targów",
+    employerCompanyName: "Nazwa firmy",
   }
 
   sortOffersOptions: Record<string, number> = {
@@ -46,8 +55,10 @@ export class VariablesService implements OnInit {
   }
 
   initVariables() {
-    // this.getLocalizations().subscribe((response0) => {
-    //   this.cities = response0.content.map((element) => element.name);
+
+    if(!this.initialized) {
+      // this.getLocalizations().subscribe((response0) => {
+      //   this.cities = response0.content.map((element) => element.name);
 
       this.getLevels().subscribe((response1) => {
         this.levels = response1.content.map((element) => element.name);
@@ -70,6 +81,8 @@ export class VariablesService implements OnInit {
                 salaryFrom: false,
                 salaryTo: false,
                 offerName: false,
+                jobFairName: false,
+                employerCompanyName: false,
               }
 
               this.dictionaryOfLoadedData = {
@@ -81,12 +94,29 @@ export class VariablesService implements OnInit {
                 salaryFrom: [],
                 salaryTo: [],
                 offerName: [],
+                jobFairName: [],
+                employerCompanyName: [],
               }
+
+              this.dictionaryIfObjectFilter = {
+                cities: true,
+                levelNames: true,
+                industryNames: true,
+                employmentFormNames: true,
+                contractTypeNames: true,
+                salaryFrom: true,
+                salaryTo: true,
+                offerName: true,
+                jobFairName: false,
+                employerCompanyName: false,
+              }
+              this.initialized = true;
             });
           });
         });
       });
-    // });
+      // });
+    }
   }
 
 

@@ -24,3 +24,14 @@
   background-color: $MAIN_LOGO_COLOR_DARKER;
   border-color: $MAIN_LOGO_COLOR_DARKER;
 }
+
+.dropdown-color:hover{
+  background-color: $MAIN_LOGO_COLOR;
+  border-color: $MAIN_LOGO_COLOR;
+}
+
+.hr-center{
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+}
