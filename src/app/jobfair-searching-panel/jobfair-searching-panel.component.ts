@@ -25,6 +25,7 @@ export class JobfairSearchingPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const role = localStorage.getItem('role');
     this.paginationUseList = [
       {
         id: "job-fairs",
@@ -34,7 +35,9 @@ export class JobfairSearchingPanelComponent implements OnInit {
         length: 20,
         state: new Observable<Page<ForListBackend>>(),
         route: "/job-fairs",
-        routeToElement: "/organizer/job-fair/",
+        routeToElement: "/" + role + "/organizer/job-fair/",
+        // "/" + role +
+
         list: [],
         loading: true,
         ListButtonsOptions: {

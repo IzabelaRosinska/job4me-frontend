@@ -95,7 +95,7 @@ export class JobfairComponent implements OnInit {
             ListButtonsOptions: {
               useGettingInside: true,
               useDelete: false,
-              useSaved: role=='employee',
+              useSaved: this.role=='employee',
               isSaved: false,
               useApprove: false
             },
@@ -118,22 +118,14 @@ export class JobfairComponent implements OnInit {
 
         });
 
-        this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-          this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
-        });
+        this.servicePagination.initPagination(this.paginationUseList);
 
       } else {
         this.loading = false;
       }
     });
 
-    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-      paginationUse.state.subscribe((response) => {
-        paginationUse.length = response ? response.totalElements : 0;
-        paginationUse.pageSize = response ? response.size : 0;
-        paginationUse.pageIndex = response ? response.number : 0;
-      });
-    });
+
   }
 
   loading: boolean = true;
