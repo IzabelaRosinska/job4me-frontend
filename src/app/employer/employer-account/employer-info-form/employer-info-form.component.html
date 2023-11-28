@@ -104,35 +104,13 @@
                         <label for="fileDropRef">Szukaj pliku</label>
                     </div>
                 </div>
-                <div *ngIf="this.employerAccount.photo">
+                <div *ngIf="this.employerAccount.photo" class="center-element">
                     <img [src]="this.employerAccount.photo" alt="logo" class="company-icon">
                     <div>
                         <button class="btn btn-danger" (click)="removeFile()">Usuń grafikę</button>
                     </div>
                 </div>
                 <br><br>
-
-                <div class="container">
-                    <div class="row">
-                      <div class="col ps-0">
-                        <button class="btn btn-primary btn-block mb-4 btn-login"
-                                (click)="openDeclineDialog()">
-                          Odrzuć zmiany
-                        </button>
-                      </div>
-
-                      <div
-                        class="col pe-0 w-100 text-center ps-0'">
-                        <button class="btn btn-primary btn-block mb-4 btn-login w-100"
-                                (click)="(companyName.checkValidity() && email.checkValidity() && phoneNumber.checkValidity() && description.checkValidity() && displayDescription.checkValidity()) ? openConfirmDialog() : ''"
-                                type="submit"
-                                [disabled]="">
-                          Potwierdź
-                        </button>
-                      </div>
-
-                    </div>
-                </div>
             </form>
         </fieldset>
     </div>
