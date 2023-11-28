@@ -161,36 +161,8 @@ export class JobfairComponent implements OnInit {
 
   }
 
-  addEmployerForList(employer: ForListBackend): void {
-    const role = localStorage.getItem('role');
-    let employerAsItemInsideList: ItemInsideList = {
-      route: "/employer/" + employer.id + "/account",
-      image: employer.photo ? employer.photo : this.companyPhoto,
-      name: employer.name,
-      id: employer.id ? employer.id : 0,
-      displayDescription: `${employer.displayDescription}`,
-      ListButtonsOptions: {
-        useGettingInside: true,
-        useApprove: false,
-        useSaved: false,
-        isSaved: false,
-        useDelete: false
-      }
-
-    }
-    this.employersAsList.push(employerAsItemInsideList);
-  }
-
   convertDate(date: string): string {
     return date.substring(0, 10) + " " + date.substring(11);
-  }
-
-  saveJobOffer(jobOffer: ItemInsideList): void {
-    if(jobOffer.ListButtonsOptions.isSaved){
-      this.serviceEmployee.saveJobOffer(jobOffer.id).subscribe((response) => {});
-    }else{
-      this.serviceEmployee.unsaveJobOffer(jobOffer.id).subscribe((response) => {});
-    }
   }
 
   protected readonly FiliterType = FiliterType;
