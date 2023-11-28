@@ -38,6 +38,8 @@ export class JobfairComponent implements OnInit {
   isOwner: boolean = false;
   routeForChange: string = "";
 
+  role: string | null = localStorage.getItem('role');
+
   getPaginationService() {
     return this.servicePagination;
   }
@@ -52,7 +54,6 @@ export class JobfairComponent implements OnInit {
   ngOnInit(): void {
     this.variablesService.initVariables();
     this.route.paramMap.subscribe((params: ParamMap) => {
-      const role = localStorage.getItem('role');
       const jobfairId = Number(params.get('jobfair-id'));
       if (jobfairId) {
         this.paginationUseList = [
@@ -64,7 +65,7 @@ export class JobfairComponent implements OnInit {
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
             route: "/job-fairs/" + jobfairId + "/employers",
-            routeToElement: "/" + role + "/employer/",
+            routeToElement: "/" + this.role + "/employer/",
             list: [],
             loading: true,
             ListButtonsOptions: {
@@ -85,7 +86,7 @@ export class JobfairComponent implements OnInit {
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
             route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
-            routeToElement: "/"+role+"/employer/job-offer/",
+            routeToElement: "/"+this.role+"/employer/job-offer/",
             list: [],
             loading: true,
             ListButtonsOptions: {

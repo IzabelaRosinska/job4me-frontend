@@ -1,4 +1,7 @@
-<div class="container main">
+<script src="https://js.stripe.com/v3/"></script>
+
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+<div class="container main" *ngIf="!loading">
   <div class="fieldset-outer form-size mt-5">
     <fieldset class="common-inputs-fieldset align-content-left text-left ">
       <form #organizerForm="ngForm">
@@ -72,12 +75,14 @@
         </div>
         <br><br>
 
+
+
         <div class="container">
           <div class="row">
             <div class="col ps-0" *ngIf="!this.register">
               <button class="btn btn-primary btn-block mb-4 btn-login"
                       (click)="openDeclineDialog()">
-                Odrzuć zmiany
+                Anuluj
               </button>
             </div>
 
@@ -94,6 +99,7 @@
           </div>
         </div>
       </form>
+
     </fieldset>
   </div>
 </div>

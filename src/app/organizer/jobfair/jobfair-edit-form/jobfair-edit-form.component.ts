@@ -18,7 +18,7 @@ export class JobfairEditFormComponent implements OnInit{
 
   loading: boolean = true;
   selectedDateTime: Date = new Date();
-  firstTime: boolean = false;
+  creatingJobFair: boolean = false;
 
   selectedFile: File | null = null;
   imageData: string | null = null;
@@ -65,7 +65,7 @@ export class JobfairEditFormComponent implements OnInit{
             this.loading = false;
         });
       }else{
-        this.firstTime = true;
+        this.creatingJobFair = true;
         this.loading = false;
       }
 
@@ -91,13 +91,29 @@ export class JobfairEditFormComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
-        this.serviceJobfair.putJobFair(this.jobFair).pipe(
-          catchError((err) => {
-            return [];
-          })
-        ).subscribe((response) => {
-          this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
-        });
+        if(this.creatingJobFair){
+          this.loading = true;
+          this.serviceJobfair.postJobFair(this.jobFair).pipe(
+            catchError((err) => {
+              this.loading = false;
+              return [];
+            })
+          ).subscribe((response) => {
+            this.router.navigate(['organizer/account']);
+            this.loading = false;
+          });
+        }else{
+          this.loading = true;
+          this.serviceJobfair.putJobFair(this.jobFair).pipe(
+            catchError((err) => {
+              this.loading = false;
+              return [];
+            })
+          ).subscribe((response) => {
+            this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+            this.loading = false;
+          });
+        }
       }
     });
   }

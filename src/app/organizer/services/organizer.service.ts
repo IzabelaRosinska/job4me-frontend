@@ -59,4 +59,12 @@ export class OrganizerService {
     }).pipe(shareReplay(1));
   }
 
+  getPayment(){
+    const route = ROUTES.BACKEND_ROUTE+'/payment';
+    return this.http.post<string>(route, {
+      headers: {"Content-Type": 'application/json'},
+      withCredentials: true,
+    });
+  }
+
 }
