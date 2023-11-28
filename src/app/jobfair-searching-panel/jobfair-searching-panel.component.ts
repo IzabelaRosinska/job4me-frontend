@@ -36,8 +36,6 @@ export class JobfairSearchingPanelComponent implements OnInit {
         state: new Observable<Page<ForListBackend>>(),
         route: "/job-fairs",
         routeToElement: "/" + role + "/organizer/job-fair/",
-        // "/" + role +
-
         list: [],
         loading: true,
         listButtonsOptions: {
