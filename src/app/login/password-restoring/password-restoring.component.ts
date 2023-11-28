@@ -40,38 +40,24 @@ export class PasswordRestoringComponent implements OnInit{
 
   changePassword(registerForm: NgForm){
     this.loading = true;
-    // this.loginService.registerUser(this.registerData).subscribe((response) => {
-    //   console.log(response);
-    //   switch (response.status) {
-    //     case 201:
-    //
-    //       switch (this.registerData.role) {
-    //         case 'EMPLOYEE':
-    //           this.router.navigate(['/employee/editInfo']);
-    //           this.loading = false;
-    //           break;
-    //         case 'EMPLOYER':
-    //           this.router.navigate(['/employer/editInfo']);
-    //           this.loading = false;
-    //           break;
-    //         case 'ORGANIZER':
-    //           this.router.navigate(['/organizer/editInfo']);
-    //           this.loading = false;
-    //           break;
-    //       }
-    //       break;
-    //     case 500:
-    //       registerForm.resetForm({
-    //         username: '',
-    //         password: '',
-    //         matchingPassword: ''
-    //       });
-    //
-    //       this.wrongUsernameMessage = true;
-    //       this.loading = false;
-    //       break;
-    //   }
-    // })
+    this.loginService.registerUser(this.passwordsData).subscribe((response) => {
+      console.log(response);
+      switch (response.status) {
+        case 201:
+          this.router.navigate(['/title-page']);
+          this.loading = false;
+          break;
+        case 500:
+          registerForm.resetForm({
+            username: '',
+            password: '',
+            matchingPassword: ''
+          });
+
+          this.loading = false;
+          break;
+      }
+    })
   }
 
   togglePassowrdVisibility(isMatchingPassword: boolean) {
