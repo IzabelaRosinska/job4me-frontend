@@ -15,6 +15,7 @@ import {JobfairService} from "../services/jobfair.service";
 import {PaginationService} from "../../utilities/service/pagination.service";
 import {EmployeeService} from "../../employee/service/employee.service";
 import {VariablesService} from "../../utilities/service/variables.service";
+import {SavedService} from "../../utilities/service/saved.service";
 
 @Component({
   selector: 'app-jobfair',
@@ -49,9 +50,14 @@ export class JobfairComponent implements OnInit {
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService,
               private variablesService: VariablesService,
-              private serviceEmployee: EmployeeService) {
+              private serviceEmployee: EmployeeService,
+              private savedService: SavedService) {
     const role = localStorage.getItem('role');
 
+  }
+
+  getSavedService(): SavedService {
+    return this.savedService;
   }
 
   ngOnInit(): void {
@@ -67,14 +73,14 @@ export class JobfairComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
-            route: "/job-fairs/" + jobfairId + "/employers",
+            route: this.role=='employee'?"/employee/job-fairs/" + jobfairId + "/employers":"/job-fairs/" + jobfairId + "/employers",
             routeToElement: "/" + this.role + "/employer/",
             list: [],
             loading: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useGettingInside: true,
               useDelete: this.isOwner,
-              useSaved: false,
+              useSaved: this.role=='employee',
               isSaved: false,
               useApprove: false
             },
@@ -88,11 +94,12 @@ export class JobfairComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
-            route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+            route: this.role=='employee'?"/employee/job-offers/list-display/job-fair/"+jobfairId :
+                                         "/job-fairs/" + jobfairId + "/job-offers/list-display",
             routeToElement: "/"+this.role+"/employer/job-offer/",
             list: [],
             loading: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useGettingInside: true,
               useDelete: false,
               useSaved: this.role=='employee',
@@ -178,13 +185,7 @@ export class JobfairComponent implements OnInit {
     return date.substring(0, 10) + " " + date.substring(11);
   }
 
-  saveJobOffer(jobOffer: ItemInsideList): void {
-    if(jobOffer.ListButtonsOptions.isSaved){
-      this.serviceEmployee.saveJobOffer(jobOffer.id).subscribe((response) => {});
-    }else{
-      this.serviceEmployee.unsaveJobOffer(jobOffer.id).subscribe((response) => {});
-    }
-  }
+
 
   protected readonly FiliterType = FiliterType;
 

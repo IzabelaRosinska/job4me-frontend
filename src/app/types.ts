@@ -159,7 +159,7 @@ export interface PaginationUse<T> {
   class?: string,
   list: ItemInsideList[],
   loading: boolean,
-  ListButtonsOptions?: ListButtonsOptions,
+  listButtonsOptions?: ListButtonsOptions,
   filters?: JobOfferFilterDto | null
 }
 

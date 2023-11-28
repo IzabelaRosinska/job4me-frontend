@@ -40,7 +40,7 @@ export class JobfairSearchingPanelComponent implements OnInit {
 
         list: [],
         loading: true,
-        ListButtonsOptions: {
+        listButtonsOptions: {
           useGettingInside: true,
           useDelete: false,
           useSaved: false,
