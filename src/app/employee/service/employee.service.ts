@@ -69,22 +69,6 @@ export class EmployeeService {
     });
   }
 
-  saveJobOffer(offerId: number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employee/save-offer/' + offerId ;
-    return this.http.put(route, null, {
-      withCredentials: true,
-    });
-  }
-
-  unsaveJobOffer(offerId: number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employee/delete-offer/' + offerId ;
-    return this.http.put(route, null, {
-      withCredentials: true,
-    });
-  }
-
-
-
   saveEmployer(employerId: number): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employee/save-employer/' + employerId ;
     return this.http.post(route, null, {
