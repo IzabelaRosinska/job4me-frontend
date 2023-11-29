@@ -22,7 +22,7 @@
         *ngIf="getPaginationService().getPaginationUseById('saved',paginationUseList)?.loading"></app-loading-screen>
       <app-item-list [items]="getPaginationService().getDisplayListById('saved',paginationUseList)"
                      *ngIf="!getPaginationService().getPaginationUseById('saved',paginationUseList)?.loading"
-                     (deleteItemOut)="getSavedService().unsaveElement(this.role?this.role:'',this.routeMainPart,$event)"
+                     (deleteItemOut)="unsaveElement(role?role:'',routeToDelete,$event)"
       ></app-item-list>
     </div>
 

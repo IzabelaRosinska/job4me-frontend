@@ -16,11 +16,10 @@ export class SavedListComponent implements OnInit{
 
   @Input({ required: true }) routeMainPart: string = "";
   @Input({ required: true }) routeToElement: string = "";
+  @Input({ required: true }) routeToDelete: string = "";
   constructor(public route: ActivatedRoute,
               private servicePagination: PaginationService,
               private serviceSaved: SavedService) {
-    console.log( "main: " + this.routeMainPart);
-    console.log( "to: " + this.routeToElement);
   }
 
   protected readonly FiliterType = FiliterType;
@@ -38,6 +37,7 @@ export class SavedListComponent implements OnInit{
   ngOnInit(): void {
     this.routeMainPart = this.route.snapshot.data['routeMainPart'];
     this.routeToElement = this.route.snapshot.data['routeToElement'];
+    this.routeToDelete = this.route.snapshot.data['routeToDelete'];
     const role = localStorage.getItem('role');
     this.paginationUseList = [
       {
@@ -63,6 +63,10 @@ export class SavedListComponent implements OnInit{
       }];
 
     this.servicePagination.initPagination(this.paginationUseList);
+  }
+
+  unsaveElement(role: string, routeMainPart: string, employerId: number): void {
+    this.serviceSaved.unsaveElement(role,routeMainPart,employerId).subscribe((response) => {});
   }
 
 
