@@ -81,11 +81,12 @@
             class="container tab-pane fade {{getPaginationService().isActiveById('job-offers', paginationUseList)? 'show active' : ''}}"
             id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
             <div class="row">
-              <div class="col-sm-4 p-0 m-0 text-start w-50">
-                <button class="ms-3 btn btn-primary btn-login" (click)="recommendOffers('job-offers')">Rekomendacja</button>
 
+              <div class="col-sm-4 p-0 m-0 text-start w-50" *ngIf="role=='employee'">
+                <button class="ms-3 btn btn-primary btn-login" (click)="recommendOffers('job-offers')">Rekomendacja</button>
               </div>
-              <div class="col-sm-4 p-0 m-0 text-end w-50">
+
+              <div class="{{role=='employee'?'col-sm-4 w-50':'col-sm-12' }}   p-0 m-0 text-end ">
                 <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'job-offers', paginationUseList)"
                                [length]="getPaginationService().getLengthById('job-offers',paginationUseList)"
                                [pageSize]="getPaginationService().getPageSizeById('job-offers',paginationUseList)"
@@ -122,12 +123,13 @@
       <hr>
 
       <!--  Actions Panel-->
-      <div class="row align-items-center pt-5 text-center">
+      <div class="row align-items-center pt-5 text-center" *ngIf="isOwner">
         <div class="col-sm-12 col-md-6">
-          <button class="btn btn-primary w-100 btn-login text-center" routerLink="/organizer/1/job-fair/2/edit-form">
+          <button class="btn btn-primary w-100 btn-login text-center" routerLink="/organizer/1/job-fair/2/edit-form" >
             Edytuj informacje
           </button>
         </div>
+
       </div>
     </div>
   </div>
