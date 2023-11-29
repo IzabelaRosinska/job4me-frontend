@@ -64,6 +64,12 @@ export interface RegisterData {
   matchingPassword: string;
 }
 
+export interface PasswordChange{
+  password: string;
+  matchingPassword: string;
+  token?: string;
+}
+
 export interface ItemInsideList{
   route: string;
   image: string;

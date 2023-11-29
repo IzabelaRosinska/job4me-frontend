@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LoginData, RegisterData} from "../../types";
+import {LoginData, PasswordChange, RegisterData} from "../../types";
 import {RequestInterceptor} from "../../interceptors/request.interceptor";
 import {shareReplay} from "rxjs/operators";
 import { ROUTES} from "../../../environments/environments";
@@ -32,6 +32,25 @@ export class LoginService {
     const route: string  = ROUTES.BACKEND_ROUTE + '/signup';
     return this.http.request('post', route, {
       body: registerData,
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  startChangingPassword(email: string) {
+    const route: string  = ROUTES.BACKEND_ROUTE + '/reset-password?email=' + email;
+    return this.http.request('post', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  updatePassword(passwordData: PasswordChange) {
+    const route: string  = ROUTES.BACKEND_ROUTE + '/update-password';
+    return this.http.request('post', route, {
+      body: passwordData,
       withCredentials: true,
       responseType: 'text',
       observe: 'response',

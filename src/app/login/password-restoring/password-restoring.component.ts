@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RegisterData} from "../../types";
+import {PasswordChange, RegisterData} from "../../types";
 import {NgForm} from "@angular/forms";
 import {LoginService} from "../service/login.service";
 import {Router} from "@angular/router";
@@ -29,10 +29,8 @@ export class PasswordRestoringComponent implements OnInit{
     this.loading = false;
   }
 
-  passwordsData: RegisterData = {
-    username: '',
+  passwordsData: PasswordChange = {
     password: '',
-    role: '',
     matchingPassword: ''
   }
 
@@ -40,7 +38,7 @@ export class PasswordRestoringComponent implements OnInit{
 
   changePassword(registerForm: NgForm){
     this.loading = true;
-    this.loginService.registerUser(this.passwordsData).subscribe((response) => {
+    this.loginService.updatePassword(this.passwordsData).subscribe((response) => {
       console.log(response);
       switch (response.status) {
         case 201:
