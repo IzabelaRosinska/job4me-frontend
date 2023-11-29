@@ -78,7 +78,7 @@ export class EmployerAccountComponent implements OnInit {
         params: [['isActive', 'true']],
         list: [],
         loading: true,
-        ListButtonsOptions: {
+        listButtonsOptions: {
           useGettingInside: true,
           useDelete: true,
           useSaved: false,
@@ -100,7 +100,7 @@ export class EmployerAccountComponent implements OnInit {
         params: [['isActive', 'false']],
         list: [],
         loading: true,
-        ListButtonsOptions: {
+        listButtonsOptions: {
           useGettingInside: true,
           useDelete: true,
           useSaved: false,
@@ -113,7 +113,7 @@ export class EmployerAccountComponent implements OnInit {
     ]
     console.log("EmployerId: "+employerId);
     this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-      this.paginationService.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+      this.paginationService.changePaginationState(paginationUse, paginationUse.listButtonsOptions);
     });
     this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
       paginationUse.state.subscribe((response) => {

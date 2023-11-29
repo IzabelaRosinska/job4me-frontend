@@ -18,6 +18,8 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
 import { FilterSortPanelComponent } from './filter-sort-panel/filter-sort-panel.component';
 import { FiltringFieldComponent } from './filter-sort-panel/filtring-field/filtring-field.component';
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
+import { SavedListComponent } from './saved-list/saved-list.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -28,26 +30,28 @@ import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
     ItemListComponent,
     ItemInsideListComponent,
     FilterSortPanelComponent,
-    FiltringFieldComponent
+    FiltringFieldComponent,
+    SavedListComponent
   ],
     exports: [SimpleTrueFalsePopUpComponent,
         ExpandedModuleFormComponent, LoadingScreenComponent,
         ItemInsideListComponent, ItemListComponent, FilterSortPanelComponent,
     ],
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatDialogModule,
-        MatInputModule,
-        HttpClientModule,
-        FormsModule,
-        RouterLink,
-        MdbFormsModule
-    ]
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatDialogModule,
+    MatInputModule,
+    HttpClientModule,
+    FormsModule,
+    RouterLink,
+    MdbFormsModule,
+    MatPaginatorModule
+  ]
 })
 export class UtilitiesModule {
 }

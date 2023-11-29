@@ -18,6 +18,7 @@ export class ItemListComponent {
 
   @Output() deleteItemOut = new EventEmitter<number>();
   @Output() acceptItemOut = new EventEmitter<number>();
+  @Output() saveItemOut = new EventEmitter<ItemInsideList>();
   @Output() filterOptionSelectedOutput: EventEmitter<[FiliterType,string[]][]> = new EventEmitter<[FiliterType,string[]][]>();
 
   deleteItem(id: number): void {
@@ -31,6 +32,12 @@ export class ItemListComponent {
     if(this.items){
       this.items = this.items?.filter((item) => item.id !== id);
       this.acceptItemOut.emit(id);
+    }
+  }
+
+  saveItem(item: ItemInsideList): void {
+    if(this.items){
+      this.saveItemOut.emit(item);
     }
   }
 

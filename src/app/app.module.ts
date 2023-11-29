@@ -35,6 +35,7 @@ import { TitlePageComponent } from './title-page/title-page.component';
 import { JobfairSearchingPanelComponent } from './jobfair-searching-panel/jobfair-searching-panel.component';
 import {UtilitiesModule} from "./utilities/utilities.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
 
 
 @NgModule({

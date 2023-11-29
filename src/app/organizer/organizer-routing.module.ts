@@ -13,9 +13,11 @@ import {JobfairSearchingPanelComponent} from "../jobfair-searching-panel/jobfair
 const routes: Routes = [
   { path: 'employer/organizer/:organizer-id/account', component: OrganizerAccountComponent },
   { path: 'employer/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
+  { path: 'employer/organizer/job-fair/:jobfair-id', component: JobfairComponent },
 
   { path: 'employee/organizer/:organizer-id/account', component: OrganizerAccountComponent },
   { path: 'employee/organizer/:organizer-id/job-fair/:jobfair-id', component: JobfairComponent },
+  { path: 'employee/organizer/job-fair/:jobfair-id', component: JobfairComponent },
 
   { path: 'organizer/account', component: OrganizerAccountComponent },
   { path: 'organizer/edit-info', component: OrganizerInfoFormComponent },

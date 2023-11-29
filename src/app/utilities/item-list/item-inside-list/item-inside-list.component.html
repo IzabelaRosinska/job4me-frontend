@@ -30,7 +30,7 @@
 
         <!--NOT DEFAULT-->
         <div class="col"  *ngIf="item.ListButtonsOptions.useSaved? item.ListButtonsOptions.useSaved: false ">
-          <div  class="my-center" (click)="item.ListButtonsOptions.isSaved = !item.ListButtonsOptions.isSaved;">
+          <div  class="my-center" (click)="saveItemFunction()">
             <i class="fa-regular fa-heart useable-icon" *ngIf="!item.ListButtonsOptions.isSaved"></i>
             <i class="fa-solid fa-heart useable-icon" *ngIf="item.ListButtonsOptions.isSaved"></i>
           </div>

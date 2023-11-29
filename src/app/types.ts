@@ -78,6 +78,7 @@ export interface ForListBackend {
   name: string;
   displayDescription: string;
   photo?: string;
+  isSaved?: boolean;
 }
 
 export interface JobOffer {
@@ -158,7 +159,7 @@ export interface PaginationUse<T> {
   class?: string,
   list: ItemInsideList[],
   loading: boolean,
-  ListButtonsOptions?: ListButtonsOptions,
+  listButtonsOptions?: ListButtonsOptions,
   filters?: JobOfferFilterDto | null
 }
 
