@@ -73,7 +73,8 @@
               <app-item-list [items]="getPaginationService().getDisplayListById('employers',paginationUseList)"
                              *ngIf="!getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"
                              [filters]="[FiliterType.cities, FiliterType.employmentFormNames]"
-                             (filterOptionSelectedOutput)="getPaginationService().updateFilters('employers',paginationUseList, $event)"></app-item-list>
+                             (filterOptionSelectedOutput)="getPaginationService().updateFilters('employers',paginationUseList, $event)"
+                             (saveItemOut)="getSavedService().saveEmployer($event)"></app-item-list>
             </div>
 
           </div>
@@ -111,6 +112,7 @@
               <app-item-list [items]="getPaginationService().getDisplayListById('job-offers',paginationUseList)"
                              *ngIf="!getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"
                              [filters]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames]"
+                             (saveItemOut)="getSavedService().saveJobOffer($event)"
               ></app-item-list>
             </div>
 
@@ -129,7 +131,6 @@
             Edytuj informacje
           </button>
         </div>
-
       </div>
     </div>
   </div>

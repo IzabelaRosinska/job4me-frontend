@@ -29,7 +29,7 @@ export class PaginationService {
 
     initPagination(paginationUseList: PaginationUse<ForListBackend>[]){
       paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-        this.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+        this.changePaginationState(paginationUse, paginationUse.listButtonsOptions);
       });
 
       paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
@@ -53,7 +53,12 @@ export class PaginationService {
         const paginationUse = this.getPaginationUseById(tabId, paginationUseList);
 
         if (paginationUse) {
-            return paginationUse.list;
+          if(paginationUse.listButtonsOptions?.useSaved ? paginationUse.listButtonsOptions?.isSaved: false){
+            paginationUse.list.forEach((elem) => {
+              elem.ListButtonsOptions.isSaved = true;
+            });
+          }
+          return paginationUse.list;
         }
         return [];
     }
@@ -231,7 +236,7 @@ export class PaginationService {
             displayDescription: elem.displayDescription,
             ListButtonsOptions: {
                 useSaved: listButtonsOptions ? listButtonsOptions.useSaved : false,
-                isSaved: listButtonsOptions ? listButtonsOptions.isSaved : false,
+                isSaved: elem.isSaved ? elem.isSaved : false,
                 useDelete: listButtonsOptions ? listButtonsOptions.useDelete : false,
                 useApprove: listButtonsOptions ? listButtonsOptions.useApprove : false,
                 useGettingInside: listButtonsOptions ? listButtonsOptions.useGettingInside : false
@@ -257,7 +262,7 @@ export class PaginationService {
     gotToPage(paginationUseList: PaginationUse<ForListBackend>[], paginationUseId?: string): void {
         const elem = this.getPaginationUseById(paginationUseId ? paginationUseId : this.currentTabId, paginationUseList);
         if (elem) {
-            this.changePaginationState(elem, elem.ListButtonsOptions);
+            this.changePaginationState(elem, elem.listButtonsOptions);
         }
     }
 

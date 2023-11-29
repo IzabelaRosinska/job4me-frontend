@@ -15,6 +15,7 @@ export class ItemInsideListComponent {
 
   @Output() deleteItem = new EventEmitter<number>();
   @Output() acceptItem = new EventEmitter<number>();
+  @Output() saveItem = new EventEmitter<ItemInsideList>();
 
 
   constructor(public dialog: MatDialog) {}
@@ -37,6 +38,12 @@ export class ItemInsideListComponent {
     });
   }
 
+  saveItemFunction(){
+    if(this.item){
+      this.item.ListButtonsOptions.isSaved = !this.item.ListButtonsOptions.isSaved;
+      this.saveItem.emit(this.item);
+    }
+  }
 
   openConfirmItemDialog(): void {
 

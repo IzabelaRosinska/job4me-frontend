@@ -55,7 +55,7 @@ export class OrganizerAccountComponent implements OnInit {
             state: new Observable<Page<JobFair>>(),
             route: "/organizer/job-fairs",
             routeToElement: "/organizer/job-fair/",
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useSaved: false,
               isSaved: false,
               useDelete: true,
@@ -80,7 +80,7 @@ export class OrganizerAccountComponent implements OnInit {
             list: [],
             loading: true,
             ifGet: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useSaved: false,
               isSaved: false,
               useDelete: true,
@@ -101,7 +101,7 @@ export class OrganizerAccountComponent implements OnInit {
             list: [],
             loading: true,
             ifGet: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useSaved: false,
               isSaved: false,
               useDelete: true,
@@ -145,7 +145,7 @@ export class OrganizerAccountComponent implements OnInit {
         });
 
       this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-        this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
+        this.servicePagination.changePaginationState(paginationUse, paginationUse.listButtonsOptions);
       });
 
       this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {

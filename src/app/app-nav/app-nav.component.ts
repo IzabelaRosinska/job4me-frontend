@@ -14,8 +14,10 @@ export class AppNavComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
 
+  role: string | null = localStorage.getItem('role');
+
    constructor(private loginService: LoginService) {
-       console.log("role: " +  localStorage.getItem('role'))
+
    }
 
    getLoginService() {
@@ -23,7 +25,8 @@ export class AppNavComponent {
    }
 
    isLogged() {
-     return localStorage.getItem('role') != '';
+     this.role = localStorage.getItem('role');
+     return this.role != '';
    }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
