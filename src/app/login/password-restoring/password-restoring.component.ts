@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PasswordChange, RegisterData} from "../../types";
 import {NgForm} from "@angular/forms";
 import {LoginService} from "../service/login.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-password-restoring',
@@ -18,15 +18,20 @@ export class PasswordRestoringComponent implements OnInit{
   visibilityMaatchingPassowrdIconClass: string = 'fa fa-eye-slash';
 
   loading: boolean = true;
+  emailData: string = '';
+
+  @Input() mode: string = 'email'
 
   constructor(private loginService: LoginService,
-              private router: Router) {
+              private router: Router,
+              public route: ActivatedRoute) {
 
   }
 
 
   ngOnInit(): void {
     this.loading = false;
+    this.mode = this.route.snapshot.data['mode'];
   }
 
   passwordsData: PasswordChange = {
@@ -34,6 +39,27 @@ export class PasswordRestoringComponent implements OnInit{
     matchingPassword: ''
   }
 
+  sendEmail(registerForm: NgForm){
+    this.loading = true;
+    this.loginService.startChangingPassword(this.emailData).subscribe((response) => {
+      console.log(response);
+      // switch (response.status) {
+      //   case 200:
+      //     this.router.navigate(['/title-page']);
+      //     this.loading = false;
+      //     break;
+      //   case 500:
+      //     registerForm.resetForm({
+      //       username: '',
+      //       password: '',
+      //       matchingPassword: ''
+      //     });
+      //
+      //     this.loading = false;
+      //     break;
+      // }
+    })
+  }
 
 
   changePassword(registerForm: NgForm){
