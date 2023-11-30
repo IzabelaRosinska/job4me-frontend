@@ -72,18 +72,17 @@ export class PasswordRestoringComponent implements OnInit{
   }
 
 
-  changePassword(registerForm: NgForm){
+  changePassword(form: NgForm){
     this.loading = true;
     this.loginService.updatePassword(this.passwordsData).subscribe((response) => {
       console.log(response);
       switch (response.status) {
-        case 201:
-          this.router.navigate(['/title-page']);
+        case 200:
+          this.router.navigate(['/login']);
           this.loading = false;
           break;
         case 500:
-          registerForm.resetForm({
-            username: '',
+          form.resetForm({
             password: '',
             matchingPassword: ''
           });
