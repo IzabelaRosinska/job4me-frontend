@@ -28,16 +28,26 @@ export class PasswordRestoringComponent implements OnInit{
 
   }
 
-
+  passwordsData: PasswordChange = {
+    password: '',
+    matchingPassword: '',
+    token: ''
+  }
   ngOnInit(): void {
     this.loading = false;
     this.mode = this.route.snapshot.data['mode'];
+
+    this.route.url.subscribe(
+
+    )
+
+    this.route.queryParamMap.subscribe((params) => {
+      console.log(params);
+      this.passwordsData.token = params.get('token') || '';
+    });
   }
 
-  passwordsData: PasswordChange = {
-    password: '',
-    matchingPassword: ''
-  }
+
 
   sendEmail(registerForm: NgForm){
     this.loading = true;
