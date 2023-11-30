@@ -19,13 +19,13 @@ export class PasswordRestoringComponent implements OnInit{
 
   loading: boolean = true;
   emailData: string = '';
+  isEmailSend: boolean = false;
 
   @Input() mode: string = 'email'
 
   constructor(private loginService: LoginService,
               private router: Router,
               public route: ActivatedRoute) {
-
   }
 
   passwordsData: PasswordChange = {
@@ -49,7 +49,8 @@ export class PasswordRestoringComponent implements OnInit{
 
 
 
-  sendEmail(registerForm: NgForm){
+  sendEmail(form: NgForm){
+    this.isEmailSend = true;
     this.loading = true;
     this.loginService.startChangingPassword(this.emailData).subscribe((response) => {
       console.log(response);
