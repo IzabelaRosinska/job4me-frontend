@@ -48,7 +48,9 @@ export class LoginService {
   }
 
   updatePassword(passwordData: PasswordChange) {
-    const route: string  = ROUTES.BACKEND_ROUTE + '/update-password';
+    const token = passwordData.token?  '?token='+ passwordData.token  : ''
+    console.log("Token: " + token);
+    const route: string  = ROUTES.BACKEND_ROUTE + '/update-password' + token;
     return this.http.request('post', route, {
       body: passwordData,
       withCredentials: true,
