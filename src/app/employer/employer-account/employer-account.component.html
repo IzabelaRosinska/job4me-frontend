@@ -1,29 +1,37 @@
 <app-loading-screen *ngIf="loadingAccount"></app-loading-screen>
 
+
 <div class="main w-100" *ngIf="!loadingAccount">
     <div class="content">
         <!--  Introductory panel-->
         <div class="container info-panel p-4">
-            <div class="row ">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 col-lg-2 col-xl-2 text-xs-center text-sm-center text-md-start">
+                        <img [src]="employerAccount.photo ? employerAccount.photo : companyPhoto " class="company-icon">
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-10 col-xl-10 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start mt-auto mb-auto">
+                        <h1 class="name-text">{{employerAccount.companyName}}</h1>
+            
+                        <h3>{{employerAccount.email}} {{employerAccount.email !== null && employerAccount.telephone !== null ? '|' : ''}} {{employerAccount.telephone}} <br> {{employerAccount.address}}</h3>
+                    </div>
+            </div><br>
+            <p class="text-description cot-md-12" *ngIf="employerAccount.description"> {{employerAccount.description}} </p>
+                        
+            <div class="row align-items-center" *ngIf="isOwner">
 
-
-                <div class="col-xs-10 col-md-5 col-lg-4 col-xl-3 text-xs-center text-sm-center text-md-start">
-                    <img [src]="employerAccount.photo ? employerAccount.photo : companyPhoto " class="company-icon">
+                <div class="col-sm-12 col-lg-6">
+                    <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/edit-form">Edytuj
+                        informacje
+                    </button>
                 </div>
-
-                <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 ps-md-5 ps-lg-4 text-xs-center text-sm-center text-md-start">
-                    <h1 class="name-text">{{employerAccount.companyName}}</h1>
-
-                    <h3><i>{{employerAccount.email}}  |  {{employerAccount.telephone}} </i><br>
-                        <i>{{employerAccount.address}} </i>
-                    </h3>
-
-                    <p class="text-description"
-                       *ngIf="employerAccount.description"> {{employerAccount.description}} </p>
+                <div class="col-sm-12 col-lg-6">
+                    <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/add-job-offer">Dodaj
+                        ofertę
+                    </button>
                 </div>
 
             </div>
-        </div>
+        </div><br>
 
         <!--  Offers Panel-->
         <div class="container info-panel p-4 ">
@@ -120,24 +128,7 @@
 
         </div>
 
-        <!--  Actions Panel-->
-        <div class="container info-panel" *ngIf="isOwner">
-            <div class="row align-items-center">
-
-                <div class="col-sm-12 col-lg-6">
-                    <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/edit-form">Edytuj
-                        informacje
-                    </button>
-                </div>
-
-                <div class="col-sm-12 col-lg-6">
-                    <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/add-job-offer">Dodaj
-                        ofertę
-                    </button>
-                </div>
-
-            </div>
-        </div>
+        <br><br><br>
     </div>
 </div>
 
