@@ -43,7 +43,7 @@ export class PasswordRestoringComponent implements OnInit{
 
     this.route.queryParamMap.subscribe((params) => {
       console.log(params);
-      this.passwordsData.token = params.get('token') || '';
+      this.passwordsData.token = params.get('token') || undefined;
     });
   }
 
