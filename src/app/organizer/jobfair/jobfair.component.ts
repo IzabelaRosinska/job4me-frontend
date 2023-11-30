@@ -13,7 +13,9 @@ import {Observable} from "rxjs";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
 import {PaginationService} from "../../utilities/service/pagination.service";
+import {EmployeeService} from "../../employee/service/employee.service";
 import {VariablesService} from "../../utilities/service/variables.service";
+import {SavedService} from "../../utilities/service/saved.service";
 
 @Component({
   selector: 'app-jobfair',
@@ -47,8 +49,15 @@ export class JobfairComponent implements OnInit {
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService,
-              private variablesService: VariablesService) {
+              private variablesService: VariablesService,
+              private serviceEmployee: EmployeeService,
+              private savedService: SavedService) {
+    const role = localStorage.getItem('role');
 
+  }
+
+  getSavedService(): SavedService {
+    return this.savedService;
   }
 
   ngOnInit(): void {
@@ -64,14 +73,14 @@ export class JobfairComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
-            route: "/job-fairs/" + jobfairId + "/employers",
+            route: this.role=='employee'?"/employee/job-fairs/" + jobfairId + "/employers":"/job-fairs/" + jobfairId + "/employers",
             routeToElement: "/" + this.role + "/employer/",
             list: [],
             loading: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useGettingInside: true,
               useDelete: this.isOwner,
-              useSaved: false,
+              useSaved: this.role=='employee',
               isSaved: false,
               useApprove: false
             },
@@ -85,14 +94,15 @@ export class JobfairComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
-            route: "/job-fairs/" + jobfairId + "/job-offers/list-display",
+            route: this.role=='employee'?"/employee/job-offers/list-display/job-fair/"+jobfairId :
+                                         "/job-fairs/" + jobfairId + "/job-offers/list-display",
             routeToElement: "/"+this.role+"/employer/job-offer/",
             list: [],
             loading: true,
-            ListButtonsOptions: {
+            listButtonsOptions: {
               useGettingInside: true,
               useDelete: false,
-              useSaved: false,
+              useSaved: this.role=='employee',
               isSaved: false,
               useApprove: false
             },
@@ -115,22 +125,14 @@ export class JobfairComponent implements OnInit {
 
         });
 
-        this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-          this.servicePagination.changePaginationState(paginationUse, paginationUse.ListButtonsOptions);
-        });
+        this.servicePagination.initPagination(this.paginationUseList);
 
       } else {
         this.loading = false;
       }
     });
 
-    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-      paginationUse.state.subscribe((response) => {
-        paginationUse.length = response ? response.totalElements : 0;
-        paginationUse.pageSize = response ? response.size : 0;
-        paginationUse.pageIndex = response ? response.number : 0;
-      });
-    });
+
   }
 
   loading: boolean = true;
@@ -157,26 +159,6 @@ export class JobfairComponent implements OnInit {
       elem.state.subscribe((response) => {});
     }
 
-  }
-
-  addEmployerForList(employer: ForListBackend): void {
-    const role = localStorage.getItem('role');
-    let employerAsItemInsideList: ItemInsideList = {
-      route: "/employer/" + employer.id + "/account",
-      image: employer.photo ? employer.photo : this.companyPhoto,
-      name: employer.name,
-      id: employer.id ? employer.id : 0,
-      displayDescription: `${employer.displayDescription}`,
-      ListButtonsOptions: {
-        useGettingInside: true,
-        useApprove: false,
-        useSaved: false,
-        isSaved: false,
-        useDelete: false
-      }
-
-    }
-    this.employersAsList.push(employerAsItemInsideList);
   }
 
   convertDate(date: string): string {
