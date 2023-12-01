@@ -59,18 +59,7 @@ export class EmployeeAccountComponent implements OnInit {
     generatePdf(): void {
       this.serviceEmployee.getPdf().subscribe((response) => {
 
-        const byteCharacters = atob(response.body.serializedPdf);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-          const slice = byteCharacters.slice(offset, offset + 512);
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-          }
-          const byteArray = new Uint8Array(byteNumbers);
-          byteArrays.push(byteArray);
-        }
+        const byteArrays = this.convertToBase64(response.body.encodedPdf);
 
         const blob = new Blob(byteArrays, { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
@@ -78,8 +67,8 @@ export class EmployeeAccountComponent implements OnInit {
       });
     }
 
-    convertToBase64(image: string): any {
-      const byteCharacters = atob(image);
+    convertToBase64(resource: string): any {
+      const byteCharacters = atob(resource);
       const byteArrays = [];
 
       for (let offset = 0; offset < byteCharacters.length; offset += 512) {
