@@ -43,10 +43,36 @@ export class EmployeeAccountComponent implements OnInit {
 
     generatePdf(): void {
       this.serviceEmployee.getPdf().subscribe((response) => {
-        const newresponse = response as PdfDto;
-        const blob = new Blob([newresponse.serializedPDF], {type: 'application/pdf'});
+
+        // const newresponse = response as PdfDto;
+        // new response is pdf file in string in base64, to deserialize it we need to convert it to blo
+
+        //
+        // const byteCharacters = newresponse.serializedPDF
+        // console.log(response);
+        // console.log(newresponse.serializedPDF);
+
+        const byteArrays = [];
+        const arraybuffer = response.body as ArrayBuffer;
+        // byteArrays.push(new Uint8Array(byteCharacters));
+        //
+        // // for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        // //   const slice = byteCharacters.slice(offset, offset + 512);
+        // //   const byteNumbers = new Array(slice.length);
+        // //   for (let i = 0; i < slice.length; i++) {
+        // //     byteNumbers[i] = slice.charCodeAt(i);
+        // //   }
+        // //   const byteArray = new Uint8Array(byteNumbers);
+        // //   byteArrays.push(byteArray);
+        // // }
+        //
+        const blob = new Blob([arraybuffer], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
-        window.open(url);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'file.pdf';
+        link.click();
+        window.URL.revokeObjectURL(url);
       });
     }
 
