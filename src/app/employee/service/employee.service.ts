@@ -44,7 +44,7 @@ export class EmployeeService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/pdf',
-      Accept: 'application/pdf',
+      Accept: '*',
     });
 
     return this.http.get(route, {
