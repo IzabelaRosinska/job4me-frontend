@@ -61,6 +61,9 @@ export class JobOfferComponent implements OnInit {
               this.loading = false;
             });
           }
+          else {
+            this.loading = false;
+          }
         });
       });
     });

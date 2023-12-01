@@ -71,6 +71,46 @@ export class JobOfferEditFormComponent implements OnInit {
     });
   }
 
+  changeContractTypes(option: string) {
+    let index = this.jobOfferData.contractTypes.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.contractTypes.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.contractTypes.push(option)
+    }
+  }
+
+  changeIndustry(option: string) {
+    let index = this.jobOfferData.industries.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.industries.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.industries.push(option)
+    }
+  }
+
+  changeLevels(option: string) {
+    let index = this.jobOfferData.levels.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.levels.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.levels.push(option)
+    }
+  }
+
+  changeEmploymentForms(option: string) {
+    let index = this.jobOfferData.employmentForms.indexOf(option);
+    if (index !== -1) {
+      this.jobOfferData.employmentForms.splice(index, 1)
+    }
+    else {
+      this.jobOfferData.employmentForms.push(option)
+    }
+  }
+
   validate(isValid: boolean, data: HTMLElement) {
     if (isValid) {
       data.classList.add("valid-module");
@@ -137,14 +177,6 @@ export class JobOfferEditFormComponent implements OnInit {
     });
   }
 
-  dict: Record<string, string[]> = {
-    "industries": this.jobOfferData.industries,
-    "localizations": this.jobOfferData.localizations,
-    "employmentForms": this.jobOfferData.employmentForms,
-    "contractTypes": this.jobOfferData.contractTypes,
-    "levels": this.jobOfferData.levels,
-  };
-
   moduleSaveInfo(list: string[], id: string) {
     switch (id) {
       case "localizations":
@@ -158,30 +190,6 @@ export class JobOfferEditFormComponent implements OnInit {
         break;
     }
   }
-
-  optionClicked(option: string, attribute: string) {
-    if (!this.dict[attribute].includes(option)) {
-      this.dict[attribute].push(option);
-    } else {
-      var end = false;
-      const backup: string[] = []
-      for (let i = 0; i < this.dict[attribute].length + backup.length && !end; i++) {
-        const elem = this.dict[attribute].pop();
-        if (elem == option) {
-          const k = backup.length;
-          for (let j = 0; j < k; j++) {
-            this.dict[attribute].push(<string>backup.pop());
-          }
-          end = true;
-        } else {
-          backup.push(<string>elem);
-        }
-
-      }
-    }
-    console.log( this.dict[attribute]);
-  }
-
 
   protected readonly console = console;
 }
