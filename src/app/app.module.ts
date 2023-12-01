@@ -35,6 +35,7 @@ import { TitlePageComponent } from './title-page/title-page.component';
 import { JobfairSearchingPanelComponent } from './jobfair-searching-panel/jobfair-searching-panel.component';
 import {UtilitiesModule} from "./utilities/utilities.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { PasswordRestoringComponent } from './login/password-restoring/password-restoring.component';
 import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
 
 
@@ -47,6 +48,7 @@ import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
     FooterComponent,
     TitlePageComponent,
     JobfairSearchingPanelComponent,
+    PasswordRestoringComponent,
   ],
   imports: [
     HttpClientModule,
