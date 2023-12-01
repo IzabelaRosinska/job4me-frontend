@@ -43,10 +43,10 @@ export class EmployeeService {
 
   getPdf(): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employee/cv/pdf';
-
+    //
     // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/pdf',
-    //   'Accept': 'application/pdf ,*/*',
+    //   'Content-Type': 'application/json',
+    //   'Accept': '*',
     // });
 
     return this.http.get<PdfDto>(route, {

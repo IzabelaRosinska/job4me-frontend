@@ -212,5 +212,5 @@ export enum FiliterType {
 }
 
 export interface PdfDto {
-  serializedPDF: string;
+  serializedP: ArrayBuffer;
 }
