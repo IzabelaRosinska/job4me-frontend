@@ -10,7 +10,7 @@
         <div class="form-outline mt-0 pt-4">
           <mdb-form-control>
             <input mdbInput type="text" id="name" #name
-                   class="form-control white-field name.checkValidity()? 'is-valid' : 'is-invalid'"
+                   class="form-control white-field {{name.checkValidity()? 'is-valid' : 'is-invalid'}}"
                    [minLength]="1" [maxLength]="120"
                    name="name" placeholder="Nazwa stanowiska pracy" (change)="name.checkValidity()"
                    [(ngModel)]="jobOfferData.offerName"
@@ -26,7 +26,7 @@
         <div class="form-outline mt-0 pt-4">
           <mdb-form-control>
             <input mdbInput type="text" id="workingTime" #workingTime
-                   class="form-control white-field workingTime.checkValidity()? 'is-valid' : 'is-invalid'"
+                   class="form-control white-field {{workingTime.checkValidity()? 'is-valid' : 'is-invalid'}}"
                    [minLength]="1" [maxLength]="20"
                    name="workingTime" placeholder="Nazwa stanowiska pracy" (change)="workingTime.checkValidity()"
                    [(ngModel)]="jobOfferData.workingTime"
@@ -49,13 +49,13 @@
             <div class="form-group mx-2 form-outline double-field-form">
               <mdb-form-control>
                 <input mdbInput type="number" id="salaryStart" name="salaryStart" #salaryStart
-                  class="form-control white-field salaryStart.checkValidity()? 'is-valid' : 'is-invalid'"
+                  class="form-control white-field {{salaryStart.checkValidity()? 'is-valid' : 'is-invalid'}}"
                   [minLength]="1" [maxLength]="6" 
                   (change)="salaryStart.checkValidity()" [(ngModel)]="jobOfferData.salaryFrom" [placeholder]="'np. 2000'" required>
                 <label mdbLabel class="form-label" for="salaryStart">Minimum*</label>
               </mdb-form-control>
-              <div *ngIf="jobOfferForm.submitted && !salaryStart.checkValidity()"
-                class="invalid-feedback">Uzupełnij minimalne wynagrodzenie</div>
+              <!-- <div 
+                class="text-start invalid-message">Uzupełnij minimalne wynagrodzenie</div> -->
             </div>
 
             <h3 style="text-align: center;"> &nbsp;&nbsp;_&nbsp;&nbsp; </h3>
@@ -63,16 +63,16 @@
             <div class="form-group mx-2 form-outline double-field-form">
               <mdb-form-control>
                 <input mdbInput type="number" id="salaryEnd" name="salaryEnd" #salaryEnd
-                  class="form-control white-field salaryEnd.checkValidity()? 'is-valid' : 'is-invalid'"
+                  class="form-control white-field {{salaryEnd.checkValidity()? 'is-valid' : 'is-invalid'}}"
                   [minLength]="1" [maxLength]="6"
                   (change)="salaryEnd.checkValidity()" [(ngModel)]="jobOfferData.salaryTo" [placeholder]="'np. 4000 lub puste'">
                 <label mdbLabel class="form-label" for="salaryEnd">Maksimum</label>
               </mdb-form-control>
-              <div *ngIf="jobOfferForm.submitted && salaryStart.value > salaryEnd.value"
-                class="invalid-feedback">Wartość maksymalna pensji musi być niemniejsza minimalnej</div>
-            </div>
+              
+            </div><br>
           </div>
-        
+          <div *ngIf="(!salaryStart.checkValidity() || salaryStart.value >= salaryEnd.value)"
+            class="text-start invalid-message row justify-content-center">Nieprawidłowy zakres</div>
         </div>
 
         <br><br>
@@ -80,13 +80,13 @@
 
         <div>
           <button #industries class="btn btn-light dropdown-toggle w-100 {{ jobOfferData.industries.length > 0 ? 'valid-module' : 'invalid-module' }}"
-            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            type="button" data-bs-toggle="dropdown" aria-expanded="false" >
             Branża
           </button>
-          <ul class="table dropdown-menu option-menu">
+          <ul class="table option-menu">
             <li *ngFor="let option of variableService.industries">
               <div class="form-check dropdown-item option-item">
-                <input class="form-check-input" type="checkbox" [value]="option" [id]="option" [checked]="jobOfferData.industries.includes(option)"
+                <input class="" type="checkbox" [value]="option" [id]="option" [checked]="jobOfferData.industries.includes(option)"
                   (click)="changeIndustry(option)">
                 <label class="form-check-label dropdown-item-element-consistent"  [for]="option">
                   {{option}}
@@ -224,7 +224,7 @@
                       (click)="(name.checkValidity() && workingTime.checkValidity() && salaryStart.checkValidity() && !industries.classList.contains(invalidClassName)
                       && !localizations.classList.contains(invalidClassName) && !forms.classList.contains(invalidClassName)
                       && !contract_type.classList.contains(invalidClassName) && !level.classList.contains(invalidClassName)
-                      && !requirements.classList.contains(invalidClassName) && duties.checkValidity() && (salaryEnd.value === null || salaryEnd.value > salaryStart.value)) ? openConfirmDialog() : ''" 
+                      && !requirements.classList.contains(invalidClassName) && duties.checkValidity() && (salaryEnd.value == null || salaryEnd.value > salaryStart.value)) ? openConfirmDialog() : ''" 
                       type="submit"
                       [disabled]="">
                 Potwierdź
