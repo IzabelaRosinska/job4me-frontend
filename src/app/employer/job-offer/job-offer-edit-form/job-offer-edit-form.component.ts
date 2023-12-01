@@ -191,5 +191,10 @@ export class JobOfferEditFormComponent implements OnInit {
     }
   }
 
+  // checkSalary(start: number, end: number) {
+  //   return end === null || 
+  // }
+
+
   protected readonly console = console;
 }

@@ -71,7 +71,7 @@
               
             </div><br>
           </div>
-          <div *ngIf="(!salaryStart.checkValidity() || salaryStart.value >= salaryEnd.value)"
+          <div *ngIf="(!salaryStart.checkValidity() || salaryStart > salaryEnd)"
             class="text-start invalid-message row justify-content-center">Nieprawidłowy zakres</div>
         </div>
 
