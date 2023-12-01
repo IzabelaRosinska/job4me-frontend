@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeAccount} from "../../types";
+import {EmployeeAccount, PdfDto} from "../../types";
 import {EmployeeService} from "../service/employee.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 
@@ -43,7 +43,8 @@ export class EmployeeAccountComponent implements OnInit {
 
     generatePdf(): void {
       this.serviceEmployee.getPdf().subscribe((response) => {
-        const blob = new Blob([response.body], {type: 'application/pdf'});
+        const newresponse = response as PdfDto;
+        const blob = new Blob([newresponse.serializedPDF], {type: 'application/pdf'});
         const url = window.URL.createObjectURL(blob);
         window.open(url);
       });

@@ -211,3 +211,6 @@ export enum FiliterType {
   employerCompanyName = "employerCompanyName",
 }
 
+export interface PdfDto {
+  serializedPDF: string;
+}
