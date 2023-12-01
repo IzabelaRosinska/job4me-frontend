@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeAccount, PdfDto} from "../../types";
 import {EmployeeService} from "../service/employee.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-employee-account',
@@ -15,7 +16,8 @@ export class EmployeeAccountComponent implements OnInit {
 
     constructor(private serviceEmployee: EmployeeService,
                 private route: ActivatedRoute,
-                private router:  Router) {}
+                private router:  Router,
+                private _sanitizer: DomSanitizer) {}
 
     ngOnInit(): void {
       this.route.paramMap.subscribe((params: ParamMap) => {
@@ -75,44 +77,32 @@ export class EmployeeAccountComponent implements OnInit {
         window.open(url);
       });
     }
-    // generatePdf(): void {
-    //   this.serviceEmployee.getPdf().subscribe((response) => {
-    //
-    //     console.log(response.body)
-    //     const newresponse = response.body as PdfDto;
-    //
-    //     // in response I have byte[] from java Spring, convert to 'application/pdf'
-    //
-    //     // new response is pdf file in string in base64, to deserialize it we need to convert it to blo
-    //
-    //     //
-    //     // const byteCharacters = newresponse.serializedPDF
-    //     // console.log(response);
-    //     // console.log(newresponse.serializedPDF);
-    //     const uintArray = new Uint8Array(newresponse.serializedPdf);
-    //     const byteArrays = [];
-    //     const arraybuffer = newresponse.serializedPdf as ArrayBuffer;
-    //     // byteArrays.push(new Uint8Array(byteCharacters));
-    //     //
-    //     // // for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-    //     // //   const slice = byteCharacters.slice(offset, offset + 512);
-    //     // //   const byteNumbers = new Array(slice.length);
-    //     // //   for (let i = 0; i < slice.length; i++) {
-    //     // //     byteNumbers[i] = slice.charCodeAt(i);
-    //     // //   }
-    //     // //   const byteArray = new Uint8Array(byteNumbers);
-    //     // //   byteArrays.push(byteArray);
-    //     // // }
-    //     //
-    //     const blob = new Blob([uintArray], { type: 'application/pdf' });
-    //     const url = window.URL.createObjectURL(blob);
-    //     const link = document.createElement('a');
-    //     link.href = url;
-    //     link.download = 'file.pdf';
-    //     link.click();
-    //     window.URL.revokeObjectURL(url);
-    //   });
-    // }
 
+    convertToBase64(image: string): any {
+      const byteCharacters = atob(image);
+      const byteArrays = [];
+
+      for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+      return byteArrays;
+    }
+
+    generateQR(): void {
+      this.serviceEmployee.getQRCode().subscribe((response) => {
+
+        const byteArrays = this.convertToBase64(response.body.encodedQr);
+
+        const blob = new Blob(byteArrays, { type: 'image/png' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      });
+    }
 
 }
