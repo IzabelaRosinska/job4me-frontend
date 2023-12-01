@@ -3,7 +3,7 @@
 <div class="main" *ngIf="!loading">
   <div class="offer-header-container">
     <h2 class="offer-header">{{jobOfferData.offerName}}</h2>
-    <h5 class="id"><i>#{{jobOfferData.id}}</i></h5>
+    <h5 class="id">#{{jobOfferData.id}}</h5>
   </div>
   <div class="container">
     <div class="row">
@@ -50,7 +50,7 @@
           <div class="card-header text-bg-light ">
             <h2>{{employerAccountData?.companyName ? employerAccountData?.companyName : "Brak"}}</h2></div>
           <div class="card-body">
-            <h4 class="card-text"><i>{{jobOfferData.industries.join(', ')}}</i></h4>
+            <h4 class="card-text">{{jobOfferData.industries.join(', ')}}</h4>
             <p
               class="card-text"> {{employerAccountData?.displayDescription ? employerAccountData?.displayDescription : "Brak"}}</p>
             <div class="my-center text-end">

@@ -1,6 +1,6 @@
 <app-loading-screen *ngIf="loadingSite"></app-loading-screen>
 
-<div class="main" *ngIf="!loadingSite">
+<div class="main w-100" *ngIf="!loadingSite">
   <div class="content">
     <!--  Introductory panel-->
     <div class="container info-panel p-4">
@@ -9,9 +9,23 @@
         <div class="col-xs-2 col-md-7 col-lg-8 col-xl-9 text-xs-center text-sm-center text-md-start">
           <h1 class="name-text">{{organizerAccount.name}}</h1>
 
-          <h3><i>{{organizerAccount.contactEmail}}  |  {{organizerAccount.telephone}}</i></h3>
+          <h3>{{organizerAccount.contactEmail}} {{organizerAccount.contactEmail !== null && organizerAccount.telephone !== null ? '|' : ''}} {{organizerAccount.telephone}}</h3>
 
           <p class="text-description" *ngIf="organizerAccount.description"> {{organizerAccount.description}} </p>
+        </div>
+
+      </div>
+
+      <div class="row align-items-center" *ngIf="isOwner">
+
+        <div class="col-sm-12 col-md-6" >
+          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/edit-info">Edytuj informacje
+          </button>
+        </div>
+        <!-- <br><br> -->
+        <div class="col-sm-12 col-md-6">
+          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/add-job-fair">Dodaj targi pracy
+          </button>
         </div>
 
       </div>
@@ -144,24 +158,6 @@
         </div>
       </div>
       <!-- Pills content -->
-    </div>
-
-
-    <!--  Actions Panel-->
-    <div class="container info-panel" *ngIf="isOwner">
-      <div class="row align-items-center">
-
-        <div class="col-sm-12 col-md-6" >
-          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/edit-info">Edytuj informacje
-          </button>
-        </div>
-
-        <div class="col-sm-12 col-md-6">
-          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/add-job-fair">Dodaj targi pracy
-          </button>
-        </div>
-
-      </div>
     </div>
   </div>
 </div>

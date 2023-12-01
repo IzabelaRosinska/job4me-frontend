@@ -19,27 +19,38 @@ export class PasswordRestoringComponent implements OnInit{
 
   loading: boolean = true;
   emailData: string = '';
+  isEmailSend: boolean = false;
 
   @Input() mode: string = 'email'
 
   constructor(private loginService: LoginService,
               private router: Router,
               public route: ActivatedRoute) {
-
-  }
-
-
-  ngOnInit(): void {
-    this.loading = false;
-    this.mode = this.route.snapshot.data['mode'];
   }
 
   passwordsData: PasswordChange = {
     password: '',
-    matchingPassword: ''
+    matchingPassword: '',
+    token: ''
+  }
+  ngOnInit(): void {
+    this.loading = false;
+    this.mode = this.route.snapshot.data['mode'];
+
+    this.route.url.subscribe(
+
+    )
+
+    this.route.queryParamMap.subscribe((params) => {
+      console.log(params);
+      this.passwordsData.token = params.get('token') || undefined;
+    });
   }
 
-  sendEmail(registerForm: NgForm){
+
+
+  sendEmail(form: NgForm){
+    this.isEmailSend = true;
     this.loading = true;
     this.loginService.startChangingPassword(this.emailData).subscribe((response) => {
       console.log(response);
@@ -62,18 +73,17 @@ export class PasswordRestoringComponent implements OnInit{
   }
 
 
-  changePassword(registerForm: NgForm){
+  changePassword(form: NgForm){
     this.loading = true;
     this.loginService.updatePassword(this.passwordsData).subscribe((response) => {
       console.log(response);
       switch (response.status) {
-        case 201:
-          this.router.navigate(['/title-page']);
+        case 200:
+          this.router.navigate(['/login']);
           this.loading = false;
           break;
         case 500:
-          registerForm.resetForm({
-            username: '',
+          form.resetForm({
             password: '',
             matchingPassword: ''
           });
