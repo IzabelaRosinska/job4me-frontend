@@ -43,6 +43,12 @@
         </div>
       </div>
 
+      <div class="row" *ngIf="errorMessage!=''">
+        <div class="col">
+         <b><p class="error">{{errorMessage}}</p></b>
+        </div>
+      </div>
+
       <!-- Submit button -->
       <button class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się
       </button>

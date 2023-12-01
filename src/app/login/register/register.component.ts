@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit{
   loading: boolean = true;
 
   wrongUsernameMessage: boolean = false;
+  errorMessage: string = '';
 
   registerData: RegisterData = {
     username: '',

@@ -31,19 +31,43 @@ export class LoginComponent implements OnInit {
 
   hide = true;
   loading: boolean = true;
+  errorMessage: string = '';
 
   logIn(loginForm: NgForm) {
     this.loading = true;
     this.loginService.pushLoginData(this.loginData).pipe(
       catchError(err => {
-        if (err.status === 404) {
-          console.log('HTTP Error 404: Resource not found');
-        } else {
-          console.error('HTTP Error', err.status, err.statusText);
+        switch (err.status) {
+            case 401:
+                console.log('401 Unauthorized');
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Nieprawidłowy login lub hasło';
+                this.loading = false;
+                break;
+            case 404:
+                console.log('404 Not Found');
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
+                this.loading = false;
+                break;
+            default:
+                console.log('Error');
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Błąd logowania';
+                this.loading = false;
+                break;
         }
+
+        //
+        // if (err.status === 404) {
+        //   console.log('HTTP Error 404: Resource not found');
+        // } else {
+        //   console.error('HTTP Error', err.status, err.statusText);
+        // }
         return throwError(err);
       })
     ).subscribe(response => {
+      console.log('Satus: ' + response.status + ' ' + response.statusText);
       switch (response.status) {
         case 200:
           this.variableService.initVariables();
@@ -63,6 +87,13 @@ export class LoginComponent implements OnInit {
             this.loading = false;
           }
 
+          break;
+
+        case 401:
+          console.log('401 Unauthorized');
+          this.router.navigate(['/login']);
+          this.errorMessage = 'Nieprawidłowy login lub hasło';
+          this.loading = false;
           break;
       }
       loginForm.resetForm({
