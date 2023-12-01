@@ -52,7 +52,6 @@ export class EmployeeService {
     return this.http.get<PdfDto>(route, {
       // headers: headers,
       observe: 'response',
-      responseType  : 'arraybuffer' as 'json',
       withCredentials: true,
     });
   }
