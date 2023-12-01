@@ -4,7 +4,7 @@ import {LoginService} from "../service/login.service";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
-import {catchError} from "rxjs";
+import {catchError, throwError} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -38,7 +38,31 @@ export class RegisterComponent implements OnInit{
 
   registerUser(registerForm: NgForm){
     this.loading = true;
-    this.loginService.registerUser(this.registerData).subscribe((response) => {
+    this.loginService.registerUser(this.registerData).pipe(
+        catchError(err => {
+          switch (err.status) {
+            case 401:
+              console.log('401 Unauthorized');
+              this.router.navigate(['/login']);
+              this.errorMessage = 'Nieprawidłowy login lub hasło';
+              this.loading = false;
+              break;
+            case 404:
+              console.log('404 Not Found');
+              this.router.navigate(['/login']);
+              this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
+              this.loading = false;
+              break;
+            default:
+              console.log('Error');
+              this.errorMessage = 'Taki email już istnieje';
+              this.loading = false;
+              break;
+          }
+          return throwError(err);
+        }
+        )
+    ).subscribe((response) => {
       console.log(response);
       switch (response.status) {
         case 201:
@@ -66,6 +90,7 @@ export class RegisterComponent implements OnInit{
           });
 
           this.wrongUsernameMessage = true;
+          this.errorMessage = 'Taki email już istnieje!';
           this.loading = false;
           break;
       }
