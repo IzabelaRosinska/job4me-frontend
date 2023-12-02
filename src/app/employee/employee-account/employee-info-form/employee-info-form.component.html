@@ -130,7 +130,7 @@
                       <div
                         class="col pe-0 w-100 {{this.creatingEmployee ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
                         <button class="btn btn-primary btn-block mb-4 btn-login {{this.creatingEmployee ? 'w-50' : 'w-100' }}"
-                                (click)="(!name.checkValidity() || !lastName.checkValidity() || !email.checkValidity()) ? '' : openConfirmDialog()"
+                                (click)="(name.checkValidity() && lastName.checkValidity() && email.checkValidity()) ? openConfirmDialog() : ''"
                                 type="submit"
                                 [disabled]="">
                           Potwierdź
@@ -138,6 +138,8 @@
                       </div>
 
                     </div>
+                    <div class="text-end invalid-message" *ngIf="employeeForm.submitted && !(name.checkValidity() && lastName.checkValidity() && email.checkValidity())">
+                    Formularz zawiera błędy</div>
                 </div>
 
             </form>

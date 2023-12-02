@@ -8,7 +8,7 @@
 <div class="firstLevel" *ngIf="!questionHide">
   <div text-align="right">
 
-    <table class="table">
+    <table class="table p-0">
       <tr
         *ngFor="let elem of listOfTextsWithIndexes">
         <td class="question-first-element-in-row" (click)="editText(elem[1])">
@@ -24,7 +24,7 @@
           <div class="form-group">
             <form #textForm="ngForm">
               <div class="form-group">
-                <input [(ngModel)]="newText" [maxLength]="maxInputLength" class="form-control" style="height: 60px"
+                <input [(ngModel)]="newText" [maxLength]="maxInputLength" class="form-control"
                       id="newTextInput" name="newText" type="text" (keyup.enter)="addText()" [placeholder]="placeholder">
               </div>
             </form>

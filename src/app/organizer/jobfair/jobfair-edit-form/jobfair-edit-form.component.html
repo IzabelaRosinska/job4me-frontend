@@ -117,6 +117,9 @@
             </div>
 
           </div>
+          <div class="text-end invalid-message" *ngIf="jobfairForm.submitted && !(name.checkValidity() && address.checkValidity()
+          && dateStart.checkValidity() && dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())">
+          Formularz zawiera błędy</div>
         </div>
       </form>
     </fieldset>
