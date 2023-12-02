@@ -197,7 +197,6 @@ export interface JobOfferFilterDto {
   offerName?: string
 }
 
-
 export enum FiliterType {
   cities = "cities",
   employmentFormNames = "employmentFormNames",
