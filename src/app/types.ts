@@ -215,6 +215,6 @@ export interface PdfDto {
   encodedPdf: ArrayBuffer;
 }
 
-export interface PdfDto {
+export interface QrDto {
   encodedQr: ArrayBuffer;
 }
