@@ -212,5 +212,9 @@ export enum FiliterType {
 }
 
 export interface PdfDto {
-  serializedP: ArrayBuffer;
+  encodedPdf: ArrayBuffer;
+}
+
+export interface PdfDto {
+  encodedQr: ArrayBuffer;
 }

@@ -43,14 +43,17 @@ export class EmployeeService {
 
   getPdf(): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employee/cv/pdf';
-    //
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Accept': '*',
-    // });
 
     return this.http.get<PdfDto>(route, {
-      // headers: headers,
+      observe: 'response',
+      withCredentials: true,
+    });
+  }
+
+  getQRCode(): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employee/code';
+
+    return this.http.get<PdfDto>(route, {
       observe: 'response',
       withCredentials: true,
     });
