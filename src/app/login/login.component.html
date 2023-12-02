@@ -36,13 +36,24 @@
              class="text-start invalid-message">{{password.checkValidity() ? errorMessage : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
       </div>
 
+      <section>
+        <div class="product">
+          <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+          <div class="description">
+            <h3>Linkedin</h3>
+            <h5></h5>
+          </div>
+        </div>
+        <form action="/create-checkout-session" method="POST">
+          <button type="submit" id="checkout-button-linkedin" (click)="linkedinLogin()" >Checkout</button>
+        </form>
+      </section>
 
       <div class="row mb-4">
         <div class="col">
           <a routerLink="/reset-password">Nie pamiętasz hasła?</a>
         </div>
       </div>
-
 
       <!-- Submit button -->
       <button class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się

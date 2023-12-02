@@ -5,6 +5,7 @@ import {LoginData} from "../types";
 import {Router} from "@angular/router";
 import {catchError, of, throwError} from "rxjs";
 import {VariablesService} from "../utilities/service/variables.service";
+import {OrganizerService} from "../organizer/services/organizer.service";
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private router: Router,
-              private variableService: VariablesService) {
+              private variableService: VariablesService,
+              private serviceOrganizer: OrganizerService) {
   }
 
   ngOnInit(): void {
@@ -99,6 +101,12 @@ export class LoginComponent implements OnInit {
       this.passwordVisible = 'password';
       this.visibilityIconClass = 'fa fa-eye-slash';
     }
+  }
+
+  linkedinLogin() {
+    this.serviceOrganizer.getLinkedin().subscribe((response) => {
+      window.location.href = response.url;
+    });
   }
 
 }

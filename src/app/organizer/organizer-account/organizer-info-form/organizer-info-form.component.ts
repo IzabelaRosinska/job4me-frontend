@@ -104,10 +104,6 @@ export class OrganizerInfoFormComponent implements OnInit {
     });
   }
 
-  linkedinLogin() {
-    this.serviceOrganizer.getLinkedin().subscribe((response) => {
-      window.location.href = response.url;
-    });
-  }
+
 
 }
