@@ -8,6 +8,8 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {OrganizerService} from "../../services/organizer.service";
 
+
+
 @Component({
   selector: 'app-organizer-info-form',
   templateUrl: './organizer-info-form.component.html',
