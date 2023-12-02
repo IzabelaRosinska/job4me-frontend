@@ -191,5 +191,14 @@ export class JobOfferEditFormComponent implements OnInit {
     }
   }
 
+  checkSalary(start: number, end: number) {
+    return !(end === null || end < start)
+  }
+
+  validateSalary() {
+    return (this.jobOfferData.salaryFrom !== null && (this.jobOfferData.salaryTo === null || this.jobOfferData.salaryFrom <= this.jobOfferData.salaryTo))
+
+  }
+
   protected readonly console = console;
 }

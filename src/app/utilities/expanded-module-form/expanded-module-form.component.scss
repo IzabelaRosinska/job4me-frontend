@@ -1,11 +1,11 @@
-@import "src/styles.scss";
+@import "../../../styles.scss";
 
 $QUESTION_BACKGROUND_COLOR: rgba(215, 215, 215, 0);
 
 
 div.firstLevel {
-  margin-left: 15%;
-  width: 70%;
+  margin-left: 5%;
+  width: 90%;
 
   textarea {
     width: 80%;
@@ -68,4 +68,8 @@ input
 
 .element-on-right {
   margin-left: auto;
+}
+
+.form-control {
+  height: 60px
 }

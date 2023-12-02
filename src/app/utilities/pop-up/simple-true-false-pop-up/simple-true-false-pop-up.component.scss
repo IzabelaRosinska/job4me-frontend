@@ -1,0 +1,17 @@
+@import "../../../../styles.scss";
+
+.btn-secondary {
+    border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+    background-color: $MAIN_LOGO_COLOR_DARKER !important;
+    -webkit-text-fill-color: white;
+    width: 100px;
+  
+    &:hover {
+      background-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+    }
+  
+    &:active {
+      border-color: darken($MAIN_LOGO_COLOR, 40%) !important;
+      background-color: $MAIN_LOGO_COLOR_DARKER !important;
+    }
+  }
