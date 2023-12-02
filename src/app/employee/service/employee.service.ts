@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {EmployeeAccount, PdfDto} from "../../types";
+import {EmployeeAccount, PdfDto, QrDto} from "../../types";
 import {shareReplay} from "rxjs/operators";
 import {ROUTES} from "../../../environments/environments";
 
@@ -53,7 +53,7 @@ export class EmployeeService {
   getQRCode(): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employee/code';
 
-    return this.http.get<PdfDto>(route, {
+    return this.http.get<QrDto>(route, {
       observe: 'response',
       withCredentials: true,
     });
