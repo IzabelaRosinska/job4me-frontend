@@ -42,19 +42,16 @@ export class RegisterComponent implements OnInit{
         catchError(err => {
           switch (err.status) {
             case 401:
-              console.log('401 Unauthorized');
               this.router.navigate(['/login']);
               this.errorMessage = 'Nieprawidłowy login lub hasło';
               this.loading = false;
               break;
             case 404:
-              console.log('404 Not Found');
               this.router.navigate(['/login']);
               this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
               this.loading = false;
               break;
             default:
-              console.log('Error');
               this.errorMessage = 'Taki email już istnieje';
               this.loading = false;
               break;
@@ -63,7 +60,6 @@ export class RegisterComponent implements OnInit{
         }
         )
     ).subscribe((response) => {
-      console.log(response);
       switch (response.status) {
         case 201:
 
