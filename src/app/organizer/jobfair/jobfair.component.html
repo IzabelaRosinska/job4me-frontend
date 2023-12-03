@@ -127,8 +127,14 @@
       <!--  Actions Panel-->
       <div class="row align-items-center pt-5 text-center" *ngIf="isOwner">
         <div class="col-sm-12 col-md-6">
-          <button class="btn btn-primary w-100 btn-login text-center" routerLink="/organizer/1/job-fair/2/edit-form" >
+          <button class="btn btn-primary w-100 btn-login text-center" [routerLink]="'/organizer/'+jobFair.organizerId+'/job-fair/'+jobFair.id+'/edit-form'">
             Edytuj informacje
+          </button>
+        </div>
+
+        <div class="col-sm-12 col-md-6" *ngIf="isEmployer()">
+          <button class="btn btn-primary w-100 btn-login text-center" (click)="requestForJobFair()">
+            Zgłoś swój udział
           </button>
         </div>
       </div>

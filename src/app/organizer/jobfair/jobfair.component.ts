@@ -61,6 +61,7 @@ export class JobfairComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
     this.variablesService.initVariables();
     this.route.paramMap.subscribe((params: ParamMap) => {
       const jobfairId = Number(params.get('jobfair-id'));
@@ -164,6 +165,16 @@ export class JobfairComponent implements OnInit {
 
   convertDate(date: string): string {
     return date.substring(0, 10) + " " + date.substring(11);
+  }
+
+  requestForJobFair(): void {
+    this.serviceJobFair.requestForParticipation(this.jobFair.id).subscribe((response) => {
+
+    });
+  }
+
+  isEmployer(): boolean {
+    return this.role == 'employer';
   }
 
   protected readonly FiliterType = FiliterType;

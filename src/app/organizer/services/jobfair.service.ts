@@ -19,6 +19,16 @@ export class JobfairService {
     });
   }
 
+  requestForParticipation(jobFairId: number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-fairs/' + jobFairId + '/employer-participation';
+    return this.http.request('post', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+
   getJobFairByIdForList(id: number): Observable<ForListBackend> {
     const route = ROUTES.BACKEND_ROUTE + '/job-fairs/'+id+'/job-offers/list-display';
     return this.http.get<ForListBackend>(route, {

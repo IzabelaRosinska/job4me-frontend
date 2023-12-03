@@ -20,9 +20,34 @@ export class VariablesService implements OnInit {
   private initialized: boolean = false;
 
 
-  dictionaryIfObjectFilter!: Record<FiliterType, boolean>
+  dictionaryIfObjectFilter: Record<FiliterType, boolean> = {
+    cities: true,
+    levelNames: true,
+    industryNames: true,
+    employmentFormNames: true,
+    contractTypeNames: true,
+    salaryFrom: true,
+    salaryTo: true,
+    offerName: true,
+    jobFairName: false,
+    employerCompanyName: false,
+    address: false
+  }
 
-  dictionaryIfLoaded!: Record<FiliterType, boolean>
+  dictionaryIfLoaded: Record<FiliterType, boolean> = {
+    cities: false,
+    levelNames: true,
+    industryNames: true,
+    employmentFormNames: true,
+    contractTypeNames: true,
+    salaryFrom: false,
+    salaryTo: false,
+    offerName: false,
+    jobFairName: false,
+    employerCompanyName: false,
+    address: false
+  }
+
   dictionaryOfLoadedData!: Record<FiliterType, string[]>
 
   filterTranslations: Record<FiliterType, string> = {
@@ -36,6 +61,7 @@ export class VariablesService implements OnInit {
     offerName: "Nazwa oferty",
     jobFairName: "Nazwa targów",
     employerCompanyName: "Nazwa firmy",
+    address: "Adres"
   }
 
   sortOffersOptions: Record<string, number> = {
@@ -72,19 +98,6 @@ export class VariablesService implements OnInit {
             this.getContractTypes().subscribe((response4) => {
               this.contractTypes = response4.content.map((element) => element.name);
 
-              this.dictionaryIfLoaded = {
-                cities: false,
-                levelNames: true,
-                industryNames: true,
-                employmentFormNames: true,
-                contractTypeNames: true,
-                salaryFrom: false,
-                salaryTo: false,
-                offerName: false,
-                jobFairName: false,
-                employerCompanyName: false,
-              }
-
               this.dictionaryOfLoadedData = {
                 cities: [],
                 levelNames: this.levels,
@@ -96,20 +109,9 @@ export class VariablesService implements OnInit {
                 offerName: [],
                 jobFairName: [],
                 employerCompanyName: [],
+                address: []
               }
 
-              this.dictionaryIfObjectFilter = {
-                cities: true,
-                levelNames: true,
-                industryNames: true,
-                employmentFormNames: true,
-                contractTypeNames: true,
-                salaryFrom: true,
-                salaryTo: true,
-                offerName: true,
-                jobFairName: false,
-                employerCompanyName: false,
-              }
               this.initialized = true;
             });
           });

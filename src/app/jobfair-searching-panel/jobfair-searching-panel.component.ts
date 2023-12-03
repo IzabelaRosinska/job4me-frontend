@@ -39,6 +39,7 @@ export class JobfairSearchingPanelComponent implements OnInit {
         route: "/job-fairs",
         routeToElement: "/" + role + "/organizer/job-fair/",
         list: [],
+        params: [["showUpcoming", "true"]],
         loading: true,
         listButtonsOptions: {
           useGettingInside: true,
