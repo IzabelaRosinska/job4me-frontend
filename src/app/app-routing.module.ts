@@ -4,9 +4,10 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./login/register/register.component";
 import {TitlePageComponent} from "./title-page/title-page.component";
 import {PasswordRestoringComponent} from "./login/password-restoring/password-restoring.component";
+import {LoginRedirectComponent} from "./login/login-redirect/login-redirect.component";
 
 const routes: Routes = [
-  {path: 'user', component: LoginComponent, pathMatch: 'full'},
+  {path: 'user', component: LoginRedirectComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
   {path: 'title-page', component: TitlePageComponent, pathMatch: 'full'},

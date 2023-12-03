@@ -11,6 +11,7 @@ export class LoginRedirectComponent implements OnInit
 
   constructor(private route: ActivatedRoute,
               private router: Router) {
+    console.log('LoginRedirectComponent');
   }
 
   user: string | null = null;
@@ -19,15 +20,17 @@ export class LoginRedirectComponent implements OnInit
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
-      this.user = params.get('user');
       this.token = params.get('token');
       this.role = params.get('role');
 
-      if(this.user && this.token && this.role){
-        localStorage.setItem('user', this.user);
+      if(this.token && this.role){
+        this.role = this.role.toLowerCase().replace('_enabled', '').replace('role_', '');
+        console.log(this.role);
         localStorage.setItem('token', this.token);
-        localStorage.setItem('role', this.role.toLowerCase().replace('_enabled', ''));
+        localStorage.setItem('role', this.role);
       }
+      console.log('/' + this.role + '/account')
+
       this.router.navigate(['/' + this.role + '/account']);
     });
   }
