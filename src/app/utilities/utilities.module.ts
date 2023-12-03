@@ -20,6 +20,7 @@ import { FiltringFieldComponent } from './filter-sort-panel/filtring-field/filtr
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 import { SavedListComponent } from './saved-list/saved-list.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { PaymentReturnPageComponent } from './payment-return-page/payment-return-page.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ItemInsideListComponent,
     FilterSortPanelComponent,
     FiltringFieldComponent,
-    SavedListComponent
+    SavedListComponent,
+    PaymentReturnPageComponent
   ],
     exports: [SimpleTrueFalsePopUpComponent,
         ExpandedModuleFormComponent, LoadingScreenComponent,

@@ -24,6 +24,9 @@ export class JobfairEditFormComponent implements OnInit{
   imageData: string | null = null;
   MAX_FILE_SIZE = 10000;
 
+  isEditCard: boolean = true;
+  paymentValue: number = 2;
+
   jobFair = {
     id: 0,
     name: "",
@@ -44,7 +47,8 @@ export class JobfairEditFormComponent implements OnInit{
   constructor(public dialog: MatDialog,
               private router: Router,
               private serviceJobfair: JobfairService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private serviceOrganizer: OrganizerService
   ) {
   }
 
@@ -160,6 +164,14 @@ export class JobfairEditFormComponent implements OnInit{
     this.selectedFile = null;
     this.jobFair.photo = '';
   }
+
+  payment() {
+    this.serviceOrganizer.getPayment().subscribe((response) => {
+      window.location.href = response.url;
+    });
+  }
+
+
 
 
   protected readonly console = console;

@@ -9,6 +9,7 @@ import {NgIf} from "@angular/common";
 import {JobfairComponent} from "./jobfair/jobfair.component";
 import {JobfairEditFormComponent} from "./jobfair/jobfair-edit-form/jobfair-edit-form.component";
 import {JobfairSearchingPanelComponent} from "../jobfair-searching-panel/jobfair-searching-panel.component";
+import {PaymentReturnPageComponent} from "../utilities/payment-return-page/payment-return-page.component";
 
 const routes: Routes = [
   { path: 'employer/organizer/:organizer-id/account', component: OrganizerAccountComponent },
@@ -25,6 +26,9 @@ const routes: Routes = [
   { path: 'organizer/:organizer-id/job-fair/:jobfair-id/edit-form', component: JobfairEditFormComponent },
   { path: 'organizer/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'organizer/add-job-fair', component: JobfairEditFormComponent },
+
+  { path: 'organizer/payment/:result', component: PaymentReturnPageComponent },
+  { path: 'organizer/payment/:result', component: PaymentReturnPageComponent },
 
   { path: 'job-fairs', component: JobfairSearchingPanelComponent }
 

@@ -98,12 +98,4 @@ export class OrganizerInfoFormComponent implements OnInit {
     });
   }
 
-  payment() {
-    this.serviceOrganizer.getPayment().subscribe((response) => {
-      window.location.href = response.url;
-    });
-  }
-
-
-
 }
