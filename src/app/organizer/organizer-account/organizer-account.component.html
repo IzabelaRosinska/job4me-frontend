@@ -47,7 +47,7 @@
             aria-selected="true"
           >Zorganizowane wydarzenia</h1>
         </div>
-        <div class="col nav-item" role="presentation">
+        <div class="col nav-item" role="presentation" *ngIf="isOwner">
           <h1
             class="nav-link pointer text-center {{getPaginationService().isActiveById('pendingEmployers',paginationUseList)? 'active' : ''}}"
             id="ex1-tab-2"
@@ -58,7 +58,7 @@
             aria-selected="false"
           >Oczekujący pracodawcy</h1>
         </div>
-        <div class="col nav-item" role="presentation">
+        <div class="col nav-item" role="presentation" *ngIf="isOwner">
           <h1
             class="nav-link pointer text-center {{getPaginationService().isActiveById('acceptedEmployers', paginationUseList)? 'active' : ''}}"
             id="ex1-tab-3"
@@ -101,7 +101,7 @@
 
 <!--        Pending Employers-->
         <div class="tab-pane fade {{getPaginationService().isActiveById('pendingEmployers',paginationUseList)? 'show active' : ''}}"
-             id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+             id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2"  *ngIf="isOwner">
           <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'pendingEmployers',paginationUseList) "
                          [length]="getPaginationService().getLengthById('pendingEmployers',paginationUseList)"
                          [pageSize]="getPaginationService().getPageSizeById('pendingEmployers',paginationUseList)"
@@ -130,7 +130,7 @@
 
 <!--        Accepted Employers-->
         <div class="tab-pane fade {{getPaginationService().isActiveById('acceptedEmployers',paginationUseList)? 'show active' : ''}}"
-             id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+             id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3" *ngIf="isOwner">
           <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'acceptedEmployers',paginationUseList) "
                          [length]="getPaginationService().getLengthById('acceptedEmployers',paginationUseList)"
                          [pageSize]="getPaginationService().getPageSizeById('acceptedEmployers',paginationUseList)"

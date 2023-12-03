@@ -125,28 +125,26 @@ export class OrganizerAccountComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const role = localStorage.getItem('role');
-            const organizerId = localStorage.getItem('organizer-id');
+            const organizerId = params.get('organizer-id');
 
             if (organizerId && role!=null) {
-               console.log('1');
                 this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
-                    this.organizerAccount = response;
-                    this.paginationUseList[0].route = "/job-fairs/organizer/" + this.organizerAccount.id;
-                    this.getPaginationService().initPagination(this.paginationUseList);
-                    this.loadingSite = false;
+                  this.organizerAccount = response;
+                  this.loadingSite = false;
+                  this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
+                  this.paginationUseList[0].routeToElement = "/employer/organizer/job-fair/";
+                  this.servicePagination.initPagination([this.paginationUseList[0]]);
                 });
             } else {
-              console.log('2');
                 this.serviceOrganizer.getOrganizer().subscribe((response) => {
                     this.organizerAccount = response;
                     if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
                         || !this.organizerAccount.description) {
                         this.router.navigate(['organizer/edit-info']);
                     }
-                    this.paginationUseList[0].route = "/organizer/job-fairs";
-                    this.getPaginationService().initPagination(this.paginationUseList);
                     this.loadingSite = false;
                     this.isOwner = true;
+                    this.servicePagination.initPagination(this.paginationUseList);
                 });
             }
         });
