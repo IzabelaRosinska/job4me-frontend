@@ -6,6 +6,7 @@ import {TitlePageComponent} from "./title-page/title-page.component";
 import {PasswordRestoringComponent} from "./login/password-restoring/password-restoring.component";
 
 const routes: Routes = [
+  {path: 'user', component: LoginComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
   {path: 'title-page', component: TitlePageComponent, pathMatch: 'full'},
