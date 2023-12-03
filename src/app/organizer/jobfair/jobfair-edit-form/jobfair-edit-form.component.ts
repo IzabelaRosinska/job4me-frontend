@@ -26,6 +26,7 @@ export class JobfairEditFormComponent implements OnInit{
 
   isEditCard: boolean = true;
   paymentValue: number = 2;
+  paymentUrl: string = '';
 
   jobFair = {
     id: 0,
@@ -46,9 +47,8 @@ export class JobfairEditFormComponent implements OnInit{
 
   constructor(public dialog: MatDialog,
               private router: Router,
-              private serviceJobfair: JobfairService,
-              private route: ActivatedRoute,
-              private serviceOrganizer: OrganizerService
+              private jobfairService: JobfairService,
+              private route: ActivatedRoute
   ) {
   }
 
@@ -56,7 +56,7 @@ export class JobfairEditFormComponent implements OnInit{
     this.route.paramMap.subscribe((params: ParamMap) => {
       const jobfairId =  params.get('jobfair-id');
       if(jobfairId){
-         this.serviceJobfair.getJobFairById(parseInt(jobfairId)).subscribe((response) => {
+         this.jobfairService.getJobFairById(parseInt(jobfairId)).subscribe((response) => {
             this.jobFair.id = response.id;
             this.jobFair.name = response.name;
             this.jobFair.organizerId = response.organizerId;
@@ -93,22 +93,23 @@ export class JobfairEditFormComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.isEditCard = false;
       if (result) {
         if(this.creatingJobFair){
           this.loading = true;
-          this.serviceJobfair.postJobFair(this.jobFair).pipe(
+          this.jobfairService.creatJobFairWithPayment(this.jobFair).pipe(
             catchError((err) => {
               this.loading = false;
               return [];
             })
           ).subscribe((response) => {
+            this.paymentUrl = response.url;
             this.router.navigate(['organizer/account']);
             this.loading = false;
           });
         }else{
           this.loading = true;
-          this.serviceJobfair.putJobFair(this.jobFair).pipe(
+          this.jobfairService.putJobFair(this.jobFair).pipe(
             catchError((err) => {
               this.loading = false;
               return [];
@@ -165,10 +166,14 @@ export class JobfairEditFormComponent implements OnInit{
     this.jobFair.photo = '';
   }
 
-  payment() {
-    this.serviceOrganizer.getPayment().subscribe((response) => {
-      window.location.href = response.url;
+  createJobfair() {
+    this.jobfairService.creatJobFairWithPayment(this.jobFair).subscribe((response) => {
+      this.paymentUrl = response.url;
     });
+  }
+
+  payment() {
+    window.location.href = this.paymentUrl;
   }
 
 

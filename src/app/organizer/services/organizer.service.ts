@@ -59,13 +59,6 @@ export class OrganizerService {
     }).pipe(shareReplay(1));
   }
 
-  getPayment() {
-    const route = ROUTES.BACKEND_ROUTE + '/payment';
-    return this.http.get<PaymentCheckout>(route, {
-      headers: {"Content-Type": 'application/json'},
-      withCredentials: true,
-    });
-  }
 
   getLinkedin() {
     const route = ROUTES.BACKEND_ROUTE + '/linkedin';
