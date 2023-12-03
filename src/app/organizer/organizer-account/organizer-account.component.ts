@@ -126,7 +126,9 @@ export class OrganizerAccountComponent implements OnInit {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const role = localStorage.getItem('role');
             const organizerId = localStorage.getItem('organizer-id');
-            if (organizerId && role) {
+
+            if (organizerId && role!=null) {
+               console.log('1');
                 this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
                     this.organizerAccount = response;
                     this.paginationUseList[0].route = "/job-fairs/organizer/" + this.organizerAccount.id;
@@ -134,6 +136,7 @@ export class OrganizerAccountComponent implements OnInit {
                     this.loadingSite = false;
                 });
             } else {
+              console.log('2');
                 this.serviceOrganizer.getOrganizer().subscribe((response) => {
                     this.organizerAccount = response;
                     if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone

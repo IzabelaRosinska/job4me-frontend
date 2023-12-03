@@ -125,18 +125,31 @@
       <hr>
 
       <!--  Actions Panel-->
-      <div class="row align-items-center pt-5 text-center" *ngIf="isOwner">
-        <div class="col-sm-12 col-md-6">
+      <div class="row align-items-center pt-5 text-center" *ngIf="isOwner || isEmployer()">
+        <div class="col-sm-12 col-md-6" *ngIf="isOwner">
           <button class="btn btn-primary w-100 btn-login text-center" [routerLink]="'/organizer/'+jobFair.organizerId+'/job-fair/'+jobFair.id+'/edit-form'">
             Edytuj informacje
           </button>
         </div>
 
-        <div class="col-sm-12 col-md-6" *ngIf="isEmployer()">
+        <div class="col-sm-12 col-md-6" *ngIf="isEmployer() && participationRequest==null">
           <button class="btn btn-primary w-100 btn-login text-center" (click)="requestForJobFair()">
             Zgłoś swój udział
           </button>
         </div>
+
+        <div class="col-sm-12 col-md-6" *ngIf="isEmployer() && participationRequest?.isAccepted">
+          <button class="btn btn-primary w-100 btn-login text-center" (click)="requestForCancelParticipation()">
+            Odwołaj swój udział (zaakceptowany)
+          </button>
+        </div>
+
+        <div class="col-sm-12 col-md-6" *ngIf="isEmployer() && participationRequest!=null && !participationRequest?.isAccepted">
+          <button class="btn btn-primary w-100 btn-login text-center" (click)="requestForCancelParticipation()">
+            Odwołaj swój udział (oczekujący)
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
