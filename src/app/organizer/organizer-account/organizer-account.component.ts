@@ -53,7 +53,7 @@ export class OrganizerAccountComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<JobFair>>(),
-            route: "",
+            route: "/organizer/job-fairs",
             routeToElement: "/organizer/job-fair/",
             listButtonsOptions: {
               useSaved: false,
@@ -125,7 +125,7 @@ export class OrganizerAccountComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const role = localStorage.getItem('role');
-            const organizerId = params.get('organizerId');
+            const organizerId = localStorage.getItem('organizer-id');
             if (organizerId && role) {
                 this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
                     this.organizerAccount = response;
