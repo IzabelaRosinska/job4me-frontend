@@ -25,12 +25,14 @@ const routes: Routes = [
   { path: 'organizer', redirectTo: 'organizer/account', pathMatch: 'full' },
   { path: 'organizer/:organizer-id/job-fair/:jobfair-id/edit-form', component: JobfairEditFormComponent },
   { path: 'organizer/job-fair/:jobfair-id', component: JobfairComponent },
+  { path: 'organizer/organizer/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'organizer/add-job-fair', component: JobfairEditFormComponent },
 
   { path: 'organizer/payment/:result', component: PaymentReturnPageComponent },
-  { path: 'organizer/payment/:result', component: PaymentReturnPageComponent },
 
-  { path: 'job-fairs', component: JobfairSearchingPanelComponent }
+
+  { path: 'job-fairs', component: JobfairSearchingPanelComponent },
+  { path: 'job-fairs/:jobfair-id', component: JobfairComponent }
 
 
 ];

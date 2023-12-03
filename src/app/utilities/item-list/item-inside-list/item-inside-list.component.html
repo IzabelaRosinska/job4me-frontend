@@ -24,7 +24,7 @@
         <!--DEFAULT-->
         <div class="col" *ngIf="item.ListButtonsOptions.useGettingInside != undefined? item.ListButtonsOptions.useGettingInside: true ">
           <div  class="my-center">
-            <i class="fa-solid fa-right-to-bracket useable-icon" routerLink="{{item.route}}"></i>
+            <i class="fa-solid fa-right-to-bracket useable-icon" routerLink="{{item.route}}" (click)="console.log(item.route)"></i>
           </div>
         </div>
 

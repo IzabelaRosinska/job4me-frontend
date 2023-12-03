@@ -63,4 +63,6 @@ export class ItemInsideListComponent {
         this.acceptItem.emit(this.item?.id);
     });
   }
+
+  protected readonly console = console;
 }
