@@ -36,18 +36,6 @@
              class="text-start invalid-message">{{password.checkValidity() ? errorMessage : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
       </div>
 
-      <section>
-        <div class="product">
-          <div class="description">
-            <h3>Linkedin</h3>
-            <h5></h5>
-          </div>
-        </div>
-        <form action="/create-checkout-session" method="POST">
-          <button type="submit" id="checkout-button-linkedin" (click)="linkedinLogin()" >Checkout</button>
-        </form>
-      </section>
-
       <div class="row mb-4">
         <div class="col">
           <a routerLink="/reset-password">Nie pamiętasz hasła?</a>
@@ -55,11 +43,21 @@
       </div>
 
       <!-- Submit button -->
-      <button class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się
+      <button class="btn btn-primary btn-block mb-3 btn-login" #logInButton type="submit">Zaloguj się
       </button>
 
+      <section>
+        <div class="pb-3">
+          <p class="m-0 p-0">lub</p>
+        </div>
+        <form action="/create-checkout-session" method="POST">
+          <button type="submit" class="btn btn-primary btn-login" id="checkout-button-linkedin" (click)="linkedinLogin()">Zaloguj się przez Linkedin</button>
+        </form>
+      </section>
+
+
       <!-- Register buttons -->
-      <div class="text-center">
+      <div class="text-center pt-3">
         <p>Nie masz konta? <a routerLink="/register">Zarejestruj się</a></p>
       </div>
     </form>
