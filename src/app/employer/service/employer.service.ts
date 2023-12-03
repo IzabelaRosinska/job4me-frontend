@@ -40,7 +40,7 @@ export class EmployerService {
 
 
   postJobOffer(jobOffer: JobOffer): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-offers';
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers';
     return this.http.request('post', route, {
       body: jobOffer,
       withCredentials: true,
