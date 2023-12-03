@@ -71,7 +71,7 @@
           <mdb-form-control>
             <textarea mdbInput type="text" id="displayDescription" #displayDescription
                       class="form-control white-field login {{!jobfairForm.submitted ? '' : (displayDescription.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                      [minLength]="1" [maxLength]="1000" name="displayDescription" placeholder="Targi techniczne, zakres targów - IT oraz przemysł" (change)="displayDescription.checkValidity()"
+                      [minLength]="1" [maxLength]="150" name="displayDescription" placeholder="Targi techniczne, zakres targów - IT oraz przemysł" (change)="displayDescription.checkValidity()"
                       [(ngModel)]="jobFair.displayDescription" required></textarea>
             <label mdbLabel class="form-label" for="displayDescription">Krótki opis targów*</label>
           </mdb-form-control>

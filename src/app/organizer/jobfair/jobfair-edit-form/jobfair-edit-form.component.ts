@@ -93,7 +93,7 @@ export class JobfairEditFormComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.isEditCard = false;
+
       if (result) {
         if(this.creatingJobFair){
           this.loading = true;
@@ -104,7 +104,7 @@ export class JobfairEditFormComponent implements OnInit{
             })
           ).subscribe((response) => {
             this.paymentUrl = response.url;
-            this.router.navigate(['organizer/account']);
+            this.isEditCard = false;
             this.loading = false;
           });
         }else{

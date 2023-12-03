@@ -54,8 +54,8 @@ export class JobfairService {
   }
 
   creatJobFairWithPayment(jobfair: JobFair): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/job-fairs/payment';
-    return this.http.post<PaymentCheckout>(route, {
+    const route = ROUTES.BACKEND_ROUTE + '/organizer/job-fairs/payment';
+    return this.http.request('post', route, {
       body: jobfair,
       responseType: 'text',
       observe: 'response',
