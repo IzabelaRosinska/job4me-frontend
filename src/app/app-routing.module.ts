@@ -5,6 +5,8 @@ import {RegisterComponent} from "./login/register/register.component";
 import {TitlePageComponent} from "./title-page/title-page.component";
 import {PasswordRestoringComponent} from "./login/password-restoring/password-restoring.component";
 import {LoginRedirectComponent} from "./login/login-redirect/login-redirect.component";
+import {OrganizerAccountComponent} from "./organizer/organizer-account/organizer-account.component";
+import {EmployerAccountComponent} from "./employer/employer-account/employer-account.component";
 
 const routes: Routes = [
   {path: 'user', component: LoginRedirectComponent, pathMatch: 'full'},

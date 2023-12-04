@@ -13,7 +13,7 @@
             <h6 class="mt-3"> Czas rozpoczęcia targów: <i>{{jobFair.dateStart}} </i></h6>
             <h6> Czas zakończenia targów: <i>{{jobFair.dateEnd}}</i></h6>
             <h6> Adres: <i>{{jobFair.address}}</i></h6>
-            <h6> Organizator targów: <i class="btn-link pointer" [routerLink]="isOwner?'/'+role+'/organizer/'+jobFair.organizerId+'/account' : '/organizer/account' ">
+            <h6> Organizator targów: <i class="btn-link pointer" [routerLink]="getPathToOrganizer()">
               Organizator</i></h6>
 
             <p class="text-description" *ngIf="jobFair.description"> {{jobFair.description}} </p>
@@ -70,8 +70,8 @@
             <div class="">
               <div class="pb-3">
                 <app-filter-sort-panel
-                        (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)"
-                        (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
+                        (filterOptionSelectedOutput)="getPaginationService().updateFilters('employers',paginationUseList, $event)"
+                        (sortOptionSelectedOutput)="getPaginationService().updateSorting('employers',paginationUseList,$event)"
                         [filter]="[FiliterType.employerCompanyName]"></app-filter-sort-panel>
               </div>
               <app-loading-screen

@@ -28,12 +28,19 @@ export class OrganizerService {
     });
   }
 
-  getOrganizerById(id: number | string, role: string): Observable<OrganizerAccount> {
+  getOrganizerByIdAuthenticated(id: number | string, role: string): Observable<OrganizerAccount> {
     const route = ROUTES.BACKEND_ROUTE+'/'+role+'/organizer/'+id+'/account';
     return this.http.get<OrganizerAccount>(route, {
       withCredentials: true,
     });
   }
+  getOrganizerById(id: number | string): Observable<OrganizerAccount> {
+    const route = ROUTES.BACKEND_ROUTE+'/account/organizer?id='+id;
+    return this.http.get<OrganizerAccount>(route, {
+      withCredentials: true,
+    });
+  }
+
 
   jobfairsOrganizer$ = (status: boolean = true, page: number = 0, size: number = 5): Observable<Page<JobFair>> =>
       this.http.get<Page<JobFair>>(`${ROUTES.BACKEND_ROUTE}/organizer/employer-participation?&page=${page}&size=${size}&status=${status}`).pipe(shareReplay(1));

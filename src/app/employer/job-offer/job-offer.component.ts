@@ -56,13 +56,16 @@ export class JobOfferComponent implements OnInit {
               console.log(this.isOwner);
             });
           }else if(this.role){
-            this.serviceEmployer.getEmployerById(response.employerId, this.role).subscribe((responseEmployer) => {
+            this.serviceEmployer.getEmployerByIdAuthenticated(response.employerId, this.role).subscribe((responseEmployer) => {
               this.employerAccountData = responseEmployer;
               this.loading = false;
             });
           }
           else {
-            this.loading = false;
+            this.serviceEmployer.getEmployerById(response.employerId,).subscribe((responseEmployer) => {
+              this.employerAccountData = responseEmployer;
+              this.loading = false;
+            });
           }
         });
       });

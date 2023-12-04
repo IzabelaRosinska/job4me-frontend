@@ -28,6 +28,8 @@ const routes: Routes = [
   { path: 'organizer/organizer/job-fair/:jobfair-id', component: JobfairComponent },
   { path: 'organizer/add-job-fair', component: JobfairEditFormComponent },
 
+  { path: 'organizer/:organizer-id/account', component: OrganizerAccountComponent },
+
   { path: 'organizer/payment/:result', component: PaymentReturnPageComponent },
 
 
