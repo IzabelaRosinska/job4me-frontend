@@ -42,77 +42,8 @@ export class RegisterComponent implements OnInit{
               private loginService: LoginService,
               private router: Router,
               ) {
-                // const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
-                //   data:
-                //     {
-                //       title: "Weryfikacja",
-                //       mainMessage: "Wysłano mail weryfikacyjny na wskazany adres mailowy.\nAby zakończyć rejestrację użyj linku zamieszczonego w wiadmości.\nJeśli nie możesz znaleźć maila sprawdź flder SPAM.",
-                //       confirmMessage: "OK",
-                //       declineMessage: ""
-                //     }
-                // });
 
   }
-
-  
-
-  // registerUser(registerForm: NgForm){
-  //   this.loading = true;
-  //   this.loginService.registerUser(this.registerData).pipe(
-  //       catchError(err => {
-  //         switch (err.status) {
-  //           case 401:
-  //             this.router.navigate(['/login']);
-  //             this.errorMessage = 'Nieprawidłowy login lub hasło';
-  //             this.loading = false;
-  //             break;
-  //           case 404:
-  //             this.router.navigate(['/login']);
-  //             this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
-  //             this.loading = false;
-  //             break;
-  //           default:
-  //             this.errorMessage = 'Taki email już istnieje';
-  //             this.loading = false;
-  //             break;
-  //         }
-  //         return throwError(err);
-  //       }
-  //       )
-  //   ).subscribe((response) => {
-  //     switch (response.status) {
-  //       case 201:
-
-  //         switch (this.registerData.role) {
-  //           case 'EMPLOYEE':
-  //             this.router.navigate(['/employee/editInfo']);
-  //             this.loading = false;
-  //             break;
-  //           case 'EMPLOYER':
-  //             this.router.navigate(['/employer/editInfo']);
-  //             this.loading = false;
-  //             break;
-  //           case 'ORGANIZER':
-  //             this.router.navigate(['/organizer/editInfo']);
-  //             this.loading = false;
-  //             break;
-  //         }
-  //         break;
-  //       case 500:
-  //         registerForm.resetForm({
-  //           username: '',
-  //           password: '',
-  //           matchingPassword: ''
-  //         });
-
-  //         this.wrongUsernameMessage = true;
-  //         this.errorMessage = 'Taki email już istnieje!';
-  //         this.loading = false;
-  //         break;
-  //     }
-  //   })
-  // }
-
 
 
   togglePassowrdVisibility(isMatchingPassword: boolean) {
@@ -173,7 +104,6 @@ export class RegisterComponent implements OnInit{
                 this.loading = false;
                 break;
               case 404:
-                // this.router.navigate(['/login']);
                 this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
                 this.loading = false;
                 break;
