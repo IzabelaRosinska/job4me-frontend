@@ -70,7 +70,7 @@ export class JobfairComponent implements OnInit {
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
             route: this.role=='employee'?"/employee/job-fairs/" + jobfairId + "/employers":"/job-fairs/" + jobfairId + "/employers",
-            routeToElement: "/" + this.role + "/employer/",
+            routeToElement: "/employer/",
             list: [],
             loading: true,
             listButtonsOptions: {
@@ -133,6 +133,14 @@ export class JobfairComponent implements OnInit {
       }
     });
 
+  }
+
+  getPathToOrganizer(): string{
+    if(this.role != null){
+      return this.isOwner? '/organizer/account' : '/'+this.role+'/organizer/'+this.jobFair.organizerId+'/account';
+    }else{
+      return '/account/organizer'
+    }
   }
 
   loading: boolean = true;

@@ -88,17 +88,8 @@ export class EmployerAccountComponent implements OnInit {
         filters: {}
       }
     ]
-    console.log("EmployerId: "+employerId);
-    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-      this.paginationService.changePaginationState(paginationUse, paginationUse.listButtonsOptions);
-    });
-    this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-      paginationUse.state.subscribe((response) => {
-        paginationUse.length = response ? response.totalElements : 0;
-        paginationUse.pageSize = response ? response.size : 0;
-        paginationUse.pageIndex = response ? response.number : 0;
-      });
-    });
+
+    this.paginationService.initPagination(this.paginationUseList);
   }
 
   ngOnInit(): void {
@@ -107,22 +98,31 @@ export class EmployerAccountComponent implements OnInit {
       const employerId = Number(params.get('employer-id'));
       if (employerId && role) {
 
-        this.serviceEmployer.getEmployerById(employerId, role).subscribe((response) => {
+        this.serviceEmployer.getEmployerByIdAuthenticated(employerId, role).subscribe((response) => {
           this.employerAccount = response;
           this.initPaginationUseList(role, employerId);
           this.loadingAccount = false;
         });
       } else {
-        this.serviceEmployer.getEmployer().subscribe((response) => {
-          this.employerAccount = response;
-          if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.telephone
-            || !this.employerAccount.description || !this.employerAccount.displayDescription) {
-            this.router.navigate(['employer/edit-form']);
-          }
-          this.isOwner = true;
-          this.initPaginationUseList(role?role:'', employerId);
-          this.loadingAccount = false;
-        });
+        if(role=='employer' && !employerId){
+          this.serviceEmployer.getEmployer().subscribe((response) => {
+            this.employerAccount = response;
+            if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.telephone
+              || !this.employerAccount.description || !this.employerAccount.displayDescription) {
+              this.router.navigate(['employer/edit-form']);
+            }
+            this.isOwner = true;
+            this.initPaginationUseList(role?role:'', employerId);
+            this.loadingAccount = false;
+          });
+        }else{
+          this.serviceEmployer.getEmployerById(employerId).subscribe((response) => {
+            this.employerAccount = response;
+            this.initPaginationUseList(role?role:'', employerId);
+            this.loadingAccount = false;
+          });
+        }
+
       }
 
     });
