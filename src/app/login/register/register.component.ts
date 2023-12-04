@@ -1,10 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginData, RegisterData, Role} from "../../types";
 import {LoginService} from "../service/login.service";
-import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
 import {catchError, throwError} from "rxjs";
+import {
+  SimpleTrueFalsePopUpComponent
+} from "src/app/utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
+import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -23,6 +29,7 @@ export class RegisterComponent implements OnInit{
 
   wrongUsernameMessage: boolean = false;
   errorMessage: string = '';
+  is_second_password_same = true;
 
   registerData: RegisterData = {
     username: '',
@@ -31,68 +38,12 @@ export class RegisterComponent implements OnInit{
     matchingPassword: ''
   }
 
-  constructor(private loginService: LoginService,
-              private router: Router) {
+  constructor(public dialog: MatDialog,
+              private loginService: LoginService,
+              private router: Router,
+              ) {
 
   }
-
-  registerUser(registerForm: NgForm){
-    this.loading = true;
-    this.loginService.registerUser(this.registerData).pipe(
-        catchError(err => {
-          switch (err.status) {
-            case 401:
-              this.router.navigate(['/login']);
-              this.errorMessage = 'Nieprawidłowy login lub hasło';
-              this.loading = false;
-              break;
-            case 404:
-              this.router.navigate(['/login']);
-              this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
-              this.loading = false;
-              break;
-            default:
-              this.errorMessage = 'Taki email już istnieje';
-              this.loading = false;
-              break;
-          }
-          return throwError(err);
-        }
-        )
-    ).subscribe((response) => {
-      switch (response.status) {
-        case 201:
-
-          switch (this.registerData.role) {
-            case 'EMPLOYEE':
-              this.router.navigate(['/employee/editInfo']);
-              this.loading = false;
-              break;
-            case 'EMPLOYER':
-              this.router.navigate(['/employer/editInfo']);
-              this.loading = false;
-              break;
-            case 'ORGANIZER':
-              this.router.navigate(['/organizer/editInfo']);
-              this.loading = false;
-              break;
-          }
-          break;
-        case 500:
-          registerForm.resetForm({
-            username: '',
-            password: '',
-            matchingPassword: ''
-          });
-
-          this.wrongUsernameMessage = true;
-          this.errorMessage = 'Taki email już istnieje!';
-          this.loading = false;
-          break;
-      }
-    })
-  }
-
 
 
   togglePassowrdVisibility(isMatchingPassword: boolean) {
@@ -128,5 +79,71 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(): void {
     this.loading = false;
+  }
+
+  openConfirmDialog(): void {
+    const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
+      data:
+        {
+          title: "Potwierdzenie",
+          mainMessage: "Czy chcesz potwierdzić operacje?",
+          confirmMessage: "Tak",
+          declineMessage: "Nie"
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result) {
+        this.loading = true;
+        this.loginService.registerUser(this.registerData).pipe(
+          catchError(err => {
+            switch (err.status) {
+              case 401:
+                this.errorMessage = 'Nieprawidłowy login lub hasło';
+                this.loading = false;
+                break;
+              case 404:
+                this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
+                this.loading = false;
+                break;
+              default:
+                this.errorMessage = 'Taki email już istnieje';
+                this.loading = false;
+                break;
+            }
+            return throwError(err);
+          })
+        ).subscribe((response) => {
+      switch (response.status) {
+        case 201:
+          const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
+            data:
+              {
+                title: "Weryfikacja",
+                mainMessage: "Wysłano mail weryfikacyjny na wskazany adres mailowy.\nAby zakończyć rejestrację użyj linku zamieszczonego w wiadmości.\nJeśli nie możesz znaleźć maila sprawdź flder SPAM.",
+                confirmMessage: "OK",
+                declineMessage: ""
+              }
+          });
+          switch (this.registerData.role) {
+            case 'EMPLOYEE':
+              this.router.navigate(['/employee/editInfo']);
+              this.loading = false;
+              break;
+            case 'EMPLOYER':
+              this.router.navigate(['/employer/editInfo']);
+              this.loading = false;
+              break;
+            case 'ORGANIZER':
+              this.router.navigate(['/organizer/editInfo']);
+              this.loading = false;
+              break;
+          }
+          break;
+      }
+    })
+      }
+    });
   }
 }

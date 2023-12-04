@@ -15,3 +15,13 @@
       background-color: $MAIN_LOGO_COLOR_DARKER !important;
     }
   }
+
+.multi-line-text {
+  white-space: pre-line;
+}
+
+.pop-up-window {
+  overflow-y: hidden;
+}
+
+  
