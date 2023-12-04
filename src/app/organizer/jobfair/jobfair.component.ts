@@ -52,7 +52,7 @@ export class JobfairComponent implements OnInit {
               private variablesService: VariablesService,
               private serviceEmployee: EmployeeService,
               private savedService: SavedService) {
-    const role = localStorage.getItem('role');
+
 
   }
 
@@ -129,6 +129,7 @@ export class JobfairComponent implements OnInit {
 
       } else {
         this.loading = false;
+        this.isOwner = true;
       }
     });
 

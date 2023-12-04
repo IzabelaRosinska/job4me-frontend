@@ -53,7 +53,7 @@ export class OrganizerAccountComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<JobFair>>(),
-            route: "/organizer/job-fairs",
+            route: "",
             routeToElement: "/organizer/job-fair/",
             listButtonsOptions: {
               useSaved: false,
@@ -125,10 +125,12 @@ export class OrganizerAccountComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const role = localStorage.getItem('role');
-            const organizerId = localStorage.getItem('organizerId');
+            const organizerId = params.get('organizerId');
             if (organizerId && role) {
                 this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
                     this.organizerAccount = response;
+                    this.paginationUseList[0].route = "/job-fairs/organizer/" + this.organizerAccount.id;
+                    this.getPaginationService().initPagination(this.paginationUseList);
                     this.loadingSite = false;
                 });
             } else {
@@ -138,23 +140,14 @@ export class OrganizerAccountComponent implements OnInit {
                         || !this.organizerAccount.description) {
                         this.router.navigate(['organizer/edit-info']);
                     }
+                    this.paginationUseList[0].route = "/organizer/job-fairs";
+                    this.getPaginationService().initPagination(this.paginationUseList);
                     this.loadingSite = false;
                     this.isOwner = true;
                 });
             }
         });
 
-      this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-        this.servicePagination.changePaginationState(paginationUse, paginationUse.listButtonsOptions);
-      });
-
-      this.paginationUseList.forEach((paginationUse: PaginationUse<ForListBackend>) => {
-        paginationUse.state.subscribe((response) => {
-          paginationUse.length = response ? response.totalElements : 0;
-          paginationUse.pageSize = response ? response.size : 0;
-          paginationUse.pageIndex = response ? response.number : 0;
-        });
-      });
     }
 
 

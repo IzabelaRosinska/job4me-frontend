@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {JobfairService} from "../organizer/services/jobfair.service";
 import {PaginationService} from "../utilities/service/pagination.service";
 import {FiliterType, ForListBackend, Page, PaginationUse} from "../types";
 import {Observable} from "rxjs";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-jobfair-searching-panel',
@@ -23,6 +24,7 @@ export class JobfairSearchingPanelComponent implements OnInit {
   getPaginationService() {
     return this.servicePagination;
   }
+
 
   ngOnInit(): void {
     const role = localStorage.getItem('role');

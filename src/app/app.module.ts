@@ -37,6 +37,7 @@ import {UtilitiesModule} from "./utilities/utilities.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { PasswordRestoringComponent } from './login/password-restoring/password-restoring.component';
 import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
+import { LoginRedirectComponent } from './login/login-redirect/login-redirect.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
     TitlePageComponent,
     JobfairSearchingPanelComponent,
     PasswordRestoringComponent,
+    LoginRedirectComponent,
   ],
   imports: [
     HttpClientModule,
