@@ -15,3 +15,15 @@
       background-color: $MAIN_LOGO_COLOR_DARKER !important;
     }
   }
+
+  .dzban {
+    white-space: pre-line;
+  }
+
+.mat-mdc-dialog-surface .mdc-dialog__surface {
+  ::before {
+    content: none;
+    display: none;
+  }
+}
+  

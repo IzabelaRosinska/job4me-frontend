@@ -4,7 +4,7 @@
 <div *ngIf="!loading">
   <div class="text-center align-content-center align-items-center pt-5 center div-outer-login">
     <div class="main container align-content-center text-center div-login btn-radio">
-      <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
+      <form #registerForm="ngForm">
         <h1>Zakładanie konta</h1>
         <!--    Pick your role section-->
         <div class="text-start">
@@ -61,13 +61,13 @@
               <input mdbInput type="email" id="email" #email
                      class="form-control login {{!registerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
                      [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
-                     name="username" placeholder="Email" (change)="email.checkValidity()"
+                     name="username" placeholder="Email" (change)="email.checkValidity();" (input)="errorMessage = ''"
                      [(ngModel)]="registerData.username"
                      required>
               <label mdbLabel class="form-label" for="email">Email</label>
             </mdb-form-control>
-            <div *ngIf="registerForm.submitted"
-                 class="invalid-feedback text-start">{{ wrongUsernameMessage ? 'Taki użytkownik już istnieje' : email.checkValidity() ? '' : 'Błędny email'}}</div>
+            <div *ngIf="(registerForm.submitted && !email.checkValidity()) || errorMessage !== ''"
+                 class="invalid-message text-start">{{email.checkValidity() ? 'Taki użytkownik już istnieje' : 'Błędny email'}}</div>
           </div>
 
           <!-- Password input -->
@@ -81,8 +81,8 @@
                  (click)="togglePassowrdVisibility(false)"></i>
               <label mdbLabel class="form-label" for="password">Hasło</label>
             </mdb-form-control>
-            <div *ngIf="registerForm.submitted"
-                 class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
+            <div *ngIf="registerForm.submitted && !password.checkValidity()"
+                 class="text-start invalid-message">{{!password ? 'Hasło jest wymagane': 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
           </div>
 
           <!-- Matching password input -->
@@ -91,26 +91,22 @@
               <input mdbInput matInput type="{{matchingPasswordVisible}}" #matchingPassword id="matchingPassword"
                      name="matchingPassword"
                      class="form-icon-trailing form-control login password {{!registerForm.submitted ? '' : (matchingPassword.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                     (change)="matchingPassword.checkValidity()" placeholder="Powtórz hasło" [minLength]="5"
+                     (change)="matchingPassword.checkValidity();" (input)=" is_second_password_same = true" placeholder="Powtórz hasło" [minLength]="5"
                      [maxLength]="15"
                      [(ngModel)]="registerData.matchingPassword" required>
               <i class="{{visibilityMaatchingPassowrdIconClass}} eye trailing" id="toggleMatchingPassword"
                  (click)="togglePassowrdVisibility(true)"></i>
               <label mdbLabel class="form-label" for="password">Hasło</label>
             </mdb-form-control>
-            <div *ngIf="registerForm.submitted"
-                 class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="errorMessage!=''">
-          <div class="col">
-            <b><p class="error-standard">{{errorMessage}}</p></b>
+            <div *ngIf="(registerForm.submitted && !matchingPassword) || !is_second_password_same"
+                 class="text-start invalid-message">
+                 {{!matchingPassword ? 'Podaj powtórzone hasło' : 'Powtórzone hasło musi być zgodne z podanym wcześniej hasłem'}}</div>
           </div>
         </div>
 
         <button class="btn btn-primary btn-block mb-4 btn-login"
-                [disabled]="registerData.password!=registerData.matchingPassword || !email.checkValidity()  || !password.checkValidity()"
+                (click)="(email.checkValidity() && password.checkValidity() && matchingPassword.checkValidity() && password.value == matchingPassword.value) ? openConfirmDialog() : (password.value != matchingPassword.value ? is_second_password_same = false : '')"
+                [disabled]=""
                 type="submit">Zarejestruj się
         </button>
       </form>
