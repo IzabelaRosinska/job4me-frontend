@@ -21,7 +21,7 @@
                       <label mdbLabel class="form-label" for="first-name">Imię*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="employeeForm.submitted && !name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
+                    <div *ngIf="is_submit_failed && !name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
                     <br>
                 </div>
 
@@ -37,7 +37,7 @@
                       <label mdbLabel class="form-label" for="last-name">Nazwisko*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="employeeForm.submitted && !lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
+                    <div *ngIf="is_submit_failed && !lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
                     <br><br>
                 </div>
 
@@ -54,7 +54,7 @@
                       <label mdbLabel class="form-label" for="mail">Email kontaktowy*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="employeeForm.submitted && !email.checkValidity()" class="invalid-feedback" (change)="email.checkValidity()">
+                    <div *ngIf="is_submit_failed && !email.checkValidity()" class="invalid-feedback" (change)="email.checkValidity()">
                         {{email.value.length > 0 ? 'Niepoprawny email' : 'Uzupełnij email'}}</div>
                     <br>
                 </div>
@@ -130,7 +130,7 @@
                       <div
                         class="col pe-0 w-100 {{this.creatingEmployee ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
                         <button class="btn btn-primary btn-block mb-4 btn-login {{this.creatingEmployee ? 'w-50' : 'w-100' }}"
-                                (click)="(name.checkValidity() && lastName.checkValidity() && email.checkValidity()) ? openConfirmDialog() : ''"
+                                (click)="(name.checkValidity() && lastName.checkValidity() && email.checkValidity()) ? openConfirmDialog() : is_submit_failed = true"
                                 type="submit"
                                 [disabled]="">
                           Potwierdź

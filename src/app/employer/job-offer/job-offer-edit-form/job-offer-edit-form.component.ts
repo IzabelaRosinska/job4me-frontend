@@ -51,6 +51,7 @@ export class JobOfferEditFormComponent implements OnInit {
   }
 
   createForm: boolean = false;
+  is_submit_failed = false
 
   ngOnInit(): void {
 

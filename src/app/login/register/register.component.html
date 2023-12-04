@@ -1,16 +1,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 <app-loading-screen *ngIf="loading"></app-loading-screen>
-<div *ngIf="!loading">
-  <div class="text-center align-content-center align-items-center pt-5 center div-outer-login">
-    <div class="main container align-content-center text-center div-login btn-radio">
+<div *ngIf="!loading" class="container align-content-left text-left main">
+  <div class="fieldset-outer">
+    <fieldset class="register-form">
       <form #registerForm="ngForm">
         <h1>Zakładanie konta</h1>
         <!--    Pick your role section-->
         <div class="text-start">
           <h2>Typ konta</h2>
         </div>
-        <div class="btn-group btn-radio">
+        <div class="btn-group d-flex" role="group" aria-label="Basic example">
           <input
             mdbRadio
             type="radio"
@@ -59,7 +59,7 @@
           <div class="form-outline mb-4">
             <mdb-form-control>
               <input mdbInput type="email" id="email" #email
-                     class="form-control login {{!registerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     class="form-control login white-field {{!registerForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
                      [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                      name="username" placeholder="Email" (change)="email.checkValidity();" (input)="errorMessage = ''"
                      [(ngModel)]="registerData.username"
@@ -74,7 +74,7 @@
           <div class="form-outline mb-4">
             <mdb-form-control>
               <input mdbInput matInput type="{{passwordVisible}}" #password id="password" name="password"
-                     class="form-icon-trailing form-control login password {{!registerForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     class="form-icon-trailing form-control login password white-field {{!registerForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
                      (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"
                      [(ngModel)]="registerData.password" required>
               <i class="{{visibilityIconClass}} eye trailing" id="togglePassword"
@@ -90,7 +90,7 @@
             <mdb-form-control>
               <input mdbInput matInput type="{{matchingPasswordVisible}}" #matchingPassword id="matchingPassword"
                      name="matchingPassword"
-                     class="form-icon-trailing form-control login password {{!registerForm.submitted ? '' : (matchingPassword.checkValidity()? 'is-valid' : 'is-invalid')}}"
+                     class="form-icon-trailing form-control login password white-field {{!registerForm.submitted ? '' : (matchingPassword.checkValidity()? 'is-valid' : 'is-invalid')}}"
                      (change)="matchingPassword.checkValidity();" (input)=" is_second_password_same = true" placeholder="Powtórz hasło" [minLength]="5"
                      [maxLength]="15"
                      [(ngModel)]="registerData.matchingPassword" required>
@@ -110,7 +110,7 @@
                 type="submit">Zarejestruj się
         </button>
       </form>
-    </div>
+    </fieldset>
 
   </div>
 </div>

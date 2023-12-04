@@ -1,9 +1,9 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <app-loading-screen *ngIf="loading"></app-loading-screen>
-<div class="container main" *ngIf="!loading">
-  <div class="fieldset-outer form-size mt-5">
-    <fieldset class="common-inputs-fieldset align-content-left text-left ">
+<div class="container align-content-left text-left main" *ngIf="!loading">
+  <div class="fieldset-outer">
+    <fieldset class="common-inputs-fieldset">
       <form #organizerForm="ngForm">
         <legend class="mb-3">Dane organizatora targów</legend>
 
@@ -18,8 +18,8 @@
             <label mdbLabel class="form-label" for="name">Nazwa organizatora*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{name.checkValidity() ? '' : 'Nazwa organizatora jest wymagana'}}</div>
+          <div *ngIf="is_submit_failed && !name.checkValidity()"
+               class="text-start invalid-message">Nazwa organizatora jest wymagana</div>
         </div>
         <br><br>
 
@@ -34,10 +34,8 @@
             <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted && email.value.length == 0"
-               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy jest wymagany'}}</div>
-          <div *ngIf="organizerForm.submitted && email.value.length > 0"
-               class="text-start invalid-message">{{email.checkValidity() ? '' : 'Email kontaktowy musi mieć format emaila'}}</div>
+          <div *ngIf="is_submit_failed && !email.checkValidity()"
+               class="text-start invalid-message">{{!email ? 'Email kontaktowy jest wymagany' : 'Niepoprawny format emaila'}}</div>
         </div>
         <br><br>
 
@@ -52,10 +50,8 @@
             <label mdbLabel class="form-label" for="phone">Numer telefonu*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted && phone.value.length == 0"
-               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon jest wymagany'}}</div>
-          <div *ngIf="organizerForm.submitted && phone.value.length > 0"
-               class="text-start invalid-message">{{phone.checkValidity() ? '' : 'Telefon powinien zwierać od 9 do 20 znaków'}}</div>
+          <div *ngIf="is_submit_failed && !phone.checkValidity()"
+               class="text-start invalid-message">{{!phone ? 'Telefon jest wymagany' : 'Telefon powinien zwierać od 9 do 20 znaków'}}</div>
         </div>
         <br><br>
 
@@ -63,15 +59,15 @@
           <mdb-form-control>
             <textarea mdbInput type="text" id="description" #description
                       class="form-control white-field {{!organizerForm.submitted ? '' : (description.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                      [minLength]="1" [maxLength]="500"
+                      [minLength]="1" [maxLength]="500" rows="5"
                       name="description" placeholder="Uczelnia wyższa znajdująca się we Wrocławiu."
                       (change)="description.checkValidity()" [(ngModel)]="organizerAccount.description"
                       required></textarea>
             <label mdbLabel class="form-label" for="description">Opis*</label>
 
           </mdb-form-control>
-          <div *ngIf="organizerForm.submitted"
-               class="text-start invalid-message">{{description.checkValidity() ? '' : 'Opis jest wymagany'}}</div>
+          <div *ngIf="is_submit_failed && !description.checkValidity()"
+               class="text-start invalid-message">Opis jest wymagany</div>
         </div>
         <br><br>
 
@@ -89,7 +85,7 @@
             <div
               class="col pe-0 w-100 {{this.register ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
               <button class="btn btn-primary btn-block mb-4 btn-login  {{this.register ? 'w-50' : 'w-100' }}"
-                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():''"
+                      (click)="(name.checkValidity() && email.checkValidity() && phone.checkValidity() && description.checkValidity())?openConfirmDialog():is_submit_failed=true"
                       type="submit"
                       [disabled]="">
                 Przejdź dalej
