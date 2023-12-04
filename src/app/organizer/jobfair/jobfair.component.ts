@@ -6,7 +6,7 @@ import {
   JobFair,
   Page,
   PaginationUse,
-  FiliterType,
+  FiliterType, ParticipationRequest,
 } from "../../types";
 import {Observable} from "rxjs";
 
@@ -26,21 +26,16 @@ export class JobfairComponent implements OnInit {
 
   pageSize: number = 5;
   length: number = 20;
-  employersAsList: ItemInsideList[] = [];
-  companyPhoto = '../../assets/company.png';
-  filters: JobOfferFilterDto = {
-    contractTypeNames: [
-      "umowa o pracę"
-    ]
-  };
+
 
   loadingSite: boolean = true;
-  currentTabId = "jobFairs";
+
   paginationUseList: PaginationUse<ForListBackend>[] = [];
   isOwner: boolean = false;
   routeForChange: string = "";
 
   role: string | null = localStorage.getItem('role');
+  participationRequest: ParticipationRequest | null = null;
 
   getPaginationService() {
     return this.servicePagination;
@@ -61,6 +56,7 @@ export class JobfairComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.role = localStorage.getItem('role');
     this.variablesService.initVariables();
     this.route.paramMap.subscribe((params: ParamMap) => {
       const jobfairId = Number(params.get('jobfair-id'));
@@ -123,8 +119,12 @@ export class JobfairComponent implements OnInit {
           this.jobFair.displayDescription = response.displayDescription;
           this.loading = false;
 
+          if(this.isEmployer()){
+            this.serviceJobFair.isEmployerParticipating(this.jobFair.id).subscribe((response) => {
+              this.participationRequest = response;
+            });
+          }
         });
-
         this.servicePagination.initPagination(this.paginationUseList);
 
       } else {
@@ -133,15 +133,14 @@ export class JobfairComponent implements OnInit {
       }
     });
 
-
   }
 
   loading: boolean = true;
 
   jobFair: JobFair = {
-    id: 0,
+    id: -1,
     name: "",
-    organizerId: 0,
+    organizerId: -1,
     dateStart: "",
     dateEnd: "",
     address: "",
@@ -164,6 +163,33 @@ export class JobfairComponent implements OnInit {
 
   convertDate(date: string): string {
     return date.substring(0, 10) + " " + date.substring(11);
+  }
+
+  requestForJobFair(): void {
+    this.loading = true;
+    this.serviceJobFair.requestForParticipation(this.jobFair.id).subscribe((response) => {
+      this.serviceJobFair.isEmployerParticipating(this.jobFair.id).subscribe((response) => {
+        this.participationRequest = response;
+        this.loading = false;
+      });
+    });
+  }
+
+
+  requestForCancelParticipation(): void {
+    if(this.participationRequest){
+      this.loading = true;
+      this.serviceJobFair.requestForCancelParticipation(this.participationRequest?.id).subscribe((response) => {
+        this.serviceJobFair.isEmployerParticipating(this.jobFair.id).subscribe((response) => {
+          this.participationRequest = response;
+          this.loading = false;
+        });
+      });
+    }
+  }
+
+  isEmployer(): boolean {
+    return this.role == 'employer';
   }
 
   protected readonly FiliterType = FiliterType;

@@ -11,6 +11,7 @@ import {FiltringFieldComponent} from "./filtring-field/filtring-field.component"
 })
 export class FilterSortPanelComponent implements OnInit {
 
+  @Input() useSorting: boolean = true;
   @Input() filter: FiliterType[] = [];
   @Input() filterOptions: [FiliterType, string[]][] = [];
 

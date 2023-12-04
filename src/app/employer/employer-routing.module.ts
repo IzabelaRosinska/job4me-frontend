@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'employee/employer/job-offer/:job-offer-id', component: JobOfferComponent},
 
   {path: 'employer/employer/:employer-id/account', component: EmployerAccountComponent},
-  {path: 'employer/employer/:employer-id', redirectTo: '/employee/employer/:employer-id/account', pathMatch: 'full'},
+  {path: 'employer/employer/:employer-id', redirectTo: '/employer/employer/:employer-id/account', pathMatch: 'full'},
   {path: 'employer/employer/job-offer/:job-offer-id', component: JobOfferComponent},
 
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},

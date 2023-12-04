@@ -16,13 +16,12 @@
         <app-filter-sort-panel
           (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-fairs',paginationUseList, $event)"
           (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-fairs',paginationUseList,$event)"
-          [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+          [filter]="[FiliterType.address]" [useSorting]="false"></app-filter-sort-panel>
       </div>
       <app-loading-screen
         *ngIf="getPaginationService().getPaginationUseById('job-fairs',paginationUseList)?.loading"></app-loading-screen>
       <app-item-list [items]="getPaginationService().getDisplayListById('job-fairs',paginationUseList)"
                      *ngIf="!getPaginationService().getPaginationUseById('job-fairs',paginationUseList)?.loading"
-                     [filters]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames]"
       ></app-item-list>
     </div>
 
