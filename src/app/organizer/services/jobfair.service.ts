@@ -57,7 +57,7 @@ export class JobfairService {
     const route = ROUTES.BACKEND_ROUTE + '/organizer/job-fairs/payment';
     return this.http.request('post', route, {
       body: jobfair,
-      responseType: 'text',
+      responseType: 'json',
       observe: 'response',
       headers: {"Content-Type": 'application/json'},
       withCredentials: true,

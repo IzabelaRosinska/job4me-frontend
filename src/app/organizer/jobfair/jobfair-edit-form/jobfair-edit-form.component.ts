@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {OrganizerService} from "../../services/organizer.service";
 import {JobfairService} from "../../services/jobfair.service";
+import {PaymentCheckout} from "../../../types";
 
 @Component({
   selector: 'app-jobfair-edit-form',
@@ -103,7 +104,13 @@ export class JobfairEditFormComponent implements OnInit{
               return [];
             })
           ).subscribe((response) => {
-            this.paymentUrl = response.url;
+
+            const responseUrl = response.body as PaymentCheckout;
+            console.log(responseUrl);
+            this.paymentUrl = responseUrl.url as string;
+            console.log(responseUrl.url);
+
+
             this.isEditCard = false;
             this.loading = false;
           });
@@ -173,6 +180,7 @@ export class JobfairEditFormComponent implements OnInit{
   }
 
   payment() {
+    console.log(this.paymentUrl);
     window.location.href = this.paymentUrl;
   }
 
