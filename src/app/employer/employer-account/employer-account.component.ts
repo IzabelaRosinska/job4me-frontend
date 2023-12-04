@@ -109,7 +109,7 @@ export class EmployerAccountComponent implements OnInit {
             this.employerAccount = response;
             if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.telephone
               || !this.employerAccount.description || !this.employerAccount.displayDescription) {
-              this.router.navigate(['employer/edit-form']);
+              this.router.navigate(['/employer/edit-form']);
             }
             this.isOwner = true;
             this.initPaginationUseList(role?role:'', employerId);

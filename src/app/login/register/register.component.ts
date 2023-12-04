@@ -126,21 +126,7 @@ export class RegisterComponent implements OnInit{
                 declineMessage: ""
               }
           });
-          switch (this.registerData.role) {
-            case 'EMPLOYEE':
-              this.router.navigate(['/employee/editInfo']);
-              this.loading = false;
-              break;
-            case 'EMPLOYER':
-              this.router.navigate(['/employer/editInfo']);
-              this.loading = false;
-              break;
-            case 'ORGANIZER':
-              this.router.navigate(['/organizer/editInfo']);
-              this.loading = false;
-              break;
-          }
-          break;
+          this.router.navigate(['/title-page']);
       }
     })
       }
