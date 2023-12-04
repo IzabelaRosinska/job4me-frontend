@@ -1,4 +1,4 @@
-<div class="container" style="overflow-y: hidden;">
+<div class="container pop-up-window">
 
   <div class="row">
     <h1 mat-dialog-title>{{data.title}}</h1>
@@ -7,7 +7,7 @@
   <hr>
 
   <div class="row">
-    <p class="dzban" mat-dialog-content> {{data.mainMessage}} </p>
+    <p class="multi-line-text" mat-dialog-content> {{data.mainMessage}} </p>
   </div>
 
   <div class="row" *ngIf="data.declineMessage !== ''">

@@ -16,14 +16,12 @@
     }
   }
 
-  .dzban {
-    white-space: pre-line;
-  }
-
-.mat-mdc-dialog-surface .mdc-dialog__surface {
-  ::before {
-    content: none;
-    display: none;
-  }
+.multi-line-text {
+  white-space: pre-line;
 }
+
+.pop-up-window {
+  overflow-y: hidden;
+}
+
   
