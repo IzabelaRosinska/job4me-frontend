@@ -52,3 +52,10 @@
 .pointer {
   cursor: pointer;
 }
+
+.nav-link:focus, .nav-link:hover {
+
+  color: white !important;
+  background-color: lighten($MAIN_LOGO_COLOR, 20%) !important;
+
+}

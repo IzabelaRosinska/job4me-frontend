@@ -127,25 +127,37 @@ export class OrganizerAccountComponent implements OnInit {
             const role = localStorage.getItem('role');
             const organizerId = params.get('organizer-id');
 
-            if (organizerId && role!=null) {
-                this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
+            if (organizerId && role) {
+              console.log("role: ", role);
+                this.serviceOrganizer.getOrganizerByIdAuthenticated(organizerId, role).subscribe((response) => {
                   this.organizerAccount = response;
                   this.loadingSite = false;
                   this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
-                  this.paginationUseList[0].routeToElement = "/employer/organizer/job-fair/";
+                  this.paginationUseList[0].routeToElement = "/organizer/job-fair/";
                   this.servicePagination.initPagination([this.paginationUseList[0]]);
                 });
             } else {
+              if(role=="organizer" && !organizerId){
                 this.serviceOrganizer.getOrganizer().subscribe((response) => {
-                    this.organizerAccount = response;
-                    if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
-                        || !this.organizerAccount.description) {
-                        this.router.navigate(['organizer/edit-info']);
-                    }
-                    this.loadingSite = false;
-                    this.isOwner = true;
-                    this.servicePagination.initPagination(this.paginationUseList);
+                  this.organizerAccount = response;
+                  if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
+                    || !this.organizerAccount.description) {
+                    this.router.navigate(['organizer/edit-info']);
+                  }
+                  this.loadingSite = false;
+                  this.isOwner = true;
+                  this.servicePagination.initPagination(this.paginationUseList);
                 });
+              }else if(organizerId){
+                this.serviceOrganizer.getOrganizerById(organizerId).subscribe((response) => {
+                  this.organizerAccount = response;
+                  this.loadingSite = false;
+                  this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
+                  this.paginationUseList[0].routeToElement = "/organizer/job-fair/";
+                  this.servicePagination.initPagination([this.paginationUseList[0]]);
+                });
+              }
+
             }
         });
 

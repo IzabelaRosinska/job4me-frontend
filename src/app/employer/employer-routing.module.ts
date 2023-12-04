@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'employer/employer/job-offer/:job-offer-id', component: JobOfferComponent},
 
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},
+  {path: 'employer/:employer-id', redirectTo: '/employer/:employer-id/account', pathMatch: 'full'},
   {path: 'employer/job-offer/:job-offer-id/edit-form', component: JobOfferEditFormComponent},
   {path: 'employer/job-offer/:job-offer-id', component: JobOfferComponent},
   {path: 'employer/edit-form', component: EmployerInfoFormComponent},
