@@ -105,7 +105,6 @@ export class LoginComponent implements OnInit {
 
   linkedinLogin() {
     this.serviceOrganizer.getLinkedin().subscribe((response) => {
-      // window.open(response.url);
       window.location.href = response.url;
     });
   }
