@@ -35,34 +35,11 @@ export class EmployerAccountComponent implements OnInit {
   pageSize: number = 5;
   length: number = 20;
 
-
-  offersAsList: ItemInsideList[] = [];
-
-  filters: FiliterType[] = [FiliterType.offerName, FiliterType.salaryFrom, FiliterType.salaryTo, FiliterType.industryNames, FiliterType.employmentFormNames];
-
   paginationUseList: PaginationUse<ForListBackend>[] = []
   loadingAccount: boolean = true;
-  loadingOffers: boolean = true;
   isOwner: boolean = false;
   role = localStorage.getItem('role');
 
-  addJobOfferForList(offer: JobOffer): void {
-    let offerAsItemInsideList: ItemInsideList = {
-      route: this.isOwner?"/employer/job-offer/" + offer.id : "/"+this.role+"/employer/job-offer/" + offer.id,
-      image: this.employerAccount.photo ? this.employerAccount.photo : this.companyPhoto,
-      name: offer.offerName,
-      id: offer.id ? offer.id : 0,
-      displayDescription: `${offer.industries.join(', ')} \n ${offer.salaryFrom}-${offer.salaryTo}`,
-      ListButtonsOptions: {
-        useSaved: false,
-        isSaved: false,
-        useDelete: true,
-        useGettingInside: true,
-        useApprove: false
-      }
-    }
-    this.offersAsList.push(offerAsItemInsideList);
-  }
 
   initPaginationUseList(role: string, employerId: number): void {
     this.paginationUseList = [
@@ -80,7 +57,7 @@ export class EmployerAccountComponent implements OnInit {
         loading: true,
         listButtonsOptions: {
           useGettingInside: true,
-          useDelete: true,
+          useDelete: this.isOwner,
           useSaved: false,
           isSaved: false,
           useApprove: false

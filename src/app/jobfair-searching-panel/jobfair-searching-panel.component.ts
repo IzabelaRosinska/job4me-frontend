@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {JobfairService} from "../organizer/services/jobfair.service";
 import {PaginationService} from "../utilities/service/pagination.service";
 import {FiliterType, ForListBackend, Page, PaginationUse} from "../types";
 import {Observable} from "rxjs";
-import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-jobfair-searching-panel',
@@ -25,6 +24,12 @@ export class JobfairSearchingPanelComponent implements OnInit {
     return this.servicePagination;
   }
 
+  isOrganizer(): boolean {
+    const role = localStorage.getItem('role');
+    if(role === 'organizer')
+      return true;
+    return false;
+  }
 
   ngOnInit(): void {
     const role = localStorage.getItem('role');
@@ -37,8 +42,9 @@ export class JobfairSearchingPanelComponent implements OnInit {
         length: 20,
         state: new Observable<Page<ForListBackend>>(),
         route: "/job-fairs",
-        routeToElement: "/" + role + "/organizer/job-fair/",
+        routeToElement: "/"+role+"/organizer/job-fair/",
         list: [],
+        params: [["showUpcoming", "true"]],
         loading: true,
         listButtonsOptions: {
           useGettingInside: true,

@@ -53,7 +53,7 @@ export class OrganizerAccountComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<JobFair>>(),
-            route: "",
+            route: "/organizer/job-fairs",
             routeToElement: "/organizer/job-fair/",
             listButtonsOptions: {
               useSaved: false,
@@ -125,13 +125,15 @@ export class OrganizerAccountComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const role = localStorage.getItem('role');
-            const organizerId = params.get('organizerId');
-            if (organizerId && role) {
+            const organizerId = params.get('organizer-id');
+
+            if (organizerId && role!=null) {
                 this.serviceOrganizer.getOrganizerById(organizerId, role).subscribe((response) => {
-                    this.organizerAccount = response;
-                    this.paginationUseList[0].route = "/job-fairs/organizer/" + this.organizerAccount.id;
-                    this.getPaginationService().initPagination(this.paginationUseList);
-                    this.loadingSite = false;
+                  this.organizerAccount = response;
+                  this.loadingSite = false;
+                  this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
+                  this.paginationUseList[0].routeToElement = "/employer/organizer/job-fair/";
+                  this.servicePagination.initPagination([this.paginationUseList[0]]);
                 });
             } else {
                 this.serviceOrganizer.getOrganizer().subscribe((response) => {
@@ -140,10 +142,9 @@ export class OrganizerAccountComponent implements OnInit {
                         || !this.organizerAccount.description) {
                         this.router.navigate(['organizer/edit-info']);
                     }
-                    this.paginationUseList[0].route = "/organizer/job-fairs";
-                    this.getPaginationService().initPagination(this.paginationUseList);
                     this.loadingSite = false;
                     this.isOwner = true;
+                    this.servicePagination.initPagination(this.paginationUseList);
                 });
             }
         });

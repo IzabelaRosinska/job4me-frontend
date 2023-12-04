@@ -217,6 +217,7 @@ export enum FiliterType {
   offerName = "offerName",
   jobFairName = "jobFairName",
   employerCompanyName = "employerCompanyName",
+  address = "address"
 }
 
 export interface PdfDto {
