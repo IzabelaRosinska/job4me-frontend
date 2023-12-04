@@ -31,12 +31,19 @@ export class EmployerService {
     });
   }
 
-  getEmployerById(id: number | string, role: string): Observable<EmployerAccount> {
+  getEmployerByIdAuthenticated(id: number | string, role: string): Observable<EmployerAccount> {
     const route = ROUTES.BACKEND_ROUTE + '/' + role + '/employer/' + id + '/account';
     return this.http.get<EmployerAccount>(route, {
       withCredentials: true,
     });
   }
+
+  getEmployerById(id: number | string): Observable<EmployerAccount> {
+    const route = ROUTES.BACKEND_ROUTE + '/account/employer?id=' + id;
+    return this.http.get<EmployerAccount>(route);
+  }
+
+
 
 
   postJobOffer(jobOffer: JobOffer): Observable<any> {
