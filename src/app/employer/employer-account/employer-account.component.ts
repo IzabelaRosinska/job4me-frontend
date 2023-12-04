@@ -57,7 +57,7 @@ export class EmployerAccountComponent implements OnInit {
         loading: true,
         listButtonsOptions: {
           useGettingInside: true,
-          useDelete: true,
+          useDelete: this.isOwner,
           useSaved: false,
           isSaved: false,
           useApprove: false

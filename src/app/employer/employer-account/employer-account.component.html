@@ -48,7 +48,7 @@
                             aria-selected="true"
                     >Aktywne oferty</h1>
                 </div>
-                <div class="col nav-item" role="presentation">
+                <div class="col nav-item" role="presentation" *ngIf="isOwner">
                     <h1
                             class="nav-link pointer text-center {{getPaginationService().isActiveById('inactive-job-offers',paginationUseList)? 'active' : ''}}"
                             id="ex1-tab-2"
@@ -67,7 +67,7 @@
             <div class="tab-content" id="ex1-content">
                 <div
                         class="tab-pane fade {{getPaginationService().isActiveById('inactive-job-offers', paginationUseList)? 'show active' : ''}}"
-                        id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                        id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1" *ngIf="isOwner">
                     <!-- Pills content -->
                     <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'inactive-job-offers', paginationUseList)"
                                    [length]="getPaginationService().getLengthById('inactive-job-offers',paginationUseList)"
@@ -95,7 +95,7 @@
                 </div>
                 <div
                         class="tab-pane fade {{getPaginationService().isActiveById('active-job-offers', paginationUseList)? 'show active' : ''}}"
-                        id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                        id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2" >
                     <!-- Pills content -->
 
                     <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'active-job-offers', paginationUseList)"
