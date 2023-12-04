@@ -143,7 +143,11 @@ export class JobfairEditFormComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+        if(this.creatingJobFair){
+          this.router.navigate(['organizer/account']);
+        }else{
+            this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+        }
       }
 
     });
