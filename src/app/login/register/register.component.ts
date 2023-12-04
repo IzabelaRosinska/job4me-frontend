@@ -128,15 +128,15 @@ export class RegisterComponent implements OnInit{
           });
           switch (this.registerData.role) {
             case 'EMPLOYEE':
-              this.router.navigate(['/employee/editInfo']);
+              this.router.navigate(['/login']);
               this.loading = false;
               break;
             case 'EMPLOYER':
-              this.router.navigate(['/employer/editInfo']);
+              this.router.navigate(['/login']);
               this.loading = false;
               break;
             case 'ORGANIZER':
-              this.router.navigate(['/organizer/editInfo']);
+              this.router.navigate(['/login']);
               this.loading = false;
               break;
           }
