@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit{
   }
 
 
+
   togglePassowrdVisibility(isMatchingPassword: boolean) {
     if(isMatchingPassword)
     {
