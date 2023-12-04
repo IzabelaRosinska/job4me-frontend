@@ -24,6 +24,7 @@ export class OrganizerInfoFormComponent implements OnInit {
 
   register: boolean = false;
   loading: boolean = true;
+  is_submit_failed = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
