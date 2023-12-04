@@ -13,12 +13,12 @@
                  class="form-control login {{!loginForm.submitted ? '' : (email.checkValidity()? 'is-valid' : 'is-invalid')}}"
                  [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                  name="username" placeholder="Email" (change)="email.checkValidity()" [(ngModel)]="loginData.username"
-                 required>
+                 (input)="errorMessage = ''" required>
           <label mdbLabel class="form-label" for="email">Email</label>
 
         </mdb-form-control>
-        <div *ngIf="loginForm.submitted"
-             class="text-start invalid-message">{{email.checkValidity() ? '' : 'Błędny email'}}</div>
+        <div *ngIf="loginForm.submitted || errorMessage!=''"
+             class="text-start invalid-message">{{email.checkValidity() ? errorMessage : 'Błędny email'}}</div>
       </div>
 
 
@@ -28,20 +28,21 @@
           <input mdbInput matInput type="{{passwordVisible}}" #password id="password" name="password"
                  class="form-icon-trailing form-control login password {{!loginForm.submitted ? '' : (password.checkValidity()? 'is-valid' : 'is-invalid')}}"
                  (change)="password.checkValidity()" placeholder="Hasło" [minLength]="5" [maxLength]="15"
-                 [(ngModel)]="loginData.password" required>
+                 [(ngModel)]="loginData.password" (input)="errorMessage = ''" required>
           <i class="{{visibilityIconClass}} eye trailing" id="togglePassword" (click)="togglePassowrdVisibility()"></i>
           <label mdbLabel class="form-label" for="password">Hasło</label>
         </mdb-form-control>
-        <div *ngIf="loginForm.submitted"
-             class="text-start invalid-message">{{password.checkValidity() ? '' : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
-
+        <div *ngIf="loginForm.submitted || errorMessage!=''"
+             class="text-start invalid-message">{{password.checkValidity() ? errorMessage : 'Błędne hasło, hasło powinno zawierać 5-15 znaków'}}</div>
       </div>
+
 
       <div class="row mb-4">
         <div class="col">
           <a routerLink="/reset-password">Nie pamiętasz hasła?</a>
         </div>
       </div>
+
 
       <!-- Submit button -->
       <button class="btn btn-primary btn-block mb-4 btn-login" #logInButton type="submit">Zaloguj się

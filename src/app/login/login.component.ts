@@ -31,15 +31,28 @@ export class LoginComponent implements OnInit {
 
   hide = true;
   loading: boolean = true;
+  errorMessage: string = '';
 
   logIn(loginForm: NgForm) {
     this.loading = true;
     this.loginService.pushLoginData(this.loginData).pipe(
       catchError(err => {
-        if (err.status === 404) {
-          console.log('HTTP Error 404: Resource not found');
-        } else {
-          console.error('HTTP Error', err.status, err.statusText);
+        switch (err.status) {
+            case 401:
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Nieprawidłowy login lub hasło';
+                this.loading = false;
+                break;
+            case 404:
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';
+                this.loading = false;
+                break;
+            default:
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Błąd logowania';
+                this.loading = false;
+                break;
         }
         return throwError(err);
       })
@@ -63,6 +76,12 @@ export class LoginComponent implements OnInit {
             this.loading = false;
           }
 
+          break;
+
+        case 401:
+          this.router.navigate(['/login']);
+          this.errorMessage = 'Nieprawidłowy login lub hasło';
+          this.loading = false;
           break;
       }
       loginForm.resetForm({
