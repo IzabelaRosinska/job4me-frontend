@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {OrganizerService} from "../../services/organizer.service";
 import {JobfairService} from "../../services/jobfair.service";
+import {PaymentCheckout} from "../../../types";
 
 @Component({
   selector: 'app-jobfair-edit-form',
@@ -23,6 +24,10 @@ export class JobfairEditFormComponent implements OnInit{
   selectedFile: File | null = null;
   imageData: string | null = null;
   MAX_FILE_SIZE = 10000;
+
+  isEditCard: boolean = true;
+  paymentValue: number = 2;
+  paymentUrl: string = '';
 
   jobFair = {
     id: 0,
@@ -43,7 +48,7 @@ export class JobfairEditFormComponent implements OnInit{
 
   constructor(public dialog: MatDialog,
               private router: Router,
-              private serviceJobfair: JobfairService,
+              private jobfairService: JobfairService,
               private route: ActivatedRoute
   ) {
   }
@@ -52,7 +57,7 @@ export class JobfairEditFormComponent implements OnInit{
     this.route.paramMap.subscribe((params: ParamMap) => {
       const jobfairId =  params.get('jobfair-id');
       if(jobfairId){
-         this.serviceJobfair.getJobFairById(parseInt(jobfairId)).subscribe((response) => {
+         this.jobfairService.getJobFairById(parseInt(jobfairId)).subscribe((response) => {
             this.jobFair.id = response.id;
             this.jobFair.name = response.name;
             this.jobFair.organizerId = response.organizerId;
@@ -93,18 +98,25 @@ export class JobfairEditFormComponent implements OnInit{
       if (result) {
         if(this.creatingJobFair){
           this.loading = true;
-          this.serviceJobfair.postJobFair(this.jobFair).pipe(
+          this.jobfairService.creatJobFairWithPayment(this.jobFair).pipe(
             catchError((err) => {
               this.loading = false;
               return [];
             })
           ).subscribe((response) => {
-            this.router.navigate(['organizer/account']);
+
+            const responseUrl = response.body as PaymentCheckout;
+            console.log(responseUrl);
+            this.paymentUrl = responseUrl.url as string;
+            console.log(responseUrl.url);
+
+
+            this.isEditCard = false;
             this.loading = false;
           });
         }else{
           this.loading = true;
-          this.serviceJobfair.putJobFair(this.jobFair).pipe(
+          this.jobfairService.putJobFair(this.jobFair).pipe(
             catchError((err) => {
               this.loading = false;
               return [];
@@ -131,7 +143,11 @@ export class JobfairEditFormComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+        if(this.creatingJobFair){
+          this.router.navigate(['organizer/account']);
+        }else{
+            this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+        }
       }
 
     });
@@ -160,6 +176,19 @@ export class JobfairEditFormComponent implements OnInit{
     this.selectedFile = null;
     this.jobFair.photo = '';
   }
+
+  createJobfair() {
+    this.jobfairService.creatJobFairWithPayment(this.jobFair).subscribe((response) => {
+      this.paymentUrl = response.url;
+    });
+  }
+
+  payment() {
+    console.log(this.paymentUrl);
+    window.location.href = this.paymentUrl;
+  }
+
+
 
 
   protected readonly console = console;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {JobFair, JobOffer, OrganizerAccount, EmployerAccount, Page, ForListBackend} from "../../types";
+import {JobFair, JobOffer, OrganizerAccount, EmployerAccount, Page, ForListBackend, PaymentCheckout} from "../../types";
 import {ROUTES} from "../../../environments/environments";
 import {shareReplay} from "rxjs/operators";
 
@@ -51,6 +51,17 @@ export class JobfairService {
       responseType: 'text',
       observe: 'response',
     }).pipe(shareReplay(1));
+  }
+
+  creatJobFairWithPayment(jobfair: JobFair): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/organizer/job-fairs/payment';
+    return this.http.request('post', route, {
+      body: jobfair,
+      responseType: 'json',
+      observe: 'response',
+      headers: {"Content-Type": 'application/json'},
+      withCredentials: true,
+    });
   }
 
   recommendJobOffer(jobOfferId: number, jobFairId: number): Observable<any> {

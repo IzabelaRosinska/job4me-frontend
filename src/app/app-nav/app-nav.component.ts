@@ -26,6 +26,9 @@ export class AppNavComponent {
 
    isLogged() {
      this.role = localStorage.getItem('role');
+     if(this.role == null){
+        return false;
+     }
      return this.role != '';
    }
 

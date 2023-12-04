@@ -1,6 +1,6 @@
 <app-loading-screen *ngIf="loading"></app-loading-screen>
 
-<div class="container align-content-left text-left main" *ngIf="!loading">
+<div class="container align-content-left text-left main" *ngIf="!loading && isEditCard">
   <div class="fieldset-outer">
     <fieldset class="common-inputs-fieldset">
       <form #jobfairForm="ngForm" (ngSubmit)="subbmitForm(jobfairForm)">
@@ -71,7 +71,7 @@
           <mdb-form-control>
             <textarea mdbInput type="text" id="displayDescription" #displayDescription
                       class="form-control white-field login {{!jobfairForm.submitted ? '' : (displayDescription.checkValidity()? 'is-valid' : 'is-invalid')}}"
-                      [minLength]="1" [maxLength]="1000" name="displayDescription" placeholder="Targi techniczne, zakres targów - IT oraz przemysł" (change)="displayDescription.checkValidity()"
+                      [minLength]="1" [maxLength]="150" name="displayDescription" placeholder="Targi techniczne, zakres targów - IT oraz przemysł" (change)="displayDescription.checkValidity()"
                       [(ngModel)]="jobFair.displayDescription" required></textarea>
             <label mdbLabel class="form-label" for="displayDescription">Krótki opis targów*</label>
           </mdb-form-control>
@@ -100,19 +100,20 @@
           <div class="row">
             <div class="col ps-0">
               <button class="btn btn-primary btn-block mb-4 btn-login"
-                      (click)="openDeclineDialog()">
+                      (click)="((name.checkValidity() && address.checkValidity() && dateStart.checkValidity() &&
+                       dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity()) || this.creatingJobFair)?openDeclineDialog():''">
                 Odrzuć zmiany
               </button>
             </div>
 
             <div
-              class="col pe-0 w-100 text-end d-flex justify-content-center flex-nowrap">
+              class="col pe-0 w-100 {{this.creatingJobFair ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
               <button class="btn btn-primary btn-block mb-4 btn-login w-100"
                       (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() &&
-                       dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?openConfirmDialog():''"
+                       dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?(openConfirmDialog()):''"
                       type="submit"
                       [disabled]="">
-                Potwierdź
+                {{this.creatingJobFair ? 'Zapisz i przejdź dalej' : 'Zapisz'}}
               </button>
             </div>
 
@@ -125,3 +126,72 @@
     </fieldset>
   </div>
 </div>
+
+<div class="container main" *ngIf="!loading && !isEditCard">
+  <div class="fieldset-outer mt-5">
+    <fieldset class="common-inputs-fieldset align-content-left text-left ">
+
+
+      <legend class="mb-3">Dane targów pracy</legend>
+
+      <div class="form-outline mt-0 pt-4">
+        <h5>Nazwa</h5>
+        <p class="mb-3">{{jobFair.name}}</p>
+      </div>
+
+      <div class="form-outline mt-0 pt-4">
+        <h5>Czas rozpoczęcia</h5>
+        <p class="mb-3">{{jobFair.dateStart}}</p>
+      </div>
+
+      <div class="form-outline mt-0 pt-4">
+        <h5>Czas zakończenia</h5>
+        <p class="mb-3">{{jobFair.dateEnd}}</p>
+      </div>
+
+      <div class="form-outline mt-0 pt-4">
+        <h5>Adres</h5>
+        <p class="mb-3">{{jobFair.address}}</p>
+      </div>
+
+        <div class="form-outline mt-0 pt-4">
+            <h5>Opis</h5>
+            <p class="mb-3">{{jobFair.description}}</p>
+        </div>
+
+        <div class="form-outline mt-0 pt-4">
+            <h5>Krótki opis</h5>
+            <p class="mb-3">{{jobFair.displayDescription}}</p>
+        </div>
+
+        <div class="form-outline mt-0 pt-4">
+            <h5>Ikona</h5>
+            <img [src]="this.jobFair.photo" alt="logo" class="company-icon">
+        </div>
+
+      <div class="form-outline mt-4 pt-4">
+        <p class="info-message">Następnym krokiem jest płatność w wysokości <b>{{paymentValue}}zł</b>.
+          Po tej płatności zostaną utworzone targi pracy. </p>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col ps-0">
+            <button class="btn btn-primary btn-block mb-4 btn-login"
+                    (click)="isEditCard=true">
+              Anuluj
+            </button>
+          </div>
+
+          <div class="col ps-0">
+            <form action="/create-checkout-session" method="POST">
+              <button class="btn btn-primary btn-block mb-4 btn-login" type="submit" id="checkout-button" (click)="payment()">Zapłać</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+

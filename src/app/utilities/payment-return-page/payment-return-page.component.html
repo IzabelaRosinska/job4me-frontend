@@ -1,0 +1,10 @@
+
+<div class="m-5 text-center">
+    <h1 *ngIf="isSuccessful"> Płatność zatwierdzona!</h1>
+    <h1 *ngIf="isSuccessful"> Utworzono targi pracy.</h1>
+
+    <h1 *ngIf="!isSuccessful"> Płatność niepowiodła się!</h1>
+    <h1 *ngIf="!isSuccessful"> Nie utworzony targów pracy.</h1>
+
+    <button class="btn btn-primary btn-login mt-5" routerLink="/organizer/account">Powrót do konta</button>
+</div>
