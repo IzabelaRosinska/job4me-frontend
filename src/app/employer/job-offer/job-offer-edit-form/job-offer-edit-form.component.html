@@ -18,7 +18,7 @@
             <label mdbLabel class="form-label" for="name">Nazwa stanowiska*</label>
 
           </mdb-form-control>
-          <div *ngIf="jobOfferForm.submitted && !name.checkValidity()"
+          <div *ngIf="is_submit_failed && !name.checkValidity()"
                class="text-start invalid-message">Uzupełnij nazwę stanowiska</div>
         </div>
         <br>
@@ -34,7 +34,7 @@
             <label mdbLabel class="form-label" for="workingTime">Etat/dzienny czas pracy*</label>
 
           </mdb-form-control>
-          <div *ngIf="jobOfferForm.submitted && !workingTime.checkValidity()"
+          <div *ngIf="is_submit_failed && !workingTime.checkValidity()"
                class="text-start invalid-message">Uzupełnij wymiar czasu pracy</div>
         </div>
         <br><br>
@@ -68,7 +68,7 @@
               </mdb-form-control>
             </div><br>
           </div>
-          <div *ngIf="jobOfferForm.submitted && !validateSalary()"
+          <div *ngIf="is_submit_failed && !validateSalary()"
             class="text-start invalid-message row justify-content-center">
             {{jobOfferData.salaryFrom === null ? "Podaj wartość minimalnej pensji" : "Podano nieprawidłowy zakres"}}</div>
         </div>
@@ -158,7 +158,7 @@
                                     (valid)="validate($event,localizations)"
                                     [placeholder]="'np. Waraszawa'"
                                     (save)="moduleSaveInfo($event, 'localizations')"></app-expanded-module-form>
-          <h5 *ngIf="jobOfferForm.submitted && localizations.classList.contains(invalidClassName)"
+          <h5 *ngIf="is_submit_failed && localizations.classList.contains(invalidClassName)"
             class="invalid-module-text">Wpisz co najmniej jedno miasto</h5>
         </div>
 
@@ -169,7 +169,7 @@
                                     (valid)="validate($event,requirements)"
                                     [placeholder]="'np. Java'"
                                     (save)="moduleSaveInfo($event, 'requirements')"  ></app-expanded-module-form>
-          <h5 *ngIf="jobOfferForm.submitted && requirements.classList.contains(invalidClassName)"
+          <h5 *ngIf="is_submit_failed && requirements.classList.contains(invalidClassName)"
             class="invalid-module-text">Wpisz co najmniej jedno wymaganie</h5>
         </div>
 
@@ -190,7 +190,7 @@
               <label mdbLabel class="form-label" for="duties">Obowiązki*</label>
 
           </mdb-form-control>
-          <div *ngIf="jobOfferForm.submitted && !duties.checkValidity()" (change)="duties.checkValidity()"
+          <div *ngIf="is_submit_failed && !duties.checkValidity()" (change)="duties.checkValidity()"
                class="text-start invalid-message">Uzupełnij obowiązki pracownika</div>
         </div>
 
@@ -222,7 +222,7 @@
                       (click)="(name.checkValidity() && workingTime.checkValidity() && salaryStart.checkValidity() && !industries.classList.contains(invalidClassName)
                       && !localizations.classList.contains(invalidClassName) && !forms.classList.contains(invalidClassName)
                       && !contract_type.classList.contains(invalidClassName) && !level.classList.contains(invalidClassName)
-                      && !requirements.classList.contains(invalidClassName) && duties.checkValidity() && validateSalary()) ? openConfirmDialog() : ''" 
+                      && !requirements.classList.contains(invalidClassName) && duties.checkValidity() && validateSalary()) ? openConfirmDialog() : is_submit_failed = true" 
                       type="submit"
                       [disabled]="">
                 Potwierdź
