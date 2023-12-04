@@ -72,7 +72,7 @@
                 <app-filter-sort-panel
                         (filterOptionSelectedOutput)="getPaginationService().updateFilters('employers',paginationUseList, $event)"
                         (sortOptionSelectedOutput)="getPaginationService().updateSorting('employers',paginationUseList,$event)"
-                        [filter]="[FiliterType.employerCompanyName]"></app-filter-sort-panel>
+                        [filter]="[FiliterType.employerCompanyName]" [useSorting]="false"></app-filter-sort-panel>
               </div>
               <app-loading-screen
                 *ngIf="getPaginationService().getPaginationUseById('employers',paginationUseList)?.loading"></app-loading-screen>

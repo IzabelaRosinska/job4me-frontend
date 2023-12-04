@@ -60,4 +60,5 @@ export class JobfairSearchingPanelComponent implements OnInit {
     this.servicePagination.initPagination(this.paginationUseList);
   }
 
+
 }

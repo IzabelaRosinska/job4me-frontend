@@ -47,25 +47,36 @@
             aria-selected="true"
           >Zorganizowane wydarzenia</h1>
         </div>
+        <div class="col nav-item" role="presentation">
+          <h1
+            class="nav-link pointer text-center {{getPaginationService().isActiveById('jobFairs',paginationUseList)? 'active' : ''}}"
+            id="ex1-tab-2"
+            data-mdb-toggle="pill"
+            (click)="getPaginationService().changeTab('jobFairs',paginationUseList)"
+            role="tab"
+            aria-controls="ex1-pills-2"
+            aria-selected="true"
+          >Zorganizowane wydarzenia</h1>
+        </div>
         <div class="col nav-item" role="presentation" *ngIf="isOwner">
           <h1
             class="nav-link pointer text-center {{getPaginationService().isActiveById('pendingEmployers',paginationUseList)? 'active' : ''}}"
-            id="ex1-tab-2"
+            id="ex1-tab-3"
             data-mdb-toggle="pill"
             (click)="getPaginationService().changeTab('pendingEmployers', paginationUseList)"
             role="tab"
-            aria-controls="ex1-pills-2"
+            aria-controls="ex1-pills-3"
             aria-selected="false"
           >Oczekujący pracodawcy</h1>
         </div>
         <div class="col nav-item" role="presentation" *ngIf="isOwner">
           <h1
             class="nav-link pointer text-center {{getPaginationService().isActiveById('acceptedEmployers', paginationUseList)? 'active' : ''}}"
-            id="ex1-tab-3"
+            id="ex1-tab-4"
             data-mdb-toggle="pill"
             (click)="getPaginationService().changeTab('acceptedEmployers', paginationUseList)"
             role="tab"
-            aria-controls="ex1-pills-3"
+            aria-controls="ex1-pills-4"
             aria-selected="false"
           >Zaakceptowani pracodawcy</h1>
         </div>
@@ -92,7 +103,7 @@
               *ngIf="getPaginationService().getPaginationUseById('jobFairs',paginationUseList)?.loading"></app-loading-screen>
             <app-item-list *ngIf="!getPaginationService().getPaginationUseById('jobFairs',paginationUseList)?.loading"
                            [items]="getPaginationService().getDisplayListById('jobFairs',paginationUseList)"
-                           (deleteItemOut)="deleteRequest($event)" (acceptItemOut)="acceptRequest($event)"
+                           (deleteItemOut)="deleteJobFair($event)"
                            (filterOptionSelectedOutput)="getPaginationService().updateFilters('jobFairs',paginationUseList, $event)">
 
             </app-item-list>

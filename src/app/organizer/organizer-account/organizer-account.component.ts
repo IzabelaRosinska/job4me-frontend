@@ -16,6 +16,7 @@ import {OrganizerService} from "../services/organizer.service";
 import {UtilitiesService} from "../../utilities/service/utilities.service";
 import {Observable} from "rxjs";
 import {PaginationService} from "../../utilities/service/pagination.service";
+import {JobfairService} from "../services/jobfair.service";
 
 @Component({
     selector: 'app-organizer-account',
@@ -34,15 +35,7 @@ export class OrganizerAccountComponent implements OnInit {
         description: "",
     }
 
-    companyPhoto = '../../assets/company.png';
     length: number = 20;
-
-    pageEvent?: PageEvent;
-
-    filters: [string, string][] = [["Minimalne wynagrodzenie", ""], ["Branża", "/industries"], ["Poziomy", "/levels"]];
-
-    currentTabId = "jobFairs";
-
     isOwner: boolean = false;
 
     paginationUseList: PaginationUse<any>[] = [
@@ -55,6 +48,7 @@ export class OrganizerAccountComponent implements OnInit {
             state: new Observable<Page<JobFair>>(),
             route: "/organizer/job-fairs",
             routeToElement: "/organizer/job-fair/",
+            params: [["isPaid", "false"]],
             listButtonsOptions: {
               useSaved: false,
               isSaved: false,
@@ -112,6 +106,7 @@ export class OrganizerAccountComponent implements OnInit {
     ];
 
     constructor(private serviceOrganizer: OrganizerService,
+                private serviceJobfair: JobfairService,
                 private serviceUtilities: UtilitiesService,
                 private route: ActivatedRoute,
                 private router: Router,
@@ -163,6 +158,12 @@ export class OrganizerAccountComponent implements OnInit {
 
     }
 
+
+    deleteJobFair(id: number): void {
+        this.serviceJobfair.deleteJobFairById(id).subscribe((response) => {
+          this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
+        });
+    }
 
     deleteRequest(id: number): void {
         this.serviceOrganizer.deleteEmployerParticipation(id).subscribe((response) => {

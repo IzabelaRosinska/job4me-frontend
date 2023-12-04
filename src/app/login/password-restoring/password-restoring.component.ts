@@ -56,10 +56,13 @@ export class PasswordRestoringComponent implements OnInit {
 
 
     changePassword(form: NgForm) {
+
         this.loading = true;
         this.loginService.updatePassword(this.passwordsData).subscribe((response) => {
             switch (response.status) {
                 case 200:
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('role');
                     this.router.navigate(['/login']);
                     this.loading = false;
                     break;
