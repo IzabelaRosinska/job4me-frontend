@@ -86,7 +86,49 @@ export class EmployerAccountComponent implements OnInit {
         },
         ifGet: false,
         filters: {}
-      }
+      },
+      {
+        id: "acceptedEmployers",
+        active: false,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        params: [["status","true"]],
+        state: new Observable<Page<ForListBackend>>(),
+        route: "/employer/employer-participation",
+        routeToElement: "/employer/employer-participation",
+        list: [],
+        loading: true,
+        ifGet: true,
+        listButtonsOptions: {
+          useSaved: false,
+          isSaved: false,
+          useDelete: this.isOwner,
+          useApprove: false,
+          useGettingInside: false
+        }
+      } as PaginationUse<ForListBackend>,
+      {
+        id: "pendingEmployers",
+        active: false,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        params: [["status","false"]],
+        state: new Observable<Page<ForListBackend>>(),
+        route: "/employer/employer-participation",
+        routeToElement: "/employer/employer-participation",
+        list: [],
+        loading: true,
+        ifGet: true,
+        listButtonsOptions: {
+          useSaved: false,
+          isSaved: false,
+          useDelete: this.isOwner,
+          useApprove: false,
+          useGettingInside: false
+        }
+      } as PaginationUse<ForListBackend>
     ]
 
     this.paginationService.initPagination(this.paginationUseList);
@@ -137,6 +179,15 @@ export class EmployerAccountComponent implements OnInit {
         this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
     });
   }
+
+  deleteRequest(id: number): void {
+    this.serviceEmployer.deleteEmployerParticipation(id).subscribe((response) => {
+      this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
+    });
+  }
+
+
+
 
 
   protected readonly FiliterType = FiliterType;

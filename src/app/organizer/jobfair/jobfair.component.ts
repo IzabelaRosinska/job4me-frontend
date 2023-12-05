@@ -41,6 +41,10 @@ export class JobfairComponent implements OnInit {
     return this.servicePagination;
   }
 
+  getVariablesService() {
+    return this.variablesService;
+  }
+
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService,
@@ -129,7 +133,6 @@ export class JobfairComponent implements OnInit {
 
       } else {
         this.loading = false;
-        this.isOwner = true;
       }
     });
 

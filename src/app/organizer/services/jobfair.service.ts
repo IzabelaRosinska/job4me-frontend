@@ -19,6 +19,15 @@ export class JobfairService {
     });
   }
 
+  deleteJobFairById(id: number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/organizer/job-fairs/' + id;
+    return this.http.request('delete', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
   requestForParticipation(jobFairId: number): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-fairs/' + jobFairId + '/employer-participation';
     return this.http.request('post',route, {

@@ -18,15 +18,21 @@
 
             <div class="row align-items-center" *ngIf="isOwner">
 
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
                     <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/edit-form">Edytuj
                         informacje
                     </button>
                 </div>
-                <div class="col-sm-12 col-lg-6">
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
                     <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/employer/add-job-offer">Dodaj
                         ofertę
                     </button>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                  <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/update-password">Zmień
+                    hasło
+                  </button>
                 </div>
 
             </div>
@@ -59,6 +65,31 @@
                             aria-selected="false"
                     >Nieaktywne oferty</h1>
                 </div>
+            </div>
+
+            <div class="row nav nav-pills mb-3" id="ex2" role="tablist" *ngIf="isOwner">
+              <div class="col nav-item" role="presentation">
+                <h1
+                  class="nav-link pointer text-center {{getPaginationService().isActiveById('pendingEmployers',paginationUseList)? 'active' : ''}}"
+                  id="ex2-tab-1"
+                  data-mdb-toggle="pill"
+                  (click)="getPaginationService().changeTab('pendingEmployers', paginationUseList)"
+                  role="tab"
+                  aria-controls="ex2-pills-1"
+                  aria-selected="false"
+                >Oczekujące zgłoszenia</h1>
+              </div>
+              <div class="col nav-item" role="presentation">
+                <h1
+                  class="nav-link pointer text-center {{getPaginationService().isActiveById('acceptedEmployers', paginationUseList)? 'active' : ''}}"
+                  id="ex2-tab-2"
+                  data-mdb-toggle="pill"
+                  (click)="getPaginationService().changeTab('acceptedEmployers', paginationUseList)"
+                  role="tab"
+                  aria-controls="ex2-pills-2"
+                  aria-selected="false"
+                >Zaakceptowane zgłoszenia</h1>
+              </div>
             </div>
             <!-- Pills navs -->
 
@@ -124,6 +155,66 @@
                 </div>
             </div>
 
+            <div class="tab-content" id="ex2-content">
+
+            <!--        Pending Employers-->
+            <div class="tab-pane fade {{getPaginationService().isActiveById('pendingEmployers',paginationUseList)? 'show active' : ''}}"
+                 id="ex2-pills-1" role="tabpanel" aria-labelledby="ex2-tab-1"  *ngIf="isOwner">
+              <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'pendingEmployers',paginationUseList) "
+                             [length]="getPaginationService().getLengthById('pendingEmployers',paginationUseList)"
+                             [pageSize]="getPaginationService().getPageSizeById('pendingEmployers',paginationUseList)"
+                             [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+              </mat-paginator>
+              <hr>
+
+              <div class="">
+                <div class="pb-3">
+                  <app-filter-sort-panel
+                    (filterOptionSelectedOutput)="getPaginationService().updateFilters('pendingEmployers',paginationUseList, $event)"
+                    (sortOptionSelectedOutput)="getPaginationService().updateSorting('pendingEmployers',paginationUseList,$event)"
+                    [filter]="[FiliterType.jobFairName, FiliterType.employerCompanyName]"></app-filter-sort-panel>
+                </div>
+                <app-loading-screen
+                  *ngIf="getPaginationService().getPaginationUseById('pendingEmployers',paginationUseList)?.loading"></app-loading-screen>
+                <app-item-list *ngIf="!getPaginationService().getPaginationUseById('pendingEmployers',paginationUseList)?.loading"
+                               [items]="getPaginationService().getDisplayListById('pendingEmployers',paginationUseList)"
+                               (filterOptionSelectedOutput)="getPaginationService().updateFilters('pendingEmployers',paginationUseList, $event)"
+                               (deleteItemOut)="deleteRequest($event)">
+
+                </app-item-list>
+              </div>
+            </div>
+
+            <!--        Accepted Employers-->
+            <div class="tab-pane fade {{getPaginationService().isActiveById('acceptedEmployers',paginationUseList)? 'show active' : ''}}"
+                 id="ex2-pills-2" role="tabpanel" aria-labelledby="ex2-tab-2" *ngIf="isOwner">
+              <mat-paginator (page)="getPaginationService().handlePageEvent($event, 'acceptedEmployers',paginationUseList) "
+                             [length]="getPaginationService().getLengthById('acceptedEmployers',paginationUseList)"
+                             [pageSize]="getPaginationService().getPageSizeById('acceptedEmployers',paginationUseList)"
+                             [pageSizeOptions]="[5, 10, 25, 100]"
+                             aria-label="Select page">
+              </mat-paginator>
+              <hr>
+
+              <div class="">
+                <div class="pb-3">
+                  <app-filter-sort-panel
+                    (filterOptionSelectedOutput)="getPaginationService().updateFilters('acceptedEmployers',paginationUseList, $event)"
+                    (sortOptionSelectedOutput)="getPaginationService().updateSorting('acceptedEmployers',paginationUseList,$event)"
+                    [filter]="[FiliterType.jobFairName, FiliterType.employerCompanyName]"></app-filter-sort-panel>
+                </div>
+                <app-loading-screen
+                  *ngIf="getPaginationService().getPaginationUseById('acceptedEmployers',paginationUseList)?.loading"></app-loading-screen>
+                <app-item-list *ngIf="!getPaginationService().getPaginationUseById('acceptedEmployers',paginationUseList)?.loading"
+                               [items]="getPaginationService().getDisplayListById('acceptedEmployers',paginationUseList)"
+                               (filterOptionSelectedOutput)="getPaginationService().updateFilters('acceptedEmployers',paginationUseList, $event)"
+                               (deleteItemOut)="deleteRequest($event)">
+
+                </app-item-list>
+              </div>
+            </div>
+
+          </div>
 
         </div>
 
