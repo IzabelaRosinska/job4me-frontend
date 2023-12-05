@@ -17,6 +17,7 @@
   transition: border-color 0.2s, box-shadow 0.4s;
   width: 80%;
   height: 50%;
+  margin-top: 5%;
 }
 
 .common-inputs-fieldset:hover {
@@ -51,4 +52,8 @@
   max-width: 800px !important;
   margin-left: auto;
   margin-right: auto;
+}
+
+legend {
+  padding-bottom: 20px;
 }

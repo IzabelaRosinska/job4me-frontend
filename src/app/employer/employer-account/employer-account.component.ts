@@ -96,7 +96,7 @@ export class EmployerAccountComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const role = localStorage.getItem('role');
       const employerId = Number(params.get('employer-id'));
-      if (employerId && role) {
+      if (employerId && role && role != 'employer') {
 
         this.serviceEmployer.getEmployerByIdAuthenticated(employerId, role).subscribe((response) => {
           this.employerAccount = response;

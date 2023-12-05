@@ -1,16 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginData, RegisterData, Role} from "../../types";
+import {RegisterData, Role} from "../../types";
 import {LoginService} from "../service/login.service";
-import {NgForm} from "@angular/forms";
-import {HttpErrorResponse} from "@angular/common/http";
 import {catchError, throwError} from "rxjs";
 import {
   SimpleTrueFalsePopUpComponent
 } from "src/app/utilities/pop-up/simple-true-false-pop-up/simple-true-false-pop-up.component";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-register',

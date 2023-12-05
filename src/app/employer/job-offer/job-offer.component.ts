@@ -55,7 +55,7 @@ export class JobOfferComponent implements OnInit {
               this.loading = false;
               console.log(this.isOwner);
             });
-          }else if(this.role){
+          }else if(this.role && this.role != 'employer'){
             this.serviceEmployer.getEmployerByIdAuthenticated(response.employerId, this.role).subscribe((responseEmployer) => {
               this.employerAccountData = responseEmployer;
               this.loading = false;
