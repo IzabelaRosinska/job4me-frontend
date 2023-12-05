@@ -91,7 +91,7 @@ export class VariablesService implements OnInit {
   }
 
 
-  initVariables() {
+  async initVariables() {
 
     if(!this.initialized) {
       // this.getLocalizations().subscribe((response0) => {
@@ -167,6 +167,13 @@ export class VariablesService implements OnInit {
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
+  }
+
+  postIndustryNames(industryNames: string[]): void {
+    const route = ROUTES.BACKEND_ROUTE + '/industries';
+    this.http.post(route, industryNames, {
+      withCredentials: true,
+    }).subscribe();
   }
 
   ngOnInit(): void {

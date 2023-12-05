@@ -7,6 +7,7 @@ import {PasswordRestoringComponent} from "./login/password-restoring/password-re
 import {LoginRedirectComponent} from "./login/login-redirect/login-redirect.component";
 import {OrganizerAccountComponent} from "./organizer/organizer-account/organizer-account.component";
 import {EmployerAccountComponent} from "./employer/employer-account/employer-account.component";
+import {AdminAccountComponent} from "./admin/admin-account/admin-account.component";
 
 const routes: Routes = [
   {path: 'user', component: LoginRedirectComponent, pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'title-page', component: TitlePageComponent, pathMatch: 'full'},
   {path: 'reset-password', component: PasswordRestoringComponent, pathMatch: 'full', data: {mode: 'email'}},
   {path: 'update-password', component: PasswordRestoringComponent, pathMatch: 'full', data: {mode: 'password'}},
+  {path: 'admin', component: AdminAccountComponent, pathMatch: 'full'},
   {path: '', redirectTo: '/title-page', pathMatch: 'full'},
   {path: '**', redirectTo: '/title-page', pathMatch: 'full'},
 ];

@@ -29,6 +29,7 @@
         <h4 class="text-end text-white">
           <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end" *ngIf="!isLogged()" routerLink="login">Zaloguj się</a>
           <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end"  *ngIf="isLogged()" (click)="getLoginService().logout()"  routerLink="title-page">Wyloguj</a>
+          <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end"  (click)="getLoginService().logout()"  routerLink="admin">Admin</a>
         </h4>
       </div>
 

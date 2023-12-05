@@ -38,6 +38,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { PasswordRestoringComponent } from './login/password-restoring/password-restoring.component';
 import {SavedListComponent} from "./utilities/saved-list/saved-list.component";
 import { LoginRedirectComponent } from './login/login-redirect/login-redirect.component';
+import {AdminModule} from "./admin/admin.module";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { LoginRedirectComponent } from './login/login-redirect/login-redirect.co
     EmployeeModule,
     OrganizerModule,
     EmployerModule,
+    AdminModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MdbCheckboxModule,
