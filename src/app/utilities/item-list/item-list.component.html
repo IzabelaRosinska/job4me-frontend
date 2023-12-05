@@ -2,17 +2,17 @@
 
   <div  class=" overflow-y-scroll scroll-list-panel">
     <table class="table">
-
     <tr *ngFor="let item of items">
       <td>
         <app-item-inside-list class="list-item"  [item]="item" (saveItem)="saveItem($event)"
                               (deleteItem)="deleteItem($event)" (acceptItem)="acceptItem($event)">
-
-
           </app-item-inside-list>
         </td>
       </tr>
     </table>
+    <div class="text-center" *ngIf="items?.length==0">
+      <h2> Brak danych do wyświetlenia</h2>
+    </div>
   </div>
 
 </div>

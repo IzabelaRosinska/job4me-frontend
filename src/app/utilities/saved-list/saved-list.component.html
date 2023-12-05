@@ -7,23 +7,18 @@
                    [length]="getPaginationService().getLengthById('saved',paginationUseList)"
                    [pageSize]="getPaginationService().getPageSizeById('saved',paginationUseList)"
                    [pageSizeOptions]="[5, 10, 25, 100]"
-                   class="white-background" aria-label="Select page">
+                   class="paginator" aria-label="Select page">
     </mat-paginator>
     <hr>
 
     <div class="">
-      <div class="pb-3">
-        <app-filter-sort-panel
-          (filterOptionSelectedOutput)="getPaginationService().updateFilters('saved',paginationUseList, $event)"
-          (sortOptionSelectedOutput)="getPaginationService().updateSorting('saved',paginationUseList,$event)"
-          [filter]="[]"></app-filter-sort-panel>
-      </div>
       <app-loading-screen
         *ngIf="getPaginationService().getPaginationUseById('saved',paginationUseList)?.loading"></app-loading-screen>
       <app-item-list [items]="getPaginationService().getDisplayListById('saved',paginationUseList)"
                      *ngIf="!getPaginationService().getPaginationUseById('saved',paginationUseList)?.loading"
                      (deleteItemOut)="unsaveElement(role?role:'',routeToDelete,$event)"
       ></app-item-list>
+
     </div>
 
   </div>

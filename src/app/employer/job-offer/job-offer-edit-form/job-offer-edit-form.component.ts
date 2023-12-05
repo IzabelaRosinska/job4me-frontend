@@ -167,7 +167,7 @@ export class JobOfferEditFormComponent implements OnInit {
 
       if (result) {
         this.loading = true;
-        if (this.createForm){
+        if (!this.createForm){
           this.router.navigate(['employer/job-offer/' + this.jobOfferData.id]);
           this.loading = false;
         } else {
