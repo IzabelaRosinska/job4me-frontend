@@ -133,7 +133,6 @@ export class JobfairComponent implements OnInit {
 
       } else {
         this.loading = false;
-        this.isOwner = true;
       }
     });
 
