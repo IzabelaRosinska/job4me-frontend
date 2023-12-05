@@ -110,7 +110,9 @@
                 <app-filter-sort-panel
                   (filterOptionSelectedOutput)="getPaginationService().updateFilters('job-offers',paginationUseList, $event)"
                   (sortOptionSelectedOutput)="getPaginationService().updateSorting('job-offers',paginationUseList,$event)"
-                  [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+                  [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"
+                  [useSorting]="true" [sortOptions]="getVariablesService().sortOffersOptions"
+                ></app-filter-sort-panel>
               </div>
               <app-loading-screen
                 *ngIf="getPaginationService().getPaginationUseById('job-offers',paginationUseList)?.loading"></app-loading-screen>

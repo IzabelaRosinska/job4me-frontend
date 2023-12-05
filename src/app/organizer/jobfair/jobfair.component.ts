@@ -41,6 +41,10 @@ export class JobfairComponent implements OnInit {
     return this.servicePagination;
   }
 
+  getVariablesService() {
+    return this.variablesService;
+  }
+
   constructor(public route: ActivatedRoute,
               private serviceJobFair: JobfairService,
               private servicePagination: PaginationService,

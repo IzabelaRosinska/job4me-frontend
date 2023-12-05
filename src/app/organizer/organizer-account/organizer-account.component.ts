@@ -38,72 +38,7 @@ export class OrganizerAccountComponent implements OnInit {
     length: number = 20;
     isOwner: boolean = false;
 
-    paginationUseList: PaginationUse<any>[] = [
-        {
-            id: "jobFairs",
-            active: true,
-            pageSize: 5,
-            pageIndex: 0,
-            length: 20,
-            state: new Observable<Page<JobFair>>(),
-            route: "/organizer/job-fairs",
-            routeToElement: "/organizer/job-fair/",
-            params: [["isPaid", "false"]],
-            listButtonsOptions: {
-              useSaved: false,
-              isSaved: false,
-              useDelete: true,
-              useApprove: false,
-              useGettingInside: true
-            },
-            list: [],
-            loading: true,
-            ifGet: true,
-
-        } as PaginationUse<JobFair>,
-        {
-            id: "acceptedEmployers",
-            active: false,
-            pageSize: 5,
-            pageIndex: 0,
-            length: 20,
-            params: [["status","true"]],
-            state: new Observable<Page<ParticipationRequest>>(),
-            route: "/organizer/employer-participation",
-            routeToElement: "/organizer/employer-participation",
-            list: [],
-            loading: true,
-            ifGet: true,
-            listButtonsOptions: {
-              useSaved: false,
-              isSaved: false,
-              useDelete: true,
-              useApprove: false,
-              useGettingInside: false
-            }
-        } as PaginationUse<ParticipationRequest>,
-        {
-            id: "pendingEmployers",
-            active: false,
-            pageSize: 5,
-            pageIndex: 0,
-            length: 20,
-            params: [["status","false"]],
-            state: new Observable<Page<ParticipationRequest>>(),
-            route: "/organizer/employer-participation",
-            routeToElement: "/organizer/employer-participation",
-            list: [],
-            loading: true,
-            ifGet: true,
-            listButtonsOptions: {
-              useSaved: false,
-              isSaved: false,
-              useDelete: true,
-              useApprove: true,
-              useGettingInside: false
-            }
-        } as PaginationUse<ParticipationRequest>
-    ];
+    paginationUseList: PaginationUse<any>[] = [];
 
     constructor(private serviceOrganizer: OrganizerService,
                 private serviceJobfair: JobfairService,
@@ -117,69 +52,186 @@ export class OrganizerAccountComponent implements OnInit {
     return this.servicePagination;
   }
 
-    ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            const role = localStorage.getItem('role');
-            const organizerId = params.get('organizer-id');
+  initPagiantionUseList(organizerId: string = ""){
+      this.paginationUseList = [
+        {
+          id: "jobFairs",
+          active: true,
+          pageSize: 5,
+          pageIndex: 0,
+          length: 20,
+          state: new Observable<Page<JobFair>>(),
+          route: "/organizer/job-fairs",
+          routeToElement: "/organizer/job-fair/",
+          params: [["showUpcoming", "true"]],
+          listButtonsOptions: {
+            useSaved: false,
+            isSaved: false,
+            useDelete: this.isOwner,
+            useApprove: false,
+            useGettingInside: true
+          },
+          list: [],
+          loading: true,
+          ifGet: true,
 
-            if (organizerId && role) {
-              console.log("role: ", role);
-                this.serviceOrganizer.getOrganizerByIdAuthenticated(organizerId, role).subscribe((response) => {
-                  this.organizerAccount = response;
-                  this.loadingSite = false;
-                  this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
-                  this.paginationUseList[0].routeToElement = "/organizer/job-fair/";
-                  this.servicePagination.initPagination([this.paginationUseList[0]]);
-                });
-            } else {
-              if(role=="organizer" && !organizerId){
-                this.serviceOrganizer.getOrganizer().subscribe((response) => {
-                  this.organizerAccount = response;
-                  if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
-                    || !this.organizerAccount.description) {
-                    this.router.navigate(['organizer/edit-info']);
-                  }
-                  this.loadingSite = false;
-                  this.isOwner = true;
-                  this.servicePagination.initPagination(this.paginationUseList);
-                });
-              }else if(organizerId){
-                this.serviceOrganizer.getOrganizerById(organizerId).subscribe((response) => {
-                  this.organizerAccount = response;
-                  this.loadingSite = false;
-                  this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
-                  this.paginationUseList[0].routeToElement = "/organizer/job-fair/";
-                  this.servicePagination.initPagination([this.paginationUseList[0]]);
-                });
-              }
+        } as PaginationUse<JobFair>,
+        {
+          id: "jobFairsPast",
+          active: false,
+          pageSize: 5,
+          pageIndex: 0,
+          length: 20,
+          state: new Observable<Page<JobFair>>(),
+          route: "/organizer/job-fairs",
+          routeToElement: "/organizer/job-fair/",
+          params: [["showUpcoming", "false"]],
+          listButtonsOptions: {
+            useSaved: false,
+            isSaved: false,
+            useDelete: this.isOwner,
+            useApprove: false,
+            useGettingInside: true
+          },
+          list: [],
+          loading: true,
+          ifGet: true,
+        } as PaginationUse<JobFair>,
+        {
+          id: "jobFairsUnpaid",
+          active: false,
+          pageSize: 5,
+          pageIndex: 0,
+          length: 20,
+          state: new Observable<Page<JobFair>>(),
+          route: "/organizer/job-fairs",
+          routeToElement: "/organizer/job-fair/",
+          params: [["isPaid", "false"]],
+          listButtonsOptions: {
+            useSaved: false,
+            isSaved: false,
+            useDelete: this.isOwner,
+            useApprove: false,
+            useGettingInside: true
+          },
+          list: [],
+          loading: true,
+          ifGet: true,
+        } as PaginationUse<JobFair>,
+        {
+          id: "acceptedEmployers",
+          active: false,
+          pageSize: 5,
+          pageIndex: 0,
+          length: 20,
+          params: [["status","true"]],
+          state: new Observable<Page<ParticipationRequest>>(),
+          route: "/organizer/employer-participation",
+          routeToElement: "/organizer/employer-participation",
+          list: [],
+          loading: true,
+          ifGet: true,
+          listButtonsOptions: {
+            useSaved: false,
+            isSaved: false,
+            useDelete: true,
+            useApprove: false,
+            useGettingInside: false
+          }
+        } as PaginationUse<ParticipationRequest>,
+        {
+          id: "pendingEmployers",
+          active: false,
+          pageSize: 5,
+          pageIndex: 0,
+          length: 20,
+          params: [["status","false"]],
+          state: new Observable<Page<ParticipationRequest>>(),
+          route: "/organizer/employer-participation",
+          routeToElement: "/organizer/employer-participation",
+          list: [],
+          loading: true,
+          ifGet: true,
+          listButtonsOptions: {
+            useSaved: false,
+            isSaved: false,
+            useDelete: true,
+            useApprove: true,
+            useGettingInside: false
+          }
+        } as PaginationUse<ParticipationRequest>
+      ];
 
+      if(!this.isOwner){
+        this.paginationUseList[0].route = "/job-fairs/organizer/"+organizerId;
+        this.paginationUseList[0].routeToElement = "/organizer/job-fair/";
+        this.paginationUseList[1].route = "/job-fairs/organizer/"+organizerId;
+        this.paginationUseList[1].routeToElement = "/organizer/job-fair/";
+      }
+  }
+
+  ngOnInit(): void {
+      this.route.paramMap.subscribe((params: ParamMap) => {
+          const role = localStorage.getItem('role');
+          const organizerId = params.get('organizer-id');
+
+          if (organizerId && role) {
+            console.log("role: ", role);
+              this.serviceOrganizer.getOrganizerByIdAuthenticated(organizerId, role).subscribe((response) => {
+                this.organizerAccount = response;
+                this.loadingSite = false;
+                this.initPagiantionUseList(organizerId);
+                this.servicePagination.initPagination([this.paginationUseList[0], this.paginationUseList[1]]);
+              });
+          } else {
+            if(role=="organizer" && !organizerId){
+              this.serviceOrganizer.getOrganizer().subscribe((response) => {
+                this.organizerAccount = response;
+                if (!this.organizerAccount.name || !this.organizerAccount.contactEmail || !this.organizerAccount.telephone
+                  || !this.organizerAccount.description) {
+                  this.router.navigate(['organizer/edit-info']);
+                }
+                this.loadingSite = false;
+                this.isOwner = true;
+                this.initPagiantionUseList();
+                this.servicePagination.initPagination(this.paginationUseList);
+              });
+            }else if(organizerId){
+              this.serviceOrganizer.getOrganizerById(organizerId).subscribe((response) => {
+                this.organizerAccount = response;
+                this.loadingSite = false;
+                this.initPagiantionUseList(organizerId);
+                this.servicePagination.initPagination([this.paginationUseList[0], this.paginationUseList[1]]);
+              });
             }
-        });
 
-    }
+          }
+      });
+
+  }
 
 
-    deleteJobFair(id: number): void {
-        this.serviceJobfair.deleteJobFairById(id).subscribe((response) => {
+  deleteJobFair(id: number): void {
+      this.serviceJobfair.deleteJobFairById(id).subscribe((response) => {
+        this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
+      });
+  }
+
+  deleteRequest(id: number): void {
+      this.serviceOrganizer.deleteEmployerParticipation(id).subscribe((response) => {
+        this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
+      });
+  }
+
+  acceptRequest(id: number): void {
+      this.serviceOrganizer.acceptEmployerParticipation(id).subscribe((response) => {
           this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
-        });
-    }
-
-    deleteRequest(id: number): void {
-        this.serviceOrganizer.deleteEmployerParticipation(id).subscribe((response) => {
-          this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
-        });
-    }
-
-    acceptRequest(id: number): void {
-        this.serviceOrganizer.acceptEmployerParticipation(id).subscribe((response) => {
-            this.getPaginationService().updateCurrentTabIdPagination(this.paginationUseList);
-        });
-    }
+      });
+  }
 
 
-    protected readonly console = console;
-    protected readonly FiliterType = FiliterType;
+  protected readonly console = console;
+  protected readonly FiliterType = FiliterType;
 
 }
 
