@@ -4,6 +4,7 @@ import {JobfairService} from "../organizer/services/jobfair.service";
 import {PaginationService} from "../utilities/service/pagination.service";
 import {FiliterType, ForListBackend, Page, PaginationUse} from "../types";
 import {Observable} from "rxjs";
+import {VariablesService} from "../utilities/service/variables.service";
 
 @Component({
   selector: 'app-jobfair-searching-panel',
@@ -13,7 +14,7 @@ import {Observable} from "rxjs";
 export class JobfairSearchingPanelComponent implements OnInit {
 
   constructor(public route: ActivatedRoute,
-              private serviceJobFair: JobfairService,
+              private serviceVariables: VariablesService,
               private servicePagination: PaginationService) {
   }
 
@@ -22,6 +23,10 @@ export class JobfairSearchingPanelComponent implements OnInit {
 
   getPaginationService() {
     return this.servicePagination;
+  }
+
+  getVariablesService() {
+    return this.serviceVariables;
   }
 
   isOrganizer(): boolean {
@@ -59,5 +64,6 @@ export class JobfairSearchingPanelComponent implements OnInit {
 
     this.servicePagination.initPagination(this.paginationUseList);
   }
+
 
 }

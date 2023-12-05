@@ -72,6 +72,12 @@ export class VariablesService implements OnInit {
     "Po nazwie od Z do A" : 5
   }
 
+  sortJobFairsOptions: Record<string, number> = {
+    "Nie sortuj" : 1,
+    "Po dacie od najnowszej" : 2,
+    "Po dacie od najstarszej" : 3
+  }
+
   constructor(private http: HttpClient) {
     this.initVariables();
   }
@@ -79,6 +85,11 @@ export class VariablesService implements OnInit {
   getSortingOffersOptionsStrings(): string[] {
     return Object.keys(this.sortOffersOptions);
   }
+
+  getSortJobFairsOptionsStrings(): string[] {
+    return Object.keys(this.sortJobFairsOptions);
+  }
+
 
   initVariables() {
 

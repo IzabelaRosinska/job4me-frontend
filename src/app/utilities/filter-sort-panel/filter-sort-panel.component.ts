@@ -15,7 +15,8 @@ export class FilterSortPanelComponent implements OnInit {
   @Input() filter: FiliterType[] = [];
   @Input() filterOptions: [FiliterType, string[]][] = [];
 
-  @Input() sortOptions: string[] = [];
+  @Input() sortOptions: Record<string, number> = {};
+  sortOptionsString: string[] = [];
 
   filterOptionSelected: string[] = [];
   start: boolean = false;
@@ -52,7 +53,7 @@ export class FilterSortPanelComponent implements OnInit {
       }
       this.filterOptionSelectedOutputPrepare.push([this.filter[i], []]);
     }
-    this.sortOptions = this.variablesService.getSortingOffersOptionsStrings();
+    this.sortOptionsString = Object.keys(this.sortOptions);
     this.isFilterPanelOpen = true;
   }
 
@@ -100,7 +101,7 @@ export class FilterSortPanelComponent implements OnInit {
 
 
   sortOptionClicked(option: string) {
-    this.sortOptionSelectedOutput.emit(this.variablesService.sortOffersOptions[option]);
+    this.sortOptionSelectedOutput.emit(this.sortOptions[option]);
   }
 
 }

@@ -5,6 +5,7 @@ import {PaginationService} from "../service/pagination.service";
 import {ForListBackend, PaginationUse, FiliterType, Page} from "../../types";
 import {Observable} from "rxjs";
 import {SavedService} from "../service/saved.service";
+import {VariablesService} from "../service/variables.service";
 
 @Component({
   selector: 'app-saved-list',
@@ -30,6 +31,7 @@ export class SavedListComponent implements OnInit{
   getPaginationService() {
     return this.servicePagination;
   }
+
 
   getSavedService() {
     return this.serviceSaved;

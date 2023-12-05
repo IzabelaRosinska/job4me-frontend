@@ -89,15 +89,20 @@ export class PaginationService {
         paginationUse.state = this.paginateDataWithParams$(
             paginationUse.route, paginationUse.filters,paginationUse.ifGet, paginationUse.pageIndex, paginationUse.pageSize, this.convertParamsToString(paginationUse.params)).pipe(
             map((response: Page<ForListBackend>) => {
-                    if(response.content){
+                    if(response){
+                      if(response.content){
                         response.content.forEach(
-                            (elem) => {
-                                const insideList = this.addElementToDisplayList(elem, paginationUse.routeToElement, listButtonsOptions);
-                                paginationUse.list.push(insideList);
-                            }
+                          (elem) => {
+                            const insideList = this.addElementToDisplayList(elem, paginationUse.routeToElement, listButtonsOptions);
+                            paginationUse.list.push(insideList);
+                          }
                         );
+                      }
+                      paginationUse.loading = false;
+                    }else{
+                      paginationUse.loading = false;
                     }
-                    paginationUse.loading = false;
+
                     return response;
                 }
             ));
@@ -120,11 +125,12 @@ export class PaginationService {
 
               console.log(paramIndex+ " "+ param[0] + " " + param[1]);
 
-              if(paramIndex){
+              if(paramIndex != undefined){
                   if(param[1] == ""){
                       paginationUse.params.splice(paramIndex, 1);
+                  }else{
+                      paginationUse.params[paramIndex][1] = param[1];
                   }
-                  paginationUse.params[paramIndex][1] = param[1]
               }else{
                   paginationUse.params?.push([param[0], param[1]]);
               }
@@ -144,6 +150,7 @@ export class PaginationService {
     updateSorting(id: string, paginationUseList: PaginationUse<ForListBackend>[], sorting: number): void {
       const paginationUse = this.getPaginationUseById(id, paginationUseList);
       if (paginationUse) {
+
         this.addParam(paginationUse, ["order", sorting.toString()]);
         this.gotToPage(paginationUseList, id);
         paginationUse.state.subscribe((response) => {
