@@ -17,6 +17,7 @@ export class EmployeeInfoFormComponent implements OnInit {
 
   loading: boolean = true;
   creatingEmployee: boolean = false;
+  is_submit_failed = false
 
   constructor(public dialog: MatDialog,
               private router: Router,

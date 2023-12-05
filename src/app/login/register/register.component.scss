@@ -86,3 +86,24 @@ btn-check {
   width: 50%;
   height: 50%;
 }
+
+@media (min-width: 1px) {
+  .register-form {
+    width: 90%;
+    height: 50%;
+  }
+}
+
+@media (min-width: 576px) {
+  .register-form {
+    width: 70%;
+    height: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .register-form {
+    width: 50%; /* Change width for screens wider than 1024px */
+    height: 50%;
+  }
+}
