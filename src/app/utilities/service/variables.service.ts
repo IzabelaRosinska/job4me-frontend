@@ -106,21 +106,25 @@ export class VariablesService implements OnInit {
       // this.getLocalizations().subscribe((response0) => {
       //   this.cities = response0.content.map((element) => element.name);
 
-      this.getLevels().subscribe((response1) => {
+      this.getHttpLevels().subscribe((response1) => {
         this.levelsWithId = response1.content;
         this.levels = response1.content.map((element) => element.name);
+        localStorage.setItem('levelNames', JSON.stringify(this.levels));
 
-        this.getIndustries().subscribe((response2) => {
+        this.getHttpIndustries().subscribe((response2) => {
           this.industriesWithId = response2.content;
           this.industries = response2.content.map((element) => element.name);
+          localStorage.setItem('industryNames', JSON.stringify(this.industries));
 
-          this.getEmploymentFormsNames().subscribe((response3) => {
+          this.getHttpEmploymentFormsNames().subscribe((response3) => {
             this.employmentFormNamesWithId = response3.content;
             this.employmentFormNames = response3.content.map((element) => element.name);
+            localStorage.setItem('employmentFormNames', JSON.stringify(this.employmentFormNames));
 
-            this.getContractTypes().subscribe((response4) => {
+            this.getHttpContractTypes().subscribe((response4) => {
               this.contractTypesWithId = response4.content;
               this.contractTypes = response4.content.map((element) => element.name);
+              localStorage.setItem('contractTypeNames', JSON.stringify(this.contractTypes));
 
               this.dictionaryOfLoadedData = {
                 cities: [],
@@ -145,7 +149,12 @@ export class VariablesService implements OnInit {
     }
   }
 
-
+  getLoadedData(filterName: FiliterType): string[] {
+    const filterNameString = filterName as string;
+    const data = localStorage.getItem(filterNameString);
+    if(data == null) return this.dictionaryOfLoadedData[filterName];
+    return JSON.parse(data);
+  }
 
   getLocalizations(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/localizations';
@@ -154,32 +163,56 @@ export class VariablesService implements OnInit {
     });
   }
 
-  getLevels(): Observable<Page<idNameListElement>> {
+  getHttpLevels(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/levels';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
-  getIndustries(): Observable<Page<idNameListElement>> {
+  getLevels(): string[] {
+    const levelsFromLocalStorage = localStorage.getItem('levelNames');
+    if(levelsFromLocalStorage == null) return this.levels;
+    return JSON.parse(levelsFromLocalStorage);
+  }
+
+  getHttpIndustries(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/industries';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
-  getEmploymentFormsNames(): Observable<Page<idNameListElement>> {
+  getIndustries(): string[] {
+    const industriesFromLocalStorage = localStorage.getItem('industryNames');
+    if(industriesFromLocalStorage == null) return this.industries;
+    return JSON.parse(industriesFromLocalStorage);
+  }
+
+  getHttpEmploymentFormsNames(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/employment-forms';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
   }
 
-  getContractTypes(): Observable<Page<idNameListElement>> {
+  getEmploymentFormsNames(): string[] {
+    const employmentFormsFromLocalStorage = localStorage.getItem('employmentFormNames');
+    if(employmentFormsFromLocalStorage == null) return this.employmentFormNames;
+    return JSON.parse(employmentFormsFromLocalStorage);
+  }
+
+  getHttpContractTypes(): Observable<Page<idNameListElement>> {
     const route = ROUTES.BACKEND_ROUTE + '/contract-types';
     return this.http.get<Page<idNameListElement>>(route, {
       withCredentials: true,
     });
+  }
+
+  getContractTypes(): string[] {
+    const contractTypesFromLocalStorage = localStorage.getItem('contractTypesNames');
+    if(contractTypesFromLocalStorage == null) return this.contractTypes;
+    return JSON.parse(contractTypesFromLocalStorage);
   }
 
   postBasic(endpoint: string, name: string): Observable<any> {
@@ -195,6 +228,25 @@ export class VariablesService implements OnInit {
     return this.http.delete(route, {
       withCredentials: true,
     });
+  }
+
+  clearVariables(): void {
+    this.cities = [];
+    this.levels = [];
+    this.industries = [];
+    this.employmentFormNames = [];
+    this.contractTypes = [];
+    this.levelsWithId = [];
+    this.industriesWithId = [];
+    this.employmentFormNamesWithId = [];
+    this.contractTypesWithId = [];
+    this.initialized = false;
+
+    localStorage.removeItem('cities');
+    localStorage.removeItem('levelsNames');
+    localStorage.removeItem('industryNames');
+    localStorage.removeItem('employmentFormsNames');
+    localStorage.removeItem('contractTypesNames');
   }
 
   updateBasic(name: string): Observable<any> | void {
@@ -220,7 +272,7 @@ export class VariablesService implements OnInit {
   }
 
   updateIndustryNames(): void {
-    this.getIndustries().subscribe((response) => {
+    this.getHttpIndustries().subscribe((response) => {
         this.industriesWithId = response.content;
         this.industries = response.content.map((element) => element.name);
       }
@@ -228,7 +280,7 @@ export class VariablesService implements OnInit {
   }
 
   updateLevelNames(): void {
-    this.getLevels().subscribe((response) => {
+    this.getHttpLevels().subscribe((response) => {
         this.levelsWithId = response.content;
         this.levels = response.content.map((element) => element.name);
       }
@@ -236,7 +288,7 @@ export class VariablesService implements OnInit {
   }
 
   updateContractTypeNames(): void {
-    this.getIndustries().subscribe((response) => {
+    this.getHttpContractTypes().subscribe((response) => {
         this.contractTypesWithId = response.content;
         this.contractTypes = response.content.map((element) => element.name);
       }
@@ -244,7 +296,7 @@ export class VariablesService implements OnInit {
   }
 
   updateEmploymentFormsNames(): void {
-    this.getIndustries().subscribe((response) => {
+    this.getHttpEmploymentFormsNames().subscribe((response) => {
         this.employmentFormNamesWithId = response.content;
         this.employmentFormNames = response.content.map((element) => element.name);
       }

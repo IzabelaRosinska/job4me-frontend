@@ -17,20 +17,11 @@ export class AdminAccountComponent  {
   basicErrorMessage: string = "Nie udało się usunąć %s. Prawdopodobnie jest ona przypisana do oferty. Odśwież stronę."
   constructor(private variablesService: VariablesService) {
     this.getVariablesService().initVariables();
-    this.waitForLoad();
+    this.loading = false;
   }
 
   getVariablesService(): VariablesService {
     return this.variablesService;
-  }
-
-  waitForLoad(){
-    setTimeout(
-      () => {
-        console.log('variables loaded');
-        this.loading = false;
-      }, 1000
-    );
   }
 
   getNewElement(smallerArray: string[], biggerArray: string[]): string {
@@ -40,9 +31,7 @@ export class AdminAccountComponent  {
     }
     return "";
   }
-
-
-
+  
   save(newList: string[], originList: string[], originListWithId: idNameListElement[], endpoint: string, message: string){
     if(originList.length == newList.length)
       return;
