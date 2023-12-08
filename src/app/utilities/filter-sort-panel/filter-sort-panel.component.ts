@@ -43,7 +43,7 @@ export class FilterSortPanelComponent implements OnInit {
     for (let i = 0; i < this.filter.length; i++) {
       const filterName = this.filter[i];
       if (this.variablesService.dictionaryIfLoaded[filterName]) {
-        const pair: [FiliterType, string[]] = [filterName, this.variablesService.dictionaryOfLoadedData[filterName]];
+        const pair: [FiliterType, string[]] = [filterName, this.variablesService.getLoadedData(filterName)];
         this.filterOptions.push(pair);
         this.start = true;
       } else {

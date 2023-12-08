@@ -5,13 +5,10 @@
         <fieldset class="common-inputs-fieldset">
             <form #employeeForm="ngForm" action="">
 
-
                 <legend class="mb-3">Dane osobowe</legend>
-
 
                 <div class="form-outline mt-0 pt-4">
                     <mdb-form-control>
-
                         <input mdbInput type="text" id="first-name" #name
                              class="form-control white-field {{name.checkValidity()? 'is-valid':'is-invalid' }}"
                              [minLength]="1" [maxLength]="100"

@@ -4,13 +4,15 @@ import {LoginData, PasswordChange, RegisterData} from "../../types";
 import {RequestInterceptor} from "../../interceptors/request.interceptor";
 import {shareReplay} from "rxjs/operators";
 import { ROUTES} from "../../../environments/environments";
+import {VariablesService} from "../../utilities/service/variables.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private variablesService: VariablesService) {
   }
 
   getLoginData() {
@@ -62,6 +64,9 @@ export class LoginService {
   logout() {
     localStorage.setItem('role', '');
     localStorage.setItem('token', '');
+
+    this.variablesService.clearVariables();
+
     const route: string  = ROUTES.BACKEND_ROUTE + '/logout';
     return this.http.request('post', route, {
       withCredentials: true,
