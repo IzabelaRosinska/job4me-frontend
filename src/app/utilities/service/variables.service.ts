@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {catchError, Observable, Subscription, throwError} from "rxjs";
 import {FiliterType, idNameListElement, Page} from "../../types";
 import {ROUTES} from "../../../environments/environments";
 import {HttpClient} from "@angular/common/http";
@@ -16,6 +16,10 @@ export class VariablesService implements OnInit {
   contractTypes: string[] = []
 
 
+  levelsWithId: idNameListElement[] = []
+  industriesWithId: idNameListElement[] = []
+  employmentFormNamesWithId: idNameListElement[] = []
+  contractTypesWithId: idNameListElement[] = []
 
   private initialized: boolean = false;
 
@@ -90,6 +94,11 @@ export class VariablesService implements OnInit {
     return Object.keys(this.sortJobFairsOptions);
   }
 
+  getIdOfElementFromList(array: idNameListElement[], name: string): number | undefined {
+    const elementByName = array.filter((element) => element.name == name)[0];
+    if(elementByName == undefined) return undefined;
+    return elementByName.id? elementByName.id : undefined;
+  }
 
   async initVariables() {
 
@@ -98,15 +107,19 @@ export class VariablesService implements OnInit {
       //   this.cities = response0.content.map((element) => element.name);
 
       this.getLevels().subscribe((response1) => {
+        this.levelsWithId = response1.content;
         this.levels = response1.content.map((element) => element.name);
 
         this.getIndustries().subscribe((response2) => {
+          this.industriesWithId = response2.content;
           this.industries = response2.content.map((element) => element.name);
 
           this.getEmploymentFormsNames().subscribe((response3) => {
+            this.employmentFormNamesWithId = response3.content;
             this.employmentFormNames = response3.content.map((element) => element.name);
 
             this.getContractTypes().subscribe((response4) => {
+              this.contractTypesWithId = response4.content;
               this.contractTypes = response4.content.map((element) => element.name);
 
               this.dictionaryOfLoadedData = {
@@ -169,11 +182,73 @@ export class VariablesService implements OnInit {
     });
   }
 
-  postIndustryNames(industryNames: string[]): void {
-    const route = ROUTES.BACKEND_ROUTE + '/industries';
-    this.http.post(route, industryNames, {
+  postBasic(endpoint: string, name: string): Observable<any> {
+    const elem: idNameListElement = {name: name};
+    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint;
+    return this.http.post(route, elem, {
       withCredentials: true,
-    }).subscribe();
+    });
+  }
+
+  deleteBasic(endpoint: string, id: string | number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint + '/' + id;
+    return this.http.delete(route, {
+      withCredentials: true,
+    });
+  }
+
+  updateBasic(name: string): Observable<any> | void {
+    switch (name) {
+      case "cities":
+        this.updateIndustryNames();
+        break;
+      case "levels":
+        this.updateLevelNames();
+        break;
+      case "industries":
+        this.updateIndustryNames();
+        break;
+      case "employment-forms":
+        this.updateEmploymentFormsNames();
+        break;
+      case "contract-types":
+        this.updateContractTypeNames();
+        break;
+      default:
+        return throwError("Wrong name of variable");
+    }
+  }
+
+  updateIndustryNames(): void {
+    this.getIndustries().subscribe((response) => {
+        this.industriesWithId = response.content;
+        this.industries = response.content.map((element) => element.name);
+      }
+    );
+  }
+
+  updateLevelNames(): void {
+    this.getLevels().subscribe((response) => {
+        this.levelsWithId = response.content;
+        this.levels = response.content.map((element) => element.name);
+      }
+    );
+  }
+
+  updateContractTypeNames(): void {
+    this.getIndustries().subscribe((response) => {
+        this.contractTypesWithId = response.content;
+        this.contractTypes = response.content.map((element) => element.name);
+      }
+    );
+  }
+
+  updateEmploymentFormsNames(): void {
+    this.getIndustries().subscribe((response) => {
+        this.employmentFormNamesWithId = response.content;
+        this.employmentFormNames = response.content.map((element) => element.name);
+      }
+    );
   }
 
   ngOnInit(): void {
