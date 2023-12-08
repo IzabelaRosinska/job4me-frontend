@@ -22,7 +22,7 @@
           <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/edit-info">Edytuj informacje
           </button>
         </div>
-        <!-- <br><br> -->
+
         <div class="col-sm-12 col-md-6">
           <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/organizer/add-job-fair">Dodaj targi pracy
           </button>
@@ -124,7 +124,6 @@
               *ngIf="getPaginationService().getPaginationUseById('jobFairs',paginationUseList)?.loading"></app-loading-screen>
             <app-item-list *ngIf="!getPaginationService().getPaginationUseById('jobFairs',paginationUseList)?.loading"
                            [items]="getPaginationService().getDisplayListById('jobFairs',paginationUseList)"
-                           (deleteItemOut)="deleteJobFair($event)"
                            (filterOptionSelectedOutput)="getPaginationService().updateFilters('jobFairs',paginationUseList, $event)">
 
             </app-item-list>
@@ -148,7 +147,6 @@
               *ngIf="getPaginationService().getPaginationUseById('jobFairsPast',paginationUseList)?.loading"></app-loading-screen>
             <app-item-list *ngIf="!getPaginationService().getPaginationUseById('jobFairsPast',paginationUseList)?.loading"
                            [items]="getPaginationService().getDisplayListById('jobFairsPast',paginationUseList)"
-                           (deleteItemOut)="deleteJobFair($event)"
                            (filterOptionSelectedOutput)="getPaginationService().updateFilters('jobFairsPast',paginationUseList, $event)">
 
             </app-item-list>
@@ -172,7 +170,6 @@
                 *ngIf="getPaginationService().getPaginationUseById('jobFairsUnpaid',paginationUseList)?.loading"></app-loading-screen>
               <app-item-list *ngIf="!getPaginationService().getPaginationUseById('jobFairsUnpaid',paginationUseList)?.loading"
                              [items]="getPaginationService().getDisplayListById('jobFairsUnpaid',paginationUseList)"
-                             (deleteItemOut)="deleteJobFair($event)"
                              (filterOptionSelectedOutput)="getPaginationService().updateFilters('jobFairsUnpaid',paginationUseList, $event)">
 
               </app-item-list>
