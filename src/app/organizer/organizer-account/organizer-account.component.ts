@@ -67,7 +67,7 @@ export class OrganizerAccountComponent implements OnInit {
           listButtonsOptions: {
             useSaved: false,
             isSaved: false,
-            useDelete: this.isOwner,
+            useDelete: false,
             useApprove: false,
             useGettingInside: true
           },
@@ -89,7 +89,7 @@ export class OrganizerAccountComponent implements OnInit {
           listButtonsOptions: {
             useSaved: false,
             isSaved: false,
-            useDelete: this.isOwner,
+            useDelete: false,
             useApprove: false,
             useGettingInside: true
           },
@@ -110,7 +110,7 @@ export class OrganizerAccountComponent implements OnInit {
           listButtonsOptions: {
             useSaved: false,
             isSaved: false,
-            useDelete: this.isOwner,
+            useDelete: false,
             useApprove: false,
             useGettingInside: true
           },

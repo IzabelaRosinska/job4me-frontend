@@ -32,6 +32,7 @@ export class FilterSortPanelComponent implements OnInit {
   filterOptionSelectedOutputPrepare: [FiliterType, string[]][] = [];
 
   @Output() sortOptionSelectedOutput: EventEmitter<number> = new EventEmitter<number>();
+  currentSortOption: string = '';
 
 
   constructor(private variablesService: VariablesService,
@@ -101,6 +102,7 @@ export class FilterSortPanelComponent implements OnInit {
 
 
   sortOptionClicked(option: string) {
+    this.currentSortOption = option;
     this.sortOptionSelectedOutput.emit(this.sortOptions[option]);
   }
 
