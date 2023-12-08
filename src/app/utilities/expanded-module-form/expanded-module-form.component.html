@@ -1,8 +1,11 @@
 
 <div class="d-flex justify-content-between">
-  <div><img (click)="toggleQuestion1()" [src]="arrowImgSrc" style="position: absolute; {{rotate}}"/></div>
+  <div>
+    <i class="fa-solid fa-bars" (click)="toggleQuestion1()" *ngIf="questionHide"></i>
+    <i class="fa-solid fa-arrow-up" (click)="toggleQuestion1()" *ngIf="!questionHide"></i>
+  </div>
   <div><h3 class="question-title">{{title}}</h3></div>
-  <div><button class="btn btn-primary mb-4 btn-login" (click)="startAddingNewText()">+</button></div>
+  <div><button class="btn btn-primary btn-login" (click)="startAddingNewText()">+</button></div>
 </div>
 
 <div class="firstLevel" *ngIf="!questionHide">
@@ -12,7 +15,8 @@
       <tr
         *ngFor="let elem of listOfTextsWithIndexes">
         <td class="question-first-element-in-row" (click)="editText(elem[1])">
-          <img class="inside-table" [src]="pencilImgSrc"/></td>
+          <i class="fa-solid fa-pen inside-table"></i>
+          </td>
         <td class="question-second-element-in-row" *ngIf="elem[1]!=editMode">
           <div> {{elem[0]}} </div>
         </td>

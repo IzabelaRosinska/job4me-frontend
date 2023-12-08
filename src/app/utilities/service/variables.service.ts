@@ -70,16 +70,16 @@ export class VariablesService implements OnInit {
 
   sortOffersOptions: Record<string, number> = {
     "Nie sortuj" : 1,
-    "Po wynagrodzeniu od najniższego" : 2,
-    "Po wynagrodzeniu od najwyższego" : 3,
+    "Po pensji rosnąco" : 2,
+    "Po pensji malejąco" : 3, 
     "Po nazwie od A do Z" : 4,
     "Po nazwie od Z do A" : 5
   }
 
   sortJobFairsOptions: Record<string, number> = {
     "Nie sortuj" : 1,
-    "Po dacie od najnowszej" : 2,
-    "Po dacie od najstarszej" : 3
+    "Od najwcześniejszych" : 2,
+    "Od najpóźniejszych" : 3
   }
 
   constructor(private http: HttpClient) {
