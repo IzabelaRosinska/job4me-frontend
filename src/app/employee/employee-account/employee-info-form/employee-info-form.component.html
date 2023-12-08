@@ -44,7 +44,7 @@
 
                         <input mdbInput type="email" id="mail" #email
                              class="form-control white-field {{email.checkValidity()? 'is-valid':'is-invalid' }}"
-                             [minLength]="1" [maxLength]="100"
+                             [minLength]="1" [maxLength]="100" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                              name="mail" placeholder="Twój email kontaktowy" (change)="email.checkValidity()"
                              [(ngModel)]="employeeAccountInfo.email"
                              required>
