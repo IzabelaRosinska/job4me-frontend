@@ -230,7 +230,7 @@
             </div>
 
           </div>
-          <div class="text-end invalid-message" *ngIf="jobOfferForm.submitted && !(name.checkValidity() && workingTime.checkValidity()
+          <div class="text-end invalid-message" *ngIf="is_submit_failed && !(name.checkValidity() && workingTime.checkValidity()
                     && salaryStart.checkValidity() && !industries.classList.contains(invalidClassName)
                     && !localizations.classList.contains(invalidClassName) && !forms.classList.contains(invalidClassName)
                     && !contract_type.classList.contains(invalidClassName) && !level.classList.contains(invalidClassName)

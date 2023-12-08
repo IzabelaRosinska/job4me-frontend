@@ -70,8 +70,8 @@ export class VariablesService implements OnInit {
 
   sortOffersOptions: Record<string, number> = {
     "Nie sortuj" : 1,
-    "Po wynagrodzeniu od najniższego" : 2,
-    "Po wynagrodzeniu od najwyższego" : 3,
+    "Po pensji rosnąco" : 2,
+    "Po pensji malejąco" : 3, 
     "Po nazwie od A do Z" : 4,
     "Po nazwie od Z do A" : 5
   }

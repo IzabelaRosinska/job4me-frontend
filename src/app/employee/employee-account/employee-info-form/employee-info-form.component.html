@@ -18,7 +18,7 @@
                       <label mdbLabel class="form-label" for="first-name">Imię*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="is_submit_failed && !name.checkValidity()" class="invalid-feedback">Uzupełnij imię</div>
+                    <div *ngIf="is_submit_failed && !name.checkValidity()" class="invalid-message">Uzupełnij imię</div>
                     <br>
                 </div>
 
@@ -34,7 +34,7 @@
                       <label mdbLabel class="form-label" for="last-name">Nazwisko*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="is_submit_failed && !lastName.checkValidity()" class="invalid-feedback">Uzupełnij nazwisko</div>
+                    <div *ngIf="is_submit_failed && !lastName.checkValidity()" class="invalid-message">Uzupełnij nazwisko</div>
                     <br><br>
                 </div>
 
@@ -51,7 +51,7 @@
                       <label mdbLabel class="form-label" for="mail">Email kontaktowy*</label>
                     </mdb-form-control>
 
-                    <div *ngIf="is_submit_failed && !email.checkValidity()" class="invalid-feedback" (change)="email.checkValidity()">
+                    <div *ngIf="is_submit_failed && !email.checkValidity()" class="invalid-message" (change)="email.checkValidity()">
                         {{email.value.length > 0 ? 'Niepoprawny email' : 'Uzupełnij email'}}</div>
                     <br>
                 </div>
@@ -61,11 +61,13 @@
 
                         <input mdbInput type="text" id="phone-number" #phoneNumber
                              class="form-control white-field {{phoneNumber.checkValidity()? 'is-valid':'is-invalid' }}"
-                             [maxLength]="20"
+                             [minLength]="9" [maxLength]="20"
                              name="phone-number" placeholder="Twój numer telefonu" (change)="phoneNumber.checkValidity()"
                              [(ngModel)]="employeeAccountInfo.telephone">
                       <label mdbLabel class="form-label" for="phone-number">Numer telefonu</label>
                     </mdb-form-control>
+                    <div *ngIf="is_submit_failed && !phoneNumber.checkValidity() && !!phoneNumber" (change)="phoneNumber.checkValidity()"
+                         class="text-start invalid-message">Podano niepoprawny numer telefonu</div>
                     <br>
                 </div>
 
@@ -127,7 +129,8 @@
                       <div
                         class="col pe-0 w-100 {{this.creatingEmployee ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
                         <button class="btn btn-primary btn-block mb-4 btn-login {{this.creatingEmployee ? 'w-50' : 'w-100' }}"
-                                (click)="(name.checkValidity() && lastName.checkValidity() && email.checkValidity()) ? openConfirmDialog() : is_submit_failed = true"
+                                (click)="(name.checkValidity() && lastName.checkValidity() && email.checkValidity() 
+                                && (phoneNumber.checkValidity() || !phoneNumber)) ? openConfirmDialog() : is_submit_failed = true"
                                 type="submit"
                                 [disabled]="">
                           Potwierdź
@@ -135,7 +138,8 @@
                       </div>
 
                     </div>
-                    <div class="text-end invalid-message" *ngIf="employeeForm.submitted && !(name.checkValidity() && lastName.checkValidity() && email.checkValidity())">
+                    <div class="{{this.creatingEmployee ? 'text-center ps-0' : 'text-end' }} invalid-message" 
+                    *ngIf="is_submit_failed && !(name.checkValidity() && lastName.checkValidity() && email.checkValidity() && (phoneNumber.checkValidity() || !phoneNumber))">
                     Formularz zawiera błędy</div>
                 </div>
 

@@ -93,7 +93,7 @@
             </div>
 
           </div>
-          <div class="text-end invalid-message" *ngIf="organizerForm.submitted && !(name.checkValidity() && email.checkValidity()
+          <div class="{{this.register ? 'text-center ps-0' : 'text-end' }} invalid-message" *ngIf="is_submit_failed && !(name.checkValidity() && email.checkValidity()
           && phone.checkValidity() && description.checkValidity())">Formularz zawiera błędy</div>
         </div>
       </form>

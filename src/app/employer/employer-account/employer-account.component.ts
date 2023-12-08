@@ -149,8 +149,7 @@ export class EmployerAccountComponent implements OnInit {
         if(role=='employer' && !employerId){
           this.serviceEmployer.getEmployer().subscribe((response) => {
             this.employerAccount = response;
-            if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.telephone
-              || !this.employerAccount.description || !this.employerAccount.displayDescription) {
+            if (!this.employerAccount.companyName || !this.employerAccount.email || !this.employerAccount.description || !this.employerAccount.displayDescription) {
               this.router.navigate(['/employer/edit-form']);
             }
             this.isOwner = true;

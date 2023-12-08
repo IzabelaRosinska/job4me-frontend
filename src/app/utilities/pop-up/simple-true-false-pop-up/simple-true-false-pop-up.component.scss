@@ -16,6 +16,22 @@
     }
   }
 
+  .btn-cancel {
+    border-color: darken(gray, 40%) !important;
+    background-color: gray !important;
+    -webkit-text-fill-color: white;
+    width: 100px;
+  
+    &:hover {
+      background-color: darken(gray, 40%) !important;
+    }
+  
+    &:active {
+      border-color: darken(gray, 40%) !important;
+      background-color: gray !important;
+    }
+  }
+
 .multi-line-text {
   white-space: pre-line;
 }
