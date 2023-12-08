@@ -100,7 +100,7 @@ export class VariablesService implements OnInit {
     return elementByName.id? elementByName.id : undefined;
   }
 
-  async initVariables() {
+  initVariables() {
 
     if(!this.initialized) {
       // this.getLocalizations().subscribe((response0) => {
@@ -210,7 +210,7 @@ export class VariablesService implements OnInit {
   }
 
   getContractTypes(): string[] {
-    const contractTypesFromLocalStorage = localStorage.getItem('contractTypesNames');
+    const contractTypesFromLocalStorage = localStorage.getItem('contractTypeNames');
     if(contractTypesFromLocalStorage == null) return this.contractTypes;
     return JSON.parse(contractTypesFromLocalStorage);
   }
@@ -246,7 +246,7 @@ export class VariablesService implements OnInit {
     localStorage.removeItem('levelsNames');
     localStorage.removeItem('industryNames');
     localStorage.removeItem('employmentFormsNames');
-    localStorage.removeItem('contractTypesNames');
+    localStorage.removeItem('contractTypeNames');
   }
 
   updateBasic(name: string): Observable<any> | void {
