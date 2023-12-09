@@ -35,6 +35,9 @@ export class JobfairComponent implements OnInit {
   isOwner: boolean = false;
   routeForChange: string = "";
   organizerAccount!: OrganizerAccount;
+  recommendButtonText: string = "Polecane oferty";
+  recommendButtonTextChange: string = "Wszystkie oferty";
+
 
   role: string | null = localStorage.getItem('role');
   participationRequest: ParticipationRequest | null = null;
@@ -174,8 +177,14 @@ export class JobfairComponent implements OnInit {
       this.servicePagination.setRouteToElement(this.routeForChange, elem);
       this.routeForChange = temp;
 
+      const tempText =  this.recommendButtonText;
+      this.recommendButtonText = this.recommendButtonTextChange;
+      this.recommendButtonTextChange = tempText;
+
       this.servicePagination.gotToPage(this.paginationUseList);
-      elem.state.subscribe((response) => {});
+      elem.state.subscribe((response) => {
+        elem.length = response ? response.totalElements : 0;
+      });
     }
 
   }

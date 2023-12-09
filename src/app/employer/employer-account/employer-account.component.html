@@ -43,7 +43,7 @@
 
             <!-- Pills navs -->
             <div class="row nav nav-pills mb-3" id="ex1" role="tablist">
-                <div class="col nav-item pointer" role="presentation">
+                <div class="col nav-item pointer {{!isOwner ? 'pe-none' : ''}}" role="presentation">
                     <h1
                             class="nav-link pointer text-center {{getPaginationService().isActiveById('active-job-offers',paginationUseList)? 'active' : ''}}"
                             id="ex1-tab-1"
@@ -113,7 +113,8 @@
                             <app-filter-sort-panel
                                     (filterOptionSelectedOutput)="getPaginationService().updateFilters('inactive-job-offers',paginationUseList, $event)"
                                     (sortOptionSelectedOutput)="getPaginationService().updateSorting('inactive-job-offers',paginationUseList,$event)"
-                                    [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+                                    [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"
+                                    [sortOptions]="getVariablesService().sortOffersOptions"></app-filter-sort-panel>
                         </div>
                         <app-loading-screen
                                 *ngIf="getPaginationService().getPaginationUseById('inactive-job-offers',paginationUseList)?.loading"></app-loading-screen>
@@ -142,7 +143,8 @@
                             <app-filter-sort-panel
                                     (filterOptionSelectedOutput)="getPaginationService().updateFilters('active-job-offers',paginationUseList, $event)"
                                     (sortOptionSelectedOutput)="getPaginationService().updateSorting('active-job-offers',paginationUseList,$event)"
-                                    [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"></app-filter-sort-panel>
+                                    [filter]="[FiliterType.levelNames,FiliterType.employmentFormNames,FiliterType.contractTypeNames, FiliterType.industryNames, FiliterType.cities,FiliterType.salaryFrom, FiliterType.salaryTo]"
+                                    [sortOptions]="getVariablesService().sortOffersOptions"></app-filter-sort-panel>
                         </div>
                         <app-loading-screen
                                 *ngIf="getPaginationService().getPaginationUseById('active-job-offers',paginationUseList)?.loading"></app-loading-screen>

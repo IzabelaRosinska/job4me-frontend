@@ -52,7 +52,7 @@
             <label mdbLabel class="form-label active date-label" for="dateEnd">Data zakończenia*</label>
           </mdb-form-control>
           <div *ngIf="is_submit_failed && (!dateEnd.checkValidity() || jobFair.dateStart > jobFair.dateEnd)"
-               class="text-start invalid-message">{{!dateEnd.checkValidity() ? 'Data zakończenia targów jest wymagana' : 'Podano nieprawidłowwy zakres dat'}}</div>
+               class="text-start invalid-message">{{!dateEnd.checkValidity() ? 'Data zakończenia targów jest wymagana' : 'Podano nieprawidłowy zakres dat'}}</div>
         </div>
 
         <div class="form-outline mb-4">

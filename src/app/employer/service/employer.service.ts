@@ -54,10 +54,6 @@ export class EmployerService {
     }).pipe(shareReplay(1));
   }
 
-
-
-
-
   postJobOffer(jobOffer: JobOffer): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers';
     return this.http.request('post', route, {
@@ -107,6 +103,15 @@ export class EmployerService {
   deactivateJobOffer(id: string | number): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/deactivate';
     return this.http.request('put', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  saveEmployee(id: string | number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/save-employee/' + id;
+    return this.http.request('post', route, {
       withCredentials: true,
       responseType: 'text',
       observe: 'response',
