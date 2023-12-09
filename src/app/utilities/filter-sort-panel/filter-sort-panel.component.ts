@@ -32,6 +32,7 @@ export class FilterSortPanelComponent implements OnInit {
   filterOptionSelectedOutputPrepare: [FiliterType, string[]][] = [];
 
   @Output() sortOptionSelectedOutput: EventEmitter<number> = new EventEmitter<number>();
+  currentSortOption: string = '';
 
 
   constructor(private variablesService: VariablesService,
@@ -43,7 +44,7 @@ export class FilterSortPanelComponent implements OnInit {
     for (let i = 0; i < this.filter.length; i++) {
       const filterName = this.filter[i];
       if (this.variablesService.dictionaryIfLoaded[filterName]) {
-        const pair: [FiliterType, string[]] = [filterName, this.variablesService.dictionaryOfLoadedData[filterName]];
+        const pair: [FiliterType, string[]] = [filterName, this.variablesService.getLoadedData(filterName)];
         this.filterOptions.push(pair);
         this.start = true;
       } else {
@@ -101,6 +102,7 @@ export class FilterSortPanelComponent implements OnInit {
 
 
   sortOptionClicked(option: string) {
+    this.currentSortOption = option;
     this.sortOptionSelectedOutput.emit(this.sortOptions[option]);
   }
 

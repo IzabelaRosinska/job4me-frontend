@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col-md-8" *ngIf="jobOfferData.requirements">
         <app-job-offer-card [header]="'Wymagania'"
-                            [text]="jobOfferData.requirements.join(',\n')"
+                            [text]="'&bull; '+jobOfferData.requirements.join('\n&bull; ')"
                             [headerBGC]="'lighter'">
         </app-job-offer-card>
       </div>
@@ -91,7 +91,7 @@
 
       <div class="col-md-8" *ngIf="jobOfferData.extraSkills && jobOfferData.extraSkills.length > 0">
         <app-job-offer-card [header]="'Dodatkowe umiejętności'"
-                            [text]="jobOfferData.extraSkills.join(',\n')"
+                            [text]="'&bull; '+jobOfferData.extraSkills.join('\n&bull; ')"
                             [headerBGC]="'lighter'">
         </app-job-offer-card>
       </div>

@@ -155,7 +155,7 @@ export interface Page<T> {
 
 
 export interface idNameListElement {
-    id: number;
+    id?: number;
     name: string;
 }
 

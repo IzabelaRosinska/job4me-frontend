@@ -1,0 +1,36 @@
+
+<div class="m-5" *ngIf="!loading">
+
+  <div class="mb-5">
+    <h3 class="message"> {{message}} </h3>
+  </div>
+
+
+  <div class="admin-field border-opacity-50 mb-3">
+    <app-expanded-module-form  [title]="'Branże'" [maxInputLength]="500"
+                               [listOfTexts]="getVariablesService().getIndustries()"
+                               (save)="save($event, getVariablesService().getIndustries(), getVariablesService().industriesWithId, 'industries', 'branży' )"></app-expanded-module-form>
+  </div>
+
+
+  <div class="admin-field border-opacity-50 mb-3">
+    <app-expanded-module-form  [title]="'Poziomy'" [maxInputLength]="500"
+                               [listOfTexts]="getVariablesService().getLevels()"
+                               (save)="save($event, getVariablesService().getLevels(), getVariablesService().levelsWithId, 'levels', 'poziomu' )"></app-expanded-module-form>
+  </div>
+
+
+  <div class="admin-field border-opacity-50 mb-3">
+    <app-expanded-module-form  [title]="'Rodzaj kontraktu'" [maxInputLength]="500"
+                               [listOfTexts]="getVariablesService().getContractTypes()"
+                               (save)="save($event, getVariablesService().getContractTypes(), getVariablesService().contractTypesWithId, 'contract-types', 'rodzaju kontraktu' )"></app-expanded-module-form>
+  </div>
+
+
+  <div class="admin-field border-opacity-50 mb-3">
+    <app-expanded-module-form  [title]="'Rodzaje zatrudnienia'" [maxInputLength]="500"
+                               [listOfTexts]="getVariablesService().getEmploymentFormsNames()"
+                               (save)="save($event, getVariablesService().getEmploymentFormsNames(), getVariablesService().employmentFormNamesWithId, 'employment-forms', 'rodzaj zatrudnienia' )"></app-expanded-module-form>
+  </div>
+
+</div>

@@ -17,7 +17,7 @@
                         <label mdbLabel class="form-label" for="companyName">Nazwa firmy*</label>
 
                     </mdb-form-control>
-                    <div *ngIf="employerForm.submitted && !companyName.checkValidity()"
+                    <div *ngIf="is_submit_failed && !companyName.checkValidity()"
                          class="text-start invalid-message">Uzupełnij nazwę firmy</div>
                 </div>
 
@@ -31,7 +31,7 @@
                         <label mdbLabel class="form-label" for="email">Email kontaktowy*</label>
 
                     </mdb-form-control>
-                    <div *ngIf="!email.checkValidity() && (employerForm.submitted || email.value.length > 0)" class="text-start invalid-message">
+                    <div *ngIf="is_submit_failed && !email.checkValidity()" class="text-start invalid-message">
                         {{email.value.length == 0 ? 'Email kontaktowy jest wymagany' : 'Email kontaktowy musi mieć format emaila'}}</div>
                 </div>
 
@@ -45,7 +45,7 @@
                         <label mdbLabel class="form-label" for="phoneNumber">Numer telefonu</label>
 
                     </mdb-form-control>
-                    <div *ngIf="employerForm.submitted && !phoneNumber.checkValidity()" (change)="phoneNumber.checkValidity()"
+                    <div *ngIf="is_submit_failed && !phoneNumber.checkValidity() && !!phoneNumber" (change)="phoneNumber.checkValidity()"
                          class="text-start invalid-message">Podano niepoprawny numer telefonu</div>
                 </div>
 
@@ -59,7 +59,7 @@
                         <label mdbLabel class="form-label" for="description">Opis firmy*</label>
 
                     </mdb-form-control>
-                    <div *ngIf="employerForm.submitted && !description.checkValidity()" (change)="description.checkValidity()"
+                    <div *ngIf="is_submit_failed && !description.checkValidity()" (change)="description.checkValidity()"
                          class="text-start invalid-message">{{description.value.length > 0 ? '' : 'Uzupełnij opis firmy'}}</div>
                 </div>
 
@@ -73,7 +73,7 @@
                         <label mdbLabel class="form-label" for="displayDescription">Krótki opis firmy*</label>
 
                     </mdb-form-control>
-                    <div *ngIf="employerForm.submitted && !displayDescription.checkValidity()" (change)="displayDescription.checkValidity()"
+                    <div *ngIf="is_submit_failed && !displayDescription.checkValidity()" (change)="displayDescription.checkValidity()"
                          class="text-start invalid-message">{{displayDescription.value.length > 0 ? '' : 'Uzupełnij reprezentacyjny opis firmy'}}</div>
                 </div>
 
@@ -121,10 +121,10 @@
                       </div>
 
                       <div
-                        class="col pe-0 w-100 {{this.creatingEmployer ? 'text-center ps-0' : 'text-end' }} ps-0'">
-                        <button class="btn btn-primary btn-block mb-4 btn-login w-100 {{this.creatingEmployer ? 'w-50' : 'w-100' }}"
-                                (click)="(companyName.checkValidity() && email.checkValidity() && phoneNumber.checkValidity()
-                                && description.checkValidity() && displayDescription.checkValidity()) ? openConfirmDialog() : ''"
+                        class="col {{this.creatingEmployer ? 'text-center' : 'text-end' }}">
+                        <button class="btn btn-primary btn-block mb-4 btn-login {{this.creatingEmployer ? 'w-50' : 'w-100' }}"
+                                (click)="(companyName.checkValidity() && email.checkValidity() && (phoneNumber.checkValidity() || !phoneNumber)
+                                && description.checkValidity() && displayDescription.checkValidity()) ? openConfirmDialog() : is_submit_failed = true"
                                 type="submit"
                                 [disabled]="">
                           Potwierdź
@@ -132,7 +132,7 @@
                       </div>
 
                     </div>
-                    <div class="text-end invalid-message" *ngIf="employerForm.submitted &&
+                    <div class="{{this.creatingEmployer ? 'text-center' : 'text-end' }} invalid-message" *ngIf="is_submit_failed &&
                     !(companyName.checkValidity() && email.checkValidity() && phoneNumber.checkValidity()
                     && description.checkValidity() && displayDescription.checkValidity())">Formularz zawiera błędy</div>
                 </div>

@@ -77,20 +77,8 @@ export class RegisterComponent implements OnInit{
     this.loading = false;
   }
 
-  openConfirmDialog(): void {
-    const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
-      data:
-        {
-          title: "Potwierdzenie",
-          mainMessage: "Czy chcesz potwierdzić operacje?",
-          confirmMessage: "Tak",
-          declineMessage: "Nie"
-        }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      if (result) {
+  create_account(): void {
+    
         this.loading = true;
         this.loginService.registerUser(this.registerData).pipe(
           catchError(err => {
@@ -117,14 +105,12 @@ export class RegisterComponent implements OnInit{
             data:
               {
                 title: "Weryfikacja",
-                mainMessage: "Wysłano mail weryfikacyjny na wskazany adres mailowy.\nAby zakończyć rejestrację użyj linku zamieszczonego w wiadmości.\nJeśli nie możesz znaleźć maila sprawdź flder SPAM.",
+                mainMessage: "Wysłano mail weryfikacyjny na wskazany adres mailowy.\nAby zakończyć rejestrację użyj linku zamieszczonego w wiadmości.\nJeśli nie możesz znaleźć maila sprawdź folder SPAM.",
                 confirmMessage: "OK",
                 declineMessage: ""
               }
           });
           this.router.navigate(['/title-page']);
-      }
-    })
       }
     });
   }

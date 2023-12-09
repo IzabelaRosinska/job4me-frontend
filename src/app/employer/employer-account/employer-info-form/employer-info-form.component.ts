@@ -23,7 +23,7 @@ export class EmployerInfoFormComponent implements OnInit {
   MAX_FILE_SIZE = 10000;
   loading: boolean = true;
   creatingEmployer: boolean = false;
-
+  is_submit_failed = false
 
 
   constructor(public dialog: MatDialog,
@@ -63,13 +63,34 @@ export class EmployerInfoFormComponent implements OnInit {
     address: ""
   }
 
-
-
   onFileSelected(event: any) {
-    if (event.target.files.length > 0 && event.target.files[0].type.includes("image") && event.target.files[0].size < this.MAX_FILE_SIZE) {
-      this.selectedFile = event.target.files[0];
-      this.displaySelectedImage();
+    if (event.target.files.length <= 0) return;
+    if (!event.target.files[0].type.includes("image")) {
+      const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
+        data:
+          {
+            title: "Niepoprawny format",
+            mainMessage: "Wybrany plik posiada zły format.\nZamieszczone zdjęcie powinno być w formacie JPG lub PNG.",
+            confirmMessage: "OK",
+            declineMessage: ""
+          }
+      });
+      return;
     }
+    if (event.target.files[0].size >= this.MAX_FILE_SIZE) {
+      const dialogRef = this.dialog.open(SimpleTrueFalsePopUpComponent, {
+        data:
+          {
+            title: "Przekroczono rozmiar",
+            mainMessage: "Wybrano plik przekraczający maksymalny dopuszczony rozmiar.\nPlik powinien być niewiększy niż " + this.MAX_FILE_SIZE / 1000 + "kb.",
+            confirmMessage: "OK",
+            declineMessage: ""
+          }
+      });
+      return;
+    }
+    this.selectedFile = event.target.files[0];
+    this.displaySelectedImage();
   }
 
   displaySelectedImage() {

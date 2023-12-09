@@ -1,28 +1,26 @@
-<div class="container pop-up-window">
+<div class="container pop-up-window px-3">
 
-  <div class="row">
-    <h1 mat-dialog-title>{{data.title}}</h1>
+  <div class="row mx-3">
+    <h1 mat-dialog-title class="">{{data.title}}</h1>
   </div>
-
-  <hr>
-
-  <div class="row">
+  <hr class="m-0">
+  <div class="row mx-3">
     <p class="multi-line-text" mat-dialog-content> {{data.mainMessage}} </p>
   </div>
 
   <div class="row" *ngIf="data.declineMessage !== ''">
     <div mat-dialog-actions>
-      <div class="col text-start">
-        <button class="btn btn-secondary" mat-button [mat-dialog-close]="false">{{data.declineMessage}}</button>
+      <div class="col text-end m-3 ">
+        <button class="btn btn-cancel" mat-button [mat-dialog-close]="false">{{data.declineMessage}}</button>
       </div>
 
-      <div class="col text-end">
+      <div class="col text-start m-3">
         <button class="btn btn-secondary" mat-button [mat-dialog-close]="true" cdkFocusInitial>{{data.confirmMessage}}</button>
       </div>
     </div>
   </div>
 
-  <div class="d-flex justify-content-center mb-3" *ngIf="!data.declineMessage">
+  <div class="d-flex justify-content-center m-3" *ngIf="!data.declineMessage">
     <div mat-dialog-action>
       <button class="btn btn-secondary" mat-button [mat-dialog-close]="true" cdkFocusInitial>{{data.confirmMessage}}</button>
     </div>

@@ -105,7 +105,7 @@
         </div>
 
         <button class="btn btn-primary btn-block mb-4 btn-login"
-                (click)="(email.checkValidity() && password.checkValidity() && matchingPassword.checkValidity() && password.value == matchingPassword.value) ? openConfirmDialog() : (password.value != matchingPassword.value ? is_second_password_same = false : '')"
+                (click)="(email.checkValidity() && password.checkValidity() && matchingPassword.checkValidity() && password.value == matchingPassword.value) ? create_account() : (password.value != matchingPassword.value ? is_second_password_same = false : '')"
                 [disabled]=""
                 type="submit">Zarejestruj się
         </button>

@@ -6,7 +6,7 @@ import {
   JobFair,
   Page,
   PaginationUse,
-  FiliterType, ParticipationRequest,
+  FiliterType, ParticipationRequest, OrganizerAccount,
 } from "../../types";
 import {Observable} from "rxjs";
 
@@ -16,6 +16,7 @@ import {PaginationService} from "../../utilities/service/pagination.service";
 import {EmployeeService} from "../../employee/service/employee.service";
 import {VariablesService} from "../../utilities/service/variables.service";
 import {SavedService} from "../../utilities/service/saved.service";
+import {OrganizerService} from "../services/organizer.service";
 
 @Component({
   selector: 'app-jobfair',
@@ -33,6 +34,7 @@ export class JobfairComponent implements OnInit {
   paginationUseList: PaginationUse<ForListBackend>[] = [];
   isOwner: boolean = false;
   routeForChange: string = "";
+  organizerAccount!: OrganizerAccount;
 
   role: string | null = localStorage.getItem('role');
   participationRequest: ParticipationRequest | null = null;
@@ -50,7 +52,8 @@ export class JobfairComponent implements OnInit {
               private servicePagination: PaginationService,
               private variablesService: VariablesService,
               private serviceEmployee: EmployeeService,
-              private savedService: SavedService) {
+              private savedService: SavedService,
+              private serviceOrganizer: OrganizerService) {
 
 
   }
@@ -128,6 +131,11 @@ export class JobfairComponent implements OnInit {
               this.participationRequest = response;
             });
           }
+
+          // this.serviceOrganizer.getOrganizerById(this.jobFair.organizerId).subscribe((response) => {
+          //   this.organizerAccount = response;
+          // });
+
         });
         this.servicePagination.initPagination(this.paginationUseList);
 
@@ -139,10 +147,10 @@ export class JobfairComponent implements OnInit {
   }
 
   getPathToOrganizer(): string{
-    if(this.role != null){
-      return this.isOwner? '/organizer/account' : '/'+this.role+'/organizer/'+this.jobFair.organizerId+'/account';
+    if(this.role != null && this.role != 'organizer'){
+      return '/'+this.role+'/organizer/'+this.jobFair.organizerId+'/account';
     }else{
-      return '/account/organizer'
+      return this.isOwner? '/organizer/account' : '/account/organizer?id='+this.jobFair.organizerId;
     }
   }
 
