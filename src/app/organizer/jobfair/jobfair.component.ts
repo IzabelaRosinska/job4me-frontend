@@ -135,10 +135,9 @@ export class JobfairComponent implements OnInit {
             });
           }
 
-          // this.serviceOrganizer.getOrganizerById(this.jobFair.organizerId).subscribe((response) => {
-          //   this.organizerAccount = response;
-          // });
-
+          this.serviceJobFair.isJobFairOwner(this.jobFair.id).subscribe((response) => {
+            this.isOwner = response;
+          });
         });
         this.servicePagination.initPagination(this.paginationUseList);
 

@@ -39,8 +39,8 @@
                    [(ngModel)]="jobFair.dateStart" required >
             <label mdbLabel class="form-label active date-label" for="dateStart">Data rozpoczęcia*</label>
           </mdb-form-control>
-          <div *ngIf="is_submit_failed && !dateStart.checkValidity()"
-               class="text-start invalid-message">Data rozpoczęcia targów jest wymagana</div>
+          <div *ngIf="is_submit_failed && (!dateStart.checkValidity() || Date.parse(dateStart.value) < Date.now())"
+               class="text-start invalid-message">Data rozpoczęcia targów jest wymagana oraz nie może być wcześniejsza niż obecny czas</div>
         </div>
 
         <div class="form-outline mb-4">
@@ -108,7 +108,7 @@
             <div
               class="col pe-0 w-100 {{this.creatingJobFair ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
               <button class="btn btn-primary btn-block mb-4 btn-login w-100"
-                      (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() && jobFair.dateEnd >= jobFair.dateStart &&
+                      (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() && jobFair.dateEnd >= jobFair.dateStart  && Date.parse(dateStart.value) >= Date.now()&&
                        dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?(openConfirmDialog()):is_submit_failed=true"
                       type="submit"
                       [disabled]="">
