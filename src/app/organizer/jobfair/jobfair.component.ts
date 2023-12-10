@@ -35,8 +35,8 @@ export class JobfairComponent implements OnInit {
   isOwner: boolean = false;
   routeForChange: string = "";
   organizerAccount!: OrganizerAccount;
-  recommendButtonText: string = "Polecane oferty";
-  recommendButtonTextChange: string = "Wszystkie oferty";
+  recommendButtonText: string = "Rekomenduj";
+  recommendButtonTextChange: string = "Cofnij rekomendacje";
 
 
   role: string | null = localStorage.getItem('role');

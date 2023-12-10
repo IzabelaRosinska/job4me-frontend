@@ -29,6 +29,7 @@ export class EmployeeAccountComponent implements OnInit {
         if (id && role) {
           this.serviceEmployee.getEmployeeById(id, role).subscribe((response) => {
             this.employeeAccountInfo = response;
+            this.isEmployeeSaved = response.isSaved? response.isSaved : false;
             this.loading = false;
           });
         } else {
