@@ -8,7 +8,7 @@ import {
   PaginationUse,
   FiliterType, ParticipationRequest, OrganizerAccount,
 } from "../../types";
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
@@ -135,7 +135,11 @@ export class JobfairComponent implements OnInit {
             });
           }
 
-          this.serviceJobFair.isJobFairOwner(this.jobFair.id).subscribe((response) => {
+          this.serviceJobFair.isJobFairOwner(this.jobFair.id).pipe(
+              catchError((err) => {
+                return [];
+              })
+          ).subscribe((response) => {
             this.isOwner = response;
           });
         });
