@@ -52,7 +52,7 @@
                             role="tab"
                             aria-controls="ex1-pills-1"
                             aria-selected="true"
-                    >Aktywne oferty</h1>
+                    > {{!isOwner ? 'Oferty' : 'Aktywne oferty'}}</h1>
                 </div>
                 <div class="col nav-item" role="presentation" *ngIf="isOwner">
                     <h1

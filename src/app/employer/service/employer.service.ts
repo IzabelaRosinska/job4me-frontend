@@ -39,7 +39,7 @@ export class EmployerService {
   }
 
   getEmployerById(id: number | string): Observable<EmployerAccount> {
-    const route = ROUTES.BACKEND_ROUTE + '/account/employer?id=' + id;
+    const route = ROUTES.BACKEND_ROUTE + '/account/employer/' + id;
     return this.http.get<EmployerAccount>(route);
   }
 

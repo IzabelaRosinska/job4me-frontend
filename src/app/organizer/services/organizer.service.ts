@@ -35,7 +35,7 @@ export class OrganizerService {
     });
   }
   getOrganizerById(id: number | string): Observable<OrganizerAccount> {
-    const route = ROUTES.BACKEND_ROUTE+'/account/organizer?id='+id;
+    const route = ROUTES.BACKEND_ROUTE+'/account/organizer/'+id;
     return this.http.get<OrganizerAccount>(route, {
       withCredentials: true,
     });
