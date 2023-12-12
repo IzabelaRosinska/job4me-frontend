@@ -3,6 +3,7 @@ import {EmployeeAccount, PdfDto} from "../../types";
 import {EmployeeService} from "../service/employee.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
+import {EmployerService} from "../../employer/service/employer.service";
 
 @Component({
     selector: 'app-employee-account',
@@ -13,11 +14,13 @@ export class EmployeeAccountComponent implements OnInit {
 
     loading: boolean = true;
     isOwner: boolean = false;
+    role: string | null = localStorage.getItem('role');
+    isEmployeeSaved: boolean = false;
 
     constructor(private serviceEmployee: EmployeeService,
                 private route: ActivatedRoute,
                 private router:  Router,
-                private _sanitizer: DomSanitizer) {}
+                private serviceEmployer: EmployerService) {}
 
     ngOnInit(): void {
       this.route.paramMap.subscribe((params: ParamMap) => {
@@ -26,6 +29,7 @@ export class EmployeeAccountComponent implements OnInit {
         if (id && role) {
           this.serviceEmployee.getEmployeeById(id, role).subscribe((response) => {
             this.employeeAccountInfo = response;
+            this.isEmployeeSaved = response.isSaved? response.isSaved : false;
             this.loading = false;
           });
         } else {
@@ -94,4 +98,11 @@ export class EmployeeAccountComponent implements OnInit {
       });
     }
 
+  saveEmployee(): void {
+    this.serviceEmployer.saveEmployee(this.employeeAccountInfo.id).subscribe((response) => {
+      this.isEmployeeSaved = true;
+    });
+  }
+
+    protected readonly localStorage = localStorage;
 }

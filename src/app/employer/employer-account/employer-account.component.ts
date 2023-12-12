@@ -7,6 +7,7 @@ import {BehaviorSubject, catchError, Observable, of, startWith} from "rxjs";
 import {map} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {PaginationService} from "../../utilities/service/pagination.service";
+import {VariablesService} from "../../utilities/service/variables.service";
 
 @Component({
   selector: 'app-employer-account',
@@ -18,7 +19,8 @@ export class EmployerAccountComponent implements OnInit {
   constructor(private serviceEmployer: EmployerService,
               private route: ActivatedRoute,
               private paginationService: PaginationService,
-              private router: Router) {
+              private router: Router,
+              private variablesService: VariablesService) {
   }
 
   companyPhoto = '../../assets/company.png';
@@ -171,6 +173,10 @@ export class EmployerAccountComponent implements OnInit {
 
   getPaginationService(){
     return this.paginationService;
+  }
+
+  getVariablesService(){
+    return this.variablesService;
   }
 
   deleteJobOffer(id: number): void {

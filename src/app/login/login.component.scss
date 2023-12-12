@@ -46,11 +46,12 @@ h1 {
 .eye {
   width: 15%;
   align-content: end;
-  margin-left: 90%;
+  margin-left: 95%;
   margin-top: 0;
   cursor: pointer;
   z-index: 10;
   pointer-events: auto !important;
+  text-align: end;
 }
 
 .invalid-message {

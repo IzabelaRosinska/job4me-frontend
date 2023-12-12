@@ -57,6 +57,7 @@ export class JobfairEditFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
+
       const jobfairId =  params.get('jobfair-id');
       if(jobfairId){
          this.jobfairService.getJobFairById(parseInt(jobfairId)).subscribe((response) => {
@@ -214,7 +215,7 @@ export class JobfairEditFormComponent implements OnInit{
   }
 
 
-
-
   protected readonly console = console;
+  protected readonly Date = Date;
+
 }

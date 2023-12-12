@@ -45,6 +45,11 @@ export class LoginComponent implements OnInit {
                 this.errorMessage = 'Nieprawidłowy login lub hasło';
                 this.loading = false;
                 break;
+            case 403:
+                this.router.navigate(['/login']);
+                this.errorMessage = 'Konto nieaktywne, sprawdź skrzynkę pocztową';
+                this.loading = false;
+                break;
             case 404:
                 this.router.navigate(['/login']);
                 this.errorMessage = 'Nieznaleziono strony, poczekaj chwilę i spróbuj ponownie';

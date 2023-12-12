@@ -6,6 +6,7 @@ export interface EmployeeAccount {
   lastName: string;
   telephone: string;
   email: string;
+  isSaved?: boolean;
   aboutMe?: string;
   interests?: string;
   education?: string[];

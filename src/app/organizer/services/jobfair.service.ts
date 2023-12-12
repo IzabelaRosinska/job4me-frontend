@@ -82,6 +82,13 @@ export class JobfairService {
     });
   }
 
+  isJobFairOwner(jobFairId: number): Observable<boolean> {
+    const route = ROUTES.BACKEND_ROUTE + '/organizer/job-fairs/' + jobFairId + '/access';
+    return this.http.get<boolean>(route, {
+      withCredentials: true,
+    }).pipe(shareReplay(1));
+  }
+
   recommendJobOffer(jobOfferId: number, jobFairId: number): Observable<any> {
     const route =  ROUTES.BACKEND_ROUTE +'employee/job-offers/list-display/job-fair/'+jobOfferId+'/recommendation';
     return this.http.request('put', route, {
