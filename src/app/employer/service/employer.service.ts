@@ -39,7 +39,7 @@ export class EmployerService {
   }
 
   getEmployerById(id: number | string): Observable<EmployerAccount> {
-    const route = ROUTES.BACKEND_ROUTE + '/account/employer?id=' + id;
+    const route = ROUTES.BACKEND_ROUTE + '/account/employer/' + id;
     return this.http.get<EmployerAccount>(route);
   }
 
@@ -53,10 +53,6 @@ export class EmployerService {
       observe: 'response',
     }).pipe(shareReplay(1));
   }
-
-
-
-
 
   postJobOffer(jobOffer: JobOffer): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers';
@@ -107,6 +103,15 @@ export class EmployerService {
   deactivateJobOffer(id: string | number): Observable<any> {
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/deactivate';
     return this.http.request('put', route, {
+      withCredentials: true,
+      responseType: 'text',
+      observe: 'response',
+    }).pipe(shareReplay(1));
+  }
+
+  saveEmployee(id: string | number): Observable<any> {
+    const route = ROUTES.BACKEND_ROUTE + '/employer/save-employee/' + id;
+    return this.http.request('post', route, {
       withCredentials: true,
       responseType: 'text',
       observe: 'response',

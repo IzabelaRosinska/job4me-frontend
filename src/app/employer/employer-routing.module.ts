@@ -4,12 +4,14 @@ import {EmployerAccountComponent} from "./employer-account/employer-account.comp
 import {JobOfferComponent} from "./job-offer/job-offer.component";
 import {EmployerInfoFormComponent} from "./employer-account/employer-info-form/employer-info-form.component";
 import {JobOfferEditFormComponent} from "./job-offer/job-offer-edit-form/job-offer-edit-form.component";
+import {SavedListComponent} from "../utilities/saved-list/saved-list.component";
 
 const routes: Routes = [
   {path: 'employer/account', component: EmployerAccountComponent},
   {path: 'employer/edit-form', component: EmployerInfoFormComponent},
   {path: 'employer/add-job-offer', component: JobOfferEditFormComponent},
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},
+  {path: 'employer/saved/employees', component: SavedListComponent, data: {routeMainPart: 'saved/employees', routeToElement: '/employer/employee/', routeToDelete: 'delete-employee'}},
 
   {path: 'organizer/employer/:employer-id/account', component: EmployerAccountComponent},
   {path: 'organizer/employer/:employer-id', redirectTo: '/organizer/employer/:employer-id/account', pathMatch: 'full'},

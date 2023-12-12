@@ -6,8 +6,9 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item *ngIf="isLogged()" routerLink="{{role}}/account">Profil</a>
-      <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved-employers">Zapisani pracodawcy</a>
-      <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved-job-offers">Zapisane oferty</a>
+      <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/employers">Zapisani pracodawcy</a>
+      <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/job-offers">Zapisane oferty</a>
+      <a mat-list-item *ngIf="role=='employer'" routerLink="employer/saved/employees">Zapisani pracobiorcy</a>
       <a mat-list-item routerLink="job-fairs">Targi pracy</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -27,6 +28,7 @@
 
       <div class="me-xs-1 me-sm-2 me-md-3 me-lg-4 me-xxl-5 w-100 text-end text-white">
         <h4 class="text-end text-white">
+          <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end" *ngIf="!isLogged()" routerLink="register">Zarejestruj się</a>
           <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end" *ngIf="!isLogged()" routerLink="login">Zaloguj się</a>
           <a class="mx-xs-1 mx-sm-2 mx-md-3 mx-lg-4 my-0 pointer nav-bar-text text-end"  *ngIf="isLogged()" (click)="getLoginService().logout()"  routerLink="title-page">Wyloguj</a>
         </h4>

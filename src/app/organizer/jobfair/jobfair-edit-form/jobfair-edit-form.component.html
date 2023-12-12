@@ -39,8 +39,8 @@
                    [(ngModel)]="jobFair.dateStart" required >
             <label mdbLabel class="form-label active date-label" for="dateStart">Data rozpoczęcia*</label>
           </mdb-form-control>
-          <div *ngIf="is_submit_failed && !dateStart.checkValidity()"
-               class="text-start invalid-message">Data rozpoczęcia targów jest wymagana</div>
+          <div *ngIf="is_submit_failed && (!dateStart.checkValidity() || Date.parse(dateStart.value) < Date.now())"
+               class="text-start invalid-message">Data rozpoczęcia targów jest wymagana oraz nie może być wcześniejsza niż obecny czas</div>
         </div>
 
         <div class="form-outline mb-4">
@@ -52,7 +52,7 @@
             <label mdbLabel class="form-label active date-label" for="dateEnd">Data zakończenia*</label>
           </mdb-form-control>
           <div *ngIf="is_submit_failed && (!dateEnd.checkValidity() || jobFair.dateStart > jobFair.dateEnd)"
-               class="text-start invalid-message">{{!dateEnd.checkValidity() ? 'Data zakończenia targów jest wymagana' : 'Podano nieprawidłowwy zakres dat'}}</div>
+               class="text-start invalid-message">{{!dateEnd.checkValidity() ? 'Data zakończenia targów jest wymagana' : 'Podano nieprawidłowy zakres dat'}}</div>
         </div>
 
         <div class="form-outline mb-4">
@@ -83,7 +83,7 @@
         <div class="dropzone" *ngIf="!this.jobFair.photo">
           <div>
             <input type="file" #fileDropRef id="fileDropRef" (change)="onFileSelected($event)">
-            <h3>Drag and drop file (max {{MAX_FILE_SIZE / 1000}} kb) here</h3>
+            <h3>Przeciągnij i upuść (max {{MAX_FILE_SIZE / 1000}} kb)</h3>
             <h3>lub</h3>
             <label for="fileDropRef">Szukaj pliku</label>
           </div>
@@ -108,7 +108,7 @@
             <div
               class="col pe-0 w-100 {{this.creatingJobFair ? 'text-center ps-0' : 'text-end' }} d-flex justify-content-center flex-nowrap">
               <button class="btn btn-primary btn-block mb-4 btn-login w-100"
-                      (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() && jobFair.dateEnd >= jobFair.dateStart &&
+                      (click)="(name.checkValidity() && address.checkValidity() && dateStart.checkValidity() && jobFair.dateEnd >= jobFair.dateStart  && Date.parse(dateStart.value) >= Date.now()&&
                        dateStart.checkValidity() && description.checkValidity() && displayDescription.checkValidity())?(openConfirmDialog()):is_submit_failed=true"
                       type="submit"
                       [disabled]="">

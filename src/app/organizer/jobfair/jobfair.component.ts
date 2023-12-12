@@ -8,7 +8,7 @@ import {
   PaginationUse,
   FiliterType, ParticipationRequest, OrganizerAccount,
 } from "../../types";
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JobfairService} from "../services/jobfair.service";
@@ -35,6 +35,9 @@ export class JobfairComponent implements OnInit {
   isOwner: boolean = false;
   routeForChange: string = "";
   organizerAccount!: OrganizerAccount;
+  recommendButtonText: string = "Rekomenduj";
+  recommendButtonTextChange: string = "Cofnij rekomendacje";
+
 
   role: string | null = localStorage.getItem('role');
   participationRequest: ParticipationRequest | null = null;
@@ -132,10 +135,13 @@ export class JobfairComponent implements OnInit {
             });
           }
 
-          // this.serviceOrganizer.getOrganizerById(this.jobFair.organizerId).subscribe((response) => {
-          //   this.organizerAccount = response;
-          // });
-
+          this.serviceJobFair.isJobFairOwner(this.jobFair.id).pipe(
+              catchError((err) => {
+                return [];
+              })
+          ).subscribe((response) => {
+            this.isOwner = response;
+          });
         });
         this.servicePagination.initPagination(this.paginationUseList);
 
@@ -174,8 +180,14 @@ export class JobfairComponent implements OnInit {
       this.servicePagination.setRouteToElement(this.routeForChange, elem);
       this.routeForChange = temp;
 
+      const tempText =  this.recommendButtonText;
+      this.recommendButtonText = this.recommendButtonTextChange;
+      this.recommendButtonTextChange = tempText;
+
       this.servicePagination.gotToPage(this.paginationUseList);
-      elem.state.subscribe((response) => {});
+      elem.state.subscribe((response) => {
+        elem.length = response ? response.totalElements : 0;
+      });
     }
 
   }
