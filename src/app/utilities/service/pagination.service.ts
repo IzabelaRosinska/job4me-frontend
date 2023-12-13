@@ -138,9 +138,14 @@ export class PaginationService {
               paginationUse.params = [[param[0], param[1]]];
           }
       }else{
+          console.log(paginationUse.params);
           if(paginationUse.params){
               const paramIndex = this.getParamIndexByName(param[0], paginationUse);
-              if(paramIndex){
+              console.log(paramIndex);
+              console.log(paramIndex!=undefined);
+
+              if(paramIndex!=undefined){
+                  console.log(3);
                   paginationUse.params.splice(paramIndex, 1);
               }
           }

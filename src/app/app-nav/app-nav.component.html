@@ -9,7 +9,7 @@
       <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/employers">Zapisani pracodawcy</a>
       <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/job-offers">Zapisane oferty</a>
       <a mat-list-item *ngIf="role=='employer'" routerLink="/employer/employees/list-display">Zapisani pracobiorcy</a>
-      <a mat-list-item routerLink="job-fairs">Targi pracy</a>
+      <a mat-list-item *ngIf="role!='admin'" routerLink="job-fairs">Targi pracy</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

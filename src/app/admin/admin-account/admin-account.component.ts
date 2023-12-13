@@ -31,8 +31,9 @@ export class AdminAccountComponent  {
     }
     return "";
   }
-  
+
   save(newList: string[], originList: string[], originListWithId: idNameListElement[], endpoint: string, message: string){
+
     if(originList.length == newList.length)
       return;
 
@@ -50,6 +51,7 @@ export class AdminAccountComponent  {
       });
     }
     else{
+      console.log("save 3");
       const element = this.getNewElement(originList, newList)
       this.getVariablesService().postBasic(endpoint, element).subscribe( response => {
           this.getVariablesService().updateBasic(endpoint);
