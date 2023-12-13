@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent, pathMatch: 'full'},
   {path: 'title-page', component: TitlePageComponent, pathMatch: 'full'},
   {path: 'reset-password', component: PasswordRestoringComponent, pathMatch: 'full', data: {mode: 'email'}},
-  {path: 'update-password', component: PasswordRestoringComponent, pathMatch: 'full', data: {mode: 'password'}},
+  {path: 'password-update', component: PasswordRestoringComponent, pathMatch: 'full', data: {mode: 'password'}},
   {path: 'admin/account', component: AdminAccountComponent, pathMatch: 'full'},
   {path: '', redirectTo: '/title-page', pathMatch: 'full'},
   {path: '**', redirectTo: '/title-page', pathMatch: 'full'},

@@ -71,7 +71,7 @@ export class VariablesService implements OnInit {
   sortOffersOptions: Record<string, number> = {
     "Nie sortuj" : 1,
     "Po pensji rosnąco" : 2,
-    "Po pensji malejąco" : 3, 
+    "Po pensji malejąco" : 3,
     "Po nazwie od A do Z" : 4,
     "Po nazwie od Z do A" : 5
   }
@@ -217,14 +217,14 @@ export class VariablesService implements OnInit {
 
   postBasic(endpoint: string, name: string): Observable<any> {
     const elem: idNameListElement = {name: name};
-    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint;
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint;
     return this.http.post(route, elem, {
       withCredentials: true,
     });
   }
 
   deleteBasic(endpoint: string, id: string | number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint + '/' + id;
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint + '/' + id;
     return this.http.delete(route, {
       withCredentials: true,
     });

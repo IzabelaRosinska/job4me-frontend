@@ -92,7 +92,7 @@ export class EmployerService {
   }
 
   activateJobOffer(id: string | number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/activate';
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/activation';
     return this.http.request('put', route, {
       withCredentials: true,
       responseType: 'text',
@@ -101,7 +101,7 @@ export class EmployerService {
   }
 
   deactivateJobOffer(id: string | number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/deactivate';
+    const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + id + '/deactivation';
     return this.http.request('put', route, {
       withCredentials: true,
       responseType: 'text',
@@ -110,7 +110,7 @@ export class EmployerService {
   }
 
   saveEmployee(id: string | number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employer/save-employee/' + id;
+    const route = ROUTES.BACKEND_ROUTE + '/employer/employee/' + id;
     return this.http.request('post', route, {
       withCredentials: true,
       responseType: 'text',

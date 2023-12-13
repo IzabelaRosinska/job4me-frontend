@@ -209,7 +209,10 @@ export class OrganizerAccountComponent implements OnInit {
       });
 
   }
-
+  getLength(id: string): number {
+     const paginationUse = this.getPaginationService().getPaginationUseById(id, this.paginationUseList);
+     return paginationUse ? paginationUse.length : 0;
+  }
 
   deleteJobFair(id: number): void {
       this.serviceJobfair.deleteJobFairById(id).subscribe((response) => {

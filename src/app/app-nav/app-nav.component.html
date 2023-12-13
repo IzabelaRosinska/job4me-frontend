@@ -8,7 +8,7 @@
       <a mat-list-item *ngIf="isLogged()" routerLink="{{role}}/account">Profil</a>
       <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/employers">Zapisani pracodawcy</a>
       <a mat-list-item *ngIf="role=='employee'" routerLink="employee/saved/job-offers">Zapisane oferty</a>
-      <a mat-list-item *ngIf="role=='employer'" routerLink="employer/saved/employees">Zapisani pracobiorcy</a>
+      <a mat-list-item *ngIf="role=='employer'" routerLink="/employer/employees/list-display">Zapisani pracobiorcy</a>
       <a mat-list-item routerLink="job-fairs">Targi pracy</a>
     </mat-nav-list>
   </mat-sidenav>
