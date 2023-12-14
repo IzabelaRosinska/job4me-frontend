@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-sm-12 col-lg-4 mt-2">
-          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/update-password">Zmień
+          <button class="btn btn-primary btn-login w-100 form-button-action" routerLink="/password-update">Zmień
             hasło
           </button>
         </div>
@@ -88,7 +88,11 @@
               role="tab"
               aria-controls="ex2-pills-1"
               aria-selected="false"
-            >Oczekujący pracodawcy</h1>
+            >Oczekujący pracodawcy
+
+              <b *ngIf="getLength('pendingEmployers')>0">({{getLength('pendingEmployers')}})  </b>
+              <i class="fa-solid fa-bell" *ngIf="getLength('pendingEmployers')>0"></i>
+            </h1>
           </div>
           <div class="col nav-item" role="presentation">
             <h1

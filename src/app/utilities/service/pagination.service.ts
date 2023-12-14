@@ -123,8 +123,6 @@ export class PaginationService {
           if(paginationUse.params){
               const paramIndex = this.getParamIndexByName(param[0], paginationUse);
 
-              console.log(paramIndex+ " "+ param[0] + " " + param[1]);
-
               if(paramIndex != undefined){
                   if(param[1] == ""){
                       paginationUse.params.splice(paramIndex, 1);
@@ -140,7 +138,7 @@ export class PaginationService {
       }else{
           if(paginationUse.params){
               const paramIndex = this.getParamIndexByName(param[0], paginationUse);
-              if(paramIndex){
+              if(paramIndex!=undefined){
                   paginationUse.params.splice(paramIndex, 1);
               }
           }
@@ -164,7 +162,6 @@ export class PaginationService {
         if (paginationUse) {
           var filterIsObject = false;
           filters.forEach((elem) => {
-            console.log(elem[0] + " " + elem[1][0]);
             if(!this.variablesService.dictionaryIfObjectFilter[elem[0]]){
                 this.addParam(paginationUse, [elem[0], elem[1][0]]);
             }else{
@@ -291,7 +288,6 @@ export class PaginationService {
     }
 
     updateCurrentTabIdPagination(paginationUseList: PaginationUse<ForListBackend>[]): void {
-      console.log( "Current  id: " + this.currentTabId)
         const elem = this.getPaginationUseById(this.currentTabId, paginationUseList);
         if (elem) {
             elem.length = elem.length - 1;

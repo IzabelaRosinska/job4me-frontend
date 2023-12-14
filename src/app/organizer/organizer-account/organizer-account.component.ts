@@ -175,8 +175,7 @@ export class OrganizerAccountComponent implements OnInit {
           const role = localStorage.getItem('role');
           const organizerId = params.get('organizer-id');
 
-          if (organizerId && role) {
-            console.log("role: ", role);
+          if (organizerId && role && role!="organizer") {
               this.serviceOrganizer.getOrganizerByIdAuthenticated(organizerId, role).subscribe((response) => {
                 this.organizerAccount = response;
                 this.loadingSite = false;
@@ -209,7 +208,10 @@ export class OrganizerAccountComponent implements OnInit {
       });
 
   }
-
+  getLength(id: string): number {
+     const paginationUse = this.getPaginationService().getPaginationUseById(id, this.paginationUseList);
+     return paginationUse ? paginationUse.length : 0;
+  }
 
   deleteJobFair(id: number): void {
       this.serviceJobfair.deleteJobFairById(id).subscribe((response) => {

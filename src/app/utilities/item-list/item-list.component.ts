@@ -43,7 +43,6 @@ export class ItemListComponent {
 
   filterOptionUpdate(selectedItems: [FiliterType,string[]][]) {
     this.filterOptionsChecked = selectedItems;
-    console.log(this.filterOptionsChecked);
     this.filterOptionSelectedOutput.emit(this.filterOptionsChecked);
   }
 

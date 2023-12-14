@@ -38,7 +38,6 @@ export class OrganizerInfoFormComponent implements OnInit {
         if(this.organizerAccount.name == "" || this.organizerAccount.contactEmail == "" || this.organizerAccount.telephone == "" || this.organizerAccount.description == "" ||
         this.organizerAccount.name == null || this.organizerAccount.contactEmail == null || this.organizerAccount.telephone == null || this.organizerAccount.description == null){
           this.register = true;
-          console.log("Register: "+this.register)
         }
         this.loading = false;
       });

@@ -156,7 +156,7 @@ export class JobfairComponent implements OnInit {
     if(this.role != null && this.role != 'organizer'){
       return '/'+this.role+'/organizer/'+this.jobFair.organizerId+'/account';
     }else{
-      return this.isOwner? '/organizer/account' : '/account/organizer?id='+this.jobFair.organizerId;
+      return this.isOwner? '/organizer/account' : '/organizer/'+this.jobFair.organizerId+'/account';
     }
   }
 

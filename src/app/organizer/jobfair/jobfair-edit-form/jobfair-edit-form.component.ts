@@ -20,6 +20,7 @@ export class JobfairEditFormComponent implements OnInit{
   loading: boolean = true;
   selectedDateTime: Date = new Date();
   creatingJobFair: boolean = false;
+  jobFairIsCreated: boolean = false;
 
   selectedFile: File | null = null;
   imageData: string | null = null;
@@ -99,7 +100,7 @@ export class JobfairEditFormComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
-        if(this.creatingJobFair){
+        if(this.creatingJobFair && !this.jobFairIsCreated){
           this.loading = true;
           this.jobfairService.creatJobFairWithPayment(this.jobFair).pipe(
             catchError((err) => {
@@ -107,27 +108,31 @@ export class JobfairEditFormComponent implements OnInit{
               return [];
             })
           ).subscribe((response) => {
-
+            this.jobFairIsCreated = true;
             const responseUrl = response.body as PaymentCheckout;
-            console.log(responseUrl);
-            this.paymentUrl = responseUrl.url as string;
-            console.log(responseUrl.url);
 
+            this.paymentUrl = responseUrl.url as string;
+            this.jobFair.id = responseUrl.jobFairId;
 
             this.isEditCard = false;
             this.loading = false;
           });
         }else{
-          this.loading = true;
-          this.jobfairService.putJobFair(this.jobFair).pipe(
-            catchError((err) => {
-              this.loading = false;
-              return [];
-            })
-          ).subscribe((response) => {
-            this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+          if(this.creatingJobFair){
+            this.isEditCard = false;
             this.loading = false;
-          });
+          }else{
+            this.loading = true;
+            this.jobfairService.putJobFair(this.jobFair).pipe(
+                catchError((err) => {
+                  this.loading = false;
+                  return [];
+                })
+            ).subscribe((response) => {
+              this.router.navigate(['organizer/job-fair/'+this.jobFair.id]);
+              this.loading = false;
+            });
+          }
         }
       }
     });
@@ -210,7 +215,6 @@ export class JobfairEditFormComponent implements OnInit{
   }
 
   payment() {
-    console.log(this.paymentUrl);
     window.location.href = this.paymentUrl;
   }
 
