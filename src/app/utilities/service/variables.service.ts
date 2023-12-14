@@ -232,6 +232,15 @@ export class VariablesService implements OnInit {
     });
   }
 
+  putBasic(endpoint: string, idOld: string | number, newElem: string): Observable<any> {
+    const elem: idNameListElement = {name: newElem};
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint + '/' + idOld;
+    return this.http.request("put",route, {
+      body: elem,
+      withCredentials: true,
+    });
+  }
+
   clearVariables(): void {
     this.cities = [];
     this.levels = [];
