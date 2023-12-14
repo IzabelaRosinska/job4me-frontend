@@ -45,15 +45,12 @@ export class JobOfferComponent implements OnInit {
       this.role = localStorage.getItem('role');
       this.serviceEmployer.getJobOffer(params.get('job-offer-id')).subscribe((response) => {
         this.jobOfferData = response;
-        console.log("Response: ", response);
         this.route.url.subscribe((url) => {
-          console.log(url);
           if(url.length == 3 && this.role=="employer"){
             this.isOwner = true;
             this.serviceEmployer.getEmployer().subscribe((responseEmployer) => {
               this.employerAccountData = responseEmployer;
               this.loading = false;
-              console.log(this.isOwner);
             });
           }else if(this.role && this.role != 'employer'){
             this.serviceEmployer.getEmployerByIdAuthenticated(response.employerId, this.role).subscribe((responseEmployer) => {

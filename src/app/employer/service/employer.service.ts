@@ -65,7 +65,6 @@ export class EmployerService {
   }
 
   putJobOffer(jobOffer: JobOffer): Observable<any> {
-    console.log(jobOffer);
     const route = ROUTES.BACKEND_ROUTE + '/employer/job-offers/' + jobOffer.id;
     return this.http.request('put', route, {
       body: jobOffer,

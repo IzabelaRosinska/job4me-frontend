@@ -128,7 +128,6 @@ export class EmployerInfoFormComponent implements OnInit {
         this.serviceEmployer.postEmployer(this.employerAccount).pipe(
           catchError((err) => {
             this.loading = false;
-            console.log(err);
             return [];
           })
         ).subscribe((response) => {

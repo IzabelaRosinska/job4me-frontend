@@ -75,10 +75,8 @@ export class AdminAccountComponent  {
     }else{
       this.loading = true;
       if(originList.length > newList.length){
-        console.log("usun 1");
         const element = this.getNewElement(newList, originList);
         const id = this.getVariablesService().getIdOfElementFromList(originListWithId, element);
-        console.log("usun 2: " + id + " element: " + element);
         if(id == undefined){
           this.loading = false;
           return;
@@ -99,7 +97,6 @@ export class AdminAccountComponent  {
         });
       }
       else{
-        console.log("save 3");
         const element = this.getNewElement(originList, newList);
         this.getVariablesService().postBasic(endpoint, element).subscribe( response => {
           this.getVariablesService().updateBasic(endpoint);

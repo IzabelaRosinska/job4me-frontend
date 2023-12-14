@@ -154,10 +154,8 @@ export class JobfairComponent implements OnInit {
 
   getPathToOrganizer(): string{
     if(this.role != null && this.role != 'organizer'){
-      console.log("1");
       return '/'+this.role+'/organizer/'+this.jobFair.organizerId+'/account';
     }else{
-      console.log("2");
       return this.isOwner? '/organizer/account' : '/organizer/'+this.jobFair.organizerId+'/account';
     }
   }

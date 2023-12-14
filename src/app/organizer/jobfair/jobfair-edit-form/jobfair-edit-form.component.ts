@@ -215,7 +215,6 @@ export class JobfairEditFormComponent implements OnInit{
   }
 
   payment() {
-    console.log(this.paymentUrl);
     window.location.href = this.paymentUrl;
   }
 
