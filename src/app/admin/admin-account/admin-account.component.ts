@@ -25,8 +25,6 @@ export class AdminAccountComponent  {
   }
 
   getNewElement(smallerArray: string[], biggerArray: string[]): string {
-    console.log("smallerArray: " + smallerArray);
-    console.log("biggerArray: " + biggerArray);
     if (biggerArray.length == 0) return "";
     for(let i = 0; i < biggerArray.length; i++){
       if(!smallerArray.includes(biggerArray[i])) return biggerArray[i];
@@ -45,13 +43,6 @@ export class AdminAccountComponent  {
   }
 
   save(newList: string[], originList: string[], originListWithId: idNameListElement[], endpoint: string, message: string){
-
-    if(newList.length == originList.length){
-      console.log("równe");
-    }else{
-      console.log("nie równe");
-    }
-
     if(originList.length == newList.length){
       const elements = this.getChangedElement(originList, newList);
       if(elements == null){
@@ -64,7 +55,7 @@ export class AdminAccountComponent  {
         this.loading = false;
         return;
       }
-      console.log("id: " + idOld, "  endpoint: " + endpoint, "  element: " + elements[1]);
+
       this.getVariablesService().putBasic(endpoint, idOld, elements[1]).pipe(
           catchError(err => {
           this.message = this.basicErrorMessage.replace("%s", message);

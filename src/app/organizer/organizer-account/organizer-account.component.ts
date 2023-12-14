@@ -175,8 +175,7 @@ export class OrganizerAccountComponent implements OnInit {
           const role = localStorage.getItem('role');
           const organizerId = params.get('organizer-id');
 
-          if (organizerId && role) {
-            console.log("role: ", role);
+          if (organizerId && role && role!="organizer") {
               this.serviceOrganizer.getOrganizerByIdAuthenticated(organizerId, role).subscribe((response) => {
                 this.organizerAccount = response;
                 this.loadingSite = false;
