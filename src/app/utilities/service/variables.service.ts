@@ -22,6 +22,7 @@ export class VariablesService implements OnInit {
   contractTypesWithId: idNameListElement[] = []
 
   private initialized: boolean = false;
+  role: string = "";
 
 
   dictionaryIfObjectFilter: Record<FiliterType, boolean> = {
@@ -71,7 +72,7 @@ export class VariablesService implements OnInit {
   sortOffersOptions: Record<string, number> = {
     "Nie sortuj" : 1,
     "Po pensji rosnąco" : 2,
-    "Po pensji malejąco" : 3, 
+    "Po pensji malejąco" : 3,
     "Po nazwie od A do Z" : 4,
     "Po nazwie od Z do A" : 5
   }
@@ -141,6 +142,7 @@ export class VariablesService implements OnInit {
               }
 
               this.initialized = true;
+
             });
           });
         });
@@ -217,15 +219,24 @@ export class VariablesService implements OnInit {
 
   postBasic(endpoint: string, name: string): Observable<any> {
     const elem: idNameListElement = {name: name};
-    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint;
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint;
     return this.http.post(route, elem, {
       withCredentials: true,
     });
   }
 
   deleteBasic(endpoint: string, id: string | number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/' + endpoint + '/' + id;
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint + '/' + id;
     return this.http.delete(route, {
+      withCredentials: true,
+    });
+  }
+
+  putBasic(endpoint: string, idOld: string | number, newElem: string): Observable<any> {
+    const elem: idNameListElement = {name: newElem};
+    const route = ROUTES.BACKEND_ROUTE + '/admin/' + endpoint + '/' + idOld;
+    return this.http.request("put",route, {
+      body: elem,
       withCredentials: true,
     });
   }
@@ -275,6 +286,7 @@ export class VariablesService implements OnInit {
     this.getHttpIndustries().subscribe((response) => {
         this.industriesWithId = response.content;
         this.industries = response.content.map((element) => element.name);
+        localStorage.setItem('industryNames', JSON.stringify(this.industries));
       }
     );
   }
@@ -283,6 +295,7 @@ export class VariablesService implements OnInit {
     this.getHttpLevels().subscribe((response) => {
         this.levelsWithId = response.content;
         this.levels = response.content.map((element) => element.name);
+        localStorage.setItem('levelsNames', JSON.stringify(this.levels));
       }
     );
   }
@@ -291,6 +304,7 @@ export class VariablesService implements OnInit {
     this.getHttpContractTypes().subscribe((response) => {
         this.contractTypesWithId = response.content;
         this.contractTypes = response.content.map((element) => element.name);
+        localStorage.setItem('contractTypeNames', JSON.stringify(this.contractTypes));
       }
     );
   }
@@ -299,6 +313,7 @@ export class VariablesService implements OnInit {
     this.getHttpEmploymentFormsNames().subscribe((response) => {
         this.employmentFormNamesWithId = response.content;
         this.employmentFormNames = response.content.map((element) => element.name);
+        localStorage.setItem('employmentFormsNames', JSON.stringify(this.employmentFormNames));
       }
     );
   }

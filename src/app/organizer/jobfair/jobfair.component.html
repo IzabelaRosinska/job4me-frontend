@@ -13,8 +13,8 @@
             <h6 class="mt-3"> Czas rozpoczęcia targów:  {{jobFair.dateStart}}</h6>
             <h6> Czas zakończenia targów:  {{jobFair.dateEnd}}</h6>
             <h6> Adres:  {{jobFair.address}}</h6>
-            <h6> Organizator targów:  <a class="btn-link pointer" [routerLink]="getPathToOrganizer()">
-              Organizator</a></h6>
+            <h6> <a class="btn-link pointer" [routerLink]="getPathToOrganizer()">
+              Strona organizatora</a></h6>
 
             <p class="text-description" *ngIf="jobFair.description"> {{jobFair.description}} </p>
           </div>

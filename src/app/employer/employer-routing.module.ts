@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'employer/edit-form', component: EmployerInfoFormComponent},
   {path: 'employer/add-job-offer', component: JobOfferEditFormComponent},
   {path: 'employer/:employer-id/account', component: EmployerAccountComponent},
-  {path: 'employer/saved/employees', component: SavedListComponent, data: {routeMainPart: 'saved/employees', routeToElement: '/employer/employee/', routeToDelete: 'delete-employee'}},
+  {path: 'employer/employees/list-display', component: SavedListComponent, data: {routeMainPart: 'employees/list-display', routeToElement: '/employer/employee/', routeToDelete: 'employee'}},
 
   {path: 'organizer/employer/:employer-id/account', component: EmployerAccountComponent},
   {path: 'organizer/employer/:employer-id', redirectTo: '/organizer/employer/:employer-id/account', pathMatch: 'full'},

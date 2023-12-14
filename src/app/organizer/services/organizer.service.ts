@@ -47,7 +47,7 @@ export class OrganizerService {
 
 
   acceptEmployerParticipation(requestId: number): Observable<any> {
-      const route =  ROUTES.BACKEND_ROUTE +'/organizer/employer-participation/'+requestId+'/accept';
+      const route =  ROUTES.BACKEND_ROUTE +'/organizer/employer-participation/'+requestId+'/approval';
       return this.http.request('put', route, {
           body: null,
           withCredentials: true,

@@ -35,7 +35,8 @@ export interface OrganizerAccount {
 }
 
 export interface PaymentCheckout {
-  url: string
+  url: string,
+  jobFairId: number
 }
 
 export interface LinkedinCheckout {
