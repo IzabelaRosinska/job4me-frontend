@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'employee/editInfo', component: EmployeeInfoFormComponent},
   {path: 'employee/account', component: EmployeeAccountComponent},
   {path: 'employee', redirectTo: 'employee/account'},
-  {path: 'employee/saved/employers', component: SavedListComponent, data: {routeMainPart: 'employers/list-display', routeToElement: '/employee/employer/', routeToDelete: 'employer'}},
+  {path: 'employee/saved/employers', component: SavedListComponent, data: {routeMainPart: 'employers/list-display', routeToElement: '/employee/employer/', routeToDelete: 'employers'}},
   {path: 'employee/saved/job-offers', component: SavedListComponent, data: {routeMainPart: 'job-offers/saved/list-display', routeToElement: '/employee/employer/job-offer/', routeToDelete: 'job-offers'}},
 
   {path: 'organizer/employee/:employee-id/account', component: EmployeeAccountComponent},

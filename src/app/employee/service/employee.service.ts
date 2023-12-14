@@ -74,14 +74,14 @@ export class EmployeeService {
   }
 
   saveEmployer(employerId: number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employee/employer/' + employerId ;
+    const route = ROUTES.BACKEND_ROUTE + '/employee/employers/' + employerId ;
     return this.http.post(route, null, {
       withCredentials: true,
     });
   }
 
   unsaveEmployer(employerId: number): Observable<any> {
-    const route = ROUTES.BACKEND_ROUTE + '/employee/employer/' + employerId ;
+    const route = ROUTES.BACKEND_ROUTE + '/employee/employers/' + employerId ;
     return this.http.delete(route, {
       withCredentials: true,
     });
