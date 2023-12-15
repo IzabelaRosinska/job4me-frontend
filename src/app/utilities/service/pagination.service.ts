@@ -213,6 +213,9 @@ export class PaginationService {
         if(this.variablesService.dictionaryIfLoaded[filterType]){
           return filter[1];
         }else{
+          if(filter[1][0] == ''){
+              return undefined
+          }
           return filter[1][0];
         }
       }

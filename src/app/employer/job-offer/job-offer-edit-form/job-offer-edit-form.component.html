@@ -156,7 +156,7 @@
           <app-expanded-module-form [title]="'Miasta*'" [maxInputLength]="50" [maxInputCount]="10"
                                     [listOfTexts]="jobOfferData.localizations" [minInputCount]="1"
                                     (valid)="validate($event,localizations)"
-                                    [placeholder]="'np. Waraszawa'"
+                                    [placeholder]="'np. Warszawa'"
                                     (save)="moduleSaveInfo($event, 'localizations')"></app-expanded-module-form>
           <h5 *ngIf="is_submit_failed && localizations.classList.contains(invalidClassName)"
             class="invalid-module-text">Wpisz co najmniej jedno miasto</h5>
