@@ -99,8 +99,6 @@ export class FilterSortPanelComponent implements OnInit {
     this.filterOptionSelectedOutput.emit(this.filterOptionSelectedOutputPrepare);
   }
 
-
-
   sortOptionClicked(option: string) {
     this.currentSortOption = option;
     this.sortOptionSelectedOutput.emit(this.sortOptions[option]);

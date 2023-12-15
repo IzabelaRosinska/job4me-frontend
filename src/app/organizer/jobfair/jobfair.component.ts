@@ -100,7 +100,7 @@ export class JobfairComponent implements OnInit {
             pageIndex: 0,
             length: 20,
             state: new Observable<Page<ForListBackend>>(),
-            route: this.role=='employee'?"/employee/job-offers/list-display/job-fair/"+jobfairId :
+            route: this.role=='employee'?"/employee/job-offers/list-display/job-fairs/"+jobfairId :
                                          "/job-fairs/" + jobfairId + "/job-offers/list-display",
             routeToElement: "/"+this.role+"/employer/job-offer/",
             list: [],
@@ -116,7 +116,7 @@ export class JobfairComponent implements OnInit {
             filters: {}
           }
         ]
-        this.routeForChange = "/employee/job-offers/list-display/job-fair/"+jobfairId+"/recommendation";
+        this.routeForChange = "/employee/job-offers/list-display/job-fairs/"+jobfairId+"/recommendation";
 
         this.serviceJobFair.getJobFairById(jobfairId).subscribe((response: JobFair) => {
           this.jobFair.id = response.id;

@@ -150,7 +150,7 @@
                                 *ngIf="getPaginationService().getPaginationUseById('active-job-offers',paginationUseList)?.loading"></app-loading-screen>
                         <app-item-list [items]="getPaginationService().getDisplayListById('active-job-offers',paginationUseList)"
                                        *ngIf="!getPaginationService().getPaginationUseById('active-job-offers',paginationUseList)?.loading"
-                                       (deleteItemOut)="deleteJobOffer($event)"
+                                       (deleteItemOut)="deleteJobOffer($event)" (saveItemOut)="getSavedService().saveJobOffer($event)"
                         ></app-item-list>
                     </div>
 
@@ -182,7 +182,6 @@
                                [items]="getPaginationService().getDisplayListById('pendingEmployers',paginationUseList)"
                                (filterOptionSelectedOutput)="getPaginationService().updateFilters('pendingEmployers',paginationUseList, $event)"
                                (deleteItemOut)="deleteRequest($event)">
-
                 </app-item-list>
               </div>
             </div>

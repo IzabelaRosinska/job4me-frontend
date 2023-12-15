@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 import {PaginationService} from "../../utilities/service/pagination.service";
 import {VariablesService} from "../../utilities/service/variables.service";
+import {SavedService} from "../../utilities/service/saved.service";
 
 @Component({
   selector: 'app-employer-account',
@@ -20,7 +21,8 @@ export class EmployerAccountComponent implements OnInit {
               private route: ActivatedRoute,
               private paginationService: PaginationService,
               private router: Router,
-              private variablesService: VariablesService) {
+              private variablesService: VariablesService,
+              private savedService: SavedService  ) {
   }
 
   companyPhoto = '../../assets/company.png';
@@ -43,7 +45,7 @@ export class EmployerAccountComponent implements OnInit {
   role = localStorage.getItem('role');
 
 
-  initPaginationUseList(role: string, employerId: number): void {
+  initPaginationUseListForOwner(role: string, employerId: number): void {
     this.paginationUseList = [
       {
         id: "active-job-offers",
@@ -52,7 +54,7 @@ export class EmployerAccountComponent implements OnInit {
         pageIndex: 0,
         length: 20,
         state: new Observable<Page<ForListBackend>>(),
-        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employer/"+employerId,
+        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employers/"+employerId,
         routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
         params: [['isActive', 'true']],
         list: [],
@@ -60,7 +62,7 @@ export class EmployerAccountComponent implements OnInit {
         listButtonsOptions: {
           useGettingInside: true,
           useDelete: this.isOwner,
-          useSaved: false,
+          useSaved: role == 'employee',
           isSaved: false,
           useApprove: false
         },
@@ -74,7 +76,7 @@ export class EmployerAccountComponent implements OnInit {
         pageIndex: 0,
         length: 20,
         state: new Observable<Page<ForListBackend>>(),
-        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employer/"+employerId,
+        route: this.isOwner? "/employer/job-offers/list-display":"/job-offers/list-display/employers/"+employerId,
         routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
         params: [['isActive', 'false']],
         list: [],
@@ -136,6 +138,35 @@ export class EmployerAccountComponent implements OnInit {
     this.paginationService.initPagination(this.paginationUseList);
   }
 
+  initPaginationUseListForVisitor(role: string, employerId: number): void {
+    this.paginationUseList = [
+      {
+        id: "active-job-offers",
+        active: true,
+        pageSize: 5,
+        pageIndex: 0,
+        length: 20,
+        state: new Observable<Page<ForListBackend>>(),
+        route: role=='employee'? "/employee/job-offers/list-display/employers/"+employerId:"/job-offers/list-display/employers/"+employerId,
+        routeToElement: this.isOwner? "/employer/job-offer/" : "/"+role+"/employer/job-offer/",
+        params: [['isActive', 'true']],
+        list: [],
+        loading: true,
+        listButtonsOptions: {
+          useGettingInside: true,
+          useDelete: this.isOwner,
+          useSaved: role == 'employee',
+          isSaved: false,
+          useApprove: false
+        },
+        ifGet: false,
+        filters: {}
+      }
+    ]
+
+    this.paginationService.initPagination(this.paginationUseList);
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const role = localStorage.getItem('role');
@@ -144,7 +175,7 @@ export class EmployerAccountComponent implements OnInit {
 
         this.serviceEmployer.getEmployerByIdAuthenticated(employerId, role).subscribe((response) => {
           this.employerAccount = response;
-          this.initPaginationUseList(role, employerId);
+          this.initPaginationUseListForVisitor(role, employerId);
           this.loadingAccount = false;
         });
       } else {
@@ -155,13 +186,13 @@ export class EmployerAccountComponent implements OnInit {
               this.router.navigate(['/employer/edit-form']);
             }
             this.isOwner = true;
-            this.initPaginationUseList(role?role:'', employerId);
+            this.initPaginationUseListForOwner(role?role:'', employerId);
             this.loadingAccount = false;
           });
         }else{
           this.serviceEmployer.getEmployerById(employerId).subscribe((response) => {
             this.employerAccount = response;
-            this.initPaginationUseList(role?role:'', employerId);
+            this.initPaginationUseListForOwner(role?role:'', employerId);
             this.loadingAccount = false;
           });
         }
@@ -169,6 +200,10 @@ export class EmployerAccountComponent implements OnInit {
       }
 
     });
+  }
+
+  getSavedService(): SavedService {
+    return this.savedService;
   }
 
   getPaginationService(){

@@ -90,7 +90,7 @@ export class JobfairService {
   }
 
   recommendJobOffer(jobOfferId: number, jobFairId: number): Observable<any> {
-    const route =  ROUTES.BACKEND_ROUTE +'employee/job-offers/list-display/job-fair/'+jobOfferId+'/recommendation';
+    const route =  ROUTES.BACKEND_ROUTE +'employee/job-offers/list-display/job-fairs/'+jobOfferId+'/recommendation';
     return this.http.request('put', route, {
       withCredentials: true,
       responseType: 'text',
